@@ -1,0 +1,27 @@
+{
+  "name": "sumba",
+  "version": "0.0.1",
+  "description": "Bajo Framework's Biz Suite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ardhi/sumba.git"
+  },
+  "keywords": [
+    "sumba",
+    "bajo",
+    "framework",
+    "addons",
+    "multidomain"
+  ],
+  "author": "Ardhi Lukianto <ardhi@lukianto.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ardhi/sumba/issues"
+  },
+  "homepage": "https://github.com/ardhi/sumba#readme"
+}
