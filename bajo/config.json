@@ -1,3 +1,4 @@
 {
-  "dependencies": ["bajo", "bajo-web"]
+  "multiSite": true,
+  "dependencies": ["bajo-db", "bajo-web"]
 }

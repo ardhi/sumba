@@ -1,0 +1,27 @@
+{
+  "properties": [{
+    "name": "hostname",
+    "type": "string",
+    "minLength": 5,
+    "maxLength": 100,
+    "unique": true
+  }, {
+    "name": "alias",
+    "type": "string",
+    "maxLength": 100,
+    "index": true
+  }, {
+    "name": "title",
+    "type": "string",
+    "maxLength": 50,
+    "required": true
+  }, {
+    "name": "orgName",
+    "type": "string",
+    "minLength": 5,
+    "maxLength": 100,
+    "unique": true
+  }],
+  "feature": ["sumbaPersonInCharge", "sumbaAddress", "sumbaSocial", "sumbaStatus",
+    "createdAt", "updatedAt"]
+}

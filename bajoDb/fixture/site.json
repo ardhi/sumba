@@ -1,0 +1,10 @@
+[{
+  "id": "DEFAULT",
+  "hostname": "localhost",
+  "title": "Default Site",
+  "orgName": "Default Organization",
+  "country": "US",
+  "email": "info@default.domain",
+  "website": "http://localhost:7777",
+  "status": "ACTIVE"
+}]
