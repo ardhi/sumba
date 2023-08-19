@@ -1,0 +1,10 @@
+[{
+  "username": "admin",
+  "password": "$umba4admin",
+  "email": "admin@domain.com",
+  "firstName": "Site",
+  "lastName": "Admin",
+  "country": "US",
+  "siteId": "DEFAULT",
+  "status": "ACTIVE"
+}]

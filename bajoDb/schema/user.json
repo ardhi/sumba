@@ -1,0 +1,39 @@
+{
+  "properties": [{
+    "name": "username",
+    "type": "string",
+    "minLength": 5,
+    "maxLength": 50
+  }, {
+    "name": "password",
+    "type": "string",
+    "minLength": 8,
+    "maxLength": 50,
+    "hidden": true
+  }, {
+    "name": "token",
+    "type": "string",
+    "maxLength": 50,
+    "hidden": true,
+    "index": true
+  }, {
+    "name": "email",
+    "type": "string",
+    "maxLength": 100,
+    "required": true,
+    "index": true
+  }, {
+    "name": "firstName",
+    "type": "string",
+    "maxLength": 50,
+    "required": true,
+    "index": true
+  }, {
+    "name": "lastName",
+    "type": "string",
+    "maxLength": 50,
+    "required": true,
+    "index": true
+  }],
+  "feature": ["sumbaAddress", "sumbaSocial", "sumbaStatus", "sumbaSiteId", "createdAt", "updatedAt"]
+}

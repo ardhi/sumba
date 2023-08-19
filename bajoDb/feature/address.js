@@ -33,10 +33,6 @@ const address = {
       type: 'string',
       maxLength: 50
     }, {
-      name: 'email',
-      type: 'string',
-      maxLength: 50
-    }, {
       name: 'website',
       type: 'string',
       maxLength: 100
