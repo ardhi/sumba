@@ -1,6 +1,6 @@
 import { getToken } from './api-key.js'
 
-async function verifyJwt (req) {
+async function verifyJwt (ctx, req, reply) {
   const { importPkg, error, getConfig } = this.bajo.helper
   const { recordGet } = this.bajoDb.helper
   const { get, isEmpty } = await importPkg('lodash-es')

@@ -16,6 +16,14 @@
       "secret": "668de9cf57316c7dbf52f7ff7611c299",
       "expiresIn": 604800000
     },
+    "session": {
+      "secret": "f703a74b884b539e78c642a5369fe538",
+      "cookieName": "sid",
+      "cookie": {
+        "secure": "auto"
+      },
+      "saveUninitialized": true
+    },
     "bajoWebRestapi": ["basic", "apiKey", "jwt"],
     "bajoWebMpa": ["session"],
     "bajoWebStatic": ["basic", "apiKey", "jwt"]

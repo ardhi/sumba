@@ -13,7 +13,7 @@ export async function getToken (type, req) {
   return token
 }
 
-async function verifyApiKey (req) {
+async function verifyApiKey (ctx, req, reply) {
   const { error } = this.bajo.helper
   const { isMd5, hash } = this.bajoExtra.helper
   const { recordFind } = this.bajoDb.helper
