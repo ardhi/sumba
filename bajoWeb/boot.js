@@ -3,8 +3,8 @@ import collectProtectedRoutes from '../lib/collect-protected-routes.js'
 const boot = {
   level: 10,
   handler: async function () {
-    this.bajoWeb.instance.decorateRequest('siteId', 'DEFAULT')
-    this.bajoWeb.instance.decorateRequest('userId', '')
+    this.bajoWeb.instance.decorateRequest('site', null)
+    this.bajoWeb.instance.decorateRequest('user', null)
     await collectProtectedRoutes.call(this)
   }
 }

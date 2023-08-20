@@ -1,4 +1,4 @@
-async function bajoDbSiteUserOnBeforeCreate (body, options) {
+async function bajoDbSiteUserOnBeforeRecordCreate (body, options) {
   const { importPkg } = this.bajo.helper
   const { isBcrypt, hash } = this.bajoExtra.helper
   const { isEmpty, get } = await importPkg('lodash-es')
@@ -9,4 +9,4 @@ async function bajoDbSiteUserOnBeforeCreate (body, options) {
   body.token = await hash(await hash(body.password))
 }
 
-export default bajoDbSiteUserOnBeforeCreate
+export default bajoDbSiteUserOnBeforeRecordCreate

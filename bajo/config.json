@@ -1,4 +1,24 @@
 {
   "multiSite": true,
+  "auth": {
+    "apiKey": {
+      "type": "Bearer",
+      "qsKey": "apiKey",
+      "headerKey": "X-Sumba-ApiKey"
+    },
+    "basic": {
+      "type": "Basic"
+    },
+    "jwt": {
+      "type": "Bearer",
+      "qsKey": "token",
+      "headerKey": "X-Sumba-Token",
+      "secret": "668de9cf57316c7dbf52f7ff7611c299",
+      "expiresIn": 604800000
+    },
+    "bajoWebRestapi": ["basic", "apiKey", "jwt"],
+    "bajoWebMpa": ["session"],
+    "bajoWebStatic": ["basic", "apiKey", "jwt"]
+  },
   "dependencies": ["bajo-db", "bajo-extra", "bajo-web"]
 }

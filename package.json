@@ -1,6 +1,6 @@
 {
   "name": "sumba",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Bajo Framework's Biz Suite",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,6 @@
   "bugs": {
     "url": "https://github.com/ardhi/sumba/issues"
   },
-  "homepage": "https://github.com/ardhi/sumba#readme"
+  "homepage": "https://github.com/ardhi/sumba#readme",
+  "dependencies": {}
 }
