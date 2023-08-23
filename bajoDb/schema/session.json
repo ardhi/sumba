@@ -1,0 +1,10 @@
+{
+  "properties": [{
+    "name": "session",
+    "type": "text"
+  }, {
+    "name": "expires",
+    "type": "datetime"
+  }],
+  "feature": ["sumbaSiteId", "createdAt", "updatedAt"]
+}

@@ -7,7 +7,7 @@ async function createJwtFromUserRecord (rec) {
 
   const cfg = getConfig('sumba')
   const opts = pick(cfg.auth.jwt, ['expiresIn'])
-  opts.key = get(cfg, 'auth.jwt.secret')
+  opts.key = get(cfg, 'auth.common.jwt.secret')
   const sign = createSigner(opts)
   const apiKey = await hash(rec.password)
   const payload = { uid: rec.id, apiKey }

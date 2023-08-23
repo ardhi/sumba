@@ -1,17 +1,17 @@
-import { getToken } from './api-key.js'
+import { getToken, getSetting } from './api-key.js'
 
-async function verifyJwt (ctx, req, reply) {
-  const { importPkg, error, getConfig } = this.bajo.helper
+async function verifyJwt (ctx, req, reply, source) {
+  const { importPkg, error } = this.bajo.helper
   const { recordGet } = this.bajoDb.helper
-  const { get, isEmpty } = await importPkg('lodash-es')
+  const { isEmpty } = await importPkg('lodash-es')
   const fastJwt = await importPkg('bajo-extra:fast-jwt')
   const { createVerifier } = fastJwt
 
-  const cfg = getConfig('sumba')
-  const token = await getToken.call(this, 'jwt', req)
+  const setting = await getSetting.call(this, 'jwt', source)
+  const token = await getToken.call(this, 'jwt', req, source)
   if (isEmpty(token)) return false
   const verifier = createVerifier({
-    key: get(cfg, 'auth.jwt.secret'),
+    key: setting.secret,
     complete: true
   })
   const decoded = await verifier(token)

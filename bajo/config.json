@@ -1,32 +1,49 @@
 {
   "multiSite": true,
   "auth": {
-    "apiKey": {
-      "type": "Bearer",
-      "qsKey": "apiKey",
-      "headerKey": "X-Sumba-ApiKey"
-    },
-    "basic": {
-      "type": "Basic"
-    },
-    "jwt": {
-      "type": "Bearer",
-      "qsKey": "token",
-      "headerKey": "X-Sumba-Token",
-      "secret": "668de9cf57316c7dbf52f7ff7611c299",
-      "expiresIn": 604800000
-    },
-    "session": {
-      "secret": "f703a74b884b539e78c642a5369fe538",
-      "cookieName": "sid",
-      "cookie": {
-        "secure": "auto"
+    "common": {
+      "apiKey": {
+        "type": "Bearer",
+        "qsKey": "apiKey",
+        "headerKey": "X-Sumba-ApiKey"
       },
-      "saveUninitialized": true
+      "basic": {
+      },
+      "jwt": {
+        "type": "Bearer",
+        "qsKey": "token",
+        "headerKey": "X-Sumba-Token",
+        "secret": "668de9cf57316c7dbf52f7ff7611c299",
+        "expiresIn": 604800000
+      },
+      "session": {
+        "secret": "f703a74b884b539e78c642a5369fe538",
+        "cookieName": "sid",
+        "cookie": {
+          "secure": "auto"
+        },
+        "saveUninitialized": true
+      }
     },
-    "bajoWebRestapi": ["basic", "apiKey", "jwt"],
-    "bajoWebMpa": ["session"],
-    "bajoWebStatic": ["basic", "apiKey", "jwt"]
+    "bajoWebRestapi": {
+      "methods": ["basic", "apiKey", "jwt"]
+    },
+    "bajoWebMpa": {
+      "methods": ["session"]
+    },
+    "bajoWebStatic": {
+      "methods": ["basic", "apiKey", "jwt"],
+      "basic": {
+        "useUtf8": true,
+        "realm": "Protected Area",
+        "warningMessage": "Please authenticate yourself, thank you!"
+      }
+    }
+  },
+  "redirect": {
+    "login": "sumba:/login",
+    "logout": "sumba:/logout",
+    "home": "sumba:/home"
   },
   "dependencies": ["bajo-db", "bajo-extra", "bajo-web"]
 }

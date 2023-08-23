@@ -1,0 +1,10 @@
+{% extends 'bajoWebMpaAdminlte:/layout/default' %}
+
+{% block body %}
+<form method="POST" action="{{ routePath('sumba:/login') }}">
+  <input type="hidden" name="referer" value="{{ form.referer }}" />
+  <input name="username" value="{{ form.username }}" />
+  <input name="password" />
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}
