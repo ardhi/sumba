@@ -6,5 +6,5 @@
     "name": "expires",
     "type": "datetime"
   }],
-  "feature": ["sumbaSiteId", "createdAt", "updatedAt"]
+  "feature": ["createdAt", "updatedAt"]
 }

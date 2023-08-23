@@ -1,7 +1,7 @@
 const home = {
   method: 'GET',
   handler: async function (ctx, req, reply) {
-    return 'test'
+    return reply.view('sumba:/test')
   }
 }
 
