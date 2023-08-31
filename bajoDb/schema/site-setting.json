@@ -1,0 +1,12 @@
+{
+  "properties": [{
+    "name": "theme",
+    "type": "string",
+    "maxLength": 20
+  }, {
+    "name": "allowUserTheme",
+    "type": "boolean",
+    "default": false
+  }],
+  "feature": ["sumbaSiteId", "updatedAt"]
+}

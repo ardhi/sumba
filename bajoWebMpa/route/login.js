@@ -5,7 +5,6 @@ const login = {
     const { routePath } = this.bajoWeb.helper
     const { getUserFromUsernamePassword } = this.sumba.helper
     const cfg = getConfig('sumba')
-    req.theme = 'adminlte3'
     let { username, password, referer } = req.body || {}
     if (req.session.ref) referer = req.session.ref
     req.session.ref = null

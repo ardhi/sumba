@@ -3,9 +3,12 @@ const bajoDbOnBeforeRecordCreate = {
   handler: async function (repo, body, options) {
     const { importPkg } = this.bajo.helper
     const { get } = await importPkg('lodash-es')
-    const { isSiteAware } = this.sumba.helper
-    const siteId = get(options, 'req.site.id')
-    if (siteId && await isSiteAware(repo)) body.siteId = siteId
+    const { hasColumn } = this.sumba.helper
+    const item = { siteId: 'req.site.id', userId: 'req.user.id' }
+    for (const i in item) {
+      const rec = get(options, item[i])
+      if (rec && await hasColumn(i, repo)) body[i] = rec
+    }
   }
 }
 
