@@ -1,9 +1,10 @@
 const login = {
   method: ['GET', 'POST'],
   handler: async function (ctx, req, reply) {
-    const { getConfig } = this.bajo.helper
+    const { getConfig, importPkg } = this.bajo.helper
     const { routePath } = this.bajoWeb.helper
     const { getUserFromUsernamePassword } = this.sumba.helper
+    const { isEmpty } = await importPkg('lodash-es')
     const cfg = getConfig('sumba')
     let { username, password, referer } = req.body || {}
     if (req.session.ref) referer = req.session.ref
@@ -13,14 +14,15 @@ const login = {
       try {
         const user = await getUserFromUsernamePassword(username, password, req)
         req.session.user = user
-        if (referer) reply.redirect(referer)
-        else reply.redirect(routePath(cfg.redirect.home))
+        const { query, params } = req
+        const url = !isEmpty(referer) ? referer : routePath(cfg.redirect.home, { query, params })
+        reply.redirect(url)
         return
       } catch (err) {
         error = err
       }
     }
-    return reply.view('sumba:/login', { form: { username, referer }, error })
+    return reply.view('sumba:/signin', { form: { username, referer }, error })
   }
 }
 

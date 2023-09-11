@@ -1,0 +1,18 @@
+{% extends 'bajoWebMpa:/layout/center' %}
+
+{% block body %}
+{% tag 'h3', displayHeading=3, margin='bottom3' %}{{ 'Signout'|t }}{% endtag %}
+{% tag 'div', display='flex', justifyContent='center' %}
+  {% tag 'p', width=50 %}
+  {{ 'You\'re about to sign out. This means your session will be cleared and you\'ll be asked for your credential again in case you want to access any protected pages and resources.<br /><br />Are your sure?'|t }}
+  {% endtag %}
+{% endtag %}
+{% tag 'form', method='POST', action=routePath('sumba:/signout'), margin='bottom3' %}
+  {% tag 'button', type='submit', variant='primary' %}
+  {{ 'Yes, sign me out now!'|t }}
+  {% endtag %}
+{% endtag %}
+{% endblock %}
+
+{% block css %}{% endblock %}
+{% block script %}{% endblock %}

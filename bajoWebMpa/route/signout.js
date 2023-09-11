@@ -6,10 +6,11 @@ const login = {
     const cfg = getConfig('sumba')
     if (req.method === 'POST') {
       req.session.user = null
-      reply.redirect(routePath(cfg.redirect.home))
+      const { query, params } = req
+      reply.redirect(routePath(cfg.redirect.home, { query, params }))
       return
     }
-    return reply.view('sumba:/logout')
+    return reply.view('sumba:/signout')
   }
 }
 

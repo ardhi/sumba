@@ -1,0 +1,21 @@
+{% extends 'bajoWebMpa:/layout/center' %}
+
+{% block body %}
+{% tag 'h3', displayHeading=3, margin='bottom3' %}{{ 'Signin'|t }}{% endtag %}
+{% tag 'form', text='start', method='POST', action=routePath('sumba:/signin'), margin='bottom3', style='min-width:400px' %}
+  {% tag 'input', type='hidden', name='referer', value=form.referer %}{% endtag %}
+  {% tag 'formInput', name='username', value=form.username, labelFloating=true, error=error|getMessage('username') %}{% endtag %}
+  {% tag 'formInput', type='password', name='password', labelFloating=true, error=error|getMessage('password') %}{% endtag %}
+  {% tag 'div', display='flex', justifyContent='between' %}
+    {% tag 'div', display='flex' %}
+    {% tag 'button', tag='a', variant='link', href=routePath('sumba:/home') %}{{ 'Signup'|t }}{% endtag %}
+    {% tag 'spacer' %}{% endtag %}
+    {% tag 'button', tag='a', variant='link', href=routePath('sumba:/forgot-password') %}{{ 'Forgot Password'|t }}{% endtag %}
+    {% endtag %}
+    {% tag 'button', variant='primary', type='submit' %}{{ 'Submit'|t }}{% endtag %}
+  {% endtag %}
+{% endtag %}
+{% endblock %}
+
+{% block css %}{% endblock %}
+{% block script %}{% endblock %}
