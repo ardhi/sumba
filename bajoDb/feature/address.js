@@ -25,9 +25,10 @@ const address = {
     }, {
       name: 'country',
       type: 'string',
-      maxLength: 20,
+      maxLength: 2,
       index: true,
-      required: true
+      required: true,
+      rules: ['uppercase', { rule: 'length', params: 2 }]
     }, {
       name: 'phone',
       type: 'string',
@@ -37,7 +38,8 @@ const address = {
       type: 'string',
       maxLength: 100
     }]
-  }
+  },
+  globalRules: [{ rule: 'trim', fields: ['address1', 'address2', 'city', 'zipCode', 'provinceState', 'phone', 'website'] }]
 }
 
 export default address
