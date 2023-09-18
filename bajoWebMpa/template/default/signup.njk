@@ -1,0 +1,31 @@
+{% extends 'bajoWebMpa:/layout/center' %}
+
+{% block body %}
+{% cmp 'h3', displayHeading=3, margin='bottom3' %}{{ 'Signup'|t }}{% endcmp %}
+{% cmp 'form', text='start', method='POST', action=routePath('sumba:/signin'), margin='bottom3', style='min-width:400px' %}
+  {% cmp 'input', type='hidden', name='referer', value=form.referer %}{% endcmp %}
+  {% cmp 'formInput', name='username', value=form.username, labelFloating=true, error=error|getMessage('username') %}{% endcmp %}
+  {% cmp 'row' %}
+    {% cmp 'column' %}
+      {% cmp 'formInput', type='password', name='password1', labelFloating=true, error=error|getMessage('password1') %}{% endcmp %}
+    {% endcmp %}
+    {% cmp 'column' %}
+      {% cmp 'formInput', type='password', name='password2', labelFloating=true, error=error|getMessage('password2') %}{% endcmp %}
+    {% endcmp %}
+  {% endcmp %}
+  {% cmp 'formInput', name='firstName', value=form.firstName, labelFloating=true, error=error|getMessage('firstName') %}{% endcmp %}
+  {% cmp 'formInput', name='lastName', value=form.lastName, labelFloating=true, error=error|getMessage('lastName') %}{% endcmp %}
+  {% cmp 'formInput', name='email', value=form.email, labelFloating=true, error=error|getMessage('email') %}{% endcmp %}
+  {% cmp 'div', display='flex', justifyContent='between' %}
+    {% cmp 'div', display='flex' %}
+    {% cmp 'button', tag='a', variant='link', href=routePath('sumba:/signin') %}{{ 'Signin'|t }}{% endcmp %}
+    {% cmp 'spacer' %}{% endcmp %}
+    {% cmp 'button', tag='a', variant='link', href=routePath('sumba:/forgot-password') %}{{ 'Forgot Password'|t }}{% endcmp %}
+    {% endcmp %}
+    {% cmp 'button', variant='primary', type='submit' %}{{ 'Submit'|t }}{% endcmp %}
+  {% endcmp %}
+{% endcmp %}
+{% endblock %}
+
+{% block css %}{% endblock %}
+{% block script %}{% endblock %}

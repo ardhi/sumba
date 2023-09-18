@@ -1,3 +1,5 @@
 {
-  "/logout": ["*"]
+  "/profile": ["*"],
+  "/change-password": ["*"],
+  "/signout": ["*"]
 }

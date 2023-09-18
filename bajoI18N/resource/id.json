@@ -1,2 +1,10 @@
 {
+  "validation": {
+    "password.minOfUppercase": "Mengandung setidaknya {{min}} huruf besar",
+    "password.minOfSpecialCharacters": "Mengandung setidaknya {{min}} karakter spesial",
+    "password.minOfLowercase": "Mengandung setidaknya {{min}} huruf kecil",
+    "password.minOfNumeric": "Mengandung setidaknya {{min}} numerik/angka",
+    "password.noWhiteSpaces": "Tidak boleh ada spasi",
+    "password.onlyLatinCharacters": "Harus berupa karakter latin saja"
+  }
 }

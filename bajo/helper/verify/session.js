@@ -8,7 +8,7 @@ async function verifySession (ctx, req, reply, source) {
     req.user = user
     return true
   }
-  const redir = routePath(cfg.redirect.login)
+  const redir = routePath(cfg.redirect.signin, req)
   req.session.ref = req.url
   throw error('redirect', { redirect: redir })
 }

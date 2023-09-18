@@ -1,4 +1,4 @@
-const login = {
+const signin = {
   method: ['GET', 'POST'],
   handler: async function (ctx, req, reply) {
     const { getConfig, importPkg } = this.bajo.helper
@@ -26,4 +26,4 @@ const login = {
   }
 }
 
-export default login
+export default signin

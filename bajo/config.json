@@ -41,9 +41,17 @@
     }
   },
   "redirect": {
-    "login": "sumba:/login",
-    "logout": "sumba:/logout",
+    "signin": "sumba:/signin",
+    "signout": "sumba:/signout",
     "home": "sumba:/home"
   },
-  "dependencies": ["bajo-db", "bajo-extra", "bajo-web"]
+  "userPassword": {
+    "minUppercase": 1,
+    "minLowercase": 1,
+    "minSpecialChar": 1,
+    "minNumeric": 1,
+    "noWhitespace": false,
+    "latinOnlyChars": false
+  },
+  "dependencies": ["bajo-db", "bajo-extra", "bajo-web", "bajo-common-db"]
 }

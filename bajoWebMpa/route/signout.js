@@ -1,17 +1,22 @@
-const login = {
+const signout = {
   method: ['GET', 'POST'],
   handler: async function (ctx, req, reply) {
-    const { getConfig } = this.bajo.helper
+    const { getConfig, importPkg } = this.bajo.helper
     const { routePath } = this.bajoWeb.helper
+    const { isEmpty } = await importPkg('lodash-es')
     const cfg = getConfig('sumba')
+    let { referer } = req.body || {}
+    if (req.session.ref) referer = req.session.ref
+    req.session.ref = null
     if (req.method === 'POST') {
       req.session.user = null
       const { query, params } = req
-      reply.redirect(routePath(cfg.redirect.home, { query, params }))
+      const url = !isEmpty(referer) ? referer : routePath(cfg.redirect.home, { query, params })
+      reply.redirect(url)
       return
     }
-    return reply.view('sumba:/signout')
+    return reply.view('sumba:/signout', { form: { referer } })
   }
 }
 
-export default login
+export default signout

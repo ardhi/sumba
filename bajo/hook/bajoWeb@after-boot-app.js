@@ -1,7 +1,8 @@
-import collectSecureRoutes from '../../lib/collect-secure-routes.js'
+import collectRoutes from '../../lib/collect-routes.js'
 
 async function afterBootApp () {
-  await collectSecureRoutes.call(this)
+  await collectRoutes.call(this, 'secure')
+  await collectRoutes.call(this, 'anonymous')
 }
 
 export default afterBootApp

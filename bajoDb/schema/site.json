@@ -21,6 +21,11 @@
     "minLength": 5,
     "maxLength": 100,
     "unique": true
+  }, {
+    "name": "email",
+    "type": "string",
+    "maxLength": 100,
+    "rules": ["email"]
   }],
   "feature": ["sumbaPersonInCharge", "sumbaAddress", "sumbaSocial", "sumbaStatus",
     "createdAt", "updatedAt"]
