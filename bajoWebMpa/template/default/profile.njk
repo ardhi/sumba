@@ -3,13 +3,22 @@
 {% block body %}
 {% cmp 'h3', displayHeading=3, margin='bottom3' %}{{ 'My Profile'|t }}{% endcmp %}
 {% cmp 'row' %}
-  {% cmp 'column', columns='small:6,medium:4' %}
+  {% cmp 'column', columns='small:5,medium:4' %}
   {% endcmp %}
-  {% cmp 'column', columns='small:6,medium:8' %}
-    {% cmp 'form', text='start', method='POST', action=routePath('sumba:/signin'), margin='bottom3' %}
+  {% cmp 'column', columns='small:7,medium:8' %}
+    {% cmp 'form', text='start', method='POST', action=routePath('sumba:/profile'), margin='bottom3' %}
       {% cmp 'input', type='hidden', name='referer', value=form.referer %}{% endcmp %}
-      {% cmp 'formInput', name='username', value=form.username, labelFloating=true, error=error|getMessage('username') %}{% endcmp %}
-      {% cmp 'formInput', type='password', name='password', labelFloating=true, error=error|getMessage('password') %}{% endcmp %}
+      {% cmp 'fieldset', labelFloating=true, margin='bottom3', options=[
+          { widget: 'formInput', name: 'createdAt', plaintext: true },
+          { widget: 'formInput', name: 'updatedAt', plaintext: true },
+          { widget: 'formInput', name: 'username', plaintext: true },
+          'firstName', 'lastName'
+        ],
+        legend='Account', layout=['small:6', 'small:6', ':12'] %}{% endcmp %}
+      {% cmp 'fieldset', labelFloating=true, margin='bottom3', options=['address1', 'address2', 'city', 'zipCode', 'provindeState', 'country'],
+        legend='Address', layout=[':12', ':12', 'small:6,medium:8', 'small:6,medium:4', ':12', ':12'] %}{% endcmp %}
+      {% cmp 'fieldset', labelFloating=true, options=['phone', 'email'],
+        legend='Phone/Email', layout=['small:6', 'small:6'] %}{% endcmp %}
       {% cmp 'div', display='flex', justifyContent='end' %}
         {% cmp 'button', variant='link', type='reset', margin='end3' %}{{ 'Reset'|t }}{% endcmp %}
         {% cmp 'button', variant='primary', type='submit' %}{{ 'Submit'|t }}{% endcmp %}
