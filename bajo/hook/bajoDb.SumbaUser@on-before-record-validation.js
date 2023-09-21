@@ -1,7 +1,8 @@
 import { joiPasswordExtendCore } from 'joi-password'
 
-async function bajoDbSiteUserOnBeforeRecordValidation (body, options) {
+async function bajoDbSiteUserOnBeforeRecordValidation (body, options = {}) {
   const { importPkg, getConfig } = this.bajo.helper
+  const { set } = await importPkg('lodash-es')
   const joi = await importPkg('bajo-db:joi')
   const cfg = getConfig('sumba')
   const joiPassword = joi.extend(joiPasswordExtendCore)
@@ -18,7 +19,7 @@ async function bajoDbSiteUserOnBeforeRecordValidation (body, options) {
   if (cfg.userPassword.latinOnlyChars) password = password.onlyLatinCharacters()
 
   const rule = { password }
-  options.validation = { rule, ns: ['sumba', 'bajoDb'] }
+  set(options, 'validation.params.rule', rule)
 }
 
 export default bajoDbSiteUserOnBeforeRecordValidation

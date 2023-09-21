@@ -38,5 +38,19 @@
     "index": true
   }],
   "globalRules": [{ "rule": "trim", "fields": ["username", "firstName", "lastName"] }],
-  "feature": ["sumbaAddress", "sumbaSocial", "sumbaStatus", "sumbaSiteId", "createdAt", "updatedAt"]
+  "indexes": [{
+    "fields": ["username", "siteId"],
+    "unique": true
+  }, {
+    "fields": ["email", "siteId"],
+    "unique": true
+  }],
+  "feature": {
+    "sumbaAddress": true,
+    "sumbaSocial": true,
+    "sumbaStatus": { "default": "UNVERIFIED" },
+    "sumbaSiteId": true,
+    "createdAt": true,
+    "updatedAt": true
+  }
 }

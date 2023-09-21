@@ -27,7 +27,6 @@ const address = {
       type: 'string',
       maxLength: 2,
       index: true,
-      required: true,
       rules: ['uppercase', { rule: 'length', params: 2 }]
     }, {
       name: 'phone',
