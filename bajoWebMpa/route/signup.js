@@ -15,8 +15,8 @@ const signup = {
       try {
         const fields = ['username', 'password', 'password2', 'email', 'firstName', 'lastName']
         const validation = { ns: ['sumba', 'bajoDb'], fields, extProperties }
-        const result = await recordCreate({ repo: 'SumbaUser', req, reply, options: { validation } })
-        console.log(result)
+        const { data } = await recordCreate({ repo: 'SumbaUser', req, reply, options: { validation } })
+        return reply.view('sumba:/signup-success', { form: req.body, data })
       } catch (err) {
         error = err
       }
