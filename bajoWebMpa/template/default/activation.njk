@@ -2,7 +2,7 @@
 
 {% block body %}
 {% cmp 'h3', displayHeading=3, margin='bottom3' %}{{ 'Activation'|t }}{% endcmp %}
-{% cmp 'form', text='start', method='GET', action=routePath('sumba:/activation'), margin='bottom3', style='min-width:400px' %}
+{% cmp 'form', text='start', method='GET', action=routePath('sumba:/activation'), margin='bottom3' %}
   {% cmp 'formInput', name='key', value=form.key, labelFloating=true, error=error|getMessage('key') %}{% endcmp %}
   {% cmp 'div', display='flex', justifyContent='between' %}
     {% cmp 'div', display='flex' %}

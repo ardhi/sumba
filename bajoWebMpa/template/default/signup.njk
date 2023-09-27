@@ -2,14 +2,14 @@
 
 {% block body %}
 {% cmp 'h3', displayHeading=3, margin='bottom3' %}{{ 'Signup'|t }}{% endcmp %}
-{% cmp 'form', text='start', method='POST', action=routePath('sumba:/signup'), margin='bottom3', style='min-width:400px' %}
+{% cmp 'form', text='start', method='POST', action=routePath('sumba:/signup'), margin='bottom3' %}
   {% cmp 'input', type='hidden', name='referer', value=form.referer %}{% endcmp %}
   {% cmp 'formInput', name='username', value=form.username, labelFloating=true, error=error|getMessage('username') %}{% endcmp %}
   {% cmp 'row' %}
-    {% cmp 'column' %}
+    {% cmp 'column', columns='small:6' %}
       {% cmp 'formInput', type='password', name='password', labelFloating=true, error=error|getMessage('password') %}{% endcmp %}
     {% endcmp %}
-    {% cmp 'column' %}
+    {% cmp 'column', columns='small:6' %}
       {% cmp 'formInput', type='password', name='password2', labelFloating=true, error=error|getMessage('password2') %}{% endcmp %}
     {% endcmp %}
   {% endcmp %}

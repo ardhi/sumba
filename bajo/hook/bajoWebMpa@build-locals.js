@@ -5,7 +5,7 @@ async function bajoWebBuildLocals (value, req) {
   if (_meta.user) {
     _meta.menuUser = [
       { value: routePath('sumba:/change-password', req), text: print.__('Change Password') },
-      { value: routePath('sumba:/profile', req), text: print.__('My Profile') },
+      { value: routePath('sumba:/profile', req), text: print.__('Your Profile') },
       '-',
       { value: routePath('sumba:/signout', req), text: print.__('Signout') }
     ]

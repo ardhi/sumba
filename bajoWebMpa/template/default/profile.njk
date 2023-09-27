@@ -1,12 +1,27 @@
 {% extends 'bajoWebMpa:/layout/default' %}
 
 {% block body %}
-{% cmp 'h3', displayHeading=3, margin='bottom3' %}{{ 'My Profile'|t }}{% endcmp %}
+{% cmp 'h3', displayHeading=3, margin='bottom3' %}{{ 'Your Profile'|t }}{% endcmp %}
 {% cmp 'row' %}
   {% cmp 'column', columns='small:5,medium:4' %}
+    {% cmp 'form', method='POST', action=routePath('sumba:/profile'), margin='bottom3', enctype='multipart/form-data' %}
+      {% cmp 'card', margin='top2,bottom2', padding=2 %}
+        {% cmp 'cardImage', src=virtualDir('bajoDb') + '/attachment/SumbaUser/' + _meta.user.id + '/profile/main.png' %}{% endcmp %}
+      {% endcmp %}
+      {% cmp 'formInput', type='file', name='profile', label=false, wrapperClass='mb-2', accept='image/png' %}{% endcmp %}
+      {% cmp 'div', display='flex', justifyContent='end' %}
+        {% cmp 'button', variant='secondary', sizing='small', type='submit' %}{{ 'Upload'|t }}{% endcmp %}
+      {% endcmp %}
+    {% endcmp %}
+    {% cmp 'fieldset', legend='More'|t, display='none,smallBlock' %}
+      {% cmp 'nav', flex='column' %}
+        {% cmp 'navItem', href=routePath('sumba:/change-password') %}{{ 'Change Password'|t }}{% endcmp %}
+        {% cmp 'navItem', href=routePath('sumba:/signout') %}{{ 'Signout'|t }}{% endcmp %}
+      {% endcmp %}
+    {% endcmp %}
   {% endcmp %}
   {% cmp 'column', columns='small:7,medium:8' %}
-    {% cmp 'form', text='start', method='POST', action=routePath('sumba:/profile'), margin='bottom3' %}
+    {% cmp 'form', method='POST', action=routePath('sumba:/profile'), margin='bottom3' %}
       {% cmp 'input', type='hidden', name='referer', value=form.referer %}{% endcmp %}
       {% cmp 'fieldset', labelFloating=true, margin='bottom3', options=[
           { widget: 'formInput', name: 'createdAt', plaintext: true },
@@ -14,11 +29,11 @@
           { widget: 'formInput', name: 'username', plaintext: true },
           'firstName', 'lastName'
         ],
-        legend='Account', layout=['small:6', 'small:6', ':12'] %}{% endcmp %}
-      {% cmp 'fieldset', labelFloating=true, margin='bottom3', options=['address1', 'address2', 'city', 'zipCode', 'provindeState', 'country'],
-        legend='Address', layout=[':12', ':12', 'small:6,medium:8', 'small:6,medium:4', ':12', ':12'] %}{% endcmp %}
+        legend='Account'|t, layout=['small:6', 'small:6', ':12'] %}{% endcmp %}
+      {% cmp 'fieldset', labelFloating=true, margin='bottom3', options=['address1', 'address2', 'city', 'zipCode', 'provinceState', 'country'],
+        legend='Address'|t, layout=[':12', ':12', 'small:6,medium:8', 'small:6,medium:4', ':12', ':12'] %}{% endcmp %}
       {% cmp 'fieldset', labelFloating=true, options=['phone', 'email'],
-        legend='Phone/Email', layout=['small:6', 'small:6'] %}{% endcmp %}
+        legend='Phone/Email'|t, layout=['small:6', 'small:6'] %}{% endcmp %}
       {% cmp 'div', display='flex', justifyContent='end' %}
         {% cmp 'button', variant='link', type='reset', margin='end3' %}{{ 'Reset'|t }}{% endcmp %}
         {% cmp 'button', variant='primary', type='submit' %}{{ 'Submit'|t }}{% endcmp %}

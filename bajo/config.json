@@ -45,5 +45,5 @@
     "noWhitespace": false,
     "latinOnlyChars": false
   },
-  "dependencies": ["bajo-db", "bajo-extra", "bajo-web", "bajo-common-db"]
+  "dependencies": ["bajo-db", "bajo-extra", "bajo-web", "bajo-common-db", "bajo-emitter"]
 }
