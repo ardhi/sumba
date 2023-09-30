@@ -3,7 +3,7 @@
 {% block body %}
 {% cmp 'h3', displayHeading=3, margin='bottom3' %}{{ 'Your Profile'|t }}{% endcmp %}
 {% cmp 'row' %}
-  {% cmp 'column', columns='small:5,medium:4' %}
+  {% cmp 'col', columns='small:5,medium:4' %}
     {% cmp 'form', method='POST', action=routePath('sumba:/profile'), margin='bottom3', enctype='multipart/form-data' %}
       {% cmp 'card', margin='top2,bottom2', padding=2 %}
         {% cmp 'cardImage', src=virtualDir('bajoDb') + '/attachment/SumbaUser/' + _meta.user.id + '/profile/main.png' %}{% endcmp %}
@@ -20,7 +20,7 @@
       {% endcmp %}
     {% endcmp %}
   {% endcmp %}
-  {% cmp 'column', columns='small:7,medium:8' %}
+  {% cmp 'col', columns='small:7,medium:8' %}
     {% cmp 'form', method='POST', action=routePath('sumba:/profile'), margin='bottom3' %}
       {% cmp 'input', type='hidden', name='referer', value=form.referer %}{% endcmp %}
       {% cmp 'fieldset', labelFloating=true, margin='bottom3', options=[

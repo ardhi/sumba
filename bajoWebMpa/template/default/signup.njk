@@ -6,10 +6,10 @@
   {% cmp 'input', type='hidden', name='referer', value=form.referer %}{% endcmp %}
   {% cmp 'formInput', name='username', value=form.username, labelFloating=true, error=error|getMessage('username') %}{% endcmp %}
   {% cmp 'row' %}
-    {% cmp 'column', columns='small:6' %}
+    {% cmp 'col', columns='small:6' %}
       {% cmp 'formInput', type='password', name='password', labelFloating=true, error=error|getMessage('password') %}{% endcmp %}
     {% endcmp %}
-    {% cmp 'column', columns='small:6' %}
+    {% cmp 'col', columns='small:6' %}
       {% cmp 'formInput', type='password', name='password2', labelFloating=true, error=error|getMessage('password2') %}{% endcmp %}
     {% endcmp %}
   {% endcmp %}
