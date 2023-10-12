@@ -12,7 +12,7 @@ const profile = {
           const opts = { req, setField: 'profile', setFile: 'main.png' }
           await attachmentCopyUploaded('SumbaUser', req.user.id, opts)
         } else {
-          form = (await recordUpdate({ repo: 'SumbaUser', id: req.user.id, body: form, req })).data
+          form = (await recordUpdate({ coll: 'SumbaUser', id: req.user.id, body: form, req })).data
         }
       } catch (err) {
       }

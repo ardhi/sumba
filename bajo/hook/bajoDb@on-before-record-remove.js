@@ -2,8 +2,8 @@ import { checker } from './bajoDb@on-before-record-get.js'
 
 const bajoDbOnBeforeRecordRemove = {
   level: 1000,
-  handler: async function (repo, id, options) {
-    await checker.call(this, repo, id, options.req)
+  handler: async function (coll, id, options) {
+    await checker.call(this, coll, id, options.req)
   }
 }
 
