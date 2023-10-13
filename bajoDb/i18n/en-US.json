@@ -1,0 +1,13 @@
+{
+  "field": {
+    "siteId": "Site ID",
+    "userId": "User ID",
+    "theme": "Theme",
+    "hostname": "Hostname",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "linkedIn": "Linked In",
+    "facebook": "Faceboook",
+    "allowUserTheme": "Theme by User"
+  }
+}
