@@ -1,0 +1,8 @@
+{
+  "view": {
+    "list": {
+      "hidden": ["password", "token", "address1", "address2", "zipCode", "provinceState", "country", "website"],
+      "defSort": "username:1"
+    }
+  }
+}

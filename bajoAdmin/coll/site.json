@@ -1,0 +1,7 @@
+{
+  "view": {
+    "list": {
+      "hidden": ["email", "picName", "picRole", "picPhone", "picEmail", "address1", "address2", "city", "zipCode", "provinceState", "country", "phone", "website"]
+    }
+  }
+}
