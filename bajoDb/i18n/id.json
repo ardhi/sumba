@@ -1,13 +1,6 @@
 {
   "field": {
-    "userId": "ID Pengguna",
-    "theme": "Tema",
-    "siteId": "ID Situs",
     "hostname": "Nama host",
-    "twitter": "Twitter",
-    "instagram": "Instagram",
-    "linkedIn": "Linked In",
-    "facebook": "Faceboook",
     "allowUserTheme": "Tema oleh Pengguna"
   }
 }
