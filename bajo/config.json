@@ -15,7 +15,8 @@
         "headerKey": "X-Sumba-Token",
         "secret": "668de9cf57316c7dbf52f7ff7611c299",
         "expiresIn": 604800000
-      }
+      },
+      "omitUserFields": ["password", "token"]
     },
     "bajoWebRestapi": {
       "methods": ["basic", "apiKey", "jwt"]

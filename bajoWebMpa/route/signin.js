@@ -5,7 +5,7 @@ const signin = {
     const { routePath } = this.bajoWeb.helper
     const { getUserFromUsernamePassword } = this.sumba.helper
     const { emit } = this.bajoEmitter.helper
-    const { isEmpty } = await importPkg('lodash-es')
+    const { isEmpty, pick } = await importPkg('lodash-es')
     const cfg = getConfig('sumba')
     let { username, password, referer } = req.body || {}
     if (req.session.ref) referer = req.session.ref
@@ -13,7 +13,7 @@ const signin = {
     let error
     if (req.method === 'POST') {
       try {
-        const user = await getUserFromUsernamePassword(username, password, req)
+        const user = pick(await getUserFromUsernamePassword(username, password, req), ['id', 'username', 'email', 'siteId'])
         emit('sumba.signin', user)
         req.session.user = user
         const { query, params } = req

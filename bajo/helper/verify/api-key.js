@@ -24,8 +24,8 @@ export async function getToken (type, req, source) {
 async function verifyApiKey (ctx, req, reply, source) {
   const { error } = this.bajo.helper
   const { isMd5, hash } = this.bajoExtra.helper
+  const { getUser } = this.sumba.helper
   const { recordFind } = this.bajoDb.helper
-
   let token = await getToken.call(this, 'apiKey', req, source)
   if (!isMd5(token)) return false
   token = await hash(token)
@@ -33,7 +33,7 @@ async function verifyApiKey (ctx, req, reply, source) {
   const rows = await recordFind('SumbaUser', { query }, { req })
   if (rows.length === 0) throw error('Invalid api key provided', { statusCode: 401 })
   if (rows[0].status !== 'ACTIVE') throw error('User is inactive or temporary disabled', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
-  req.user = rows[0]
+  req.user = await getUser(rows[0])
   return true
 }
 

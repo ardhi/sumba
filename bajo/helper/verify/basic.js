@@ -15,6 +15,7 @@ async function setHeader (setting, reply) {
 async function verifyBasic (ctx, req, reply, source) {
   const { importPkg, print, error } = this.bajo.helper
   const { getUserFromUsernamePassword } = this.sumba.helper
+  const { getUser } = this.sumba.helper
   const { isEmpty } = await importPkg('lodash-es')
   const setting = await getSetting.call(this, 'basic', source)
   let authInfo
@@ -29,7 +30,8 @@ async function verifyBasic (ctx, req, reply, source) {
   const decoded = Buffer.from(authInfo, 'base64').toString()
   const [username, password] = decoded.split(':')
   try {
-    req.user = await getUserFromUsernamePassword(username, password, req)
+    const user = await getUserFromUsernamePassword(username, password, req)
+    req.user = await getUser(user)
   } catch (err) {
     if (err.statusCode === 401 && setting.realm) {
       await setHeader.call(this, setting, reply)
