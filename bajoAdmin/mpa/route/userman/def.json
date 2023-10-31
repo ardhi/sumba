@@ -1,0 +1,7 @@
+{
+  "coll": "SumbaUser",
+  "tpl": {
+    "baseRoute": "bajoAdmin:/sumba/userman",
+    "baseId": "userman"
+  }
+}

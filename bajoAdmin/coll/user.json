@@ -1,4 +1,5 @@
 {
+  "onMenu": false,
   "view": {
     "hidden": ["password", "token"],
     "list": {

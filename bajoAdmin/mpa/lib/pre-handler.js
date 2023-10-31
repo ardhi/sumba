@@ -1,4 +1,4 @@
-async function preParsing (ctx, req, reply) {
+async function preHandler (ctx, req, reply) {
   const { importModule, getConfig } = this.bajo.helper
   const cfg = getConfig('bajoAdmin', { full: true })
   const buildCollMenu = await importModule(`${cfg.dir.pkg}/lib//build-coll-menu.js`)
@@ -8,4 +8,4 @@ async function preParsing (ctx, req, reply) {
   req.menu.pages = await buildPagesMenu.call(this)
 }
 
-export default preParsing
+export default preHandler
