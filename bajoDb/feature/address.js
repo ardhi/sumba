@@ -1,7 +1,6 @@
-const address = {
-  addProps: async function (opts) {
-    if (!opts) return
-    return [{
+async function address (opts = {}) {
+  return {
+    properties: [{
       name: 'address1',
       type: 'string'
     }, {
@@ -36,9 +35,12 @@ const address = {
       name: 'website',
       type: 'string',
       maxLength: 100
+    }],
+    globalRules: [{
+      rule: 'trim',
+      fields: ['address1', 'address2', 'city', 'zipCode', 'provinceState', 'phone', 'website']
     }]
-  },
-  globalRules: [{ rule: 'trim', fields: ['address1', 'address2', 'city', 'zipCode', 'provinceState', 'phone', 'website'] }]
+  }
 }
 
 export default address

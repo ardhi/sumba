@@ -1,7 +1,6 @@
-const siteId = {
-  addProps: async function (opts) {
-    if (!opts) return
-    return [{
+async function siteId (opts = {}) {
+  return {
+    properties: [{
       name: 'siteId',
       type: 'string',
       maxLength: 50,

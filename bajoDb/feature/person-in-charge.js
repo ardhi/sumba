@@ -1,7 +1,6 @@
-const address = {
-  addProps: async function (opts) {
-    if (!opts) return
-    return [{
+async function personInCharge (opts = {}) {
+  return {
+    properties: [{
       name: 'picName',
       type: 'string',
       maxLength: 50,
@@ -23,4 +22,4 @@ const address = {
   }
 }
 
-export default address
+export default personInCharge

@@ -1,7 +1,6 @@
-const address = {
-  addProps: async function (opts) {
-    if (!opts) return
-    return [{
+async function social (opts = {}) {
+  return {
+    properties: [{
       name: 'twitter',
       type: 'string',
       maxLength: 50
@@ -21,4 +20,4 @@ const address = {
   }
 }
 
-export default address
+export default social

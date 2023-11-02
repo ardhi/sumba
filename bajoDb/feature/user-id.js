@@ -1,8 +1,8 @@
-const userId = {
-  addProps: async function (opts) {
-    if (!opts) return
-    return [{
-      name: 'userId',
+async function userId (opts = {}) {
+  opts.fieldName = opts.fieldName ?? 'userId'
+  return {
+    properties: [{
+      name: opts.fieldName,
       type: 'string',
       maxLength: 50,
       index: true

@@ -4,7 +4,7 @@
   "title": "Default Site",
   "orgName": "Default Organization",
   "country": "US",
-  "email": "info@default.domain",
+  "email": "info@your-domain.com",
   "website": "http://localhost:7777",
   "status": "ACTIVE"
 }]

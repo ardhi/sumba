@@ -1,22 +1,19 @@
-const address = {
-  addProps: async function (opts) {
-    if (opts === true) opts = { fieldName: 'status' }
-    return {
+async function status (opts = {}) {
+  opts.fieldName = opts.fieldName ?? 'status'
+  return {
+    properties: [{
       name: opts.fieldName ?? 'status',
       type: 'string',
       maxLength: 50,
       index: true
-    }
-  },
-  hook: {
-    beforeCreate: async function ({ schema, body }) {
-      const { isSet, importPkg } = this.bajo.helper
-      const { get } = await importPkg('lodash-es')
-      const def = get(schema, 'feature.sumbaStatus.default')
-      const field = get(schema, 'feature.sumbaStatus.fieldName', 'status')
-      if (!isSet(body[field])) body[field] = def
+    }],
+    hook: {
+      beforeCreate: async function ({ body }) {
+        const { isSet } = this.bajo.helper
+        if (!isSet(body[opts.fieldName])) body[opts.fieldName] = opts.default
+      }
     }
   }
 }
 
-export default address
+export default status
