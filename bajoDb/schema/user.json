@@ -9,7 +9,7 @@
     "name": "password",
     "type": "string",
     "minLength": 8,
-    "maxLength": 50,
+    "maxLength": 100,
     "hidden": true
   }, {
     "name": "token",
