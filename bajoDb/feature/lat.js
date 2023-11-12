@@ -5,7 +5,9 @@ async function lat (opts = {}) {
       name: opts.fieldName,
       type: 'float',
       required: opts.required ?? true,
-      index: opts.required ?? true
+      index: opts.required ?? true,
+      precision: 8,
+      scale: 5
     }]
   }
 }

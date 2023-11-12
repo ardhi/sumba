@@ -3,7 +3,7 @@ async function ts (opts = {}) {
   return {
     properties: [{
       name: opts.fieldName ?? 'ts',
-      type: 'datetime',
+      type: 'timestamp',
       required: opts.required ?? true,
       index: opts.index ?? true
     }]
