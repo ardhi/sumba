@@ -4,12 +4,12 @@
     "type": "string",
     "minLength": 5,
     "maxLength": 100,
-    "unique": true
+    "index": "unique"
   }, {
     "name": "alias",
     "type": "string",
     "maxLength": 100,
-    "unique": true
+    "index": "unique"
   }, {
     "name": "title",
     "type": "string",
