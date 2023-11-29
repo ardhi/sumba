@@ -1,5 +1,5 @@
 [{
   "theme": "bootstrap5",
-  "userId": "admin",
-  "siteId": "DEFAULT"
+  "userId": "?:SumbaUser::username:admin",
+  "siteId": "?:SumbaSite::alias:default"
 }]

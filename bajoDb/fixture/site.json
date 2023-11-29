@@ -1,5 +1,5 @@
 [{
-  "id": "DEFAULT",
+  "alias": "default",
   "hostname": "localhost",
   "title": "Default Site",
   "orgName": "Default Organization",

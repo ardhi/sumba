@@ -30,7 +30,7 @@ async function verifyApiKey (ctx, req, reply, source) {
   if (!isMd5(token)) return false
   token = await hash(token)
   const query = { token }
-  const rows = await recordFind('SumbaUser', { query }, { req })
+  const rows = await recordFind('SumbaUser', { query }, { req, skipHook: true })
   if (rows.length === 0) throw error('Invalid api key provided', { statusCode: 401 })
   if (rows[0].status !== 'ACTIVE') throw error('User is inactive or temporary disabled', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
   req.user = await getUser(rows[0])

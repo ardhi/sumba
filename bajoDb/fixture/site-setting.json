@@ -1,4 +1,4 @@
 [{
   "theme": "bootstrap5",
-  "siteId": "DEFAULT"
+  "siteId": "?:SumbaSite::alias:default"
 }]

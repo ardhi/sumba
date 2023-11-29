@@ -1,11 +1,10 @@
 [{
-  "id": "admin",
   "username": "admin",
   "password": "Sumb44dm!n",
   "email": "admin@domain.com",
   "firstName": "Site",
   "lastName": "Admin",
   "country": "US",
-  "siteId": "DEFAULT",
+  "siteId": "?:SumbaSite::alias:default",
   "status": "ACTIVE"
 }]
