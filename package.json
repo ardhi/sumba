@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/ardhi/sumba#readme",
   "dependencies": {
-    "joi-password": "^4.1.1"
+    "joi-password": "^4.1.1",
+    "slug": "^8.2.3"
   }
 }
