@@ -5,6 +5,7 @@ async function userId (opts = {}) {
       name: opts.fieldName,
       type: 'string',
       maxLength: 50,
+      ref: 'SumbaUser:id',
       index: true
     }]
   }

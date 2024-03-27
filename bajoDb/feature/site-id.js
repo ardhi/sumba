@@ -4,6 +4,7 @@ async function siteId (opts = {}) {
       name: 'siteId',
       type: 'string',
       maxLength: 50,
+      ref: 'SumbaSite:id',
       index: true
     }]
   }
