@@ -9,7 +9,9 @@ async function lat (opts = {}) {
       name: opts.fieldName,
       type: 'float',
       required: opts.required ?? true,
-      index: opts.required ?? true
+      index: opts.required ?? true,
+      precision: opts.precision,
+      scale: opts.scale
     }],
     hook: {
       beforeCreate: async function ({ scheme, body }) {
