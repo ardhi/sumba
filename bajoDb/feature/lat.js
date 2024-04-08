@@ -15,10 +15,10 @@ async function lat (opts = {}) {
     }],
     hook: {
       beforeCreate: async function ({ scheme, body }) {
-        latLngHook.call(this, body, opts)
+        await latLngHook.call(this, body, opts)
       },
       beforeUpdate: async function ({ scheme, body }) {
-        latLngHook.call(this, body, opts)
+        await latLngHook.call(this, body, opts)
       }
     }
   }
