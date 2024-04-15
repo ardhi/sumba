@@ -1,32 +1,4 @@
-const data = {
-  data: {
-    type: 'object',
-    properties: {
-      token: { type: 'string' },
-      expiresAt: { type: 'string' }
-    }
-  },
-  success: {
-    type: 'boolean',
-    default: true
-  },
-  statusCode: {
-    type: 'integer',
-    default: 200
-  }
-}
-
-const body = {
-  type: 'object',
-  properties: {
-    username: {
-      type: 'string'
-    },
-    password: {
-      type: 'string'
-    }
-  }
-}
+import { data, body } from '../../../../lib/token-schema.js'
 
 async function create () {
   const schema = {

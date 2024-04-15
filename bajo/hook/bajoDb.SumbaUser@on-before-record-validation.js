@@ -9,7 +9,7 @@ async function bajoDbSiteUserOnBeforeRecordValidation (body, options = {}) {
   let password = joiPassword
     .string()
     .min(8)
-    .max(50)
+    .max(100)
     .required()
   if (cfg.userPassword.minUppercase) password = password.minOfUppercase(cfg.userPassword.minUppercase)
   if (cfg.userPassword.minLowercase) password = password.minOfLowercase(cfg.userPassword.minLowercase)

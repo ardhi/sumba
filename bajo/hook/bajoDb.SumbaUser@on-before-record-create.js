@@ -1,10 +1,7 @@
+import updatePassword from '../../lib/update-password.js'
+
 async function bajoDbSiteUserOnBeforeRecordCreate (body, options) {
-  const { importPkg } = this.bajo.helper
-  const { isBcrypt, hash } = this.bajoExtra.helper
-  const { isEmpty } = await importPkg('lodash-es')
-  if (isEmpty(body.password)) return
-  if (!isBcrypt(body.password)) body.password = await hash(body.password, 'bcrypt')
-  body.token = await hash(await hash(body.password))
+  await updatePassword.call(this, body)
 }
 
 export default bajoDbSiteUserOnBeforeRecordCreate

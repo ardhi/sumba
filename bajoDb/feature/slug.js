@@ -6,7 +6,7 @@ async function autoInc ({ schema, body, opts }) {
   const { set, last } = await importPkg('lodash-es')
   const query = set({}, opts.fieldName, { $regex: new RegExp('^' + body[opts.fieldName]) })
   const sort = set({}, opts.fieldName, -1)
-  const options = { skipHook: true, skipCache: true, thrownNotFound: false }
+  const options = { noHook: true, skipCache: true, thrownNotFound: false }
   const resp = await recordFind(schema.name, { query, limit: 1, sort }, options)
   if (resp.length === 0) return body[opts.fieldName]
   const rslugs = resp[0][opts.fieldName].split('-')

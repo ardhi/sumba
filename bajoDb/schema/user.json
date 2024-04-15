@@ -9,13 +9,11 @@
     "name": "password",
     "type": "string",
     "minLength": 8,
-    "maxLength": 100,
-    "hidden": true
+    "maxLength": 100
   }, {
     "name": "token",
     "type": "string",
     "maxLength": 50,
-    "hidden": true,
     "index": true
   }, {
     "name": "email",

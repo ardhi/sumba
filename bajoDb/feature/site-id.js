@@ -4,7 +4,13 @@ async function siteId (opts = {}) {
       name: 'siteId',
       type: 'string',
       maxLength: 50,
-      ref: 'SumbaSite:id',
+      rel: {
+        site: {
+          schema: 'SumbaSite',
+          propName: 'id',
+          fields: 'all'
+        }
+      },
       index: true
     }]
   }

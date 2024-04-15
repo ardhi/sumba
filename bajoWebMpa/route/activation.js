@@ -9,7 +9,7 @@ async function activation (ctx, req, reply) {
   if (!isEmpty(key)) {
     try {
       const query = { status: 'UNVERIFIED', token: key }
-      const result = await recordFind('SumbaUser', { query }, { skipHook: true })
+      const result = await recordFind('SumbaUser', { query }, { noHook: true })
       if (result.length === 0) throw error('Validation Error', { details: [{ field: 'key', error: 'Invalid activation key' }] })
       await recordUpdate('SumbaUser', result[0].id, { status: 'ACTIVE' })
       const url = routePath(cfg.redirect.signin, req)
