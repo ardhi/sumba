@@ -7,12 +7,12 @@ async function create () {
       '2xx': {
         description: 'Successfull response',
         type: 'object',
-        properties: await this.bajoWebRestapi.helper.transformResult({ data })
+        properties: this.bajoWebRestapi.helper.transformResult({ data })
       }
     }
   }
 
-  const handler = async function create (ctx, req, reply) {
+  const handler = async function (ctx, req, reply) {
     const { error } = this.bajo.helper
     const { hash } = this.bajoExtra.helper
     const { getUserFromUsernamePassword, createJwtFromUserRecord } = this.sumba.helper

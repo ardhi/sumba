@@ -4,7 +4,7 @@ const profile = {
     const { defaultsDeep, importPkg } = this.bajo.helper
     const { attachmentCopyUploaded } = this.bajoDb.helper
     const { recordUpdate } = this.bajoWeb.helper
-    const { has } = await importPkg('lodash-es')
+    const { has } = this.bajo.helper._
     let form = defaultsDeep(req.body, req.user)
     if (req.method === 'POST') {
       try {

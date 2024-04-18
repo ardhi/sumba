@@ -2,7 +2,7 @@ import latLngHook from '../../lib/lat-lng-hook.js'
 
 async function latLng (opts = {}) {
   const { importPkg } = this.bajo.helper
-  const { merge } = await importPkg('lodash-es')
+  const { merge } = this.bajo.helper._
   opts.fieldNameLat = opts.fieldNameLat ?? 'lat'
   opts.fieldNameLng = opts.fieldNameLng ?? 'lng'
   opts.scale = opts.scale ?? 5

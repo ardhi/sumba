@@ -4,7 +4,7 @@ const hidden = ['password', 'token', 'siteId']
 async function get ({ ctx }) {
   const { importPkg } = this.bajo.helper
   const { recordUpdate } = this.bajoWeb.helper
-  const { omit } = await importPkg('lodash-es')
+  const { omit } = this.bajo.helper._
   const { docSchemaColl } = this.bajoWebRestapi.helper
   const schema = await docSchemaColl({ coll, method: 'update', ctx, options: { hidden, noId: true } })
   const handler = async function get (ctx, req, reply, options) {

@@ -3,7 +3,7 @@ import slug from 'slug'
 async function autoInc ({ schema, body, opts }) {
   const { importPkg } = this.bajo.helper
   const { recordFind } = this.bajoDb.helper
-  const { set, last } = await importPkg('lodash-es')
+  const { set, last } = this.bajo.helper._
   const query = set({}, opts.fieldName, { $regex: new RegExp('^' + body[opts.fieldName]) })
   const sort = set({}, opts.fieldName, -1)
   const options = { noHook: true, skipCache: true, thrownNotFound: false }
@@ -41,7 +41,7 @@ async function mainFn (opts = {}) {
     hook: {
       beforeCreate: async function ({ schema, body }) {
         const { importPkg, error } = this.bajo.helper
-        const { isEmpty, isString } = await importPkg('lodash-es')
+        const { isEmpty, isString } = this.bajo.helper._
         if (isEmpty(body[opts.fieldName])) {
           if (isString(opts.fieldSource)) opts.fieldSource = [opts.fieldSource]
           const source = []

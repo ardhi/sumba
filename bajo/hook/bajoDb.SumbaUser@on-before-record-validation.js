@@ -2,7 +2,7 @@ import { joiPasswordExtendCore } from 'joi-password'
 
 async function bajoDbSiteUserOnBeforeRecordValidation (body, options = {}) {
   const { importPkg, getConfig } = this.bajo.helper
-  const { set } = await importPkg('lodash-es')
+  const { set } = this.bajo.helper._
   const joi = await importPkg('bajo-db:joi')
   const cfg = getConfig('sumba')
   const joiPassword = joi.extend(joiPasswordExtendCore)

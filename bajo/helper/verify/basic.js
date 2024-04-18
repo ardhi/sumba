@@ -2,7 +2,7 @@ import { getSetting } from './api-key.js'
 
 async function setHeader (setting, reply) {
   const { importPkg } = this.bajo.helper
-  const { isString } = await importPkg('lodash-es')
+  const { isString } = this.bajo.helper._
   let header = setting.type
   const exts = []
   if (isString(setting.realm)) exts.push(`realm="${setting.realm}"`)
@@ -16,7 +16,7 @@ async function verifyBasic (ctx, req, reply, source) {
   const { importPkg, print, error } = this.bajo.helper
   const { getUserFromUsernamePassword } = this.sumba.helper
   const { getUser } = this.sumba.helper
-  const { isEmpty } = await importPkg('lodash-es')
+  const { isEmpty } = this.bajo.helper._
   const setting = await getSetting.call(this, 'basic', source)
   let authInfo
   const parts = (req.headers.authorization || '').split(' ')

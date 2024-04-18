@@ -1,7 +1,7 @@
 export async function checker (coll, id, req) {
   const { importPkg, error } = this.bajo.helper
   const { recordFind } = this.bajoDb.helper
-  const { get } = await importPkg('lodash-es')
+  const { get } = this.bajo.helper._
   const { hasColumn } = this.sumba.helper
   const item = { siteId: 'site.id', userId: 'user.id' }
   for (const i in item) {

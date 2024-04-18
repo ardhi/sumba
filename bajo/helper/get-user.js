@@ -1,7 +1,7 @@
 async function getUser (rec, safe = true) {
   const { getConfig, importPkg } = this.bajo.helper
   const { recordGet } = this.bajoDb.helper
-  const { omit, isString } = await importPkg('lodash-es')
+  const { omit, isString } = this.bajo.helper._
   const cfg = getConfig('sumba')
   let user
   if (isString(rec)) user = await recordGet('SumbaUser', rec, { noHook: true })

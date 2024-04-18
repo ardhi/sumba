@@ -34,7 +34,7 @@ async function update ({ ctx }) {
       '2xx': {
         description: 'Successfull response',
         type: 'object',
-        properties: await this.bajoWebRestapi.helper.transformResult({ data })
+        properties: this.bajoWebRestapi.helper.transformResult({ data })
       }
     }
   }

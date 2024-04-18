@@ -5,7 +5,7 @@ async function preHandler (ctx, req, reply) {
   const buildPagesMenu = await importModule(`${cfg.dir.pkg}/lib//build-pages-menu.js`)
   req.menu = req.menu ?? {}
   req.menu.coll = await buildCollMenu.call(this)
-  req.menu.pages = await buildPagesMenu.call(this)
+  req.menu.pages = buildPagesMenu.call(this)
 }
 
 export default preHandler

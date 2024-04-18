@@ -3,7 +3,7 @@ const signout = {
   handler: async function (ctx, req, reply) {
     const { getConfig, importPkg } = this.bajo.helper
     const { routePath } = this.bajoWeb.helper
-    const { isEmpty } = await importPkg('lodash-es')
+    const { isEmpty } = this.bajo.helper._
     const cfg = getConfig('sumba')
     let { referer } = req.body || {}
     if (req.session.ref) referer = req.session.ref

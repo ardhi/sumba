@@ -2,7 +2,7 @@ async function activation (ctx, req, reply) {
   const { getConfig, importPkg, error } = this.bajo.helper
   const { recordFind, recordUpdate } = this.bajoDb.helper
   const { routePath } = this.bajoWeb.helper
-  const { isEmpty } = await importPkg('lodash-es')
+  const { isEmpty } = this.bajo.helper._
   const cfg = getConfig('sumba')
   const { key } = req.query
   let err

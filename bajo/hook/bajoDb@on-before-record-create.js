@@ -2,7 +2,7 @@ const bajoDbOnBeforeRecordCreate = {
   level: 1000,
   handler: async function (coll, body, options) {
     const { importPkg } = this.bajo.helper
-    const { get } = await importPkg('lodash-es')
+    const { get } = this.bajo.helper._
     const { hasColumn } = this.sumba.helper
     const item = { siteId: 'req.site.id', userId: 'req.user.id' }
     for (const i in item) {

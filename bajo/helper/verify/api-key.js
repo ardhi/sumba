@@ -1,6 +1,6 @@
 export async function getSetting (type, source) {
   const { importPkg, getConfig, defaultsDeep } = this.bajo.helper
-  const { get } = await importPkg('lodash-es')
+  const { get } = this.bajo.helper._
   const cfg = getConfig('sumba')
   const setting = defaultsDeep(get(cfg, `auth.${source}.${type}`, {}), get(cfg, `auth.common.${type}`, {}))
   if (type === 'basic') setting.type = 'Basic'
@@ -9,7 +9,7 @@ export async function getSetting (type, source) {
 
 export async function getToken (type, req, source) {
   const { importPkg } = this.bajo.helper
-  const { isEmpty } = await importPkg('lodash-es')
+  const { isEmpty } = this.bajo.helper._
   const setting = await getSetting.call(this, type, source)
   let token = req.headers[setting.headerKey.toLowerCase()]
   if (!['basic'].includes(type) && isEmpty(token)) token = req.query[setting.qsKey]
