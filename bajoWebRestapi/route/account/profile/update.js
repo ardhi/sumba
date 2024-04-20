@@ -2,7 +2,6 @@ const coll = 'SumbaUser'
 const hidden = ['password', 'token', 'siteId']
 
 async function get ({ ctx }) {
-  const { importPkg } = this.bajo.helper
   const { recordUpdate } = this.bajoWeb.helper
   const { omit } = this.bajo.helper._
   const { docSchemaColl } = this.bajoWebRestapi.helper
