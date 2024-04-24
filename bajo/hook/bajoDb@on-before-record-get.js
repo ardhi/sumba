@@ -1,5 +1,5 @@
 export async function checker (coll, id, req) {
-  const { importPkg, error } = this.bajo.helper
+  const { error } = this.bajo.helper
   const { recordFind } = this.bajoDb.helper
   const { get } = this.bajo.helper._
   const { hasColumn } = this.sumba.helper
