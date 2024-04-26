@@ -51,6 +51,7 @@
       }]
     },
     "edit": {
+      "shown": ["password"],
       "layouts": [{
         "title": "Meta Info",
         "fields": [
@@ -65,6 +66,7 @@
         "fields": [
           "username;small:6,medium:6",
           "email;small:6,medium:6",
+          "password;small:12,medium:12",
           "firstName;small:6,medium:6",
           "lastName;small:6,medium:6"
         ]

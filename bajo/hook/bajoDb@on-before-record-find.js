@@ -4,6 +4,7 @@ const bajoDbOnBeforeRecordFind = {
     const { isSet } = this.bajo.helper
     const { isEmpty, cloneDeep, get, set } = this.bajo.helper._
     const { hasColumn } = this.sumba.helper
+    if (options.noAutoFilter) return
     const item = { siteId: 'req.site.id', userId: 'req.user.id' }
     for (const i in item) {
       const rec = get(options, item[i])
