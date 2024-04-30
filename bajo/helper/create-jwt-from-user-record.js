@@ -2,7 +2,7 @@ async function createJwtFromUserRecord (rec) {
   const { importPkg, getConfig, dayjs } = this.bajo.helper
   const { hash } = this.bajoExtra.helper
   const { get, pick } = this.bajo.helper._
-  const fastJwt = await importPkg('bajo-extra:fast-jwt')
+  const fastJwt = await importPkg('bajoExtra:fast-jwt')
   const { createSigner } = fastJwt
 
   const cfg = getConfig('sumba')

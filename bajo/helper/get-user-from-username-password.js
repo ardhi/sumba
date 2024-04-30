@@ -4,7 +4,7 @@ async function getUserByUsernamePassword (username = '', password = '', req) {
   const { error, importPkg } = this.bajo.helper
   const { recordFind, validate } = this.bajoDb.helper
   await validate({ username, password }, 'SumbaUser', { ns: ['sumba', 'bajoDb'], fields: ['username', 'password'] })
-  const bcrypt = await importPkg('bajo-extra:bcrypt')
+  const bcrypt = await importPkg('bajoExtra:bcrypt')
   const query = { username }
   const rows = await recordFind(coll, { query }, { req, ignoreHidden: true, noHook: true })
   if (rows.length === 0) throw error('Unknown username', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })

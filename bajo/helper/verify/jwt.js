@@ -5,7 +5,7 @@ async function verifyJwt (ctx, req, reply, source) {
   const { recordGet } = this.bajoDb.helper
   const { getUser } = this.sumba.helper
   const { isEmpty } = this.bajo.helper._
-  const fastJwt = await importPkg('bajo-extra:fast-jwt')
+  const fastJwt = await importPkg('bajoExtra:fast-jwt')
   const { createVerifier } = fastJwt
   const setting = await getSetting.call(this, 'jwt', source)
   const token = await getToken.call(this, 'jwt', req, source)
