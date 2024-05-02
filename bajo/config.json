@@ -1,5 +1,5 @@
 {
-  "multiSite": true,
+  "multiSite": false,
   "auth": {
     "common": {
       "apiKey": {

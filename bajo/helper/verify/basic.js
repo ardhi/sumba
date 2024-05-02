@@ -1,7 +1,6 @@
 import { getSetting } from './api-key.js'
 
 async function setHeader (setting, reply) {
-  const { importPkg } = this.bajo.helper
   const { isString } = this.bajo.helper._
   let header = setting.type
   const exts = []
@@ -13,7 +12,7 @@ async function setHeader (setting, reply) {
 }
 
 async function verifyBasic (ctx, req, reply, source) {
-  const { importPkg, print, error } = this.bajo.helper
+  const { print, error } = this.bajo.helper
   const { getUserFromUsernamePassword } = this.sumba.helper
   const { getUser } = this.sumba.helper
   const { isEmpty } = this.bajo.helper._
