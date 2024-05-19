@@ -1,7 +1,7 @@
 const signin = {
   method: ['GET', 'POST'],
   handler: async function (ctx, req, reply) {
-    const { getConfig, importPkg } = this.bajo.helper
+    const { getConfig } = this.bajo.helper
     const { routePath } = this.bajoWeb.helper
     const { getUserFromUsernamePassword } = this.sumba.helper
     const { isEmpty, pick } = this.bajo.helper._
