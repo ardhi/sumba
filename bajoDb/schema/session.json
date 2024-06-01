@@ -1,0 +1,9 @@
+{
+  "properties": [
+    "id::100:primary:true",
+    "session:text",
+    "expires:datetime"
+  ],
+  "feature": ["createdAt", "updatedAt"],
+  "attachment": false
+}

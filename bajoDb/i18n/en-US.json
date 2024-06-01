@@ -1,6 +1,8 @@
 {
   "field": {
     "hostname": "Hostname",
-    "allowUserTheme": "Theme by User"
+    "allowUserTheme": "Theme by User",
+    "session": "Session",
+    "expires": "Expiration"
   }
 }
