@@ -1,6 +1,6 @@
 {
   "name": "sumba",
-  "version": "0.3.9",
+  "version": "1.0.0",
   "description": "Bajo Framework's Biz Suite",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/ardhi/sumba#readme",
   "dependencies": {
-    "joi-password": "^4.1.1",
-    "slug": "^8.2.3"
+    "joi-password": "^4.2.0",
+    "slug": "^9.1.0"
   }
 }

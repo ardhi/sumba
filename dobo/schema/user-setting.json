@@ -1,0 +1,8 @@
+{
+  "properties": [{
+    "name": "theme",
+    "type": "string",
+    "maxLength": 20
+  }],
+  "feature": ["sumba:userId", "sumba:siteId", "updatedAt"]
+}

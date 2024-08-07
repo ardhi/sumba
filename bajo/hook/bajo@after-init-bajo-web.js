@@ -1,11 +1,12 @@
-async function afterInitBajoWebMpa () {
-  const { isSet } = this.bajo.helper
-  if (!isSet(this.bajoWeb.config.home)) {
-    this.bajoWeb.config.home = {
+async function afterInitWaibu () {
+  const { isSet } = this.app.bajo
+
+  if (!isSet(this.app.waibu.config.home)) {
+    this.app.waibu.config.home = {
       path: 'sumba:/home',
       forward: true
     }
   }
 }
 
-export default afterInitBajoWebMpa
+export default afterInitWaibu

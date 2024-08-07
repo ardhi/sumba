@@ -1,4 +1,0 @@
-{
-  "coll": "SumbaUser",
-  "hidden": ["password", "token"]
-}

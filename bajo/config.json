@@ -16,23 +16,15 @@
         "secret": "668de9cf57316c7dbf52f7ff7611c299",
         "expiresIn": 604800000
       },
-      "session": {
-        "secret": "f703a74b884b539e78c642a5369fe538",
-        "cookieName": "sid",
-        "cookie": {
-          "secure": "auto"
-        },
-        "saveUninitialized": false
-      },
       "omitUserFields": ["password", "token"]
     },
-    "bajoWebRestapi": {
+    "waibuRestapi": {
       "methods": ["basic", "apiKey", "jwt"]
     },
-    "bajoWebMpa": {
+    "waibuMpa": {
       "methods": ["session"]
     },
-    "bajoWebStatic": {
+    "waibuStatic": {
       "methods": ["basic", "apiKey", "jwt"],
       "basic": {
         "useUtf8": true,
@@ -54,5 +46,5 @@
     "noWhitespace": false,
     "latinOnlyChars": false
   },
-  "dependencies": ["bajo-db", "bajo-extra"]
+  "dependencies": ["dobo", "bajo-extra", "waibu-htmx", "bajo-common-db"]
 }
