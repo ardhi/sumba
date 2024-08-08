@@ -1,0 +1,18 @@
+<c:page-start title="test"></c:page-start>
+<c:include template="sumba:/partial/header.html" />
+<c:container responsive>
+  <c:xxx attr="value">
+    <c:btn>
+      button
+      <c:wak>test</c:wak>
+      <c:grid-row>haha</c:grid-row>
+    </c:btn>
+  </c:xxx>
+  <c:btn variant="primary" prepend="Are you sure?">Yes</c:btn>
+</c:container>
+<c:include template="sumba:/partial/footer.html" />
+<c:page-end>
+  <p>
+    <c:t value="<%= (new Date()).getFullYear() %>">Copyright &copy; %d by My Company</c:t>
+  </p>
+</c:page-end>

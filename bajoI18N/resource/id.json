@@ -11,6 +11,8 @@
   "Access denied. Can't authenticate you through all available methods": "",
   "Invalid token type": "",
   "Invalid current password": "",
+  "Theme support is globally disabled!": "",
+  "Theme '%s' is not installed": "",
   "Your Profile": "Profil Anda",
   "Account": "Akun",
   "Address": "Alamat",

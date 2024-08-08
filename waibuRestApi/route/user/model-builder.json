@@ -1,4 +1,0 @@
-{
-  "model": "SumbaUser",
-  "hidden": ["password", "token"]
-}

@@ -16,11 +16,11 @@ export async function checker (model, id, options) {
   }
 }
 
-const doboOnBeforeRecordGet = {
+const doboBeforeRecordGet = {
   level: 1000,
   handler: async function (model, id, options) {
     await checker.call(this, model, id, options)
   }
 }
 
-export default doboOnBeforeRecordGet
+export default doboBeforeRecordGet

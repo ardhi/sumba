@@ -3,9 +3,9 @@ const model = 'SumbaUser'
 async function getUserByUsernamePassword (username = '', password = '', req) {
   const { importPkg } = this.app.bajo
   const { recordFind, validate } = this.app.dobo
-
   await validate({ username, password }, 'SumbaUser', { ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
   const bcrypt = await importPkg('bajoExtra:bcrypt')
+
   const query = { username }
   const rows = await recordFind(model, { query }, { req, ignoreHidden: true, noHook: true })
   if (rows.length === 0) throw this.error('Unknown username', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })

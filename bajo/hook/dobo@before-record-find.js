@@ -19,9 +19,9 @@ export async function handler (model, filter, options) {
   }
 }
 
-const doboOnBeforeRecordFind = {
+const doboBeforeRecordFind = {
   level: 1000,
   handler
 }
 
-export default doboOnBeforeRecordFind
+export default doboBeforeRecordFind

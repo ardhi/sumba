@@ -1,6 +1,6 @@
 import { joiPasswordExtendCore } from 'joi-password'
 
-async function doboSumbaUserOnBeforeRecordValidation (body, options = {}) {
+async function doboSumbaUserBeforeRecordValidation (body, options = {}) {
   const { importPkg } = this.app.bajo
   const { set } = this.app.bajo.lib._
 
@@ -22,4 +22,4 @@ async function doboSumbaUserOnBeforeRecordValidation (body, options = {}) {
   set(options, 'validation.params.rule', rule)
 }
 
-export default doboSumbaUserOnBeforeRecordValidation
+export default doboSumbaUserBeforeRecordValidation

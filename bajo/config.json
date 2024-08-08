@@ -18,7 +18,7 @@
       },
       "omitUserFields": ["password", "token"]
     },
-    "waibuRestapi": {
+    "waibuRestApi": {
       "methods": ["basic", "apiKey", "jwt"]
     },
     "waibuMpa": {
@@ -46,5 +46,5 @@
     "noWhitespace": false,
     "latinOnlyChars": false
   },
-  "dependencies": ["dobo", "bajo-extra", "waibu-htmx", "bajo-common-db"]
+  "dependencies": ["dobo", "bajo-extra", "bajo-common-db"]
 }

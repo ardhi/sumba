@@ -1,3 +1,7 @@
 {
-  "/account/*": ["*"]
+  "/api-key": ["*"],
+  "/change-password": ["*"],
+  "/profile": ["*"],
+  "/setting": ["*"],
+  "/site": ["*"]
 }
