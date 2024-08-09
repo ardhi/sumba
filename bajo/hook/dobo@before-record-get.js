@@ -1,4 +1,4 @@
-export async function checker (model, id, options) {
+export async function checker (model, id, options = {}) {
   const { recordFind } = this.app.dobo
   const { get } = this.app.bajo.lib._
   const { hasColumn } = this

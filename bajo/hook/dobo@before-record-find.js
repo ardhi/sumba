@@ -1,4 +1,4 @@
-export async function handler (model, filter, options) {
+export async function handler (model, filter, options = {}) {
   const { isSet } = this.app.bajo
   const { isEmpty, cloneDeep, get, set } = this.app.bajo.lib._
   const { hasColumn } = this

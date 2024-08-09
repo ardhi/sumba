@@ -1,6 +1,6 @@
 const doboBeforeRecordCreate = {
   level: 1000,
-  handler: async function (model, body, options) {
+  handler: async function (model, body, options = {}) {
     const { get } = this.app.bajo.lib._
     const { hasColumn } = this
 
