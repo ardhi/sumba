@@ -12,7 +12,7 @@ async function create () {
     }
   }
 
-  const handler = async function (ctx, req, reply) {
+  const handler = async function (req, reply) {
     const { hash } = this.app.bajoExtra
     const { getUserFromUsernamePassword, createJwtFromUserRecord } = this
 

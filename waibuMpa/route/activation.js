@@ -1,4 +1,4 @@
-async function activation (ctx, req, reply) {
+async function activation (req, reply) {
   const { recordFind, recordUpdate } = this.app.dobo
   const { routePath } = this.app.waibu
   const { isEmpty } = this.app.bajo.lib._

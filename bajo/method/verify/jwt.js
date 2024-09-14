@@ -1,6 +1,6 @@
 import { getToken, getSetting } from './api-key.js'
 
-async function verifyJwt (ctx, req, reply, source) {
+async function verifyJwt (req, reply, source) {
   const { importPkg } = this.app.bajo
   const { recordGet } = this.app.dobo
   const { getUser } = this

@@ -1,4 +1,4 @@
-async function verifySession (ctx, req, reply, source) {
+async function verifySession (req, reply, source) {
   const { getUser } = this
   const { routePath } = this.app.waibu
 

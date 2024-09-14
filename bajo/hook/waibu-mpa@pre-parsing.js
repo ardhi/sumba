@@ -4,7 +4,7 @@ import checkIconset from '../../lib/check-iconset.js'
 
 const onRequest = {
   level: 10,
-  handler: async function (ctx, req, reply) {
+  handler: async function (req, reply) {
     const { routePath } = this.app.waibu
 
     await checkTheme.call(this, req, reply)

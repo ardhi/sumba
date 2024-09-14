@@ -1,6 +1,6 @@
 const profile = {
   method: ['GET', 'POST'],
-  handler: async function (ctx, req, reply) {
+  handler: async function (req, reply) {
     const { defaultsDeep } = this.app.bajo
     const { attachmentCopyUploaded } = this.app.dobo
     const { recordUpdate } = this.app.waibu

@@ -11,7 +11,7 @@ async function get ({ ctx }) {
     }
   }
 
-  const handler = async function get (ctx, req, reply, options) {
+  const handler = async function (req, reply, options) {
     const { recordGet } = this.app.dobo
     const { hash } = this.app.bajoExtra
 

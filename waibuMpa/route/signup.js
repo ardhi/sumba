@@ -1,6 +1,6 @@
 const signup = {
   method: ['GET', 'POST'],
-  handler: async function (ctx, req, reply) {
+  handler: async function (req, reply) {
     const { recordCreate } = this.app.waibu
 
     let error

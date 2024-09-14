@@ -12,7 +12,7 @@ async function setHeader (setting, reply) {
   reply.code(401)
 }
 
-async function verifyBasic (ctx, req, reply, source) {
+async function verifyBasic (req, reply, source) {
   const { getUserFromUsernamePassword } = this
   const { getUser } = this
   const { isEmpty } = this.app.bajo.lib._

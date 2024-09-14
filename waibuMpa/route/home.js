@@ -1,6 +1,6 @@
 const home = {
   method: 'GET',
-  handler: async function (ctx, req, reply) {
+  handler: async function (req, reply) {
     return reply.view('sumba:/home.html')
   }
 }

@@ -1,4 +1,4 @@
-async function preHandler (ctx, req, reply) {
+async function preHandler (req, reply) {
   const { importModule, getConfig } = this.app.bajo
   const cfg = getConfig('bajoAdmin', { full: true })
   const buildCollMenu = await importModule(`${cfg.dir.pkg}/lib//build-model-menu.js`)

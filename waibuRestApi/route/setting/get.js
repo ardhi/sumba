@@ -6,7 +6,7 @@ async function get ({ ctx }) {
   const { docSchemaModel } = this.app.waibuRestApi
 
   const schema = await docSchemaModel({ model, method: 'get', ctx, options: { hidden, noId: true } })
-  const handler = async function get (ctx, req, reply, options) {
+  const handler = async function (req, reply, options) {
     options.filter = { query: { userId: req.user.id }, limit: 1 }
     options.hidden = hidden
     return await recordFindOne({ model, req, reply, options })

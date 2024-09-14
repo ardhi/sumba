@@ -7,7 +7,7 @@ async function get ({ ctx }) {
   const { docSchemaModel } = this.app.waibuRestApi
 
   const schema = await docSchemaModel({ model, method: 'update', ctx, options: { hidden, noId: true } })
-  const handler = async function get (ctx, req, reply, options) {
+  const handler = async function (req, reply, options) {
     options.hidden = hidden
     const body = omit(req.body, hidden)
     return await recordUpdate({ model, req, reply, id: req.user.setting.id, body, options })

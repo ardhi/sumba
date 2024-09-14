@@ -21,7 +21,7 @@ export async function getToken (type, req, source) {
   return token
 }
 
-async function verifyApiKey (ctx, req, reply, source) {
+async function verifyApiKey (req, reply, source) {
   const { isMd5, hash } = this.app.bajoExtra
   const { getUser } = this
   const { recordFind } = this.app.dobo
