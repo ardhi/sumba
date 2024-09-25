@@ -16,13 +16,13 @@ const signin = {
         req.session.user = user
         const { query, params } = req
         const url = !isEmpty(referer) ? referer : routePath(this.config.redirect.home, { query, params })
-        reply.redirect(url)
-        return
+        reply.redirectTo(url)
+        return reply
       } catch (err) {
         error = err
       }
     }
-    return reply.view('sumba:/signin.html', { form: { username, referer }, error })
+    return reply.view('sumba.template:/signin.html', { form: { username, referer }, error })
   }
 }
 

@@ -18,7 +18,7 @@ const profile = {
       } catch (err) {
       }
     }
-    return reply.view('sumba:/profile.html', { form })
+    return reply.view('sumba.template:/profile.html', { form })
   }
 }
 

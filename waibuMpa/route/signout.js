@@ -14,7 +14,7 @@ const signout = {
       reply.redirect(url)
       return
     }
-    return reply.view('sumba:/signout.html', { form: { referer } })
+    return reply.view('sumba.template:/signout.html', { form: { referer } })
   }
 }
 

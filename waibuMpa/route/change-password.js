@@ -18,7 +18,7 @@ const profile = {
       } catch (err) {
       }
     }
-    return reply.view('sumba:/change-password.html', { form })
+    return reply.view('sumba.template:/change-password.html', { form })
   }
 }
 

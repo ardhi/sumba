@@ -2,9 +2,13 @@
   "properties": [{
     "name": "theme",
     "type": "string",
-    "maxLength": 20
+    "maxLength": 50
   }, {
-    "name": "allowUserTheme",
+    "name": "iconset",
+    "type": "string",
+    "maxLength": 50
+  }, {
+    "name": "allowUserOverride",
     "type": "boolean",
     "default": false
   }],

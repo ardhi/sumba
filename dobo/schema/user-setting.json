@@ -2,7 +2,11 @@
   "properties": [{
     "name": "theme",
     "type": "string",
-    "maxLength": 20
+    "maxLength": 50
+  }, {
+    "name": "iconset",
+    "type": "string",
+    "maxLength": 50
   }],
   "feature": ["sumba:userId", "sumba:siteId", "updatedAt"]
 }

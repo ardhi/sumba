@@ -1,4 +1,5 @@
 [{
   "theme": "bootstrap",
+  "iconset": "bootstrap-icons",
   "siteId": "?:SumbaSite::alias:default"
 }]

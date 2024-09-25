@@ -1,0 +1,28 @@
+<c:page-start>
+  <title><%= frontMatter.title ?? page.title %></title>
+</c:page-start>
+<c:container flex="justify-content:center align-items:center" dim="height:viewport">
+  <c:div>
+    <c:heading margin="bottom-4" text="align:center" type="1-display" content="<%= frontMatter.title ?? page.title %>" />
+    <!-- body -->
+    <c:footer margin="top-5">
+      <small>
+        <c:nav flex="justify-content:center">
+          <c:nav-item t:content="About Us" href="sumba:/info/about-us"/>
+          <c:nav-item t:content="Terms" href="sumba:/info/term-conditions"/>
+          <c:nav-item t:content="Privacy" href="sumba:/info/privacy"/>
+        </c:nav>
+        <c:nav flex="justify-content:center">
+          <c:nav-selector-darkmode />
+          <c:nav-selector-language />
+        </c:nav>
+      </small>
+    </c:footer>
+  </c:div>
+</c:container>
+<c:toast-stack>
+  <% if (arguments[0].error) { %>
+  <c:toast t:content="<%= error.message %>" />
+  <% } %>
+</c:toast-stack>
+<c:page-end />

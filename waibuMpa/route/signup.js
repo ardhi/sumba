@@ -17,12 +17,12 @@ const signup = {
         const fields = ['username', 'password', 'password2', 'email', 'firstName', 'lastName']
         const validation = { ns: ['sumba', 'dobo'], fields, extProperties }
         const { data } = await recordCreate({ model: 'SumbaUser', req, reply, options: { validation } })
-        return reply.view('sumba:/signup-success.html', { form: req.body, data })
+        return reply.view('sumba.template:/signup-success.html', { form: req.body, data })
       } catch (err) {
         error = err
       }
     }
-    return reply.view('sumba:/signup.html', { form: req.body, error })
+    return reply.view('sumba.template:/signup.html', { form: req.body, error })
   }
 }
 

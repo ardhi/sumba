@@ -18,7 +18,7 @@ async function activation (req, reply) {
       err = e
     }
   }
-  return reply.view('sumba:/activation.html', { form: { key }, error: err })
+  return reply.view('sumba.template:/activation.html', { form: { key }, error: err })
 }
 
 export default activation
