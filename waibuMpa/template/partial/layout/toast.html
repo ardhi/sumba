@@ -1,0 +1,20 @@
+<c:toast-stack>
+  <% if (arguments[0].error) {
+  if (error.details && error.details.length > 0) {
+    const contents = [`<ul class="m-0 ${error.details.length === 1 ? 'list-unstyled' : ''}">`]
+    for (const d of error.details) {
+      const field = _t(`field.${d.field}`)
+      const msg = d.ext ? _t(`validation.${d.ext.type}`, d.ext.context) : _t(d.error)
+      contents.push(`<li><strong>${field}:</strong> ${msg}</li>`)
+    }
+    contents.push('</ul>')
+  %>
+  <c:toast border="side:all width:0" text="background:danger" t:title="<%= error.message %>"><%= contents.join('\n') %></c:toast>
+  <% } else { %>
+  <c:toast border="side:all width:0" text="background:danger" t:content="<%= error.message %>" />
+  <% }}
+  const notis = _.get(_meta, 'flash.notify', [])
+  for (const n of notis) { %>
+  <c:toast border="side:all width:0" text="background:info" content="<%= n %>" />
+  <% } %>
+</c:toast-stack>

@@ -15,8 +15,7 @@
         "headerKey": "X-Sumba-Token",
         "secret": "668de9cf57316c7dbf52f7ff7611c299",
         "expiresIn": 604800000
-      },
-      "omitUserFields": ["password", "token"]
+      }
     },
     "waibuRestApi": {
       "methods": ["basic", "apiKey", "jwt"]
@@ -46,5 +45,5 @@
     "noWhitespace": false,
     "latinOnlyChars": false
   },
-  "dependencies": ["dobo", "bajo-extra", "bajo-common-db"]
+  "dependencies": ["waibu-db", "bajo-extra", "bajo-common-db", "waibu-alpinejs"]
 }

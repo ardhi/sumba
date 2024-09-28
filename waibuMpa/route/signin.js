@@ -1,7 +1,6 @@
 const signin = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { routePath } = this.app.waibu
     const { getUserFromUsernamePassword } = this
     const { isEmpty, pick } = this.app.bajo.lib._
 
@@ -15,9 +14,9 @@ const signin = {
         if (this.bajoEmitter) await this.app.bajoEmitter.emit('sumba.signin', user)
         req.session.user = user
         const { query, params } = req
-        const url = !isEmpty(referer) ? referer : routePath(this.config.redirect.home, { query, params })
-        reply.redirectTo(url)
-        return reply
+        const url = !isEmpty(referer) ? referer : this.config.redirect.home
+        req.flash('notify', req.t('You\'ve successfully signed in!'))
+        return reply.redirectTo(url, { query, params })
       } catch (err) {
         error = err
       }

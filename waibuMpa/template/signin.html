@@ -1,25 +1,12 @@
 ---
 t:title: Signin
 ---
-<c:form action="sumba:/signin" method="POST">
-  <c:input type="hidden" name="referer" value="<%= form.referer %>" />
-  <c:grid-row gutter="2" margin="bottom-3">
-    <c:grid-col col="6-md">
-      <c:form-input name="username" value="<%= form.username %>" label-floating />
-    </c:grid-col>
-    <c:grid-col col="6-md">
-      <c:form-password name="password" label-floating />
-    </c:grid-col>
-  </c:grid-row>
-  <c:div flex="justify-content:end" margin="bottom-3">
-    <c:btn color="link" type="reset" t:content="Reset" />
-    <c:btn color="primary" type="submit" t:content="Submit" />
-  </c:div>
-  <c:div margin="bottom-5">
-    <c:nav flex="column">
-      <c:nav-item t:content="Forgot Password" href="sumba:/forgot-password" />
-      <c:nav-item t:content="New Member Signup" href="sumba:/signup" />
-      <c:nav-item t:content="Go Back Home" href="/" icon="house"/>
-    </c:list>
-  </c:div>
+<c:form button reset-validation referer>
+  <c:form-input name="username" label-floating wrapper-margin="bottom-2" />
+  <c:form-password name="password" label-floating wrapper-margin="bottom-3" />
 </c:form>
+<c:list type="unstyled" margin="start-3">
+  <c:list-item t:content="Forgot Password" href="sumba:/forgot-password" icon="key"/>
+  <c:list-item t:content="New Member Signup" href="sumba:/signup" icon="person"/>
+  <c:list-item t:content="Goto Home" href="/" icon="house"/>
+</c:list>

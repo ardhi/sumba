@@ -1,0 +1,51 @@
+---
+t:title: Your Profile
+layout: sumba.layout:/wide.html
+---
+<c:grid-row gutter="4">
+  <c:grid-col col="8-md">
+    <c:fieldset t:legend="Meta" grid-gutter="2" margin="bottom-3">
+      <c:form-plaintext name="createdAt" label-floating col="6-md"/>
+      <c:form-plaintext name="updatedAt" label-floating col="6-md"/>
+    </c:fieldset>
+    <c:fieldset t:legend="Account" grid-gutter="2" margin="bottom-3">
+      <c:form-plaintext name="username" label-floating col="6-lg"/>
+      <c:form-plaintext name="email" label-floating col="6-lg"/>
+      <c:form-plaintext name="firstName" label-floating col="6-lg"/>
+      <c:form-plaintext name="lastName" label-floating col="6-lg"/>
+    </c:fieldset>
+    <c:fieldset t:legend="Address" grid-gutter="2">
+      <c:form-plaintext name="address1" label-floating col="12"/>
+      <c:form-plaintext name="address2" label-floating col="12"/>
+      <c:form-plaintext name="city" label-floating col="8-lg 7-md"/>
+      <c:form-plaintext name="zipCode" label-floating col="4-lg 5-md"/>
+      <c:form-plaintext name="provinceState" label-floating col="6-lg"/>
+      <c:form-plaintext name="country" label-floating col="6-lg"/>
+      <c:form-plaintext name="phone" label-floating col="6-lg"/>
+      <c:form-plaintext name="website" label-floating col="6-lg"/>
+    </c:fieldset>
+  </c:grid-col>
+  <c:grid-col col="4-md">
+    <c:heading type="6-display" t:content="Image" />
+    <c:img holder="400x200" responsive rounded />
+    <c:heading type="6-display" t:content="More" margin="top-3" />
+    <c:list type="group" hover>
+      <c:list-item href="sumba:/profile/edit" t:content="Update Profile" />
+      <c:list-item href="sumba:/change-password" t:content="Change Password" />
+      <c:list-item t:content="Display API Key" target="api-key-modal"/>
+    </c:list>
+    <c:list type="unstyled" margin="top-3">
+      <c:list-item t:content="Signout" href="sumba:/signout" icon="key"/>
+      <c:list-item href="/" t:content="Goto Home" icon="house"/>
+    </c:list>
+    <c:modal id="api-key-modal" t:title="API Key">
+      <c:modal-body>
+        <pre><code id="api-key"><%= form.token %></code></pre>
+      </c:modal-body>
+      <c:modal-footer>
+        <c:btn color="primary" x-data @click="await copyContentToClipboard('api-key')" t:content="Copy to Clipboard" />
+        <c:btn color="secondary" dismiss t:content="Close" />
+      </c:modal-footer>
+    </c:modal>
+  </c:grid-col>
+</c:grid-row>
