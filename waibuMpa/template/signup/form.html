@@ -1,0 +1,16 @@
+---
+t:title: New User Signup
+---
+<c:form button reset-validation referer grid-gutter="2">
+  <c:form-input name="username" label-floating />
+  <c:form-password name="password" col="6-lg" label-floating />
+  <c:form-password name="verifyPassword" col="6-lg" label-floating />
+  <c:form-input type="email" name="email" label-floating />
+  <c:form-input name="firstName" col="6-lg" label-floating />
+  <c:form-input name="lastName" col="6-lg" label-floating />
+</c:form>
+<c:list type="unstyled" margin="start-3">
+  <c:list-item t:content="Signin" href="sumba:/signin" icon="person"/>
+  <c:list-item t:content="Forgot Password" href="sumba:/forgot-password" icon="key"/>
+  <c:list-item t:content="Goto Home" href="/" icon="house"/>
+</c:list>

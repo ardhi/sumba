@@ -24,7 +24,7 @@ const profile = {
         await recordUpdate(model, req.user.id, input)
         // signout and redirect to signin
         req.session.user = null
-        req.flash('notify', req.t('You\'ve successfully changed your password!'))
+        req.flash('notify', req.t('You\'ve successfully changed your password. Now please re-signin with your new password'))
         return reply.redirectTo('sumba:/signin')
       } catch (err) {
         error = err

@@ -22,8 +22,8 @@
   "Signout": "Keluar",
   "Signin": "Masuk",
   "Forgot Password": "Lupa Kata Sandi",
-  "Member Activation": "Aktivasi",
-  "New Member Signup": "Pendaftaran Anggota",
+  "User Activation": "Aktivasi Pengguna",
+  "New User Signup": "Pendaftaran Pengguna",
   "Update Profile": "Perbarui Profil",
   "Back to Profile": "Kembali ke Profil",
   "Display API Key": "Tampilkan Kunci API",
@@ -39,10 +39,12 @@
   "You've successfully signed in!": "Anda sukses melakukan login",
   "You've successfully signed out!": "Anda sukses melakukan logout",
   "Profile updated successfully": "Profil sukses diperbarui",
+  "You've successfully changed your password. Now please re-signin with your new password": "Anda sukses melakukan perbaruan kata kunci. Sekarang silahkan melakukan login ulang dengan kata kunci baru Anda",
   "field": {
-    "currentPassword": "Kata Kunci Saat Ini",
-    "newPassword": "Kata Kunci Baru",
-    "verifyNewPassword": "Verifikasi Kunci Baru",
+    "currentPassword": "Kata Sandi Saat Ini",
+    "newPassword": "Kata Sandi Baru",
+    "verifyPassword": "Verifikasi Kata Sandi",
+    "verifyNewPassword": "Verifikasi Sandi Baru",
     "usernameEmail": "Nama Pengguna/Surel"
   },
   "validation": {
