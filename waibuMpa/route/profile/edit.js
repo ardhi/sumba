@@ -2,8 +2,7 @@ const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { defaultsDeep } = this.app.bajo
-    const { attachmentCopyUploaded } = this.app.dobo
-    const { recordUpdate } = this.app.waibuDb
+    const { recordUpdate, attachmentCopyUploaded } = this.app.dobo
     const { has } = this.app.bajo.lib._
     const { hash } = this.app.bajoExtra
 
@@ -15,7 +14,8 @@ const profile = {
           const opts = { req, setField: 'profile', setFile: 'main.png' }
           await attachmentCopyUploaded('SumbaUser', req.user.id, opts)
         } else {
-          form = (await recordUpdate({ model: 'SumbaUser', id: req.user.id, body: form, req })).data
+          form = await recordUpdate('SumbaUser', req.user.id, form, { noFlash: true })
+          req.flash('notify', req.t('Your profile is successfully updated'))
         }
       } catch (err) {
         error = err
