@@ -1,7 +1,7 @@
 const signup = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep } = this.app.bajo
+    const { defaultsDeep, generateId } = this.app.bajo
     const { recordCreate } = this.app.waibuDb
 
     const form = defaultsDeep(req.body, {})
@@ -13,11 +13,17 @@ const signup = {
         minLength: 8,
         maxLength: 50,
         rules: ['ref:password']
+      }, {
+        name: 'agree',
+        type: 'boolean',
+        required: true
       }]
       try {
-        const fields = ['username', 'password', 'verifyPassword', 'email', 'firstName', 'lastName']
+        const fields = ['username', 'password', 'verifyPassword', 'email', 'firstName', 'lastName', 'agree']
         const validation = { ns: ['sumba', 'dobo'], fields, extFields }
-        const { data } = await recordCreate({ model: 'SumbaUser', req, reply, options: { validation } })
+        req.body.token = generateId()
+        const { data } = await recordCreate({ model: 'SumbaUser', req, reply, options: { validation, noFlash: true } })
+        req.flash('notify', 'User account successfully created')
         return reply.view('sumba.template:/signup/success.html', { form: req.body, data })
       } catch (err) {
         error = err

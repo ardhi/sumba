@@ -1,0 +1,13 @@
+---
+t:title: Reset Api Key
+---
+<c:form button reset-validation>
+  <c:form-plaintext name="apiKey" label-floating wrapper-margin="bottom-2" />
+  <c:form-password name="password" label-floating wrapper-margin="bottom-3" />
+</c:form>
+<c:list type="unstyled" margin="start-3">
+  <c:include resource="sumba.template:/partial/list-item/your-profile.html" />
+  <c:include resource="sumba.template:/partial/list-item/change-password.html" />
+  <c:include resource="sumba.template:/partial/list-item/signout.html" />
+  <c:include resource="sumba.template:/partial/list-item/goto-home.html" />
+</c:list>

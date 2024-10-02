@@ -1,0 +1,12 @@
+<c:modal id="api-key-modal" t:title="API Key">
+  <c:modal-body>
+    <pre><code id="api-key"><%= form.token %></code></pre>
+    <c:div flex="justify-content:between align-items:center" margin="top-3">
+      <c:a icon="arrowsRepeat" href="sumba:/reset-api-key" t:content="Reset" />
+      <div>
+        <c:btn color="primary" x-data @click="await wbs.copyToClipboard('#api-key')" t:content="Copy to Clipboard" />
+        <c:btn margin="start-2" color="secondary" dismiss t:content="Close" />
+      </div>
+    </c:div>
+  </c:modal-body>
+</c:modal>

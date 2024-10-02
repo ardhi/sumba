@@ -1,6 +1,8 @@
 ---
 t:title: Your Profile
 layout: sumba.layout:/wide.html
+scripts:
+  - waibuExtra.virtual:/holderjs/holder.min.js
 ---
 <c:grid-row gutter="4">
   <c:grid-col col="8-md">
@@ -35,17 +37,9 @@ layout: sumba.layout:/wide.html
       <c:list-item t:content="Display API Key" target="api-key-modal"/>
     </c:list>
     <c:list type="unstyled" margin="top-3">
-      <c:list-item t:content="Signout" href="sumba:/signout" icon="key"/>
-      <c:list-item href="/" t:content="Goto Home" icon="house"/>
+      <c:include resource="sumba.template:/partial/list-item/signout.html" />
+      <c:include resource="sumba.template:/partial/list-item/goto-home.html" />
     </c:list>
-    <c:modal id="api-key-modal" t:title="API Key">
-      <c:modal-body>
-        <pre><code id="api-key"><%= form.token %></code></pre>
-      </c:modal-body>
-      <c:modal-footer>
-        <c:btn color="primary" x-data @click="await copyContentToClipboard('api-key')" t:content="Copy to Clipboard" />
-        <c:btn color="secondary" dismiss t:content="Close" />
-      </c:modal-footer>
-    </c:modal>
+    <c:include resource="sumba.template:/partial/api-key-modal.html" />
   </c:grid-col>
 </c:grid-row>

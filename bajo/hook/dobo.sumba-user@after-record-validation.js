@@ -1,10 +1,9 @@
 async function doboSumbaUserBeforeRecordUpdate (body, options) {
   const { isBcrypt, isMd5, hash } = this.app.bajoExtra
-  const { isEmpty } = this.app.bajo.lib._
+  const { has } = this.app.bajo.lib._
 
-  if (!isEmpty(body.password) && !isBcrypt(body.password)) body.password = await hash(body.password, 'bcrypt')
-  if (isEmpty(body.token)) body.token = await hash(await hash(body.password))
-  else if (!isMd5(body.token)) body.token = await hash(await hash(body.token))
+  if (has(body, 'password') && !isBcrypt(body.password)) body.password = await hash(body.password, 'bcrypt')
+  if (has(body, 'token') && !isMd5(body.token)) body.token = await hash(body.token)
 }
 
 export default doboSumbaUserBeforeRecordUpdate

@@ -8,9 +8,10 @@ t:title: New User Signup
   <c:form-input type="email" name="email" label-floating />
   <c:form-input name="firstName" col="6-lg" label-floating />
   <c:form-input name="lastName" col="6-lg" label-floating />
+  <c:form-check name="agree" col="12" value="true" t:label="I agree to the <a href='./info/terms-conditions'>Terms and Conditions</a>" />
 </c:form>
 <c:list type="unstyled" margin="start-3">
-  <c:list-item t:content="Signin" href="sumba:/signin" icon="person"/>
-  <c:list-item t:content="Forgot Password" href="sumba:/forgot-password" icon="key"/>
-  <c:list-item t:content="Goto Home" href="/" icon="house"/>
+  <c:include resource="sumba.template:/partial/list-item/forgot-password.html" />
+  <c:include resource="sumba.template:/partial/list-item/signin.html" />
+  <c:include resource="sumba.template:/partial/list-item/goto-home.html" />
 </c:list>

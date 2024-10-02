@@ -1,6 +1,8 @@
 ---
 t:title: Edit Your Profile
 layout: sumba.layout:/wide.html
+scripts:
+  - waibuExtra.virtual:/holderjs/holder.min.js
 ---
 <c:form referer>
   <c:grid-row>
@@ -35,7 +37,7 @@ layout: sumba.layout:/wide.html
         <c:btn type="submit" t:content="Submit" color="primary" />
       </c:btn-group>
       <% if (arguments[0].error) { %>
-      <c:btn x-data @click="invalidateForm" href="#" icon="remove" color="link" size="sm" margin="top-2">
+      <c:btn x-data @click="wbs.invalidateForm" href="#" icon="remove" color="link" size="sm" margin="top-2">
         <c:t>Clear Invalid Fields</c:t>
       </c:btn>
       <% } %>
@@ -47,18 +49,10 @@ layout: sumba.layout:/wide.html
       </c:list>
       <c:list type="unstyled" margin="top-3">
         <c:list-item href="sumba:/profile" t:content="Back to Profile" icon="arrowStart" />
-        <c:list-item t:content="Signout" href="sumba:/signout" icon="key"/>
-        <c:list-item href="/" t:content="Goto Home" icon="house" />
+        <c:include resource="sumba.template:/partial/list-item/signout.html" />
+        <c:include resource="sumba.template:/partial/list-item/goto-home.html" />
       </c:list>
-      <c:modal id="api-key-modal" t:title="API Key">
-        <c:modal-body>
-          <pre><code id="api-key"><%= form.token %></code></pre>
-        </c:modal-body>
-        <c:modal-footer>
-          <c:btn color="primary" x-data @click="await copyContentToClipboard('api-key')" t:content="Copy to Clipboard" />
-          <c:btn color="secondary" dismiss t:content="Close" />
-        </c:modal-footer>
-      </c:modal>
+      <c:include resource="sumba.template:/partial/api-key-modal.html" />
     </c:grid-col>
   </c:grid-row>
 </c:form>
