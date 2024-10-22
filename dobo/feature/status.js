@@ -5,7 +5,8 @@ async function status (opts = {}) {
       name: opts.fieldName ?? 'status',
       type: 'string',
       maxLength: 50,
-      index: true
+      index: true,
+      values: ['UNVERIFIED', 'ACTIVE', 'INACTIVE']
     }],
     hook: {
       beforeCreate: async function ({ body }) {

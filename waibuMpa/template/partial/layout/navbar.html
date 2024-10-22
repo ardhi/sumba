@@ -1,0 +1,18 @@
+<c:navbar position="type:sticky-top" background="color:primary-subtle" expandable padding="x-3" border="side:bottom">
+  <c:grid-row dim="width-100">
+    <c:grid-col col="1-md 2-lg"></c:grid-col>
+    <c:grid-col col="10-md 8-lg">
+      <c:navbar-brand content="<%= page.appTitle %>" />
+      <c:nav tag="ul">
+      </c:nav>
+      <c:nav tag="ul" dim="width:100" flex="justify-content:end">
+        <c:nav-dropdown-user no-menu />
+        <c:nav-divider />
+        <c:nav-toggle-fullscreen />
+        <c:nav-dropdown-darkmode dropdown-menu="end" />
+        <c:nav-dropdown-language dropdown-menu="end" />
+      </c:nav>
+    </c:grid-col>
+    <c:grid-col col="1-md 2-lg"></c:grid-col>
+  </c:grid-row>
+</c:navbar>

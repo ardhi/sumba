@@ -1,0 +1,33 @@
+{
+  "common": {
+    "layout": [
+      { "name": "Meta", "fields": ["id", "createdAt", "updatedAt"] },
+      { "name": "Account", "fields": ["username", "email", "status:4-md 6-sm", "siteId:4-md 6-sm", "firstName", "lastName"] },
+      { "name": "Address", "fields": ["address1:12", "address2:12", "city:6-md 8-sm", "zipCode:2-md 4-sm", "provinceState:4-md", { "name": "country", "col": "6-md", "component": "form-select-country" }, "phone:6-md", "website:12"] },
+      { "name": "Social Media", "fields": ["twitter:3-md 6-sm", "instagram:3-md 6-sm", "facebook:3-md 6-sm", "linkedIn:3-md 6-sm"] }
+    ],
+    "stat": {
+      "aggregate": [
+        { "fields": ["status"], "group": "status", "aggregate": ["count"] },
+        { "fields": ["country"], "group": "country", "aggregate": ["count"] }
+      ]
+    }
+  },
+  "view": {
+    "list": {
+      "qs": {
+        "sort": "username:1",
+        "limit": 10
+      },
+      "fields": ["createdAt", "status", "siteId", "username", "email", "firstName", "lastName", "city", "zipCode", "provinceState", "country", "phone"]
+    },
+    "details": {
+    },
+    "add": {
+      "hidden": ["id", "createdAt", "updatedAt"]
+    },
+    "edit": {
+      "readonly": ["id", "createdAt", "updatedAt", "username"]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<c:sidebar background="color:primary-subtle" mini border="side:end">
+  <c:div dim="height:100" flex="column">
+    <a href="/" class="d-block link-body-emphasis text-decoration-none">
+      <c:img height="56" fluid/>
+    </a>
+    <c:nav tag="ul" flex="column" margin="bottom-auto" text="align:center" type="pills">
+      <% for (const s of sidebar) { %>
+      <c:nav-item href="<%= s.href %>" border="side:bottom" rounded="width:0" t:tooltip="<%= s.tooltip %>" tooltip-placement="right" <% if (s.active) print('active') %>>
+        <c:icon name="<%= s.icon %>" style="font-size: 1.5rem;" />
+      </c:nav-item>
+      <% } %>
+    </c:nav>
+    <% if (_meta.user) { %>
+    <c:nav tag="ul" flex="column" text="align:center" type="pills">
+      <c:sumba-nav-item-signout border="side:top" rounded="width:0" t:tooltip="Signout" tooltip-placement="right" />
+    </c:nav>
+    <% } %>
+  </c:div>
+</c:sidebar>

@@ -2,13 +2,13 @@
 t:title: pret
 ---
 <c:page-start>
-  <title><%= frontMatter.title ?? page.title %></title>
+  <title><%= page.fullTitle %></title>
 </c:page-start>
 <c:container flex="align-items:center" dim="height:viewport">
   <c:grid-row dim="width:100">
     <c:grid-col col="4-md"></c:grid-col>
     <c:grid-col col="4-md">
-      <c:heading margin="bottom-4" text="align:center" type="3-display" content="<%= frontMatter.title ?? page.title %>" />
+      <c:heading margin="bottom-4" text="align:center" type="3-display" content="<%= page.title %>" />
       <!-- body -->
       <c:include resource="sumba.template:/partial/layout/footer.html" />
     </c:grid-col>

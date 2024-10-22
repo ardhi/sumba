@@ -2,18 +2,29 @@
   <div id="id1"></div>
 </div>
 
-<c:btn x-data @click="await wbs.confirmation('Lorem veniam sint aliquip velit excepteur eiusmod. Enim nostrud non ipsum occaecat magna amet eu ex ut eiusmod. Ea excepteur voluptate quis commodo. Fugiat eu veniam excepteur nisi. Ex sit consectetur esse et laboris. Consequat pariatur exercitation magna veniam irure. Cupidatat Lorem cillum et consectetur irure esse ex fugiat aute exercitation Lorem tempor proident.', { okHandler: 'onOk' })">Go!</c:btn>
-<script>
-  let mainId
-  async function onOk (id) {
-    mainId = id
-    await wbs.confirmation('You pressed ok', { okHandler: 'onOk2' })
+<table x-data="{
+  selected: [],
+  toggle (id) {
+    if (this.selected.includes(id)) {
+      const idx = this.selected.indexOf(id)
+      this.selected.splice(idx, 1)
+    } else this.selected.push(id)
   }
-
-  async function onOk2 (id) {
-    const modal = wbs.getInstance('Modal', id)
-    modal.hide()
-    const modalMain = wbs.getInstance('Modal', mainId)
-    modalMain.hide()
-  }
-</script>
+}" x-init="$watch('selected', val => console.log(val))">
+  <thead>
+    <tr>
+      <th><input type="checkbox" /></th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr @click="toggle('john')">
+      <td><input x-model="selected" type="checkbox" value="john"/></td>
+      <td>John</td>
+    </tr>
+    <tr @click="toggle('jane')">
+      <td><input x-model="selected" type="checkbox" value="jane"/></td>
+      <td>Jane</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,15 +1,15 @@
-<c:page-start>
-  <title><%= frontMatter.title ?? page.title %></title>
-</c:page-start>
-<c:container margin="y-5">
-  <c:grid-row dim="width:100">
-    <c:grid-col col="1-md 2-lg"></c:grid-col>
-    <c:grid-col col="10-md 8-lg">
-      <c:heading margin="bottom-4" text="align:center" type="3-display" content="<%= frontMatter.title ?? page.title %>" />
-      <!-- body -->
-      <c:include resource="sumba.template:/partial/layout/footer.html" />
-    </c:grid-col>
-    <c:grid-col col="1-md 2-lg"></c:grid-col>
-  </c:grid-row>
-</c:container>
-<c:page-end/>
+<c:page-start title="<%= page.fullTitle %>" />
+<c:main>
+  <c:include resource="sumba.template:/partial/layout/sidebar.html" />
+  <c:div style="margin-left:3.5rem">
+    <c:include resource="sumba.template:/partial/layout/navbar.html" />
+    <c:include resource="sumba.template:/partial/layout/breadcrumb.html" />
+    <c:container margin="start-0 bottom-5" padding="x-3">
+      <c:div style="max-width: 992px;">
+        <!-- body -->
+        <c:include resource="sumba.template:/partial/layout/footer.html" />
+      </c:div>
+    </c:container>
+  </c:div>
+</c:main>
+<c:page-end back-to-top />

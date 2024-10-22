@@ -7,7 +7,7 @@ async function getUserByUsernamePassword (username = '', password = '', req) {
   const bcrypt = await importPkg('bajoExtra:bcrypt')
 
   const query = { username }
-  const rows = await recordFind(model, { query }, { req, ignoreHidden: true, noHook: true })
+  const rows = await recordFind(model, { query }, { req, forceNoHidden: true, noHook: true })
   if (rows.length === 0) throw this.error('Validation Error', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })
   const rec = rows[0]
   if (rec.status !== 'ACTIVE') throw this.error('Validation Error', { details: ['User is inactive or temporarily disabled'], statusCode: 401 })

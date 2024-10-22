@@ -1,5 +1,6 @@
 {
   "multiSite": false,
+  "prefix": "/your-stuff",
   "auth": {
     "common": {
       "apiKey": {

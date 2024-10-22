@@ -21,6 +21,7 @@
   "Change Password": "Ganti Kata Sandi",
   "Signout": "Keluar",
   "Signin": "Masuk",
+  "Your Stuff": "Perkakas Anda",
   "Forgot Password": "Lupa Kata Sandi",
   "User Activation": "Aktivasi Pengguna",
   "New User Signup": "Pendaftaran Pengguna",
@@ -44,13 +45,16 @@
   "User account successfully activated": "Akun pengguna sukses diaktivasi",
   "User account successfully created": "Akun pengguna sukses dibuat",
   "Reset API Key": "Reset Kunci API",
+  "Person In Charge": "Penanggung Jawab",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
     "verifyPassword": "Verifikasi Kata Sandi",
     "verifyNewPassword": "Verifikasi Sandi Baru",
     "usernameEmail": "Nama Pengguna/Surel",
-    "apiKey": "Kunci API"
+    "apiKey": "Kunci API",
+    "hostname": "Nama Host",
+    "iconset": "Iconset"
   },
   "validation": {
     "password.minOfUppercase": "Mengandung setidaknya {{min}} huruf besar",

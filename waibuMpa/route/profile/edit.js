@@ -2,11 +2,12 @@ const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { defaultsDeep } = this.app.bajo
-    const { recordUpdate, attachmentCopyUploaded } = this.app.dobo
+    const { attachmentCopyUploaded } = this.app.dobo
+    const { recordUpdate, recordGet } = this.app.waibuDb
     const { has } = this.app.bajo.lib._
     const { hash } = this.app.bajoExtra
-
-    let form = defaultsDeep(req.body, req.user)
+    const resp = await recordGet({ model: 'SumbaUser', req, id: req.user.id, options: { forceNoHidden: true, noHook: true, noCache: true } })
+    let form = defaultsDeep(req.body, resp.data)
     let error
     if (req.method === 'POST') {
       try {

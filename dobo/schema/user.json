@@ -43,6 +43,7 @@
     "fields": ["email", "siteId"],
     "unique": true
   }],
+  "hidden": ["password", "token"],
   "feature": {
     "sumba:address": true,
     "sumba:social": true,
