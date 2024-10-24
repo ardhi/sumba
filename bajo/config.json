@@ -1,6 +1,8 @@
 {
   "multiSite": false,
-  "prefix": "/your-stuff",
+  "waibu": {
+    "prefix": "your-stuff"
+  },
   "auth": {
     "common": {
       "apiKey": {
