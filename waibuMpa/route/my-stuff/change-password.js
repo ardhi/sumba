@@ -1,7 +1,6 @@
-import passwordRule from '../../lib/password-rule.js'
+import passwordRule from '../../../lib/password-rule.js'
 
 const profile = {
-
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { defaultsDeep, importPkg } = this.app.bajo
@@ -36,7 +35,7 @@ const profile = {
         error = err
       }
     }
-    return reply.view('sumba.template:/change-password.html', { form, error })
+    return reply.view('sumba.template:/my-stuff/change-password.html', { form, error })
   }
 }
 

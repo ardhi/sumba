@@ -1,12 +1,11 @@
 ---
-t:title: Signin
+t:title: User Activation
 ---
 <c:form button reset-validation referer>
-  <c:form-input name="username" label-floating wrapper-margin="bottom-2" />
-  <c:form-password name="password" label-floating wrapper-margin="bottom-3" />
+  <c:form-input name="key" label-floating />
 </c:form>
 <c:list type="unstyled" margin="start-3">
+  <c:include resource="sumba.partial:/list-item/signin.html" />
   <c:include resource="sumba.partial:/list-item/forgot-password.html" />
-  <c:include resource="sumba.partial:/list-item/user-signup.html" />
   <c:include resource="sumba.partial:/list-item/goto-home.html" />
 </c:list>

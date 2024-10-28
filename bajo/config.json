@@ -1,7 +1,20 @@
 {
   "multiSite": false,
   "waibu": {
-    "prefix": "your-stuff"
+    "title": "Portal",
+    "prefix": "portal"
+  },
+  "waibuMpa": {
+    "home": "sumba:/my-stuff/profile",
+    "icon": "globe",
+    "redirect": {
+      "/": "sumba:/my-stuff/profile",
+      "/my-stuff": "sumba:/my-stuff/profile",
+      "/user": "sumba:/my-stuff/profile"
+    }
+  },
+  "waibuAdmin": {
+    "modelDisabled": "all"
   },
   "auth": {
     "common": {
@@ -38,7 +51,7 @@
   "redirect": {
     "signin": "sumba:/signin",
     "signout": "sumba:/signout",
-    "home": "sumba:/home"
+    "home": "sumba:/"
   },
   "userPassword": {
     "minUppercase": 1,

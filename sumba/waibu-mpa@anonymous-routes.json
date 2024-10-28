@@ -1,6 +1,4 @@
 {
-  "/signup": ["*"],
-  "/activation": ["*"],
-  "/change-password": ["*"],
+  "/user/*": ["*"],
   "/signin": ["*"]
 }

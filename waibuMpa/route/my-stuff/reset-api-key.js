@@ -31,7 +31,7 @@ const resetApiKey = {
         error = err
       }
     }
-    return reply.view('sumba.template:/reset-api-key.html', { form, error })
+    return reply.view('sumba.template:/my-stuff/reset-api-key.html', { form, error })
   }
 }
 

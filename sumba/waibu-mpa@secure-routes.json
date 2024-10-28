@@ -1,5 +1,4 @@
 {
-  "/profile": ["*"],
-  "/change-password": ["*"],
+  "/my-stuff/*": ["*"],
   "/signout": ["*"]
 }

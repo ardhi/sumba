@@ -23,7 +23,7 @@ const profile = {
       }
     }
     form.token = await hash(form.token)
-    return reply.view('sumba.template:/profile/edit.html', { form, error })
+    return reply.view('sumba.template:/my-stuff/profile/edit.html', { form, error })
   }
 }
 
