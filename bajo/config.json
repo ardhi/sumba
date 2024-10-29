@@ -10,7 +10,8 @@
     "redirect": {
       "/": "sumba:/my-stuff/profile",
       "/my-stuff": "sumba:/my-stuff/profile",
-      "/user": "sumba:/my-stuff/profile"
+      "/user": "sumba:/my-stuff/profile",
+      "/db/export": "sumba:/db/export/list"
     }
   },
   "waibuAdmin": {
