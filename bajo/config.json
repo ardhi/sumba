@@ -10,6 +10,7 @@
     "redirect": {
       "/": "sumba:/my-stuff/profile",
       "/my-stuff": "sumba:/my-stuff/profile",
+      "/info": "sumba:/info/about-us",
       "/user": "sumba:/my-stuff/profile",
       "/db/export": "sumba:/db/export/list"
     }

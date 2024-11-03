@@ -8,7 +8,7 @@ async function afterBuildLocals (locals, req) {
   } else {
     items.push({ icon: 'signin', tooltip: 'Signin', href: routePath('sumba:/signin') })
     items.push({ icon: 'key', tooltip: 'Forgot Password', href: routePath('sumba:/user/forgot-password') })
-    items.push({ icon: 'person', tooltip: 'New User Signup', href: routePath('sumba:/user/signup') })
+    items.push({ icon: 'personAdd', tooltip: 'New User Signup', href: routePath('sumba:/user/signup') })
   }
   for (const item of items) {
     if (locals._meta.url.startsWith(item.href)) item.active = true
