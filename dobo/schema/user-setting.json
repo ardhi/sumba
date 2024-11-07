@@ -8,5 +8,5 @@
     "type": "string",
     "maxLength": 50
   }],
-  "feature": ["sumba:userId", "sumba:siteId", "updatedAt"]
+  "feature": ["sumba.userId", "sumba.siteId", "updatedAt"]
 }

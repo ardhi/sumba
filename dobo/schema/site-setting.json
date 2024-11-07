@@ -12,5 +12,5 @@
     "type": "boolean",
     "default": false
   }],
-  "feature": ["sumba:siteId", "updatedAt"]
+  "feature": ["sumba.siteId", "updatedAt"]
 }

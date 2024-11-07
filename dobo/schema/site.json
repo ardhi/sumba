@@ -28,10 +28,10 @@
     "rules": ["email"]
   }],
   "feature": {
-    "sumba:personInCharge": true,
-    "sumba:address": true,
-    "sumba:social": true,
-    "sumba:status": { "default": "ACTIVE" },
+    "sumba.personInCharge": true,
+    "sumba.address": true,
+    "sumba.social": true,
+    "sumba.status": { "default": "ACTIVE" },
     "createdAt": true,
     "updatedAt": true
   }

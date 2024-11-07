@@ -17,5 +17,5 @@
     "default": "NEW",
     "values": ["NEW", "PROCESSING", "COMPLETE", "FAIL"]
   }],
-  "feature": ["sumba:siteId", "sumba:userId", "createdAt", "updatedAt"]
+  "feature": ["sumba.siteId", "sumba.userId", "createdAt", "updatedAt"]
 }

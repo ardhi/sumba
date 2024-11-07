@@ -45,10 +45,10 @@
   }],
   "hidden": ["password", "token"],
   "feature": {
-    "sumba:address": true,
-    "sumba:social": true,
-    "sumba:status": { "default": "UNVERIFIED" },
-    "sumba:siteId": true,
+    "sumba.address": true,
+    "sumba.social": true,
+    "sumba.status": { "default": "UNVERIFIED" },
+    "sumba.siteId": true,
     "createdAt": true,
     "updatedAt": true
   }
