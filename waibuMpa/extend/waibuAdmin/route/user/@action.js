@@ -3,12 +3,8 @@ const action = {
   title: 'User Manager',
   handler: async function (req, reply) {
     const { importModule } = this.app.bajo
-    const handler = await importModule('waibuDb:/lib/crud/all-handler.js')
-    const model = 'SumbaUser'
-    const { action } = req.params
-    const template = `waibuAdmin.template:/crud/${action}.html`
-    const params = { page: { layout: `waibuAdmin.layout:/crud/${action === 'list' ? 'wide' : 'default'}.html` } }
-    return handler.call(this, { model, req, reply, action, params, template })
+    const crudSkel = await importModule('waibuAdmin:/lib/crud-skel.js')
+    return await crudSkel.call(this, 'SumbaUser', req, reply)
   }
 }
 
