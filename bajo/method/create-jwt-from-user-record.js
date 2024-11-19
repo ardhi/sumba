@@ -1,5 +1,6 @@
 async function createJwtFromUserRecord (rec) {
-  const { importPkg, dayjs } = this.app.bajo
+  const { importPkg } = this.app.bajo
+  const { dayjs } = this.app.bajo.lib
   const { hash } = this.app.bajoExtra
   const { get, pick } = this.app.bajo.lib._
 
