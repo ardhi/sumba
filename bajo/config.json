@@ -63,5 +63,5 @@
     "noWhitespace": false,
     "latinOnlyChars": false
   },
-  "dependencies": ["waibu-db", "bajo-extra", "bajo-common-db", "waibu-alpinejs"]
+  "dependencies": ["waibu-db", "bajo-extra", "bajo-common-db"]
 }
