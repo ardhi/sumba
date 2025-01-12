@@ -1,4 +1,4 @@
-import { data } from '../../../lib/token-schema.js'
+import { data } from '../../../../lib/token-schema.js'
 
 async function get ({ ctx }) {
   const schema = {

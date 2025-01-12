@@ -2,7 +2,7 @@ const model = 'SumbaUser'
 const hidden = ['password', 'token', 'siteId']
 
 async function get ({ ctx }) {
-  const { recordUpdate } = this.app.waibu
+  const { recordUpdate } = this.app.waibuDb
   const { omit } = this.app.bajo.lib._
 
   const { docSchemaModel } = this.app.waibuRestApi

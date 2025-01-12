@@ -1,4 +1,4 @@
-import { data, body } from '../../../../lib/token-schema.js'
+import { data, body } from '../../../../../lib/token-schema.js'
 
 async function create () {
   const schema = {

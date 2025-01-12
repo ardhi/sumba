@@ -1,8 +1,8 @@
 {
   "multiSite": false,
   "waibu": {
-    "title": "Site Network",
-    "prefix": "network"
+    "title": "User Manager",
+    "prefix": "site"
   },
   "waibuMpa": {
     "home": "sumba:/my-stuff/profile",

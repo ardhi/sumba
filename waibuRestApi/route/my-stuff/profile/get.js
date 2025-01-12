@@ -2,7 +2,7 @@ const model = 'SumbaUser'
 const hidden = ['password', 'token', 'siteId']
 
 async function get ({ ctx }) {
-  const { recordGet } = this.app.waibu
+  const { recordGet } = this.app.waibuDb
   const { docSchemaModel } = this.app.waibuRestApi
   const schema = await docSchemaModel({ model, method: 'get', ctx, options: { hidden, noId: true } })
   const handler = async function get (req, reply, options) {
