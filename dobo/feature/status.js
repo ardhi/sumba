@@ -6,7 +6,7 @@ async function status (opts = {}) {
       type: 'string',
       maxLength: 50,
       index: true,
-      values: ['UNVERIFIED', 'ACTIVE', 'INACTIVE']
+      values: opts.values ?? ['UNVERIFIED', 'ACTIVE', 'INACTIVE']
     }],
     hook: {
       beforeCreate: async function ({ body }) {

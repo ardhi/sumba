@@ -1,0 +1,21 @@
+{
+  "properties": [
+    "id::50:primary:true",
+    "firstName::50:true:true",
+    "lastName::50:true:true",
+    "email::50:true:true",
+    "category::50:true",
+    "subject::255::true",
+    "message:text"
+  ],
+  "feature": {
+    "sumba.status": {
+      "default": "NEW",
+      "values": ["NEW", "ACK"]
+    },
+    "sumba.userId": true,
+    "sumba.siteId": true,
+    "createdAt": true,
+    "updatedAt": true
+  }
+}

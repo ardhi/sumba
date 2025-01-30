@@ -47,6 +47,7 @@
   "User account successfully created": "Akun pengguna sukses dibuat",
   "Reset API Key": "Reset Kunci API",
   "Person In Charge": "Penanggung Jawab",
+  "Contact Form": "Form Kontak",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
@@ -55,7 +56,9 @@
     "usernameEmail": "Nama Pengguna/Surel",
     "apiKey": "Kunci API",
     "hostname": "Nama Host",
-    "iconset": "Iconset"
+    "iconset": "Iconset",
+    "subject": "Judul",
+    "message": "Pesan"
   },
   "validation": {
     "password.minOfUppercase": "Mengandung setidaknya {{min}} huruf besar",
