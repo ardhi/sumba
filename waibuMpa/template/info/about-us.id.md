@@ -1,5 +1,5 @@
 ---
-layout: sumba.layout:/wide.html
+layout: sumba.layout:/info.html
 title: Wakakak
 ---
 idddd

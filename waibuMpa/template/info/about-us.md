@@ -1,5 +1,5 @@
 ---
-layout: sumba.layout:/wide.html
+layout: sumba.layout:/info.html
 t:title: About Us
 ---
 Dolore aliqua excepteur consequat sint anim eiusmod aliqua ex in. Consequat velit officia ipsum ut proident magna laborum aliqua irure quis tempor dolor. Lorem duis duis sint adipisicing do in mollit cillum proident nisi adipisicing dolor. Excepteur mollit eu cillum aute aliquip laboris incididunt officia dolore qui quis cupidatat anim amet. Voluptate labore consequat esse culpa ea. Aliqua cupidatat excepteur non laborum enim minim.

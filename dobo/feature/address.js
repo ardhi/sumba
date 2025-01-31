@@ -32,6 +32,10 @@ async function address (opts = {}) {
       type: 'string',
       maxLength: 50
     }, {
+      name: 'waPhone',
+      type: 'string',
+      maxLength: 50
+    }, {
       name: 'website',
       type: 'string',
       maxLength: 100

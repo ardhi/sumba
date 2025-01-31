@@ -1,19 +1,19 @@
 async function social (opts = {}) {
   return {
     properties: [{
-      name: 'twitter',
+      name: 'socX',
       type: 'string',
       maxLength: 50
     }, {
-      name: 'instagram',
+      name: 'socInstagram',
       type: 'string',
       maxLength: 50
     }, {
-      name: 'facebook',
+      name: 'socFacebook',
       type: 'string',
       maxLength: 50
     }, {
-      name: 'linkedIn',
+      name: 'socLinkedIn',
       type: 'string',
       maxLength: 50
     }]
