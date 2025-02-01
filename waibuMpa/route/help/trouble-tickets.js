@@ -1,4 +1,4 @@
-const contactForm = {
+const troubleTicketsForm = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { defaultsDeep } = this.app.bajo
@@ -12,13 +12,13 @@ const contactForm = {
       try {
         const { data } = await recordCreate({ model: 'SumbaContactForm', req, reply, options: { noFlash: true } })
         req.flash('notify', 'Contact form successfully submitted')
-        return reply.view('sumba.template:/contact-form/success.html', { form: req.body, data })
+        return reply.view('sumba.template:/help/trouble-tickets/success.html', { form: req.body, data })
       } catch (err) {
         error = err
       }
     }
-    return reply.view('sumba.template:/contact-form/form.html', { form, error })
+    return reply.view('sumba.template:/help/trouble-tickets/list.html', { form, error })
   }
 }
 
-export default contactForm
+export default troubleTicketsForm

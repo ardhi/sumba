@@ -115,4 +115,4 @@ If you have any questions about these Terms and Conditions, You can contact us:
 
 
 - By email: <<%= _meta.site.email %>>
-- By visiting this page on our website: [Contact Form](../contact-form)
+- By visiting this page on our website: [Contact Form](sumba:/help/contact-form)

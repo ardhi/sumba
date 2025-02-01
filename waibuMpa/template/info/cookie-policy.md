@@ -71,4 +71,5 @@ For any other web browser, please visit your web browser's official web pages.
 
 If you have any questions about this Cookies Policy, You can contact us:
 
-- By visiting this page on our website: [Contact Form](/site/contact-form)
+- By email: <<%= _meta.site.email %>>
+- By visiting this page on our website: [Contact Form](sumba:/help/contact-form)
