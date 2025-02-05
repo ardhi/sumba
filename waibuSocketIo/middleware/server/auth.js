@@ -1,15 +1,12 @@
 export default {
   level: 1,
   handler: async function (socket) {
-    const { importPkg } = this.app.bajo
     const { merge } = this.app.bajo.lib._
     const { recordGet } = this.app.dobo
+    const { getSessionId } = this.app.waibuMpa
 
-    const fcookie = await importPkg('waibu:@fastify/cookie')
     if (socket.handshake) {
-      const cookie = fcookie.parse(socket.request.headers.cookie) ?? {}
-      const key = this.config.auth.common.session.cookieName
-      const sessionId = (cookie[key] ?? '').split('.')[0]
+      const sessionId = await getSessionId(socket.request.headers.cookie)
       const resp = await recordGet('WbmpaSession', sessionId, { noHook: true, thrownNotFound: false })
       if (resp) {
         const session = JSON.parse(resp.session) ?? {}
