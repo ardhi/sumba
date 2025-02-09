@@ -3,7 +3,7 @@ const signin = {
   handler: async function (req, reply) {
     const { getUserFromUsernamePassword } = this
     const { runHook } = this.app.bajo
-    const { isEmpty, pick } = this.app.bajo.lib._
+    const { isEmpty, omit } = this.app.bajo.lib._
     const { getSessionId } = this.app.waibuMpa
 
     let { username, password, referer } = req.body || {}
@@ -12,7 +12,7 @@ const signin = {
     let error
     if (req.method === 'POST') {
       try {
-        const user = pick(await getUserFromUsernamePassword(username, password, req), ['id', 'username', 'email', 'siteId'])
+        const user = omit(await getUserFromUsernamePassword(username, password, req), ['password', 'token'])
         req.session.user = user
         const sid = await getSessionId(req.headers.cookie)
         if (this.bajoEmitter) await this.app.bajoEmitter.emit(`${this.name}.signin`, user, sid)

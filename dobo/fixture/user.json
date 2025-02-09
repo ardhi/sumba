@@ -4,6 +4,11 @@
   "email": "admin@domain.com",
   "firstName": "Site",
   "lastName": "Admin",
+  "address1": "Address Line 1",
+  "address2": "Address Line 2",
+  "city": "City Name",
+  "zipCode": "12345",
+  "provinceState": "State",
   "country": "US",
   "siteId": "?:SumbaSite::alias:default",
   "status": "ACTIVE"
