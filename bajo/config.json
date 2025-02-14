@@ -52,8 +52,9 @@
   },
   "redirect": {
     "signin": "sumba:/signin",
+    "afterSignin": "/",
     "signout": "sumba:/signout",
-    "home": "sumba:/"
+    "afterSignout": "/"
   },
   "userPassword": {
     "minUppercase": 1,

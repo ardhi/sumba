@@ -2,7 +2,7 @@ const signout = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { runHook } = this.app.bajo
-    const { isEmpty } = this.app.bajo.lib._
+    // const { isEmpty } = this.app.bajo.lib._
     const { getSessionId } = this.app.waibuMpa
 
     let { referer } = req.body || {}
@@ -15,7 +15,8 @@ const signout = {
       if (this.bajoEmitter) await this.app.bajoEmitter.emit(`${this.name}.sigout`, user, sid)
       await runHook(`${this.name}:afterSignout`, user, sid, req)
       const { query, params } = req
-      const url = !isEmpty(referer) ? referer : this.config.redirect.home
+      // const url = !isEmpty(referer) ? referer : this.config.redirect.home
+      const url = this.config.redirect.afterSignout
       req.flash('notify', req.t('You\'ve successfully signed out!'))
       return reply.redirectTo(url, { query, params })
     }
