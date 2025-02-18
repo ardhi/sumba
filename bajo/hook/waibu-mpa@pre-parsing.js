@@ -2,7 +2,7 @@ import checkUserId from '../../lib/check-user-id.js'
 import checkTheme from '../../lib/check-theme.js'
 import checkIconset from '../../lib/check-iconset.js'
 
-const onRequest = {
+const preParsing = {
   level: 10,
   handler: async function (req, reply) {
     const { routePath } = this.app.waibu
@@ -29,4 +29,4 @@ const onRequest = {
   }
 }
 
-export default onRequest
+export default preParsing
