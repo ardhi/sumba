@@ -11,7 +11,7 @@ export async function checker (model, id, options = {}) {
       const filter = { query: { id }, limit: 1 }
       filter.query[i] = rec
       const rows = await recordFind(model, filter)
-      if (rows.length === 0) throw this.error('Record \'%s@%s\' not found!', id, model, { statusCode: 404 })
+      if (rows.length === 0) throw this.error('recordNotFound%s%s', id, model, { statusCode: 404 })
     }
   }
 }

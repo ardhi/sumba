@@ -62,6 +62,11 @@
   "formSubmittedInfo": "Please allow us to read your submission thoroughly and we'll get back to you rightaway",
   "thankYou": "Thank you!",
   "warningMemberOnly%s": "Please authenticate yourself first, because the <a href=\"%s\">page<a> your're trying to access is a member only page",
+  "collectingRouteGuards": "Collecting route guards:",
+  "secureRoutes%d": "- Secure routes: %d",
+  "secureInvRoutes%d": "- Secure, inverted routes: %d",
+  "anonRoutes%d": "- Anonymous routes: %d",
+  "anonInvRoutes%d": "- Anonymous, inverted routes: %d",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

@@ -19,8 +19,8 @@ async function verifyJwt (req, reply, source) {
   const id = decoded.payload.uid
   try {
     const rec = await recordGet('SumbaUser', id, { req, noHook: true })
-    if (!rec) throw this.error('Invalid token or token is expired', { statusCode: 401 })
-    if (rec.status !== 'ACTIVE') throw this.error('User is inactive or temporarily disabled', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
+    if (!rec) throw this.error('invalidToken', { statusCode: 401 })
+    if (rec.status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
     req.user = await getUser(rec)
     return true
   } catch (err) {

@@ -62,6 +62,11 @@
   "formSubmittedInfo": "Kami akan mereview sebentar kiriman Anda dan akan menghubungi Anda kembali secepatnya",
   "thankYou": "Thank you!",
   "warningMemberOnly%s": "Silahkan melalukan otentikasi terlebih dahulu karena <a href=\"%s\">halaman<a> yang akan Anda akses adalah salah satu halaman khusus anggota saja",
+  "collectingRouteGuards": "Mengoleksi pertahanan jalur:",
+  "secureRoutes%d": "- Jalur aman: %d",
+  "secureInvRoutes%d": "- Jalur aman, terbalik: %d",
+  "anonRoutes%d": "- Jalur anonim: %d",
+  "anonInvRoutes%d": "- Jalur anonim, terbalik: %d",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

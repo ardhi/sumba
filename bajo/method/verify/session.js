@@ -9,7 +9,7 @@ async function verifySession (req, reply, source) {
   }
   const redir = routePath(this.config.redirect.signin, req)
   req.session.ref = req.url
-  throw this.error('redirect', { redirect: redir })
+  throw this.error('_redirect', { redirect: redir })
 }
 
 export default verifySession

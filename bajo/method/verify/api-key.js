@@ -31,8 +31,8 @@ async function verifyApiKey (req, reply, source) {
   token = await hash(token)
   const query = { token }
   const rows = await recordFind('SumbaUser', { query }, { req, noHook: true })
-  if (rows.length === 0) throw this.error('Invalid api key provided', { statusCode: 401 })
-  if (rows[0].status !== 'ACTIVE') throw this.error('User is inactive or temporarily disabled', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
+  if (rows.length === 0) throw this.error('invalidKey', { statusCode: 401 })
+  if (rows[0].status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
   req.user = await getUser(rows[0])
   return true
 }
