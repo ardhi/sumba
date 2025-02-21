@@ -1,6 +1,6 @@
 ---
 layout: sumba.layout:/info.html
-t:title: Terms and Conditions
+t:title: termsConditions
 ---
 Last updated: January 31, 2025
 

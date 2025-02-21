@@ -1,11 +1,11 @@
-<c:modal id="api-key-modal" t:title="API Key">
+<c:modal id="api-key-modal" t:title="apiKey">
   <c:modal-body>
     <pre><code id="api-key"><%= form.token %></code></pre>
     <c:div flex="justify-content:between align-items:center" margin="top-3">
-      <c:a icon="arrowsRepeat" href="sumba:/my-stuff/reset-api-key" t:content="Reset" />
+      <c:a icon="arrowsRepeat" href="sumba:/my-stuff/reset-api-key" t:content="reset" />
       <div>
-        <c:btn color="primary" x-data @click="await wbs.copyToClipboard('#api-key', true)" t:content="Copy to Clipboard" />
-        <c:btn margin="start-1" color="secondary" dismiss t:content="Close" />
+        <c:btn color="primary" x-data @click="await wbs.copyToClipboard('#api-key', true)" t:content="copyClipboard" />
+        <c:btn margin="start-1" color="secondary" dismiss t:content="close" />
       </div>
     </c:div>
   </c:modal-body>

@@ -1,11 +1,11 @@
 <% if (_meta.user) { %>
-<c:list-item href="sumba:/my-stuff/profile" t:content="Your Profile" />
-<c:list-item href="sumba:/my-stuff/change-password" t:content="Change Password" />
+<c:list-item href="sumba:/my-stuff/profile" t:content="yourProfile" />
+<c:list-item href="sumba:/my-stuff/change-password" t:content="changePassword" />
   <% if (attr.withSignout) { %>
-  <c:list-item href="sumba:/signout" t:content="Signout" />
+  <c:list-item href="sumba:/signout" t:content="signout" />
   <% } %>
 <% } else { %>
-<c:list-item href="sumba:/signin" t:content="Signin" />
-<c:list-item href="sumba:/user/signup" t:content="New User Signup" />
-<c:list-item href="sumba:/user/forgot-password" t:content="Forgot Password" />
+<c:list-item href="sumba:/signin" t:content="signin" />
+<c:list-item href="sumba:/user/signup" t:content="signup" />
+<c:list-item href="sumba:/user/forgot-password" t:content="forgotPassword" />
 <% } %>

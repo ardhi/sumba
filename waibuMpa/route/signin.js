@@ -19,7 +19,7 @@ const signin = {
         await runHook(`${this.name}:afterSignin`, user, sid, req)
         const { query, params } = req
         const url = !isEmpty(referer) ? referer : this.config.redirect.afterSignin
-        req.flash('notify', req.t('You\'ve successfully signed in!'))
+        req.flash('notify', req.t('signinSuccessfully'))
         return reply.redirectTo(url, { query, params })
       } catch (err) {
         error = err

@@ -18,14 +18,14 @@ const resetApiKey = {
         try {
           await schema.validateAsync(req.body, this.app.dobo.config.validationParams)
         } catch (err) {
-          throw this.error('Validation Error', { details: err.details, values: err.values, ns: this.name, statusCode: 422, code: 'DB_VALIDATION' })
+          throw this.error('validationError', { details: err.details, values: err.values, ns: this.name, statusCode: 422, code: 'DB_VALIDATION' })
         }
         const rec = await recordGet(model, req.user.id)
         const verified = await bcrypt.compare(req.body.password, rec.password)
-        if (!verified) throw this.error('Validation Error', { details: [{ field: 'password', error: 'Invalid password' }], statusCode: 400 })
+        if (!verified) throw this.error('validationError', { details: [{ field: 'password', error: 'invalidPassword' }], statusCode: 400 })
         await recordUpdate(model, req.user.id, { token: generateId() })
         await delay(2000) // ensure req.user cache is expired
-        req.flash('notify', req.t('You\'ve successfully reset your Api Key'))
+        req.flash('notify', req.t('resetApiKeySuccessfull'))
         return reply.redirectTo('sumba:/profile')
       } catch (err) {
         error = err

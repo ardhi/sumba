@@ -1,6 +1,6 @@
 ---
 layout: sumba.layout:/info.html
-t:title: Cookie Policy
+t:title: cookiePolicy
 ---
 Last updated: January 31, 2025
 

@@ -1,5 +1,4 @@
 ---
 layout: sumba.layout:/info.html
-title: Wakakak
+title: aboutUs
 ---
-idddd

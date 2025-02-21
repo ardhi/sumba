@@ -9,9 +9,9 @@ const userActivation = {
       try {
         const query = { status: 'UNVERIFIED', token: req.body.key }
         const result = await recordFind('SumbaUser', { query }, { noHook: true })
-        if (result.length === 0) throw this.error('Validation Error', { details: [{ field: 'key', error: 'Invalid activation key' }] })
+        if (result.length === 0) throw this.error('validationError', { details: [{ field: 'key', error: 'invalidActivationKey' }] })
         await recordUpdate('SumbaUser', result[0].id, { status: 'ACTIVE' }, { noHook: true, noValidation: true, noFlash: true })
-        req.flash('notify', req.t('User account successfully activated'))
+        req.flash('notify', req.t('userActivated'))
         return reply.redirectTo(this.config.redirect.signin, req)
       } catch (err) {
         error = err

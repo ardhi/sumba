@@ -17,7 +17,7 @@ const profile = {
         } else {
           const resp = await recordUpdate({ req, model: 'SumbaUser', id: req.user.id, body: form, options: { noFlash: true, hidden: [] } })
           form = resp.data
-          req.flash('notify', req.t('Your profile is successfully updated'))
+          req.flash('notify', req.t('profileUpdated'))
         }
       } catch (err) {
         console.log(err)

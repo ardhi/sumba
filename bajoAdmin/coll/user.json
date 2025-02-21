@@ -17,7 +17,7 @@
           "status;small:12,medium:4"
         ]
       }, {
-        "title": "Account",
+        "title": "account",
         "fields": [
           "username;small:6,medium:6",
           "email;small:6,medium:6",
@@ -62,7 +62,7 @@
           "status;small:12,medium:4"
         ]
       }, {
-        "title": "Account",
+        "title": "account",
         "fields": [
           "username;small:6,medium:6",
           "email;small:6,medium:6",

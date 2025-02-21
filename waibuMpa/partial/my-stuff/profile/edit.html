@@ -1,0 +1,50 @@
+<c:form referer>
+  <c:grid-row>
+    <c:grid-col col="8-md">
+      <c:fieldset t:legend="meta" grid-gutter="2" margin="bottom-3">
+        <c:form-plaintext name="createdAt" label-floating col="6-md"/>
+        <c:form-plaintext name="updatedAt" label-floating col="6-md"/>
+      </c:fieldset>
+      <c:fieldset t:legend="account" grid-gutter="2" margin="bottom-3">
+        <c:form-plaintext name="username" label-floating col="6-lg"/>
+        <c:form-input name="email" label-floating col="6-lg"/>
+        <c:form-input name="firstName" label-floating col="6-lg"/>
+        <c:form-input name="lastName" label-floating col="6-lg"/>
+      </c:fieldset>
+      <c:fieldset t:legend="address" grid-gutter="2">
+        <c:form-input name="address1" label-floating col="12"/>
+        <c:form-input name="address2" label-floating col="12"/>
+        <c:form-input name="city" label-floating col="8-lg 7-md"/>
+        <c:form-input name="zipCode" label-floating col="4-lg 5-md"/>
+        <c:form-input name="provinceState" label-floating col="6-lg"/>
+        <c:form-select-country name="country" label-floating col="6-lg"/>
+        <c:form-input name="phone" label-floating col="6-lg"/>
+        <c:form-input name="website" label-floating col="6-lg"/>
+        </c:fieldset>
+    </c:grid-col>
+    <c:grid-col col="4-md">
+      <c:heading type="5" t:content="image" />
+      <c:img holder="400x200" responsive rounded />
+      <c:form-file name="image" no-label wrapper-margin="top-2"/>
+      <c:btn-group margin="top-3" flex="full">
+        <c:btn type="reset" t:content="reset" color="secondary" />
+        <c:btn type="submit" t:content="submit" color="primary" />
+      </c:btn-group>
+      <% if (arguments[0].error) { %>
+      <c:btn x-data @click="wbs.invalidateForm" href="#" icon="remove" color="link" size="sm" margin="top-2">
+        <c:t>clearInvalidFields</c:t>
+      </c:btn>
+      <% } %>
+      <hr />
+      <c:heading type="5" t:content="more" margin="top-3" />
+      <c:list type="group" hover>
+        <c:list-item href="sumba:/my-stuff/change-password" t:content="changePassword" />
+        <c:list-item t:content="displayApiKey" target="api-key-modal"/>
+      </c:list>
+      <c:list type="unstyled" margin="top-3">
+        <c:list-item href="sumba:/my-stuff/profile" t:content="backToProfile" icon="arrowStart" />
+      </c:list>
+      <c:include resource="sumba.partial:/api-key-modal.html" />
+    </c:grid-col>
+  </c:grid-row>
+</c:form>

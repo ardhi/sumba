@@ -1,6 +1,6 @@
 ---
 layout: sumba.layout:/info.html
-t:title: Privacy Statement
+t:title: privacyStatement
 ---
 Last updated: January 31, 2025
 
