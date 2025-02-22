@@ -1,0 +1,21 @@
+<c:form reset-validation grid-gutter="2">
+  <c:form-input name="subject" col="8-lg 6-md" label-floating />
+  <c:form-select name="cat" col="4-lg 6-md" label-floating>
+    <% for (const cat of cats) { %>
+    <c:option value="<%= cat.name %>" <%= form.cat === cat.name ? 'selected' : '' %> t:content="<%= _.camelCase('cat ' + cat.name) %>" />
+    <% } %>
+  </c:form-select>
+  <c:form-textarea name="message" label-floating style="height:10em"/>
+  <c:div flex="justify-content:between" margin="top-4">
+    <c:div>
+      <c:btn color="primary" icon="arrowStart" t:content="Back" href="sumba:/help/trouble-tickets/list" />
+      <% if (error) { %>
+      <c:a margin="start-2" icon="remove" t:content="Clear" x-data @click="wbs.invalidateForm" />
+      <% } %>
+    </c:div>
+    <c:div>
+      <c:btn type="reset" color="link" t:content="Reset" />
+      <c:btn type="submit" color="primary" t:content="Submit" />
+    </c:div>
+  </c:div>
+</c:form>

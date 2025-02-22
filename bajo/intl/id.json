@@ -67,6 +67,12 @@
   "secureInvRoutes%d": "- Jalur aman, terbalik: %d",
   "anonRoutes%d": "- Jalur anonim: %d",
   "anonInvRoutes%d": "- Jalur anonim, terbalik: %d",
+  "conversation": "Percakapan",
+  "replies": "Balas Berbalas",
+  "compose": "Tulis",
+  "yourReply": "Balasan Anda",
+  "you": "Anda",
+  "us": "Kami",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
@@ -77,7 +83,8 @@
     "hostname": "Nama Host",
     "iconset": "Iconset",
     "subject": "Judul",
-    "message": "Pesan"
+    "message": "Pesan",
+    "cat": "Kategori"
   },
   "validation": {
     "password.minOfUppercase": "Mengandung setidaknya {{min}} huruf besar",

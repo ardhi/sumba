@@ -1,0 +1,17 @@
+{
+  "properties": [
+    "subject::255:true:true",
+    "cat::50:true",
+    "message:text:::true"
+  ],
+  "feature": {
+    "createdAt": true,
+    "updatedAt": true,
+    "sumba.siteId": true,
+    "sumba.userId": true,
+    "sumba.status": {
+      "default": "OPEN",
+      "values": ["OPEN", "CLOSED"]
+    }
+  }
+}

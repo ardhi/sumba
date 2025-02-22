@@ -1,0 +1,21 @@
+[{
+  "name": "QUESTION",
+  "level": 2,
+  "siteId": "?:SumbaSite::alias:default"
+}, {
+  "name": "INQUIRY",
+  "level": 1,
+  "siteId": "?:SumbaSite::alias:default"
+}, {
+  "name": "BILLING",
+  "level": 4,
+  "siteId": "?:SumbaSite::alias:default"
+}, {
+  "name": "API",
+  "level": 3,
+  "siteId": "?:SumbaSite::alias:default"
+}, {
+  "name": "MISC",
+  "level": 5,
+  "siteId": "?:SumbaSite::alias:default"
+}]

@@ -1,0 +1,13 @@
+[{
+  "name": "TECHNICAL",
+  "siteId": "?:SumbaSite::alias:default"
+}, {
+  "name": "BILLING",
+  "siteId": "?:SumbaSite::alias:default"
+}, {
+  "name": "API",
+  "siteId": "?:SumbaSite::alias:default"
+}, {
+  "name": "MISC",
+  "siteId": "?:SumbaSite::alias:default"
+}]

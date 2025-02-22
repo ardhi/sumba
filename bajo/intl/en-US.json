@@ -67,6 +67,11 @@
   "secureInvRoutes%d": "- Secure, inverted routes: %d",
   "anonRoutes%d": "- Anonymous routes: %d",
   "anonInvRoutes%d": "- Anonymous, inverted routes: %d",
+  "replies": "Replies",
+  "compose": "Compose",
+  "yourReply": "Your Reply",
+  "you": "You",
+  "us": "Us",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
@@ -76,7 +81,8 @@
     "hostname": "Hostname",
     "iconset": "Iconset",
     "subject": "Subject",
-    "message": "Message"
+    "message": "Message",
+    "cat": "Category"
   },
   "validation": {
     "password.minOfUppercase": "Contains at leaset {{min}} uppercase characters",

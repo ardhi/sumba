@@ -12,7 +12,9 @@
       "/my-stuff": "sumba:/my-stuff/profile",
       "/info": "sumba:/info/about-us",
       "/user": "sumba:/my-stuff/profile",
-      "/db/export": "sumba:/db/export/list"
+      "/db/export": "sumba:/db/export/list",
+      "/help": "sumba:/help/contact-form",
+      "/help/trouble-tickets": "sumba:/help/trouble-tickets/list"
     }
   },
   "waibuAdmin": {

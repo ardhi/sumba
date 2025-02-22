@@ -1,0 +1,10 @@
+<c:grid-row gutter="3" margin="bottom-3">
+  <c:grid-col col="4-lg">
+    <c:wdb-query />
+  </c:grid-col>
+  <c:grid-col col="8-lg" flex="justify-content:end-lg">
+    <c:wdb-btn-add href="sumba:/help/trouble-tickets/add"/>
+  </c:grid-col>
+</c:grid-row>
+<c:wdb-table responsive body-divider strip hover details-href="sumba:/help/trouble-tickets/details/:id" />
+<c:include resource="waibuDb.partial:/crud/_list-footer.html" />

@@ -1,5 +1,5 @@
 {
   "/my-stuff/*": ["*"],
   "/signout": ["*"],
-  "/help/trouble-tickets": ["*"]
+  "/help/trouble-tickets/*": ["*"]
 }
