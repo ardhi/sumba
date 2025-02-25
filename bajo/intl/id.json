@@ -89,11 +89,13 @@
     "cat": "Kategori"
   },
   "validation": {
-    "password.minOfUppercase": "Mengandung setidaknya {{min}} huruf besar",
-    "password.minOfSpecialCharacters": "Mengandung setidaknya {{min}} karakter spesial",
-    "password.minOfLowercase": "Mengandung setidaknya {{min}} huruf kecil",
-    "password.minOfNumeric": "Mengandung setidaknya {{min}} numerik/angka",
-    "password.noWhiteSpaces": "Tidak boleh ada spasi",
-    "password.onlyLatinCharacters": "Harus berupa karakter latin saja"
+    "password": {
+      "minOfUppercase": "Mengandung setidaknya %(min)s huruf besar",
+      "minOfSpecialCharacters": "Mengandung setidaknya %(min)s karakter spesial",
+      "minOfLowercase": "Mengandung setidaknya %(min)s huruf kecil",
+      "minOfNumeric": "Mengandung setidaknya %(min)s numerik/angka",
+      "noWhiteSpaces": "Tidak boleh ada spasi",
+      "onlyLatinCharacters": "Harus berupa karakter latin saja"
+    }
   }
 }

@@ -87,11 +87,13 @@
     "cat": "Category"
   },
   "validation": {
-    "password.minOfUppercase": "Contains at leaset {{min}} uppercase characters",
-    "password.minOfSpecialCharacters": "Contains at least {{min}} special characters",
-    "password.minOfLowercase": "Contains at least {{min}} special characters",
-    "password.minOfNumeric": "Contains at least {{min}} numerical characters",
-    "password.noWhiteSpaces": "No space allowed",
-    "password.onlyLatinCharacters": "Only latin characters allowed"
+    "password": {
+      "minOfUppercase": "Contains at leaset %(min)s uppercase characters",
+      "minOfSpecialCharacters": "Contains at least %(min)s special characters",
+      "minOfLowercase": "Contains at least %(min)s special characters",
+      "minOfNumeric": "Contains at least %(min)s numerical characters",
+      "noWhiteSpaces": "No space allowed",
+      "onlyLatinCharacters": "Only latin characters allowed"
+    }
   }
 }

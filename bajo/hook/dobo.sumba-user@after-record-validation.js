@@ -3,7 +3,7 @@ async function doboSumbaUserAfterRecordValidation (body, options) {
   const { has } = this.app.bajo.lib._
 
   if (has(body, 'password') && !isBcrypt(body.password)) body.password = await hash(body.password, 'bcrypt')
-  if (has(body, 'token') && !isMd5(body.token)) body.token = await hash(body.password)
+  if (has(body, 'token') && !isMd5(body.token)) body.token = await hash(body.password ?? body.token)
 }
 
 export default doboSumbaUserAfterRecordValidation

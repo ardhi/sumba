@@ -14,7 +14,6 @@ const id = {
     if (req.method === 'POST') {
       try {
         form.masterId = master.id + ''
-        console.log(form, master)
         await recordCreate({ model: 'SumbaTicketDetail', req, body: form })
         return reply.redirectTo('sumba:/help/trouble-tickets/list')
       } catch (err) {

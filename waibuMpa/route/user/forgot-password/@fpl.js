@@ -48,7 +48,6 @@ const forgotPasswordLink = {
         req.flash('notify', req.t('passwordChangedReSignin'))
         return reply.redirectTo(this.config.redirect.signin)
       } catch (err) {
-        console.log(err)
         error = err
       }
     }
