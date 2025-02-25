@@ -58,12 +58,15 @@
     "signout": "sumba:/signout",
     "afterSignout": "/"
   },
-  "userPassword": {
-    "minUppercase": 1,
-    "minLowercase": 1,
-    "minSpecialChar": 1,
-    "minNumeric": 1,
-    "noWhitespace": false,
-    "latinOnlyChars": false
+  "siteSetting": {
+    "forgotPasswordExpDur": "5m",
+    "userPassword": {
+      "minUppercase": 1,
+      "minLowercase": 1,
+      "minSpecialChar": 1,
+      "minNumeric": 1,
+      "noWhitespace": false,
+      "latinOnlyChars": false
+    }
   }
 }

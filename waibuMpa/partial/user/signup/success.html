@@ -1,6 +1,8 @@
-<c:p t:content="formSubmitted" />
-<c:p t:content="formSubmittedInfo" />
-<c:p t:content="thankYou" />
+<% if (_hasPlugin('masohiMail')) { %>
+<c:include resource="sumba.partial:/user/signup/success-mail.md" />
+<% } else { %>
+<c:include resource="sumba.partial:/user/signup/success-nomail.md" />
+<% } %>
 <% if (!page.noLinks) { %>
 <c:list type="unstyled" margin="start-3">
   <c:list-item t:content="gotoHome" href="/" icon="house"/>

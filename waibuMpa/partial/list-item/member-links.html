@@ -8,4 +8,7 @@
 <c:list-item href="sumba:/signin" t:content="signin" />
 <c:list-item href="sumba:/user/signup" t:content="signup" />
 <c:list-item href="sumba:/user/forgot-password" t:content="forgotPassword" />
+  <% if (_hasPlugin('masohi') && _hasPlugin('masohiMail')) { %>
+  <c:list-item href="sumba:/user/activation" t:content="userActivation" />
+  <% } %>
 <% } %>

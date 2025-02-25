@@ -1,0 +1,17 @@
+<p>Selamat datang dan telah bergabung di <%= _meta.site.title %>. Selanjutnya,
+silahkan mengklik link dibawah ini untuk melakukan aktivasi akun anda:</p>
+
+<p><% const url = _meta.hostHeader + _routePath("sumba:/user/activation") + "?key=" + token %>
+<a href="http://<%= url %>">http://<%= url %></a></p>
+
+<p>Jika Ada tidak bisa mengklik link diatas, silahkan kunjungi situs kami
+di http://<%= _meta.hostHeader %>, kemudian kunjungi di halaman <strong>Aktivasi
+Akun</strong> dari link yang tersedia di catatan kaki.</p>
+
+<p>Silahkan kopi kunci dibawah ini, kemudian masukkan di kotak masukan yang
+ada di halaman tersebut dan tekan tombol <strong>Kirim</strong>:</p>
+
+<strong><%= token %></strong>
+
+<p>Sekali lagi terimakasih telah bergabung bersama kami, semoga layanan kami
+membawa manfaat untuk Anda.<p>

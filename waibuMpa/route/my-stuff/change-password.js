@@ -12,7 +12,7 @@ const profile = {
     let error
     if (req.method === 'POST') {
       try {
-        const newPassword = await passwordRule.call(this)
+        const newPassword = await passwordRule.call(this, req)
         const schema = Joi.object({
           currentPassword: Joi.string().min(8).max(50).required(),
           newPassword,
@@ -26,11 +26,11 @@ const profile = {
         const rec = await recordGet(model, req.user.id)
         const verified = await bcrypt.compare(req.body.currentPassword, rec.password)
         if (!verified) throw this.error('invalidCurrentPassword', { details: [{ field: 'currentPassword', error: 'invalidPassword' }], statusCode: 400 })
-        await recordUpdate(model, req.user.id, { password: req.body.newPassword })
+        await recordUpdate(model, req.user.id, { password: req.body.newPassword }, { req, noFlash: true })
         // signout and redirect to signin
         req.session.user = null
         req.flash('notify', req.t('passwordChangedReSignin'))
-        return reply.redirectTo('sumba:/signin')
+        return reply.redirectTo(this.config.redirect.signin)
       } catch (err) {
         error = err
       }
