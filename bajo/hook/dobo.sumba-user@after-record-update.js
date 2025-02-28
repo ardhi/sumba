@@ -5,7 +5,7 @@ async function afterRecordUpdate (id, body, options = {}, rec) {
   const to = `${data.firstName} ${data.lastName} <${data.email}>`
   let subject
 
-  async function send () {
+  const send = async () => {
     try {
       await this.app.masohi.send({ to, subject, message: data, options })
     } catch (err) {

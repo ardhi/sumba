@@ -1,0 +1,10 @@
+<c:form button reset-validation referer>
+  <c:form-input name="key" label-floating />
+</c:form>
+<% if (!page.noLinks) { %>
+<c:list type="unstyled" margin="start-3">
+  <!-- include sumba.partial:/list-item/signin.html -->
+  <!-- include sumba.partial:/list-item/forgot-password.html -->
+  <!-- include sumba.partial:/list-item/goto-home.html -->
+</c:list>
+<% } %>
