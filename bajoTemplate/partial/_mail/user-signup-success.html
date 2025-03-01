@@ -1,4 +1,4 @@
-<p>Welcome and thank your for joining us in <%= _meta.site.title %>.
+<p>Welcome and thank your for joining us in <%= _get(_rel, 'site.title', 'our website') %>.
 Please click the following link to activate your account:</p>
 
 <p><% const url = _meta.hostHeader + _routePath("sumba:/user/activation") + "?key=" + token %>

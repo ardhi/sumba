@@ -12,19 +12,12 @@ const profile = {
     let error
     if (req.method === 'POST') {
       try {
-        /*
-        if (has(req.body, 'profile')) {
-          const opts = { req, setField: 'profile', setFile: 'main.png', noFlash: true }
-          await attachmentCopyUploaded('SumbaUser', req.user.id, opts)
-        } else {
-        */
         const body = pick(form, ['firstName', 'lastName', 'address1', 'address2', 'city', 'zipCode', 'provinceState', 'country', 'phone', 'website'])
         const options = { noFlash: true, hidden: [], setField: 'profile', setFile: 'main.png' }
         const resp = await recordUpdate({ req, reply, model: 'SumbaUser', id: req.user.id, body, options })
         form = resp.data
         req.flash('notify', req.t('profileUpdated'))
         return reply.redirectTo('sumba:/my-stuff/profile')
-        // }
       } catch (err) {
         error = err
       }

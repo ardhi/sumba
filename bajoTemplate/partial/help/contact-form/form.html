@@ -2,7 +2,7 @@
   <c:form-input name="firstName" col="6-lg" label-floating <%= _meta.user ? 'readonly' : '' %> />
   <c:form-input name="lastName" col="6-lg" label-floating <%= _meta.user ? 'readonly' : '' %> />
   <c:form-input type="email" col="6-lg" name="email" label-floating <%= _meta.user ? 'readonly' : '' %> />
-  <c:form-select name="category" col="6-lg" label-floating>
+  <c:form-select name="cat" col="6-lg" label-floating>
     <% for (const cat of cats) { %>
     <c:option value="<%= cat.name %>" t:content="<%= _.camelCase('cat ' + cat.name) %>" />
     <% } %>

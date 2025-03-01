@@ -1,4 +1,4 @@
-<p>Selamat datang dan telah bergabung di <%= _meta.site.title %>. Selanjutnya,
+<p>Selamat datang dan telah bergabung di <%= _get(_rel, 'site.title', 'situs kami') %>. Selanjutnya,
 silahkan mengklik link dibawah ini untuk melakukan aktivasi akun anda:</p>
 
 <p><% const url = _meta.hostHeader + _routePath("sumba:/user/activation") + "?key=" + token %>

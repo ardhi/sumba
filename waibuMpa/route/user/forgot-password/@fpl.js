@@ -18,6 +18,7 @@ async function getUser (req, reply) {
 const forgotPasswordLink = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
+    const { sendMail } = this.app.waibu
     const { defaultsDeep, importPkg } = this.app.bajo
     const { isString } = this.app.bajo.lib._
     const { recordUpdate } = this.app.dobo
@@ -43,8 +44,11 @@ const forgotPasswordLink = {
         await recordUpdate(model, user.id, { password: req.body.newPassword }, { req, noFlash: true })
         const to = `${user.firstName} ${user.lastName} <${user.email}>`
         const subject = req.t('forgotPasswordChanged')
-        const options = { req, reply, tpl: 'sumba.template:/_mail/user-forgot-password-changed.html' }
-        await this.app.masohi.send({ to, subject, message: user, options })
+        const options = { req, reply, tpl: '' }
+        await sendMail(
+          'sumba.template:/_mail/user-forgot-password-changed.html',
+          { to, subject, data: user, options }
+        )
         req.flash('notify', req.t('passwordChangedReSignin'))
         return reply.redirectTo(this.config.redirect.signin)
       } catch (err) {

@@ -1,3 +1,5 @@
+const model = 'SumbaUser'
+
 const resetApiKey = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
@@ -7,7 +9,6 @@ const resetApiKey = {
     const delay = await importPkg('delay')
     const bcrypt = await importPkg('bajoExtra:bcrypt')
     const Joi = await importPkg('dobo:joi')
-    const model = 'SumbaUser'
     const form = defaultsDeep(req.body, { apiKey: await hash(req.user.token) })
     let error
     if (req.method === 'POST') {
