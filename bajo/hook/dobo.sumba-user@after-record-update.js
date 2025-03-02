@@ -1,4 +1,5 @@
 async function afterRecordUpdate (id, body, options = {}, rec) {
+  if (!options.req) return
   if (!this.app.waibu) return
   const { data, oldData } = rec
   const { sendMail } = this.app.waibu

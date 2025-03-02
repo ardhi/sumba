@@ -1,4 +1,5 @@
 async function afterRecordCreate (body, options = {}, rec) {
+  if (!options.req) return
   if (!this.app.waibu) return
   const { sendMail } = this.app.waibu
   const { data } = rec
