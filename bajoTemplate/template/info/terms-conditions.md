@@ -17,14 +17,14 @@ The words of which the initial letter is capitalized have meanings defined under
 For the purposes of these Terms and Conditions:
 
 - __Affiliate__ means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.
-- __Country__ refers to: <<%= _meta.site.country %>>
-- __Company__ (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to <<%= _meta.site.orgName %>>, <<%= _meta.site.address1 %>>, <<%= _meta.site.city %>>, <<%= _meta.site.zipCode %>>, <<%= _meta.site.provinceState %>>, <<%= _meta.site.country %>>.
+- __Country__ refers to: <%= _meta.site.countryName %>
+- __Company__ (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to <%= _meta.site.orgName %>, <%= _meta.site.address1 %>, <%= _meta.site.city %>, <%= _meta.site.zipCode %>, <%= _meta.site.provinceState %>, <%= _meta.site.countryName %>.
 - __Device__ means any device that can access the Service such as a computer, a cellphone or a digital tablet.
 
 - __Service__ refers to the Website.
 - __Terms and Conditions__ (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service
 - __Third-party Social Media Service__ means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.
-- __Website__ refers to <<%= _meta.site.title %>>, accessible from [<<%= _meta.site.website %>>](<<%= _meta.site.website %>>)
+- __Website__ refers to <%= _meta.site.title %>, accessible from [<%= _meta.site.website %>](<%= _meta.site.website %>)
 - __You__ means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
 
 ### Acknowledgment
@@ -114,5 +114,5 @@ By continuing to access or use Our Service after those revisions become effectiv
 If you have any questions about these Terms and Conditions, You can contact us:
 
 
-- By email: <<%= _meta.site.email %>>
+- By email: <%= _meta.site.email %>
 - By visiting this page on our website: [Contact Form](sumba:/help/contact-form)

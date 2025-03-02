@@ -20,9 +20,9 @@ The words of which the initial letter is capitalized have meanings defined under
 
 For the purposes of this Cookies Policy:
 
-- __Company__ (referred to as either "the Company", "We", "Us" or "Our" in this Cookies Policy) refers to <<%= _meta.site.orgName %>>, <<%= _meta.site.address1 %>>, <<%= _meta.site.city %>>, <<%= _meta.site.zipCode %>>, <<%= _meta.site.provinceState %>>, <<%= _meta.site.country %>>.
+- __Company__ (referred to as either "the Company", "We", "Us" or "Our" in this Cookies Policy) refers to <%= _meta.site.orgName %>, <%= _meta.site.address1 %>, <%= _meta.site.city %>, <%= _meta.site.zipCode %>, <%= _meta.site.provinceState %>, <%= _meta.site.countryName %>.
 - __Cookies__ means small files that are placed on Your computer, mobile device or any other device by a website, containing details of your browsing history on that website among its many uses.
-- __Website__ refers to <<%= _meta.site.title %>>, accessible from [<<%= _meta.site.website %>>](<<%= _meta.site.website %>>)
+- __Website__ refers to <%= _meta.site.title %>, accessible from [<%= _meta.site.website %>](<%= _meta.site.website %>)
 - __You__ means the individual accessing or using the Website, or a company, or any legal entity on behalf of which such individual is accessing or using the Website, as applicable.
 
 ### The use of the Cookies
@@ -71,5 +71,5 @@ For any other web browser, please visit your web browser's official web pages.
 
 If you have any questions about this Cookies Policy, You can contact us:
 
-- By email: <<%= _meta.site.email %>>
+- By email: <%= _meta.site.email %>
 - By visiting this page on our website: [Contact Form](sumba:/help/contact-form)
