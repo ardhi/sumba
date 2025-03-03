@@ -1,14 +1,14 @@
-async function siteId (opts = {}) {
+async function roleId (opts = {}) {
   return {
     properties: [{
-      name: 'siteId',
+      name: 'roleId',
       type: 'string',
       maxLength: 50,
       rel: {
         site: {
-          schema: 'SumbaUser',
+          schema: 'SumbaSite',
           propName: 'id',
-          type: 'one-on-many'
+          type: 'one-to-one'
         }
       },
       index: true
@@ -16,4 +16,4 @@ async function siteId (opts = {}) {
   }
 }
 
-export default siteId
+export default roleId

@@ -1,0 +1,15 @@
+{
+  "properties": [
+  ],
+  "indexes": [{
+    "fields": ["userId", "siteId", "id"],
+    "unique": true
+  }],
+  "feature": {
+    "createdAt": true,
+    "updatedAt": true,
+    "sumba.siteId": true,
+    "sumba.userId": true,
+    "sumba.roleId": true
+  }
+}

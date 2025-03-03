@@ -6,7 +6,11 @@ async function userId (opts = {}) {
       type: 'string',
       maxLength: 50,
       rel: {
-        user: 'SumbaUser:id'
+        site: {
+          schema: 'SumbaSite',
+          propName: 'id',
+          type: 'one-on-one'
+        }
       },
       index: true
     }]

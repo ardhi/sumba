@@ -1,6 +1,7 @@
 import checkUserId from '../../lib/check-user-id.js'
 import checkTheme from '../../lib/check-theme.js'
 import checkIconset from '../../lib/check-iconset.js'
+import checkRole from '../../lib/check-role.js'
 
 const preParsing = {
   level: 10,
@@ -10,6 +11,7 @@ const preParsing = {
     await checkTheme.call(this, req, reply)
     await checkIconset.call(this, req, reply)
     await checkUserId.call(this, req, reply, 'waibuMpa')
+    await checkRole.call(this, req, reply, 'waibuMpa')
     req.menu = req.menu ?? {}
     if (req.user) {
       req.menu.user = [

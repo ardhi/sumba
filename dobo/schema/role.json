@@ -1,0 +1,19 @@
+{
+  "properties": [
+    "alias::20::true",
+    "name::50:true:true"
+  ],
+  "indexes": [{
+    "fields": ["alias", "siteId"],
+    "unique": true
+  }],
+  "feature": {
+    "createdAt": true,
+    "updatedAt": true,
+    "sumba.siteId": true,
+    "sumba.status": {
+      "default": "ENABLED",
+      "values": ["ENABLED", "DISABLED"]
+    }
+  }
+}
