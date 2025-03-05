@@ -6,10 +6,10 @@ function byRole ({ paths = [], method = 'GET', roles = [], guards = [] }) {
     const matchPath = outmatch(item.path)
     for (const path of paths) {
       if (matchPath(path)) {
-        const matchMethods = outmatch(item.methods)
+        const matchMethods = outmatch(item.methods, { separator: false })
         if (matchMethods(method)) {
-          if (item.values.length === 0) return item
-          if (includes(roles, item.values)) return item
+          if (item.roles.length === 0) return item
+          if (includes(roles, item.roles)) return item
         }
       }
     }

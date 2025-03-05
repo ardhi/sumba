@@ -79,6 +79,9 @@
   "roles%d": "- Peran: %d",
   "negRoles%d": "- Peran, dinegasikan: %d",
   "permissionDenied": "Permisi Ditolak",
+  "moreInfoContactAdmin": "Mohon <c:a href='sumba:/help/contact-form'>hubungi</c:a> Admin Anda untuk keterangan lebih lanjut, terima kasih!",
+  "restricted": "Pembatasan",
+  "fullscreen": "Layar Penuh",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

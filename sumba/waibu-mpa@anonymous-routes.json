@@ -1,4 +1,7 @@
-{
-  "/user/*": ["*"],
-  "/signin": ["*"]
-}
+[{
+  "path": "/user/**/*",
+  "methods": ["*"]
+}, {
+  "path": "/signin",
+  "methods": ["*"]
+}]

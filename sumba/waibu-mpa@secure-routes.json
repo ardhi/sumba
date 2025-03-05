@@ -1,5 +1,10 @@
-{
-  "/my-stuff/*": ["*"],
-  "/signout": ["*"],
-  "/help/trouble-tickets/*": ["*"]
-}
+[{
+  "path": "/my-stuff/**/*",
+  "methods": ["*"]
+}, {
+  "path": "/signout",
+  "methods": ["*"]
+}, {
+  "path": "/help/trouble-tickets/**/*",
+  "methods": ["*"]
+}]
