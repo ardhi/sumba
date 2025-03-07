@@ -23,7 +23,9 @@
   </c:grid-col>
   <c:grid-col col="4-md">
     <c:heading type="5" t:content="image" />
-    <c:img src="dobo:/attachment/SumbaUser/<%= form.id %>/profile/main.png" responsive rounded />
+    <c:div border rounded flex="justify-content:center">
+      <c:img src="dobo:/attachment/SumbaUser/<%= form.id %>/profile/main.png?notfound=sumba.asset:/user-profile.png" responsive rounded />
+    </c:div>
     <c:heading type="5" t:content="more" margin="top-3" />
     <c:list type="group" hover>
       <c:list-item href="sumba:/my-stuff/profile/edit" t:content="updateProfile" />

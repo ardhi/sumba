@@ -1,22 +1,32 @@
-export async function handler (model, filter, options = {}) {
-  const { isSet } = this.app.bajo
-  const { isEmpty, cloneDeep, get, set } = this.app.bajo.lib._
+export async function rebuildFilter (model, filter, req) {
+  const { isEmpty, map } = this.app.bajo.lib._
   const { hasColumn } = this
-
-  if (options.noAutoFilter) return
-  const item = { siteId: 'site.id', userId: 'user.id' }
-  for (const i in item) {
-    const rec = get(options.req, item[i])
-    if (isSet(rec) && await hasColumn(i, model)) {
-      filter.query = filter.query ?? {}
-      const old = cloneDeep(filter.query.$or)
-      if (old) {
-        filter.query = { $and: [old] }
-        filter.query.$and.push(set({}, i, rec))
-      } else filter.query[i] = rec
-      if (isEmpty(filter.query)) filter.query = undefined
-    }
+  filter.query = filter.query ?? {}
+  const hasSiteId = await hasColumn('siteId', model)
+  const hasUserId = await hasColumn('userId', model)
+  const hasTeamId = await hasColumn('teamId', model)
+  if (!(hasSiteId || hasUserId || hasTeamId)) return filter
+  const q = { $and: [] }
+  if (!isEmpty(filter.query)) {
+    if (filter.query.$and) q.$and.push(...filter.query.$and)
+    else q.$and.push(filter.query)
   }
+  if (hasSiteId) q.$and.push({ siteId: req.site.id })
+  if (hasTeamId) {
+    const teamIds = map(req.user.teams, 'id')
+    if (hasUserId) q.$and.push({ $or: [{ teamId: { $in: teamIds } }, { userId: req.user.id }] })
+    else q.$and.push({ teamId: { $in: teamIds } })
+  } else {
+    if (hasUserId) q.$and.push({ userId: req.user.id })
+  }
+  filter.query = q
+  return filter
+}
+
+export async function handler (model, filter, options = {}) {
+  const { req } = options
+  if (options.noAutoFilter || !req) return
+  filter = await rebuildFilter.call(this, model, filter, req)
 }
 
 const doboBeforeRecordFind = {

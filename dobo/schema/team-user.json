@@ -10,6 +10,6 @@
     "updatedAt": true,
     "sumba.siteId": true,
     "sumba.userId": true,
-    "sumba.roleId": true
+    "sumba.parentId": true
   }
 }

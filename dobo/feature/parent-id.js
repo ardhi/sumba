@@ -1,7 +1,7 @@
-async function roleId (opts = {}) {
+async function parentId (opts = {}) {
   return {
     properties: [{
-      name: 'roleId',
+      name: 'parentId',
       type: 'string',
       maxLength: 50,
       rel: {
@@ -16,4 +16,4 @@ async function roleId (opts = {}) {
   }
 }
 
-export default roleId
+export default parentId

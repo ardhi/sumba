@@ -1,17 +1,18 @@
 import collectRoutes from '../../lib/collect-routes.js'
-import collectRoles from '../../lib/collect-roles.js'
+import collectTeam from '../../lib/collect-team.js'
 
 async function afterAppBoot () {
   this.log.trace('collectingRouteGuards')
   await collectRoutes.call(this, 'secure')
-  await collectRoutes.call(this, 'anonymous')
   this.log.trace('secureRoutes%d', this.secureRoutes.length)
   this.log.trace('secureNegRoutes%d', this.secureNegRoutes.length)
+  await collectRoutes.call(this, 'anonymous')
   this.log.trace('anonRoutes%d', this.anonymousRoutes.length)
   this.log.trace('anonNegRoutes%d', this.anonymousNegRoutes.length)
-  this.log.trace('collectingRoleGuards')
-  await collectRoles.call(this)
-  this.log.trace('roles%d', this.roles.length)
+  this.log.trace('collectingTeamGuards')
+  await collectTeam.call(this)
+  this.log.trace('teamRoutes%d', this.teamRoutes.length)
+  this.log.trace('teamNegRoutes%d', this.teamNegRoutes.length)
 }
 
 export default afterAppBoot

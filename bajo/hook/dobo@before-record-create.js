@@ -3,11 +3,12 @@ const doboBeforeRecordCreate = {
   handler: async function (model, body, options = {}) {
     const { get } = this.app.bajo.lib._
     const { hasColumn } = this
+    const { req } = options
 
-    if (options.noAutoFilter) return
+    if (options.noAutoFilter || !req) return
     const item = { siteId: 'site.id', userId: 'user.id' }
     for (const i in item) {
-      const rec = get(options.req, item[i])
+      const rec = get(req, item[i])
       if (rec && await hasColumn(i, model)) body[i] = rec
     }
   }
