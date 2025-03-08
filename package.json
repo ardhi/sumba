@@ -1,6 +1,6 @@
 {
   "name": "sumba",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Bajo Framework's Biz Suite",
   "main": "index.js",
   "scripts": {
