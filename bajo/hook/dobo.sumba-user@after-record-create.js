@@ -4,7 +4,7 @@ async function afterRecordCreate (body, options = {}, rec) {
   const { sendMail } = this.app.waibu
   const { data } = rec
   const to = `${data.firstName} ${data.lastName} <${data.email}>`
-  const subject = this.print.write('newUserSignup')
+  const subject = options.req.t('newUserSignup')
   await sendMail(
     'sumba.template:/_mail/user-signup-success.html',
     { to, subject, data, options }

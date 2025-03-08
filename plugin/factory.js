@@ -21,18 +21,6 @@ async function getToken (type, req, source) {
   return token
 }
 
-async function setHeader (setting, reply) {
-  const { isString } = this.app.bajo.lib._
-
-  let header = setting.type
-  const exts = []
-  if (isString(setting.realm)) exts.push(`realm="${setting.realm}"`)
-  if (setting.useUtf8) exts.push('charset="UTF-8"')
-  if (exts.length > 0) header += ` ${exts.join(', ')}`
-  reply.header('WWW-Authenticate', header)
-  reply.code(401)
-}
-
 async function factory (pkgName) {
   const me = this
 
@@ -40,6 +28,7 @@ async function factory (pkgName) {
     constructor () {
       super(pkgName, me.app)
       this.alias = 'sumba'
+      this.dependencies = ['waibu', 'waibu-db', 'bajo-extra', 'bajo-common-db']
       this.config = {
         multiSite: false,
         waibu: {
@@ -214,13 +203,25 @@ async function factory (pkgName) {
       const { getUser } = this
       const { isEmpty } = this.app.bajo.lib._
 
+      const setHeader = async (setting, reply) => {
+        const { isString } = this.app.bajo.lib._
+
+        let header = setting.type
+        const exts = []
+        if (isString(setting.realm)) exts.push(`realm="${setting.realm}"`)
+        if (setting.useUtf8) exts.push('charset="UTF-8"')
+        if (exts.length > 0) header += ` ${exts.join(', ')}`
+        reply.header('WWW-Authenticate', header)
+        reply.code(401)
+      }
+
       const setting = await getSetting.call(this, 'basic', source)
       let authInfo
       const parts = (req.headers.authorization ?? '').split(' ')
       if (parts[0] === setting.type) authInfo = parts[1]
       if (isEmpty(authInfo)) {
         if (setting.realm) {
-          await setHeader.call(this, setting, reply)
+          await setHeader(setting, reply)
           throw this.error(setting.warningMessage)
         } else return false
       }
@@ -231,7 +232,7 @@ async function factory (pkgName) {
         req.user = await getUser(user)
       } catch (err) {
         if (err.statusCode === 401 && setting.realm) {
-          await setHeader.call(this, setting, reply)
+          await setHeader(setting, reply)
           return err.message
         }
         throw err
