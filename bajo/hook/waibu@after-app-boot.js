@@ -2,6 +2,8 @@ import collectRoutes from '../../lib/collect-routes.js'
 import collectTeam from '../../lib/collect-team.js'
 
 async function afterAppBoot () {
+  const { runHook } = this.app.bajo
+  await runHook(`${this.name}:beforeBoot`)
   this.log.trace('collectingRouteGuards')
   await collectRoutes.call(this, 'secure')
   this.log.trace('secureRoutes%d', this.secureRoutes.length)
@@ -13,6 +15,7 @@ async function afterAppBoot () {
   await collectTeam.call(this)
   this.log.trace('teamRoutes%d', this.teamRoutes.length)
   this.log.trace('teamNegRoutes%d', this.teamNegRoutes.length)
+  await runHook(`${this.name}:afterBoot`)
 }
 
 export default afterAppBoot

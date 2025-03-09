@@ -1,4 +1,0 @@
-[{
-  "path": "/user/access-token/**/*",
-  "methods": ["*"]
-}]

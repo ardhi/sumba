@@ -4,4 +4,8 @@
 }, {
   "path": "/signin",
   "methods": ["*"]
+}, {
+  "path": "/user/access-token/**/*",
+  "routeHandler": "restapi",
+  "methods": ["*"]
 }]

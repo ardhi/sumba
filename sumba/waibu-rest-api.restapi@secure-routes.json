@@ -1,7 +1,0 @@
-[{
-  "path": "/user/api-key",
-  "methods": ["*"]
-}, {
-  "path": "/my-stuff/**/*",
-  "methods": ["*"]
-}]

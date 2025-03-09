@@ -104,6 +104,13 @@ async function factory (pkgName) {
       this.unsafeUserFields = ['password']
     }
 
+    init = async () => {
+      for (const type of ['secure', 'anonymous', 'team']) {
+        this[`${type}Routes`] = this[`${type}Routes`] ?? []
+        this[`${type}NegRoutes`] = this[`${type}NegRoutes`] ?? []
+      }
+    }
+
     hasColumn = async (name, model) => {
       const { getInfo } = this.app.dobo
       const { find } = this.app.bajo.lib._

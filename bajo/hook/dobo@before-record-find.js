@@ -1,10 +1,13 @@
+const useAdmin = ['waibuAdmin']
+
 export async function rebuildFilter (model, filter, req) {
-  const { isEmpty, map } = this.app.bajo.lib._
+  const { isEmpty, map, find, get } = this.app.bajo.lib._
   const { hasColumn } = this
   filter.query = filter.query ?? {}
   const hasSiteId = await hasColumn('siteId', model)
   const hasUserId = await hasColumn('userId', model)
   const hasTeamId = await hasColumn('teamId', model)
+  const isAdmin = find(req.user.teams, { alias: 'administrator' }) && useAdmin.includes(get(req, 'routeOptions.config.ns'))
   if (!(hasSiteId || hasUserId || hasTeamId)) return filter
   const q = { $and: [] }
   if (!isEmpty(filter.query)) {
@@ -12,11 +15,11 @@ export async function rebuildFilter (model, filter, req) {
     else q.$and.push(filter.query)
   }
   if (hasSiteId) q.$and.push({ siteId: req.site.id })
-  if (hasTeamId) {
+  if (hasTeamId && !isAdmin) {
     const teamIds = map(req.user.teams, 'id')
     if (hasUserId) q.$and.push({ $or: [{ teamId: { $in: teamIds } }, { userId: req.user.id }] })
     else q.$and.push({ teamId: { $in: teamIds } })
-  } else {
+  } else if (!isAdmin) {
     if (hasUserId) q.$and.push({ userId: req.user.id })
   }
   filter.query = q
