@@ -16,6 +16,11 @@
     "maxLength": 50,
     "index": true
   }, {
+    "name": "salt",
+    "type": "string",
+    "maxLength": 50,
+    "required": true
+  }, {
     "name": "email",
     "type": "string",
     "maxLength": 100,
@@ -43,7 +48,7 @@
     "fields": ["email", "siteId"],
     "unique": true
   }],
-  "hidden": ["password"],
+  "hidden": ["password", "token"],
   "feature": {
     "sumba.address": true,
     "sumba.social": true,

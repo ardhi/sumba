@@ -1,5 +1,5 @@
 const model = 'SumbaUser'
-const hidden = ['password', 'token', 'siteId']
+const hidden = ['password', 'token', 'siteId', 'salt']
 
 async function get ({ ctx }) {
   const { recordGet } = this.app.waibuDb

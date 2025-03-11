@@ -4,15 +4,15 @@ const userActivation = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { defaultsDeep } = this.app.bajo
-    const { recordFind, recordUpdate } = this.app.waibuDb
+    const { recordFind, recordUpdate } = this.app.dobo
     const form = defaultsDeep(req.body, { key: req.query.key })
     let error
     if (req.method === 'POST') {
       try {
         const query = { status: 'UNVERIFIED', token: req.body.key }
-        const result = await recordFind({ model, req, reply, options: { dataOnly: true, query, limit: 1, noHook: true } })
+        const result = await recordFind(model, { query, limit: 1 })
         if (result.length === 0) throw this.error('validationError', { details: [{ field: 'key', error: 'invalidActivationKey' }] })
-        await recordUpdate({ model, req, reply, id: result[0].id, body: { status: 'ACTIVE' }, options: { noValidation: true, noFlash: true } })
+        await recordUpdate(model, result[0].id, { status: 'ACTIVE' }, { noValidation: true, noFlash: true })
         req.flash('notify', req.t('userActivated'))
         return reply.redirectTo(this.config.redirect.signin, req)
       } catch (err) {

@@ -22,7 +22,7 @@ async function create () {
       const jwt = await createJwtFromUserRecord(rec)
       return { data: jwt }
     }
-    return { data: { token: await hash(rec.password) } }
+    return { data: { token: await hash(rec.salt) } }
   }
   return { schema, handler }
 }

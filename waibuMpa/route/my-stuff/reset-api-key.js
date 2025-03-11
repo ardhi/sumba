@@ -9,7 +9,7 @@ const resetApiKey = {
     const delay = await importPkg('delay')
     const bcrypt = await importPkg('bajoExtra:bcrypt')
     const Joi = await importPkg('dobo:joi')
-    const form = defaultsDeep(req.body, { apiKey: await hash(req.user.token) })
+    const form = defaultsDeep(req.body, { apiKey: await hash(req.user.salt) })
     let error
     if (req.method === 'POST') {
       try {
@@ -24,7 +24,7 @@ const resetApiKey = {
         const rec = await recordGet(model, req.user.id, { forceNoHidden: true })
         const verified = await bcrypt.compare(req.body.password, rec.password)
         if (!verified) throw this.error('validationError', { details: [{ field: 'password', error: 'invalidPassword' }], statusCode: 400 })
-        await recordUpdate(model, req.user.id, { token: generateId() }, { req, reply, noFlash: true })
+        await recordUpdate(model, req.user.id, { salt: generateId() }, { req, reply, noFlash: true })
         await delay(2000) // ensure req.user cache is expired
         req.flash('notify', req.t('resetApiKeySuccessfull'))
         return reply.redirectTo('sumba:/my-stuff/profile')

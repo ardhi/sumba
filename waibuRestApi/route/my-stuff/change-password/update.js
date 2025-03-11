@@ -40,7 +40,7 @@ async function update ({ ctx }) {
   }
 
   const handler = async function get (req, reply, options) {
-    const rec = await recordGet(model, req.user.id)
+    const rec = await recordGet(model, req.user.id, { forceNoHidden: true })
     const verified = await bcrypt.compare(req.body.currentPassword, rec.password)
     if (!verified) throw this.error('invalidCurrentPassword', { details: [{ field: 'current', error: 'invalidPassword' }], statusCode: 400 })
     const input = { password: req.body.password }
