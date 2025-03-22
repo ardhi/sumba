@@ -1,6 +1,6 @@
 async function getSetting (type, source) {
   const { defaultsDeep } = this.app.bajo
-  const { get } = this.app.bajo.lib._
+  const { get } = this.lib._
 
   const setting = defaultsDeep(get(this.config, `auth.${source}.${type}`, {}), get(this.config, `auth.common.${type}`, {}))
   if (type === 'basic') setting.type = 'Basic'
@@ -8,7 +8,7 @@ async function getSetting (type, source) {
 }
 
 async function getToken (type, req, source) {
-  const { isEmpty } = this.app.bajo.lib._
+  const { isEmpty } = this.lib._
 
   const setting = await getSetting.call(this, type, source)
   let token = req.headers[setting.headerKey.toLowerCase()]
@@ -113,7 +113,7 @@ async function factory (pkgName) {
 
     hasColumn = async (name, model) => {
       const { getInfo } = this.app.dobo
-      const { find } = this.app.bajo.lib._
+      const { find } = this.lib._
       const { schema } = getInfo(model)
 
       const result = find(schema.properties, { name })
@@ -122,7 +122,7 @@ async function factory (pkgName) {
 
     getUser = async (rec, safe = true) => {
       const { recordGet } = this.app.dobo
-      const { omit, isPlainObject } = this.app.bajo.lib._
+      const { omit, isPlainObject } = this.lib._
 
       let user
       if (isPlainObject(rec)) user = rec
@@ -149,9 +149,9 @@ async function factory (pkgName) {
 
     createJwtFromUserRecord = async (rec) => {
       const { importPkg } = this.app.bajo
-      const { dayjs } = this.app.bajo.lib
+      const { dayjs } = this.lib
       const { hash } = this.app.bajoExtra
-      const { get, pick } = this.app.bajo.lib._
+      const { get, pick } = this.lib._
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createSigner } = fastJwt
@@ -208,10 +208,10 @@ async function factory (pkgName) {
     verifyBasic = async (req, reply, source) => {
       const { getUserFromUsernamePassword } = this
       const { getUser } = this
-      const { isEmpty } = this.app.bajo.lib._
+      const { isEmpty } = this.lib._
 
       const setHeader = async (setting, reply) => {
-        const { isString } = this.app.bajo.lib._
+        const { isString } = this.lib._
 
         let header = setting.type
         const exts = []
@@ -251,7 +251,7 @@ async function factory (pkgName) {
       const { importPkg } = this.app.bajo
       const { recordGet } = this.app.dobo
       const { getUser } = this
-      const { isEmpty } = this.app.bajo.lib._
+      const { isEmpty } = this.lib._
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createVerifier } = fastJwt
@@ -277,7 +277,7 @@ async function factory (pkgName) {
 
     checkPathsByTeam = ({ paths = [], method = 'GET', teams = [], guards = [] }) => {
       const { includes } = this.app.bajo
-      const { outmatch } = this.app.bajo.lib
+      const { outmatch } = this.lib
 
       for (const item of guards) {
         const matchPath = outmatch(item.path)
@@ -294,7 +294,7 @@ async function factory (pkgName) {
     }
 
     checkPathsByRoute = ({ paths = [], method = 'GET', guards = [] }) => {
-      const { outmatch } = this.app.bajo.lib
+      const { outmatch } = this.lib
 
       for (const item of guards) {
         const matchPath = outmatch(item.path)
@@ -308,7 +308,7 @@ async function factory (pkgName) {
     }
 
     checkPathsByGuard = ({ guards, paths }) => {
-      const { outmatch } = this.app.bajo.lib
+      const { outmatch } = this.lib
       const matcher = outmatch(guards)
       let guarded
       for (const path of paths) {

@@ -3,7 +3,7 @@ const signin = {
   handler: async function (req, reply) {
     const { getUserFromUsernamePassword } = this
     const { runHook } = this.app.bajo
-    const { isEmpty, omit } = this.app.bajo.lib._
+    const { isEmpty, omit } = this.lib._
     const { getSessionId } = this.app.waibuMpa
 
     let { username, password, referer } = req.body || {}

@@ -1,7 +1,7 @@
 import latLngHook from '../../lib/lat-lng-hook.js'
 
 async function latLng (opts = {}) {
-  const { merge } = this.app.bajo.lib._
+  const { merge } = this.lib._
   opts.fieldNameLat = opts.fieldNameLat ?? 'lat'
   opts.fieldNameLng = opts.fieldNameLng ?? 'lng'
   opts.scale = opts.scale ?? 5

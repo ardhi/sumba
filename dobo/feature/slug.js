@@ -2,7 +2,7 @@ import slug from 'slug'
 
 async function autoInc ({ schema, body, opts }) {
   const { recordFind } = this.app.dobo
-  const { set, last } = this.app.bajo.lib._
+  const { set, last } = this.lib._
   const query = set({}, opts.fieldName, { $regex: new RegExp('^' + body[opts.fieldName]) })
   const sort = set({}, opts.fieldName, -1)
   const options = { noHook: true, skipCache: true, thrownNotFound: false }
@@ -40,7 +40,7 @@ async function mainFn (opts = {}) {
     hook: {
       beforeCreate: async function ({ schema, body }) {
         const { error } = this.app.bajo
-        const { isEmpty, isString } = this.app.bajo.lib._
+        const { isEmpty, isString } = this.lib._
         if (isEmpty(body[opts.fieldName])) {
           if (isString(opts.fieldSource)) opts.fieldSource = [opts.fieldSource]
           const source = []

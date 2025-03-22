@@ -4,7 +4,7 @@ const add = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { recordCreate, recordFind } = this.app.waibuDb
-    const { defaultsDeep } = this.app.bajo.lib._
+    const { defaultsDeep } = this.lib._
     const options = {}
     const form = defaultsDeep(req.body, {})
     let error

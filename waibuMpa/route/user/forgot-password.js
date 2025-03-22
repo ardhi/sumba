@@ -6,7 +6,7 @@ const profile = {
     if (!this.app.masohiMail) return reply.view('sumba.template:/user/forgot-password.html')
     const { sendMail } = this.app.waibu
     const { defaultsDeep } = this.app.bajo
-    const { dayjs } = this.app.bajo.lib
+    const { dayjs } = this.lib
     const { recordFind } = this.app.dobo
     const form = defaultsDeep(req.body, {})
     let error

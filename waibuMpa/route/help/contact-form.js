@@ -2,7 +2,7 @@ const contactForm = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { defaultsDeep } = this.app.bajo
-    const { pick } = this.app.bajo.lib._
+    const { pick } = this.lib._
     const { recordCreate, recordFind } = this.app.waibuDb
 
     const def = req.user ? pick(req.user, ['firstName', 'lastName', 'email']) : {}
