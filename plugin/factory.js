@@ -69,10 +69,12 @@ async function factory (pkgName) {
             }
           },
           waibuRestApi: {
-            methods: ['basic', 'apiKey', 'jwt']
+            methods: ['basic', 'apiKey', 'jwt'],
+            silentOnError: false
           },
           waibuMpa: {
-            methods: ['session']
+            methods: ['session'],
+            silentOnError: false
           },
           waibuStatic: {
             methods: ['basic', 'apiKey', 'jwt'],
@@ -80,7 +82,8 @@ async function factory (pkgName) {
               useUtf8: true,
               realm: 'Protected Area',
               warningMessage: 'Please authenticate yourself, thank you!'
-            }
+            },
+            silentOnError: false
           }
         },
         redirect: {
@@ -175,7 +178,7 @@ async function factory (pkgName) {
       return output
     }
 
-    verifySession = async (req, reply, source) => {
+    verifySession = async (req, reply, source, payload) => {
       const { getUser } = this
       const { routePath } = this.app.waibu
 
@@ -189,7 +192,8 @@ async function factory (pkgName) {
       throw this.error('_redirect', { redirect: redir })
     }
 
-    verifyApiKey = async (req, reply, source) => {
+    verifyApiKey = async (req, reply, source, payload) => {
+      const { merge } = this.lib._
       const { isMd5, hash } = this.app.bajoExtra
       const { getUser } = this
       const { recordFind } = this.app.dobo
@@ -199,16 +203,16 @@ async function factory (pkgName) {
       token = await hash(token)
       const query = { token }
       const rows = await recordFind('SumbaUser', { query }, { req, noHook: true })
-      if (rows.length === 0) throw this.error('invalidKey', { statusCode: 401 })
-      if (rows[0].status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
+      if (rows.length === 0) throw this.error('invalidKey', merge({ statusCode: 401 }, payload))
+      if (rows[0].status !== 'ACTIVE') throw this.error('userInactive', merge({ details: [{ field: 'status', error: 'inactive' }], statusCode: 401 }, payload))
       req.user = await getUser(rows[0])
       return true
     }
 
-    verifyBasic = async (req, reply, source) => {
+    verifyBasic = async (req, reply, source, payload) => {
       const { getUserFromUsernamePassword } = this
       const { getUser } = this
-      const { isEmpty } = this.lib._
+      const { isEmpty, merge } = this.lib._
 
       const setHeader = async (setting, reply) => {
         const { isString } = this.lib._
@@ -242,16 +246,16 @@ async function factory (pkgName) {
           await setHeader(setting, reply)
           return err.message
         }
-        throw err
+        throw merge(err, payload)
       }
       return true
     }
 
-    verifyJwt = async (req, reply, source) => {
+    verifyJwt = async (req, reply, source, payload) => {
       const { importPkg } = this.app.bajo
       const { recordGet } = this.app.dobo
       const { getUser } = this
-      const { isEmpty } = this.lib._
+      const { isEmpty, merge } = this.lib._
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createVerifier } = fastJwt
@@ -269,10 +273,11 @@ async function factory (pkgName) {
         if (!rec) throw this.error('invalidToken', { statusCode: 401 })
         if (rec.status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
         req.user = await getUser(rec)
-        return true
       } catch (err) {
-        return false
+        merge(err, payload)
+        throw err
       }
+      return true
     }
 
     checkPathsByTeam = ({ paths = [], method = 'GET', teams = [], guards = [] }) => {
