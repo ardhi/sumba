@@ -7,7 +7,7 @@ export async function rebuildFilter (model, filter, req) {
   const hasSiteId = await hasColumn('siteId', model)
   const hasUserId = await hasColumn('userId', model)
   const hasTeamId = await hasColumn('teamId', model)
-  const isAdmin = find(req.user.teams, { alias: 'administrator' }) && useAdmin.includes(get(req, 'routeOptions.config.ns'))
+  const isAdmin = find(get(req, 'user.teams', []), { alias: 'administrator' }) && useAdmin.includes(get(req, 'routeOptions.config.ns'))
   if (!(hasSiteId || hasUserId || hasTeamId)) return filter
   const q = { $and: [] }
   if (!isEmpty(filter.query)) {

@@ -1,4 +1,5 @@
 {
+  "buildLevel": 2,
   "properties": [{
     "name": "username",
     "type": "string",

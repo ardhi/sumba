@@ -1,4 +1,5 @@
 {
+  "buildLevel": 1,
   "properties": [{
     "name": "hostname",
     "type": "string",

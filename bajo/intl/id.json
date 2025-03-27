@@ -82,6 +82,12 @@
   "moreInfoContactAdmin": "Mohon <c:a href='sumba:/help/contact-form'>hubungi</c:a> Admin Anda untuk keterangan lebih lanjut, terima kasih!",
   "restricted": "Pembatasan",
   "fullscreen": "Layar Penuh",
+  "myStuff": "Perkakas Ku",
+  "site": "Situs",
+  "user": "Pengguna",
+  "catQuestion": "Pertanyaan Umum",
+  "catMisc": "Lain-lain",
+  "catTechnical": "Masalah Teknis",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

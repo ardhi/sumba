@@ -6,9 +6,12 @@
       <c:nav-item t:content="privacy" href="sumba:/info/privacy"/>
       <c:nav-item t:content="terms" href="sumba:/info/terms-conditions"/>
     </c:nav>
+    <% if (!(_meta.routeOpts.pathSrc.startsWith('/my-profile') || _meta.routeOpts.pathSrc.startsWith('/info') ||
+    _meta.routeOpts.pathSrc.startsWith('/help'))) { %>
     <c:nav flex="justify-content:center">
       <c:nav-dropdown-darkmode />
       <c:nav-dropdown-language />
     </c:nav>
+    <% } %>
   </small>
 </c:footer>

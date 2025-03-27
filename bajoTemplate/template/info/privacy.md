@@ -106,7 +106,7 @@ We use both Session and Persistent Cookies for the purposes set out below:
 
 
 
-For more information about the cookies we use and your choices regarding cookies, please visit our [Cookie Policy](cookie-policy) or the Cookies section of our Privacy Policy.
+For more information about the cookies we use and your choices regarding cookies, please visit our [Cookie Policy](sumba:/info/cookie-policy) or the Cookies section of our Privacy Policy.
 
 #### Use of Your Personal Data
 
