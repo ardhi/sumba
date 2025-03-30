@@ -4,6 +4,7 @@ const list = {
   method: ['GET'],
   handler: async function (req, reply) {
     const { recordFind, getSchemaExt } = this.app.waibuDb
+    const { getExcerpt } = this.app.bajoTemplate
     const { schema } = await getSchemaExt(model, 'list')
     const options = { count: true }
     const list = await recordFind({ model, req, options })
@@ -12,7 +13,7 @@ const list = {
     schema.view.label = { subject: 'Your Message' }
     schema.view.formatter = {
       subject: (val, rec) => {
-        return `<strong>${val}</strong><br />${this.createExcerpt(rec.message, 35)}`
+        return `<strong>${val}</strong><br />${getExcerpt(rec.message, 35)}`
       }
     }
     return reply.view('sumba.template:/help/trouble-tickets/list.html', { list, schema })

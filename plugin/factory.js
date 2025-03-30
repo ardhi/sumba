@@ -169,15 +169,6 @@ async function factory (pkgName) {
       return { token, expiresAt }
     }
 
-    // based on: https://medium.com/@paulohfev/problem-solving-how-to-create-an-excerpt-fdb048687928
-    createExcerpt = (content, maxWords = 100, trailChars = '...') => {
-      const listOfWords = content.trim().split(' ')
-      const truncatedContent = listOfWords.slice(0, maxWords).join(' ')
-      const excerpt = truncatedContent + trailChars
-      const output = listOfWords.length > maxWords ? excerpt : content
-      return output
-    }
-
     verifySession = async (req, reply, source, payload) => {
       const { getUser } = this
       const { routePath } = this.app.waibu

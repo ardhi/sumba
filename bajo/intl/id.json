@@ -88,6 +88,7 @@
   "catQuestion": "Pertanyaan Umum",
   "catMisc": "Lain-lain",
   "catTechnical": "Masalah Teknis",
+  "activation": "Aktivasi",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

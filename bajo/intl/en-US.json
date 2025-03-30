@@ -87,6 +87,7 @@
   "catQuestion": "General Question",
   "catMisc": "Misc",
   "catTechnical": "Technical Problem",
+  "activation": "Activation",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
