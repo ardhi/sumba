@@ -28,7 +28,7 @@ async function factory (pkgName) {
     constructor () {
       super(pkgName, me.app)
       this.alias = 'sumba'
-      this.dependencies = ['waibu', 'waibu-db', 'bajo-extra', 'bajo-common-db']
+      this.dependencies = ['bajo-extra', 'bajo-common-db']
       this.config = {
         multiSite: false,
         waibu: {
