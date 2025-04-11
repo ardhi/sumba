@@ -27,12 +27,12 @@ const resetApiKey = {
         await recordUpdate(model, req.user.id, { salt: generateId() }, { req, reply, noFlash: true })
         await delay(2000) // ensure req.user cache is expired
         req.flash('notify', req.t('resetApiKeySuccessfull'))
-        return reply.redirectTo('sumba:/my-stuff/profile')
+        return reply.redirectTo('sumba:/your-stuff/profile')
       } catch (err) {
         error = err
       }
     }
-    return reply.view('sumba.template:/my-stuff/reset-api-key.html', { form, error })
+    return reply.view('sumba.template:/your-stuff/reset-api-key.html', { form, error })
   }
 }
 

@@ -1,7 +1,11 @@
 <c:p t:content="signoutWarning" />
 <c:form method="POST" action="sumba:/signout" referer>
   <c:btn color="primary" t:content="signoutNow" type="submit" />
-  <% if (!page.noLinks) { %>
-  <c:btn color="link" icon="house" t:content="gotoHome" href="/" />
-  <% } %>
 </c:form>
+<% if (!page.noLinks) { %>
+<c:div move-to="#footer" flex="justify-content:center">
+  <c:nav type="inline">
+    <!-- include sumba.partial:/list-item/goto-home.html -->
+  </c:nav>
+</c:div>
+<% } %>

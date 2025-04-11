@@ -89,6 +89,8 @@
   "catMisc": "Lain-lain",
   "catTechnical": "Masalah Teknis",
   "activation": "Aktivasi",
+  "addTroubleTickets": "Buat Ticket Baru",
+  "ourAddress": "Alamat Kami",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

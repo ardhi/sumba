@@ -28,7 +28,7 @@ async function factory (pkgName) {
     constructor () {
       super(pkgName, me.app)
       this.alias = 'sumba'
-      this.dependencies = ['bajo-extra', 'bajo-common-db']
+      this.dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config']
       this.config = {
         multiSite: false,
         waibu: {
@@ -36,17 +36,45 @@ async function factory (pkgName) {
           prefix: 'site'
         },
         waibuMpa: {
-          home: 'sumba:/my-stuff/profile',
+          home: 'sumba:/your-stuff/profile',
           icon: 'globe',
           redirect: {
-            '/': 'sumba:/my-stuff/profile',
-            '/my-stuff': 'sumba:/my-stuff/profile',
+            '/': 'sumba:/your-stuff/profile',
+            '/your-stuff': 'sumba:/your-stuff/profile',
             '/info': 'sumba:/info/about-us',
-            '/user': 'sumba:/my-stuff/profile',
+            '/user': 'sumba:/your-stuff/profile',
             '/db/export': 'sumba:/db/export/list',
             '/help': 'sumba:/help/contact-form',
             '/help/trouble-tickets': 'sumba:/help/trouble-tickets/list'
-          }
+          },
+          pages: [{
+            title: 'account',
+            level: 80,
+            children: [
+              // anonymous only
+              { title: 'signin', href: 'sumba:/signin', visible: 'anon' },
+              { title: 'forgotPassword', href: 'sumba:/forgot-password', visible: 'anon' },
+              { title: 'newUserSignup', href: 'sumba:/user/signup', visible: 'anon' },
+              { title: '-', visible: 'anon' },
+              { title: 'activation', href: 'sumba:/user/activation', visible: 'anon' },
+              // authenticated only
+              { title: 'yourProfile', href: 'sumba:/your-stuff/profile', visible: 'auth' },
+              { title: 'changePassword', href: 'sumba:/your-stuff/change-password', visible: 'auth' },
+              { title: '-', visible: 'auth' },
+              { title: 'signout', href: 'sumba:/signout', visible: 'auth' }
+            ]
+          }, {
+            title: 'help',
+            level: 90,
+            children: [
+              { title: 'contactForm', href: 'sumba:/help/contact-form' },
+              { title: 'troubleTickets', href: 'sumba:/help/trouble-tickets' },
+              { title: '-', visible: 'auth' },
+              { title: 'cookiePolicy', href: 'sumba:/info/cookie-policy' },
+              { title: 'privacy', href: 'sumba:/info/privacy' },
+              { title: 'termsConditions', href: 'sumba:/info/terms-conditions' }
+            ]
+          }]
         },
         waibuAdmin: {
           modelDisabled: 'all'
@@ -126,11 +154,24 @@ async function factory (pkgName) {
     getUser = async (rec, safe = true) => {
       const { recordGet } = this.app.dobo
       const { omit, isPlainObject } = this.lib._
-
       let user
       if (isPlainObject(rec)) user = rec
       else user = await recordGet('SumbaUser', rec, { noHook: true })
       return safe ? omit(user, this.unsafeUserFields) : user
+    }
+
+    mergeTeam = async (user, site) => {
+      if (!user) return
+      const { map, pick } = this.lib._
+      const { recordFindAll } = this.app.dobo
+      user.teams = []
+      const query = { userId: user.id, siteId: site.id }
+      const userTeam = await recordFindAll('SumbaTeamUser', { query })
+      if (userTeam.length === 0) return
+      delete query.userId
+      query.id = { $in: map(userTeam, 'id'), status: 'ENABLED' }
+      const team = await recordFindAll('SumbaTeam', { query })
+      if (team.length > 0) user.teams.push(...map(team, t => pick(t, ['id', 'alias'])))
     }
 
     getUserFromUsernamePassword = async (username = '', password = '', req) => {
@@ -174,8 +215,8 @@ async function factory (pkgName) {
       const { routePath } = this.app.waibu
 
       if (!req.session) return false
-      if (req.session.user) {
-        req.user = await getUser(req.session.user.id)
+      if (req.session.userId) {
+        req.user = await getUser(req.session.userId)
         return true
       }
       const redir = routePath(this.config.redirect.signin, req)
@@ -311,6 +352,68 @@ async function factory (pkgName) {
         if (!guarded) guarded = matcher(path)
       }
       return guarded
+    }
+
+    getSite = async (hostname, useId) => {
+      const { omit } = this.lib._
+      const { recordFind } = this.app.dobo
+      const omitted = ['status']
+
+      const mergeSetting = async (site) => {
+        const { defaultsDeep, parseObject } = this.app.bajo
+        const { trim, get, filter } = this.lib._
+        const { recordFind, recordGet } = this.app.dobo
+        const defSetting = {}
+        const nsSetting = {}
+        const query = {
+          ns: { $in: this.app.bajo.pluginNames },
+          siteId: site.id
+        }
+        const all = await recordFind('SumbaSiteSetting', { query, limit: -1 })
+        for (const ns of this.app.bajo.pluginNames) {
+          nsSetting[ns] = {}
+          defSetting[ns] = get(this, `app.${ns}.config.siteSetting`, {})
+          const items = filter(all, { ns })
+          for (const item of items) {
+            let value = trim([item.value] ?? '')
+            if (['[', '{'].includes(value[0])) value = JSON.parse(value)
+            else if (Number(value)) value = Number(value)
+            else if (['true', 'false'].includes(value)) value = value === 'true'
+            nsSetting[ns][item.key] = value
+          }
+        }
+        site.setting = parseObject(defaultsDeep({}, nsSetting, defSetting))
+        // additional fields
+        const country = await recordGet('CdbCountry', site.country, { noHook: true })
+        site.countryName = (country ?? {}).name ?? site.country
+      }
+
+      let site = {}
+
+      if (!this.config.multiSite) {
+        const resp = await recordFind('SumbaSite', { query: { alias: 'default' } }, { noHook: true })
+        site = omit(resp[0], omitted)
+        await mergeSetting(site)
+        return site
+      }
+      let query
+      if (useId) query = { id: hostname }
+      else {
+        query = {
+          $or: [
+            { hostname },
+            { alias: hostname }
+          ]
+        }
+      }
+      const filter = { query, limit: 1 }
+      const rows = await recordFind('SumbaSite', filter, { noHook: true })
+      if (rows.length === 0) throw this.error('unknownSite')
+      const row = omit(rows[0], omitted)
+      if (row.status !== 'ACTIVE') throw this.error('siteInactiveInfo')
+      site = row
+      await mergeSetting(site)
+      return site
     }
   }
 }

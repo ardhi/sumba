@@ -10,10 +10,8 @@ const signout = {
     req.session.ref = null
     if (req.method === 'POST') {
       const sid = await getSessionId(req.headers.cookie)
-      const user = req.session.user
-      req.session.user = null
-      if (this.bajoEmitter) await this.app.bajoEmitter.emit(`${this.name}.signout`, user, sid)
-      await runHook(`${this.name}:afterSignout`, user, sid, req)
+      req.session.userId = null
+      await runHook(`${this.name}:afterSignout`, sid, req)
       const { query, params } = req
       // const url = !isEmpty(referer) ? referer : this.config.redirect.home
       const url = this.config.redirect.afterSignout

@@ -17,12 +17,12 @@ const profile = {
         const resp = await recordUpdate({ req, reply, model: 'SumbaUser', id: req.user.id, body, options })
         form = resp.data
         req.flash('notify', req.t('profileUpdated'))
-        return reply.redirectTo('sumba:/my-stuff/profile')
+        return reply.redirectTo('sumba:/your-stuff/profile')
       } catch (err) {
         error = err
       }
     }
-    return reply.view('sumba.template:/my-stuff/profile/edit.html', { form, error })
+    return reply.view('sumba.template:/your-stuff/profile/edit.html', { form, error })
   }
 }
 

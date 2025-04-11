@@ -1,11 +1,11 @@
 [
-  "/my-stuff/**/*",
+  "/your-stuff/**/*",
   "/signout",
   "/help/trouble-tickets/**/*",
 {
   "path": "/user/api-key",
   "routeHandler": "restapi"
 }, {
-  "path": "/my-stuff/**/*",
+  "path": "/your-stuff/**/*",
   "routeHandler": "restapi"
 }]

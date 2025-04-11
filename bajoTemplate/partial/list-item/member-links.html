@@ -1,14 +1,14 @@
 <% if (_meta.user) { %>
-<c:list-item href="sumba:/my-stuff/profile" t:content="yourProfile" />
-<c:list-item href="sumba:/my-stuff/change-password" t:content="changePassword" />
+<c:nav-item href="sumba:/your-stuff/profile" t:content="yourProfile" />
+<c:nav-item href="sumba:/your-stuff/change-password" t:content="changePassword" />
   <% if (attr.withSignout) { %>
-  <c:list-item href="sumba:/signout" t:content="signout" />
+  <c:nav-item href="sumba:/signout" t:content="signout" />
   <% } %>
 <% } else { %>
-<c:list-item href="sumba:/signin" t:content="signin" />
-<c:list-item href="sumba:/user/signup" t:content="signup" />
-<c:list-item href="sumba:/user/forgot-password" t:content="forgotPassword" />
+<c:nav-item href="sumba:/signin" t:content="signin" />
+<c:nav-item href="sumba:/user/signup" t:content="signup" />
+<c:nav-item href="sumba:/user/forgot-password" t:content="forgotPassword" />
   <% if (_hasPlugin('masohi') && _hasPlugin('masohiMail')) { %>
-  <c:list-item href="sumba:/user/activation" t:content="userActivation" />
+  <c:nav-item href="sumba:/user/activation" t:content="userActivation" />
   <% } %>
 <% } %>

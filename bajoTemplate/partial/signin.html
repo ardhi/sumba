@@ -3,9 +3,11 @@
   <c:form-password name="password" label-floating wrapper-margin="bottom-3" />
 </c:form>
 <% if (!page.noLinks) { %>
-<c:list type="unstyled" margin="start-3">
-  <!-- include sumba.partial:/list-item/forgot-password.html -->
-  <!-- include sumba.partial:/list-item/user-signup.html -->
-  <!-- include sumba.partial:/list-item/goto-home.html -->
-</c:list>
+<c:div move-to="#footer" flex="justify-content:center">
+  <c:nav type="inline">
+    <!-- include sumba.partial:/list-item/forgot-password.html -->
+    <!-- include sumba.partial:/list-item/user-signup.html -->
+    <!-- include sumba.partial:/list-item/goto-home.html -->
+  </c:nav>
+</c:div>
 <% } %>

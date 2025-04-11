@@ -2,8 +2,8 @@ async function afterBuildLocals (locals, req) {
   const { routePath } = this.app.waibu
   const items = []
   if (req.user) {
-    items.push({ icon: 'person', 't:tooltip': 'yourProfile', href: routePath('sumba:/my-stuff/profile') })
-    items.push({ icon: 'key', 't:tooltip': 'changePassword', href: routePath('sumba:/my-stuff/change-password') })
+    items.push({ icon: 'person', 't:tooltip': 'yourProfile', href: routePath('sumba:/your-stuff/profile') })
+    items.push({ icon: 'key', 't:tooltip': 'changePassword', href: routePath('sumba:/your-stuff/change-password') })
     items.push({ component: 'navItemSignout', 't:tooltip': 'signout', bottom: true })
   } else {
     items.push({ icon: 'signin', 't:tooltip': 'signin', href: routePath('sumba:/signin') })

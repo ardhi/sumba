@@ -7,7 +7,7 @@ const profile = {
     const resp = await recordGet({ model: 'SumbaUser', req, id: req.user.id, options })
     const form = resp.data
     form.token = await hash(form.salt)
-    return reply.view('sumba.template:/my-stuff/profile/view.html', { form })
+    return reply.view('sumba.template:/your-stuff/profile/view.html', { form })
   }
 }
 

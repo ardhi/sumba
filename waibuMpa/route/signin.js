@@ -13,7 +13,7 @@ const signin = {
     if (req.method === 'POST') {
       try {
         const user = omit(await getUserFromUsernamePassword(username, password, req), ['password', 'token'])
-        req.session.user = user
+        req.session.userId = user.id
         const sid = await getSessionId(req.headers.cookie)
         if (this.bajoEmitter) await this.app.bajoEmitter.emit(`${this.name}.signin`, user, sid)
         await runHook(`${this.name}:afterSignin`, user, sid, req)

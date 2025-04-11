@@ -1,0 +1,15 @@
+<c:page-start />
+<c:container>
+  <c:div flex="align-items:center justify-content:center" dim="height:viewport">
+    <c:grid-row dim="width:100">
+      <c:grid-col col="4-lg 3-md"></c:grid-col>
+      <c:grid-col col="4-lg 6-md">
+        <c:app-launcher trigger />
+        <c:heading margin="bottom-4" text="align:center" type="3-display" content="<%= page.title %>" />
+        <!-- body -->
+        <!-- include sumba.partial:/layout/footer.html -->
+      </c:grid-col>
+      <c:grid-col col="4-lg 3-md"></c:grid-col>
+    </c:grid-row>
+</c:container>
+<c:page-end />

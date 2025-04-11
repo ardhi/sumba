@@ -1,9 +1,8 @@
-import checkSiteId from '../../lib/check-site-id.js'
-
 const onRequest = {
   level: 10,
   handler: async function (req, reply) {
-    await checkSiteId.call(this, req, reply)
+    const hostname = req.hostname.split(':')[0]
+    req.site = await this.getSite(hostname)
   }
 }
 

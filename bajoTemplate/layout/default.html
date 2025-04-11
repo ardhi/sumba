@@ -1,14 +1,15 @@
 <c:page-start />
-<c:container flex="align-items:center" dim="height:viewport">
-  <c:grid-row dim="width:100">
-    <c:grid-col col="4-md"></c:grid-col>
-    <c:grid-col col="4-md">
-      <c:app-launcher trigger />
-      <c:heading margin="bottom-4" text="align:center" type="3-display" content="<%= page.title %>" />
-      <!-- body -->
-      <!-- include sumba.partial:/layout/footer.html -->
-    </c:grid-col>
-    <c:grid-col col="4-md"></c:grid-col>
-  </c:grid-row>
-</c:container>
-<c:page-end />
+<c:main flex>
+  <!-- include sumba.partial:/layout/sidebar.html -->
+  <c:div flex="fill column">
+    <!-- include sumba.partial:/layout/navbar.html -->
+    <!-- include sumba.partial:/layout/breadcrumb.html -->
+    <c:container margin="start-0 bottom-5" padding="x-3">
+      <c:div style="max-width: 992px;">
+        <!-- body -->
+        <!-- include sumba.partial:/layout/footer.html -->
+      </c:div>
+    </c:container>
+  </c:div>
+</c:main>
+<c:page-end back-to-top/>

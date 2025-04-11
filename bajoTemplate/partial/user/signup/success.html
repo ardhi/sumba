@@ -4,7 +4,9 @@
 <!-- include sumba.partial:/user/signup/success-nomail.md -->
 <% } %>
 <% if (!page.noLinks) { %>
-<c:list type="unstyled" margin="start-3">
-  <c:list-item t:content="gotoHome" href="/" icon="house"/>
-</c:list>
+<c:div move-to="#footer" flex="justify-content:center">
+  <c:nav type="inline">
+    <c:nav-item t:content="gotoHome" href="/" icon="house"/>
+  </c:nav>
+</c:div>
 <% } %>
