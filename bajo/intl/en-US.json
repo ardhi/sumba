@@ -101,7 +101,8 @@
     "iconset": "Iconset",
     "subject": "Subject",
     "message": "Message",
-    "cat": "Category"
+    "cat": "Category",
+    "waPhone": "WA Phone"
   },
   "validation": {
     "password": {

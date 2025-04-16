@@ -27,7 +27,7 @@
   "forgotPassword": "Lupa Kata Sandi",
   "userActivation": "Aktivasi Akun",
   "signup": "Pendaftaran",
-  "newUserSignup": "Pendaftaran Pengguna Baru",
+  "newUserSignup": "Pendaftaran Pengguna",
   "updateProfile": "Perbarui Profil",
   "backToProfile": "Kembali ke Profil",
   "displayApiKey": "Tampilkan Kunci API",
@@ -102,7 +102,8 @@
     "iconset": "Iconset",
     "subject": "Judul",
     "message": "Pesan",
-    "cat": "Kategori"
+    "cat": "Kategori",
+    "waPhone": "WA Phone"
   },
   "validation": {
     "password": {

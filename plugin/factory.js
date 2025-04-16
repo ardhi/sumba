@@ -68,8 +68,8 @@ async function factory (pkgName) {
             level: 90,
             children: [
               { title: 'contactForm', href: 'sumba:/help/contact-form' },
-              { title: 'troubleTickets', href: 'sumba:/help/trouble-tickets' },
-              { title: '-', visible: 'auth' },
+              { title: 'troubleTickets', href: 'sumba:/help/trouble-tickets', visible: 'auth' },
+              { title: '-' },
               { title: 'cookiePolicy', href: 'sumba:/info/cookie-policy' },
               { title: 'privacy', href: 'sumba:/info/privacy' },
               { title: 'termsConditions', href: 'sumba:/info/terms-conditions' }
