@@ -49,7 +49,7 @@ async function factory (pkgName) {
           },
           pages: [{
             title: 'account',
-            level: 80,
+            level: 9998,
             children: [
               // anonymous only
               { title: 'signin', href: 'sumba:/signin', visible: 'anon' },
@@ -65,7 +65,7 @@ async function factory (pkgName) {
             ]
           }, {
             title: 'help',
-            level: 90,
+            level: 9999,
             children: [
               { title: 'contactForm', href: 'sumba:/help/contact-form' },
               { title: 'troubleTickets', href: 'sumba:/help/trouble-tickets', visible: 'auth' },

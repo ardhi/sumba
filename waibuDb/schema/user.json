@@ -5,13 +5,7 @@
       { "name": "account", "fields": ["username", "email", "status:4-md 6-sm", "siteId:4-md 6-sm", "firstName", "lastName"] },
       { "name": "address", "fields": ["address1:12", "address2:12", "city:6-md 8-sm", "zipCode:2-md 4-sm", "provinceState:4-md", { "name": "country", "col": "6-md", "component": "form-select-country" }, "phone:6-md", "website:12"] },
       { "name": "socialMedia", "fields": ["twitter:3-md 6-sm", "instagram:3-md 6-sm", "facebook:3-md 6-sm", "linkedIn:3-md 6-sm"] }
-    ],
-    "stat": {
-      "aggregate": [
-        { "fields": ["status"], "group": "status", "aggregate": ["count"] },
-        { "fields": ["country"], "group": "country", "aggregate": ["count"] }
-      ]
-    }
+    ]
   },
   "view": {
     "list": {
@@ -19,7 +13,13 @@
         "sort": "username:1",
         "limit": 10
       },
-      "fields": ["createdAt", "status", "siteId", "username", "email", "firstName", "lastName", "city", "zipCode", "provinceState", "country", "phone"]
+      "fields": ["createdAt", "status", "siteId", "username", "email", "firstName", "lastName", "city", "zipCode", "provinceState", "country", "phone"],
+      "stat": {
+        "aggregate": [
+          { "fields": ["status"], "group": "status", "aggregate": ["count"] },
+          { "fields": ["country"], "group": "country", "aggregate": ["count"] }
+        ]
+      }
     },
     "details": {
     },

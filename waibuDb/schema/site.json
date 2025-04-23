@@ -6,13 +6,7 @@
       { "name": "Person In Charge", "fields": ["picName:3-md 6-sm:Name", "picRole:3-md 6-sm:Role", "picPhone:3-md 6-sm:Phone", "picEmail:3-md 6-sm:Email"] },
       { "name": "Address", "fields": ["address1:12", "address2:12", "city:6-md 8-sm", "zipCode:2-md 4-sm", "provinceState:4-md", { "name": "country", "col": "6-md", "component": "form-select-country" }, "phone:6-md", "website:12"] },
       { "name": "Social Media", "fields": ["twitter:3-md 6-sm", "instagram:3-md 6-sm", "facebook:3-md 6-sm", "linkedIn:3-md 6-sm"] }
-    ],
-    "stat": {
-      "aggregate": [
-        { "fields": ["status"], "group": "status", "aggregate": ["count"] },
-        { "fields": ["country"], "group": "country", "aggregate": ["count"] }
-      ]
-    }
+    ]
   },
   "view": {
     "list": {
@@ -20,7 +14,13 @@
         "sort": "hostname:1",
         "limit": 10
       },
-      "fields": ["createdAt", "status", "hostname", "orgName", "email", "city", "zipCode", "provinceState", "country", "phone"]
+      "fields": ["createdAt", "status", "hostname", "orgName", "email", "city", "zipCode", "provinceState", "country", "phone"],
+      "stat": {
+        "aggregate": [
+          { "fields": ["status"], "group": "status", "aggregate": ["count"] },
+          { "fields": ["country"], "group": "country", "aggregate": ["count"] }
+        ]
+      }
     },
     "details": {
     },
