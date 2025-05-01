@@ -142,15 +142,6 @@ async function factory (pkgName) {
       }
     }
 
-    hasColumn = async (name, model) => {
-      const { getInfo } = this.app.dobo
-      const { find } = this.lib._
-      const { schema } = getInfo(model)
-
-      const result = find(schema.properties, { name })
-      return !!result
-    }
-
     getUser = async (rec, safe = true) => {
       const { recordGet } = this.app.dobo
       const { omit, isPlainObject } = this.lib._

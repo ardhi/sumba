@@ -2,11 +2,11 @@ const useAdmin = ['waibuAdmin']
 
 export async function rebuildFilter (model, filter, req) {
   const { isEmpty, map, find, get } = this.lib._
-  const { hasColumn } = this
+  const { hasField } = this.app.dobo
   filter.query = filter.query ?? {}
-  const hasSiteId = await hasColumn('siteId', model)
-  const hasUserId = await hasColumn('userId', model)
-  const hasTeamId = await hasColumn('teamId', model)
+  const hasSiteId = hasField('siteId', model)
+  const hasUserId = hasField('userId', model)
+  const hasTeamId = hasField('teamId', model)
   const isAdmin = find(get(req, 'user.teams', []), { alias: 'administrator' }) && useAdmin.includes(get(req, 'routeOptions.config.ns'))
   if (!(hasSiteId || hasUserId || hasTeamId)) return filter
   const q = { $and: [] }
