@@ -7,7 +7,7 @@ async function lng (opts = {}) {
   return {
     properties: [{
       name: opts.fieldName,
-      type: 'float',
+      type: 'double',
       required: opts.required ?? true,
       index: opts.required ?? true,
       precision: opts.precision,
