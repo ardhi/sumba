@@ -77,6 +77,7 @@ async function factory (pkgName) {
           }]
         },
         waibuAdmin: {
+          menuHandler: 'sumba:adminMenu',
           modelDisabled: 'all'
         },
         auth: {
@@ -140,6 +141,37 @@ async function factory (pkgName) {
         this[`${type}Routes`] = this[`${type}Routes`] ?? []
         this[`${type}NegRoutes`] = this[`${type}NegRoutes`] ?? []
       }
+    }
+
+    adminMenu = async (locals, req) => {
+      if (!this.app.waibuAdmin) return
+      const { buildAccordionMenu } = this.app.waibuAdmin
+
+      const allMenus = async (locals, req) => {
+        const { runHook } = this.app.bajo
+        const { getPluginPrefix } = this.app.waibu
+        const prefix = getPluginPrefix(this.name)
+        const menu = [{
+          title: 'supportSystem',
+          children: [
+            { title: 'contactForm', href: `waibuAdmin:/${prefix}/contact-form/list` },
+            { title: 'contactFormCat', href: `waibuAdmin:/${prefix}/contact-form-cat/list` },
+            { title: 'ticket', href: `waibuAdmin:/${prefix}/ticket/list` },
+            { title: 'ticketCat', href: `waibuAdmin:/${prefix}/ticket-cat/list` }
+          ]
+        }, {
+          title: 'management',
+          children: [
+            { title: 'manageSite', href: `waibuAdmin:/${prefix}/site/list` },
+            { title: 'manageUser', href: `waibuAdmin:/${prefix}/user/list` },
+            { title: 'manageTeam', href: `waibuAdmin:/${prefix}/team/list` }
+          ]
+        }]
+        await runHook(`${this.name}:afterAdminMenu`, menu, locals, req)
+        return menu
+      }
+
+      return await buildAccordionMenu(await allMenus.call(this, locals, req), locals, req)
     }
 
     getUser = async (rec, safe = true) => {

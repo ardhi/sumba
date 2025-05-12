@@ -1,6 +1,5 @@
 {
   "properties": [
-    "id::50:primary:true",
     "firstName::50:true:true",
     "lastName::50:true:true",
     "email::50:true:true",

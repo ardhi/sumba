@@ -1,0 +1,28 @@
+{
+  "common": {
+    "disabled": ["create"],
+    "layout": [
+      { "name": "meta", "fields": ["id", "createdAt", "updatedAt", "status", "userId"] },
+      { "name": "general", "fields": ["firstName:6-md", "lastName:6-md", "email:6-md", "cat:6-md", "subject:12", "message:12"] }
+    ]
+  },
+  "view": {
+    "list": {
+      "fields": ["createdAt", "status", "firstName", "lastName", "cat", "subject"],
+      "stat": {
+        "aggregate": [
+          { "fields": ["status"], "group": "status", "aggregate": ["count"] },
+          { "fields": ["cat"], "group": "cat", "aggregate": ["count"] }
+        ]
+      }
+    },
+    "details": {
+    },
+    "add": {
+      "hidden": ["id", "createdAt", "updatedAt", "userId", "status"]
+    },
+    "edit": {
+      "readonly": ["id", "createdAt", "updatedAt", "userId"]
+    }
+  }
+}
