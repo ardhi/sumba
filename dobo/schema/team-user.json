@@ -1,15 +1,25 @@
 {
-  "properties": [
-  ],
+  "properties": [{
+    "name": "teamId",
+    "type": "string",
+    "maxLength": 50,
+    "required": true,
+    "rel": {
+      "team": {
+        "schema": "SumbaTeam",
+        "propName": "id",
+        "type": "one-to-one"
+      }
+    }
+  }],
   "indexes": [{
-    "fields": ["userId", "siteId", "id"],
+    "fields": ["userId", "siteId", "teamId"],
     "unique": true
   }],
   "feature": {
     "createdAt": true,
     "updatedAt": true,
     "sumba.siteId": true,
-    "sumba.userId": true,
-    "sumba.parentId": true
+    "sumba.userId": true
   }
 }

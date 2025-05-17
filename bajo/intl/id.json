@@ -99,6 +99,7 @@
   "manageSite": "Kelola Situs",
   "manageUser": "Kelola Pengguna",
   "manageTeam": "Kelola Tim",
+  "manageTeamUser": "Manage Anggota Tim",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
@@ -111,7 +112,8 @@
     "subject": "Judul",
     "message": "Pesan",
     "cat": "Kategori",
-    "waPhone": "WA Phone"
+    "waPhone": "WA Phone",
+    "teamId": "ID Tim"
   },
   "validation": {
     "password": {

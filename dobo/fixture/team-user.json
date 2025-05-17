@@ -1,5 +1,5 @@
 [{
   "userId": "?:SumbaUser::username:admin",
-  "parentId": "?:SumbaTeam::alias:administrator",
+  "teamId": "?:SumbaTeam::alias:administrator",
   "siteId": "?:SumbaSite::alias:default"
 }]

@@ -1,0 +1,31 @@
+{
+  "common": {
+    "hidden": ["siteId"],
+    "layout": [
+      { "name": "meta", "fields": ["id", "createdAt", "updatedAt", "status"] },
+      { "name": "general", "fields": ["alias:6-md", "name:6-md"] }
+    ]
+  },
+  "view": {
+    "list": {
+      "qs": {
+        "sort": "alias:1",
+        "limit": 10
+      },
+      "fields": ["alias", "name", "status", "createdAt", "updatedAt"],
+      "stat": {
+        "aggregate": [
+          { "fields": ["status"], "group": "status", "aggregate": ["count"] }
+        ]
+      }
+    },
+    "details": {
+    },
+    "add": {
+      "hidden": ["id", "createdAt", "updatedAt", "status"]
+    },
+    "edit": {
+      "readonly": ["id", "createdAt", "updatedAt", "alias"]
+    }
+  }
+}

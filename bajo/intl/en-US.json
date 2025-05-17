@@ -98,6 +98,7 @@
   "manageSite": "Manage Site",
   "manageUser": "Manage User",
   "manageTeam": "Manage Team",
+  "manageTeamUser": "Manage Team Member",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
@@ -110,7 +111,8 @@
     "subject": "Subject",
     "message": "Message",
     "cat": "Category",
-    "waPhone": "WA Phone"
+    "waPhone": "WA Phone",
+    "teamId": "Team ID"
   },
   "validation": {
     "password": {
