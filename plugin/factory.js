@@ -47,7 +47,7 @@ async function factory (pkgName) {
             '/help': 'sumba:/help/contact-form',
             '/help/trouble-tickets': 'sumba:/help/trouble-tickets/list'
           },
-          pages: [{
+          menuHandler: [{
             title: 'account',
             level: 9998,
             children: [
