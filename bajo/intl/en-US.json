@@ -99,6 +99,10 @@
   "manageUser": "Manage User",
   "manageTeam": "Manage Team",
   "manageTeamUser": "Manage Team Member",
+  "resetUserPassword": "Reset User Password",
+  "unknownUser": "User Unknown/Invalid",
+  "socialMedia": "Social Media",
+  "resetPassword": "Reset Password",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
@@ -112,7 +116,11 @@
     "message": "Message",
     "cat": "Category",
     "waPhone": "WA Phone",
-    "teamId": "Team ID"
+    "teamId": "Team ID",
+    "socX": "X (Twitter)",
+    "socInstagram": "Instagram",
+    "socFacebook": "Facebook",
+    "socLinkedIn": "LinkedIn"
   },
   "validation": {
     "password": {

@@ -100,6 +100,10 @@
   "manageUser": "Kelola Pengguna",
   "manageTeam": "Kelola Tim",
   "manageTeamUser": "Manage Anggota Tim",
+  "resetUserPassword": "Reset Kata Sandi Pengguna",
+  "unknownUser": "Pengguna Tidak Dikenal/Tidak Valid",
+  "socialMedia": "Media Sosial",
+  "resetPassword": "Reset Kata Sandi",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
@@ -113,7 +117,11 @@
     "message": "Pesan",
     "cat": "Kategori",
     "waPhone": "WA Phone",
-    "teamId": "ID Tim"
+    "teamId": "ID Tim",
+    "socX": "X (Twitter)",
+    "socInstagram": "Instagram",
+    "socFacebook": "Facebook",
+    "socLinkedIn": "LinkedIn"
   },
   "validation": {
     "password": {

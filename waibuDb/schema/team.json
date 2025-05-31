@@ -1,6 +1,5 @@
 {
   "common": {
-    "hidden": ["siteId"],
     "layout": [
       { "name": "meta", "fields": ["id", "createdAt", "updatedAt", "status"] },
       { "name": "general", "fields": ["alias:6-md", "name:6-md"] }

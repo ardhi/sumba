@@ -1,7 +1,6 @@
 async function teamUser () {
   return {
     common: {
-      hidden: ['siteId'],
       layout: [
         { name: 'meta', fields: ['id', 'createdAt', 'updatedAt'] },
         { name: 'general', fields: ['userId:6-md', 'teamId:6-md'] }

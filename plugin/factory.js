@@ -159,10 +159,11 @@ async function factory (pkgName) {
       }, {
         title: 'management',
         children: [
-          { title: 'manageSite', href: `waibuAdmin:/${prefix}/site/list` },
+          { title: 'manageSite', href: `waibuAdmin:/${prefix}/site` },
           { title: 'manageUser', href: `waibuAdmin:/${prefix}/user/list` },
           { title: 'manageTeam', href: `waibuAdmin:/${prefix}/team/list` },
-          { title: 'manageTeamUser', href: `waibuAdmin:/${prefix}/team-user/list` }
+          { title: 'manageTeamUser', href: `waibuAdmin:/${prefix}/team-user/list` },
+          { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
         ]
       }]
     }
