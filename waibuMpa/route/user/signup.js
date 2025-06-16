@@ -1,7 +1,8 @@
 const signup = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep, generateId } = this.app.bajo
+    const { defaultsDeep } = this.lib.aneka
+    const { generateId } = this.app.bajo
     const { recordCreate } = this.app.waibuDb
 
     const form = defaultsDeep(req.body, {})

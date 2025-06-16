@@ -3,7 +3,8 @@ const model = 'SumbaUser'
 const resetApiKey = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep, importPkg, generateId } = this.app.bajo
+    const { defaultsDeep } = this.lib.aneka
+    const { importPkg, generateId } = this.app.bajo
     const { recordGet, recordUpdate } = this.app.dobo
     const { hash } = this.app.bajoExtra
     const delay = await importPkg('bajo:delay')

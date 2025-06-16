@@ -1,5 +1,5 @@
 async function hook (schema, body, options) {
-  const { isSet } = this.app.bajo
+  const { isSet } = this.lib.aneka
   let val = body[options.fieldName]
   if (!isSet(val)) return
   const [, ...params] = val.split('://')

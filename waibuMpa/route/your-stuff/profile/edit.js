@@ -1,7 +1,7 @@
 const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep } = this.app.bajo
+    const { defaultsDeep } = this.lib.aneka
     // const { attachmentCopyUploaded } = this.app.dobo
     const { recordUpdate, recordGet } = this.app.waibuDb
     const { omit, pick } = this.lib._

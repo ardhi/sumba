@@ -1,5 +1,5 @@
 async function getSetting (type, source) {
-  const { defaultsDeep } = this.app.bajo
+  const { defaultsDeep } = this.lib.aneka
   const { get } = this.lib._
 
   const setting = defaultsDeep(get(this.config, `auth.${source}.${type}`, {}), get(this.config, `auth.common.${type}`, {}))
@@ -330,7 +330,7 @@ async function factory (pkgName) {
     }
 
     checkPathsByTeam = ({ paths = [], method = 'GET', teams = [], guards = [] }) => {
-      const { includes } = this.app.bajo
+      const { includes } = this.lib.aneka
       const { outmatch } = this.lib
 
       for (const item of guards) {
@@ -377,7 +377,8 @@ async function factory (pkgName) {
       const omitted = ['status']
 
       const mergeSetting = async (site) => {
-        const { defaultsDeep, parseObject } = this.app.bajo
+        const { defaultsDeep } = this.lib.aneka
+        const { parseObject } = this.app.bajo
         const { trim, get, filter } = this.lib._
         const { recordFind, recordGet } = this.app.dobo
         const defSetting = {}

@@ -19,7 +19,8 @@ const forgotPasswordLink = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { sendMail } = this.app.waibu
-    const { defaultsDeep, importPkg } = this.app.bajo
+    const { defaultsDeep } = this.lib.aneka
+    const { importPkg } = this.app.bajo
     const { isString } = this.lib._
     const { recordUpdate } = this.app.dobo
     const Joi = await importPkg('dobo:joi')

@@ -3,8 +3,8 @@ const model = 'SumbaTicket'
 const add = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
+    const { defaultsDeep } = this.lib.aneka
     const { recordCreate, recordFind } = this.app.waibuDb
-    const { defaultsDeep } = this.lib._
     const options = {}
     const form = defaultsDeep(req.body, {})
     let error

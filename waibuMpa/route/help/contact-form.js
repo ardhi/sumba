@@ -1,7 +1,7 @@
 const contactForm = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep } = this.app.bajo
+    const { defaultsDeep } = this.lib.aneka
     const { pick } = this.lib._
     const { recordCreate, recordFind } = this.app.waibuDb
 

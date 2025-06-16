@@ -3,7 +3,8 @@ import passwordRule from '../../../lib/password-rule.js'
 const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep, importPkg } = this.app.bajo
+    const { defaultsDeep } = this.lib.aneka
+    const { importPkg } = this.app.bajo
     const { recordGet, recordUpdate } = this.app.dobo
     const bcrypt = await importPkg('bajoExtra:bcrypt')
     const Joi = await importPkg('dobo:joi')
