@@ -29,7 +29,7 @@ const profile = {
         if (!verified) throw this.error('invalidCurrentPassword', { details: [{ field: 'currentPassword', error: 'invalidPassword' }], statusCode: 400 })
         await recordUpdate(model, req.user.id, { password: req.body.newPassword }, { req, reply, noFlash: true })
         // signout and redirect to signin
-        req.session.user = null
+        req.session.userId = null
         req.flash('notify', req.t('passwordChangedReSignin'))
         return reply.redirectTo(this.config.redirect.signin)
       } catch (err) {

@@ -104,6 +104,8 @@
   "unknownUser": "Pengguna Tidak Dikenal/Tidak Valid",
   "socialMedia": "Media Sosial",
   "resetPassword": "Reset Kata Sandi",
+  "contactFormSubmitted": "Form kontak sukses dikirim",
+  "currentApiKey": "Kunci API Saat Ini",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

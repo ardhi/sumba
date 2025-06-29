@@ -53,7 +53,7 @@ async function factory (pkgName) {
             children: [
               // anonymous only
               { title: 'signin', href: 'sumba:/signin', visible: 'anon' },
-              { title: 'forgotPassword', href: 'sumba:/forgot-password', visible: 'anon' },
+              { title: 'forgotPassword', href: 'sumba:/user/forgot-password', visible: 'anon' },
               { title: 'newUserSignup', href: 'sumba:/user/signup', visible: 'anon' },
               { title: '-', visible: 'anon' },
               { title: 'activation', href: 'sumba:/user/activation', visible: 'anon' },

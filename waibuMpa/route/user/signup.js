@@ -23,8 +23,8 @@ const signup = {
         const fields = ['username', 'password', 'verifyPassword', 'email', 'firstName', 'lastName', 'agree']
         const validation = { ns: ['sumba', 'dobo'], fields, extFields }
         req.body.token = generateId()
-        const { data } = await recordCreate({ model: 'SumbaUser', req, reply, options: { validation, noFlash: true } })
-        req.flash('notify', 'userCreated')
+        const { data } = await recordCreate({ model: 'SumbaUser', req, reply, options: { validation, noFlash: true, forceNoHidden: true } })
+        req.flash('notify', req.t('userCreated'))
         return reply.view('sumba.template:/user/signup/success.html', { form: req.body, data })
       } catch (err) {
         error = err

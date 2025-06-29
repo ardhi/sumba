@@ -15,8 +15,8 @@ const preParsing = {
     req.menu = req.menu ?? {}
     if (req.user) {
       req.menu.user = [
-        { value: routePath('sumba:/change-password', req), text: req.t('Change Password') },
-        { value: routePath('sumba:/profile', req), text: req.t('yourProfile') },
+        { value: routePath('sumba:/your-stuff/change-password', req), text: req.t('Change Password') },
+        { value: routePath('sumba:/your-stuff/profile', req), text: req.t('yourProfile') },
         '-',
         { value: routePath('sumba:/signout', req), text: req.t('signout') }
       ]
@@ -24,8 +24,8 @@ const preParsing = {
       req.menu.user = [
         { value: routePath('sumba:/signin', req), text: req.t('signin') },
         '-',
-        { value: routePath('sumba:/signup', req), text: req.t('signup') },
-        { value: routePath('sumba:/forgot-password', req), text: req.t('forgotPassword') }
+        { value: routePath('sumba:/user/signup', req), text: req.t('signup') },
+        { value: routePath('sumba:/user/forgot-password', req), text: req.t('forgotPassword') }
       ]
     }
   }

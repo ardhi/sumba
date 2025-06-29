@@ -2,15 +2,15 @@
   <c:div id="footer"></c:div>
   <small>
     <c:nav flex="justify-content:center"  tag="ul">
-    <% if (!(_meta.routeOpts.pathSrc.startsWith('/my-profile') || _meta.routeOpts.pathSrc.startsWith('/info') ||
+    <% if (!(_meta.routeOpts.pathSrc.startsWith('/your-stuff') || _meta.routeOpts.pathSrc.startsWith('/info') ||
     _meta.routeOpts.pathSrc.startsWith('/help'))) { %>
       <c:nav-dropdown-darkmode padding="x-2"/>
       <c:nav-dropdown-language padding="x-2"/>
       <c:nav-divider />
     <% } %>
-      <c:nav-item t:content="cookie" href="sumba:/info/cookie-policy" padding="x-1"/>
-      <c:nav-item t:content="privacy" href="sumba:/info/privacy" padding="x-1"/>
-      <c:nav-item t:content="terms" href="sumba:/info/terms-conditions" padding="x-2"/>
+      <c:nav-item t:content="cookie" href="sumba:/info/:item|cookie-policy" padding="x-1"/>
+      <c:nav-item t:content="privacy" href="sumba:/info/:item|privacy" padding="x-1"/>
+      <c:nav-item t:content="terms" href="sumba:/info/:item|terms-conditions" padding="x-2"/>
     </c:nav>
   </small>
 </c:footer>

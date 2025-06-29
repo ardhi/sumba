@@ -35,7 +35,7 @@
   "aboutUs": "About Us",
   "invalidActivationKey": "Invalid activation key",
   "signoutNow": "Yes, sign me out now",
-  "signoutWarning": "You\\'re about to sign out. This means your session will be cleared and you\\'ll be asked for your credential again in case you want to access any protected pages and resources.<br /><br />Are your sure?",
+  "signoutWarning": "You're about to sign out. This means your session will be cleared and you'll be asked for your credential again in case you want to access any protected pages and resources.<br /><br />Are your sure?",
   "clearInvalidKey": "Clear Invalid Fields",
   "linkPasswordWillbeSent": "Link to reset password will be sent to your email",
   "signinSuccessfully": "You've successfully signed in",
@@ -103,6 +103,8 @@
   "unknownUser": "User Unknown/Invalid",
   "socialMedia": "Social Media",
   "resetPassword": "Reset Password",
+  "contactFormSubmitted": "Contact form successfully submitted",
+  "currentApiKey": "Current API Key",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

@@ -12,7 +12,7 @@ const userActivation = {
         const query = { status: 'UNVERIFIED', token: req.body.key }
         const result = await recordFind(model, { query, limit: 1 })
         if (result.length === 0) throw this.error('validationError', { details: [{ field: 'key', error: 'invalidActivationKey' }] })
-        await recordUpdate(model, result[0].id, { status: 'ACTIVE' }, { noValidation: true, noFlash: true })
+        await recordUpdate(model, result[0].id, { status: 'ACTIVE' }, { req, noValidation: true, noFlash: true })
         req.flash('notify', req.t('userActivated'))
         return reply.redirectTo(this.config.redirect.signin, req)
       } catch (err) {
