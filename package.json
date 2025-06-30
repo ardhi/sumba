@@ -1,12 +1,15 @@
 {
   "name": "sumba",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Bajo Framework's Biz Suite",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
+  "bajo": {
+    "type": "plugin"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ardhi/sumba.git"
