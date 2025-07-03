@@ -22,11 +22,17 @@
     "maxLength": 50,
     "required": true
   }, {
+    "name": "provider",
+    "type": "string",
+    "maxLength": 50,
+    "index": true,
+    "required": true,
+    "default": "local"
+  }, {
     "name": "email",
     "type": "string",
     "maxLength": 100,
     "required": true,
-    "index": true,
     "rules": ["email"]
   }, {
     "name": "firstName",

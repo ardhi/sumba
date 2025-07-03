@@ -1,0 +1,8 @@
+<% if (_hasPlugin('sumbaOauth')) { %>
+<c:div margin="bottom-2" flex="justify-content:center" t:content="<%= attr.label %>" />
+<c:div flex="justify-content:center" margin="bottom-3">
+  <% for (const p of oauthProviders) { %>
+  <c:btn color="primary-outline" content="<%= _.upperFirst(p) %>" icon="logo<%= _.upperFirst(p) %>" href="sumbaOauth:/<%= p %>" margin="x-1"/>
+  <% } %>
+</c:div>
+<% } %>

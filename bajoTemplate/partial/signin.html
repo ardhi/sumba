@@ -3,9 +3,12 @@
   <c:form-password name="password" label-floating wrapper-margin="bottom-3" />
 </c:form>
 <c:div move-to="#footer" flex="justify-content:center">
-  <c:nav type="inline">
-    <!-- include sumba.partial:/list-item/forgot-password.html -->
-    <!-- include sumba.partial:/list-item/user-signup.html -->
-    <!-- include sumba.partial:/list-item/goto-home.html -->
-  </c:nav>
+  <c:div>
+    <!-- include sumba.partial:/list-item/oauth-signin.html|<%= JSON.stringify({ label: 'orSigninThrough' }) %> -->
+    <c:nav type="inline">
+      <!-- include sumba.partial:/list-item/forgot-password.html -->
+      <!-- include sumba.partial:/list-item/user-signup.html -->
+      <!-- include sumba.partial:/list-item/goto-home.html -->
+    </c:nav>
+  </c:div>
 </c:div>

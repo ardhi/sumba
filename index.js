@@ -198,7 +198,7 @@ async function factory (pkgName) {
       await validate({ username, password }, model, { ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
       const bcrypt = await importPkg('bajoExtra:bcrypt')
 
-      const query = { username }
+      const query = { username, provider: 'local' }
       const rows = await recordFind(model, { query }, { req, forceNoHidden: true, noHook: true })
       if (rows.length === 0) throw this.error('validationError', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })
       const rec = rows[0]
@@ -432,6 +432,34 @@ async function factory (pkgName) {
       site = row
       await mergeSetting(site)
       return site
+    }
+
+    signin = async ({ user, req, reply }) => {
+      const { getSessionId } = this.app.waibuMpa
+      const { runHook } = this.app.bajo
+      const { isEmpty, omit } = this.lib._
+      let { referer } = req.body || {}
+      if (req.session.ref) referer = req.session.ref
+      req.session.ref = null
+      const _user = omit(user, ['password', 'token'])
+      req.session.userId = _user.id
+      const sid = await getSessionId(req.headers.cookie)
+      await runHook(`${this.name}:afterSignin`, _user, sid, req)
+      const { query, params } = req
+      const url = !isEmpty(referer) ? referer : this.config.redirect.afterSignin
+      req.flash('notify', req.t('signinSuccessfully'))
+      return reply.redirectTo(url, { query, params })
+    }
+
+    generatePassword = (req) => {
+      const { generateId } = this.app.bajo
+      const cfg = req ? req.site.setting.sumba.userPassword : this.config.siteSetting.userPassword
+      let passwd = generateId()
+      if (cfg.minLowercase) passwd += generateId({ pattern: 'abcdefghijklmnopqrstuvwxyz', length: cfg.minLowercase })
+      if (cfg.minUppercase) passwd += generateId({ pattern: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', length: cfg.minUppercase })
+      if (cfg.minSpecialChar) passwd += generateId({ pattern: '!@#$%*', length: cfg.minSpecialChar })
+      if (cfg.minNumeric) passwd += generateId({ pattern: '0123456789', length: cfg.minNumeric })
+      return passwd
     }
   }
 }

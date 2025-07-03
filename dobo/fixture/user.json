@@ -10,6 +10,7 @@
   "zipCode": "12345",
   "provinceState": "State",
   "country": "US",
+  "provider": "local",
   "siteId": "?:SumbaSite::alias:default",
   "status": "ACTIVE"
 }]

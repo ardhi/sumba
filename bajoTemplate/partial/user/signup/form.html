@@ -9,10 +9,13 @@
 </c:form>
 <% if (!page.noLinks) { %>
 <c:div move-to="#footer" flex="justify-content:center">
-  <c:nav type="inline">
-  <!-- include sumba.partial:/list-item/forgot-password.html -->
-  <!-- include sumba.partial:/list-item/signin.html -->
-  <!-- include sumba.partial:/list-item/goto-home.html -->
-  </c:nav>
+  <c:div>
+    <!-- include sumba.partial:/list-item/oauth-signin.html|<%= JSON.stringify({ label: 'orSignupThrough' }) %> -->
+    <c:nav type="inline">
+    <!-- include sumba.partial:/list-item/forgot-password.html -->
+    <!-- include sumba.partial:/list-item/signin.html -->
+    <!-- include sumba.partial:/list-item/goto-home.html -->
+    </c:nav>
+  </c:div>
 </c:div>
 <% } %>
