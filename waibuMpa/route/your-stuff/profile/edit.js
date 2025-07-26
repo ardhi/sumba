@@ -22,7 +22,7 @@ const profile = {
         error = err
       }
     }
-    return reply.view('sumba.template:/your-stuff/profile/edit.html', { form, error })
+    return await reply.view('sumba.template:/your-stuff/profile/edit.html', { form, error })
   }
 }
 

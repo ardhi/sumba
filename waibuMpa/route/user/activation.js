@@ -19,7 +19,7 @@ const userActivation = {
         error = err
       }
     }
-    return reply.view('sumba.template:/user/activation.html', { form, error })
+    return await reply.view('sumba.template:/user/activation.html', { form, error })
   }
 }
 

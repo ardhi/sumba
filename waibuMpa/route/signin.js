@@ -13,7 +13,7 @@ const signin = {
         error = err
       }
     }
-    return reply.view('sumba.template:/signin.html', { form: { username, referer }, error })
+    return await reply.view('sumba.template:/signin.html', { form: { username, referer }, error })
   }
 }
 

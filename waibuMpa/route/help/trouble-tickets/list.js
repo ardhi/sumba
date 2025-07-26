@@ -16,7 +16,7 @@ const list = {
         return `<strong>${val}</strong><br />${getExcerpt(rec.message, 35)}`
       }
     }
-    return reply.view('sumba.template:/help/trouble-tickets/list.html', { list, schema })
+    return await reply.view('sumba.template:/help/trouble-tickets/list.html', { list, schema })
   }
 }
 

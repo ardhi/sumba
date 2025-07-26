@@ -33,7 +33,7 @@ const id = {
         return `<c:div margin="bottom-3"><c:badge background="color:${isMe ? 'primary' : 'secondary'}" t:content="${isMe ? 'you' : 'us'}" /> <small>${req.format(val, 'datetime')}</small></c:div> ${message}`
       }
     }
-    return reply.view('sumba.template:/help/trouble-tickets/details.html', { list, schema, master, form, error })
+    return await reply.view('sumba.template:/help/trouble-tickets/details.html', { list, schema, master, form, error })
   }
 }
 

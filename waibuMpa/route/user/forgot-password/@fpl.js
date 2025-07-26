@@ -27,7 +27,7 @@ const forgotPasswordLink = {
 
     const form = defaultsDeep(req.body, {})
     const user = await getUser.call(this, req, reply)
-    if (isString(user)) return reply.view(user)
+    if (isString(user)) return await reply.view(user)
     form.username = user.username
     let error
     if (req.method === 'POST') {
@@ -56,7 +56,7 @@ const forgotPasswordLink = {
         error = err
       }
     }
-    return reply.view('sumba.template:/user/fpl.html', { form, error })
+    return await reply.view('sumba.template:/user/fpl.html', { form, error })
   }
 }
 

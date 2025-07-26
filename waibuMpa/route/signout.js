@@ -18,7 +18,7 @@ const signout = {
       req.flash('notify', req.t('signoutSuccessfully'))
       return reply.redirectTo(url, { query, params })
     }
-    return reply.view('sumba.template:/signout.html', { form: { referer } })
+    return await reply.view('sumba.template:/signout.html', { form: { referer } })
   }
 }
 

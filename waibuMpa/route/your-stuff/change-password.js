@@ -36,7 +36,7 @@ const profile = {
         error = err
       }
     }
-    return reply.view('sumba.template:/your-stuff/change-password.html', { form, error })
+    return await reply.view('sumba.template:/your-stuff/change-password.html', { form, error })
   }
 }
 

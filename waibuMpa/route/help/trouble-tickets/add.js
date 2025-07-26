@@ -17,7 +17,7 @@ const add = {
       }
     }
     const cats = await recordFind({ model: 'SumbaTicketCat', req, options: { sort: 'level:1+name:1', limit: -1, dataOnly: true } })
-    return reply.view('sumba.template:/help/trouble-tickets/add.html', { form, error, cats })
+    return await reply.view('sumba.template:/help/trouble-tickets/add.html', { form, error, cats })
   }
 }
 

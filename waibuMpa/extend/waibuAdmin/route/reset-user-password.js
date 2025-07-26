@@ -33,7 +33,7 @@ const resetUserPassword = {
         error = err
       }
     }
-    return reply.view('sumba.template:/_admin/reset-user-password.html', { form, error })
+    return await reply.view('sumba.template:/_admin/reset-user-password.html', { form, error })
   }
 }
 

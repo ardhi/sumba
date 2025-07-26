@@ -12,13 +12,13 @@ const contactForm = {
       try {
         const { data } = await recordCreate({ model: 'SumbaContactForm', req, reply, options: { noFlash: true } })
         req.flash('notify', req.t('contactFormSubmitted'))
-        return reply.view('sumba.template:/help/contact-form/success.html', { form: req.body, data })
+        return await reply.view('sumba.template:/help/contact-form/success.html', { form: req.body, data })
       } catch (err) {
         error = err
       }
     }
     const cats = await recordFind({ model: 'SumbaContactFormCat', req, options: { sort: 'level:1+name:1', limit: -1, dataOnly: true } })
-    return reply.view('sumba.template:/help/contact-form/form.html', { form, error, cats })
+    return await reply.view('sumba.template:/help/contact-form/form.html', { form, error, cats })
   }
 }
 

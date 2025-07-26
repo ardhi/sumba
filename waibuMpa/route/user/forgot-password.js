@@ -3,7 +3,7 @@ const model = 'SumbaUser'
 const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    if (!this.app.masohiMail) return reply.view('sumba.template:/user/forgot-password.html')
+    if (!this.app.masohiMail) return await reply.view('sumba.template:/user/forgot-password.html')
     const { sendMail } = this.app.waibu
     const { defaultsDeep } = this.lib.aneka
     const { dayjs } = this.lib
@@ -32,7 +32,7 @@ const profile = {
         error = err
       }
     }
-    return reply.view('sumba.template:/user/forgot-password.html', { form, error })
+    return await reply.view('sumba.template:/user/forgot-password.html', { form, error })
   }
 }
 
