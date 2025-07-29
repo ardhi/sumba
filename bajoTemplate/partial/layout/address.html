@@ -1,0 +1,8 @@
+<% const type = attr.type ?? 'site' %>
+<address>
+  <c:strong><%= type === 'user' ? (_meta[type].firstName + ' ' + _meta[type].lastName) : _meta[type].orgName %></c:strong><br />
+  <%= _meta[type].address1 %><br/>
+  <%= _meta[type].address2 %><br />
+  <c:span><%= _meta[type].city %> <%= _meta[type].zipCode %> - <%= _meta[type].provinceState %></c:span><br />
+  <%= _meta[type].countryName %><br />
+</address>
