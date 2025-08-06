@@ -6,12 +6,13 @@ import checkTeam from '../../lib/check-team.js'
 const preParsing = {
   level: 10,
   handler: async function (req, reply) {
-    const { routePath } = this.app.waibu
+    // const { routePath } = this.app.waibu
 
     await checkTheme.call(this, req, reply)
     await checkIconset.call(this, req, reply)
     await checkUserId.call(this, req, reply, 'waibuMpa')
     await checkTeam.call(this, req, reply, 'waibuMpa')
+    /*
     req.menu = req.menu ?? {}
     if (req.user) {
       req.menu.user = [
@@ -28,6 +29,7 @@ const preParsing = {
         { value: routePath('sumba:/user/forgot-password', req), text: req.t('forgotPassword') }
       ]
     }
+    */
   }
 }
 

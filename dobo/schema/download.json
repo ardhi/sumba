@@ -1,21 +1,24 @@
 {
-  "properties": [{
-    "name": "description",
-    "type": "string",
-    "maxLength": 50
-  }, {
-    "name": "jobId",
-    "type": "string",
-    "maxLength": 50
-  }, {
-    "name": "jobDetails",
-    "type": "object"
-  }, {
-    "name": "status",
-    "type": "string",
-    "maxLength": 20,
-    "default": "NEW",
-    "values": ["NEW", "PROCESSING", "COMPLETE", "FAIL"]
-  }],
-  "feature": ["sumba.siteId", "sumba.userId", "createdAt", "updatedAt"]
+  "properties": [
+    "description::50:true",
+    "file:text:::true",
+    "type::20:true",
+    "jobQueue:object",
+    {
+      "name": "size",
+      "type": "integer",
+      "default": 0,
+      "index": true
+    }
+  ],
+  "feature": {
+    "sumba.siteId": true,
+    "sumba.userId": true,
+    "createdAt": true,
+    "updatedAt": true,
+    "sumba.status": {
+      "default": "INQUEUE",
+      "values": ["INQUEUE", "PROCESSING", "COMPLETE", "FAIL"]
+    }
+  }
 }

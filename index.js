@@ -1,25 +1,4 @@
-async function getSetting (type, source) {
-  const { defaultsDeep } = this.lib.aneka
-  const { get } = this.lib._
-
-  const setting = defaultsDeep(get(this.config, `auth.${source}.${type}`, {}), get(this.config, `auth.common.${type}`, {}))
-  if (type === 'basic') setting.type = 'Basic'
-  return setting
-}
-
-async function getToken (type, req, source) {
-  const { isEmpty } = this.lib._
-
-  const setting = await getSetting.call(this, type, source)
-  let token = req.headers[setting.headerKey.toLowerCase()]
-  if (!['basic'].includes(type) && isEmpty(token)) token = req.query[setting.qsKey]
-  if (isEmpty(token)) {
-    const parts = (req.headers.authorization || '').split(' ')
-    if (parts[0] === setting.type) token = parts[1]
-  }
-  if (isEmpty(token)) return false
-  return token
-}
+import path from 'path'
 
 async function factory (pkgName) {
   const me = this
@@ -60,6 +39,7 @@ async function factory (pkgName) {
               // authenticated only
               { title: 'yourProfile', href: 'sumba:/your-stuff/profile', visible: 'auth' },
               { title: 'changePassword', href: 'sumba:/your-stuff/change-password', visible: 'auth' },
+              { title: 'downloadList', href: 'sumba:/your-stuff/download/list', visible: 'auth' },
               { title: '-', visible: 'auth' },
               { title: 'signout', href: 'sumba:/signout', visible: 'auth' }
             ]
@@ -138,10 +118,36 @@ async function factory (pkgName) {
     }
 
     init = async () => {
+      const { getPluginDataDir } = this.app.bajo
+      this.downloadDir = `${getPluginDataDir(this.name)}/download`
+      this.lib.fs.ensureDirSync(this.downloadDir)
       for (const type of ['secure', 'anonymous', 'team']) {
         this[`${type}Routes`] = this[`${type}Routes`] ?? []
         this[`${type}NegRoutes`] = this[`${type}NegRoutes`] ?? []
       }
+    }
+
+    _getSetting = async (type, source) => {
+      const { defaultsDeep } = this.lib.aneka
+      const { get } = this.lib._
+
+      const setting = defaultsDeep(get(this.config, `auth.${source}.${type}`, {}), get(this.config, `auth.common.${type}`, {}))
+      if (type === 'basic') setting.type = 'Basic'
+      return setting
+    }
+
+    _getToken = async (type, req, source) => {
+      const { isEmpty } = this.lib._
+
+      const setting = await this._getSetting(type, source)
+      let token = req.headers[setting.headerKey.toLowerCase()]
+      if (!['basic'].includes(type) && isEmpty(token)) token = req.query[setting.qsKey]
+      if (isEmpty(token)) {
+        const parts = (req.headers.authorization || '').split(' ')
+        if (parts[0] === setting.type) token = parts[1]
+      }
+      if (isEmpty(token)) return false
+      return token
     }
 
     adminMenu = async (locals, req) => {
@@ -247,7 +253,7 @@ async function factory (pkgName) {
       const { getUser } = this
       const { recordFind } = this.app.dobo
 
-      let token = await getToken.call(this, 'apiKey', req, source)
+      let token = await this._getToken('apiKey', req, source)
       if (!isMd5(token)) return false
       token = await hash(token)
       const query = { token }
@@ -275,7 +281,7 @@ async function factory (pkgName) {
         reply.code(401)
       }
 
-      const setting = await getSetting.call(this, 'basic', source)
+      const setting = await this._getSetting('basic', source)
       let authInfo
       const parts = (req.headers.authorization ?? '').split(' ')
       if (parts[0] === setting.type) authInfo = parts[1]
@@ -308,8 +314,8 @@ async function factory (pkgName) {
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createVerifier } = fastJwt
-      const setting = await getSetting.call(this, 'jwt', source)
-      const token = await getToken.call(this, 'jwt', req, source)
+      const setting = await this._getSetting('jwt', source)
+      const token = await this._getToken('jwt', req, source)
       if (isEmpty(token)) return false
       const verifier = createVerifier({
         key: setting.secret,
@@ -460,6 +466,27 @@ async function factory (pkgName) {
       if (cfg.minSpecialChar) passwd += generateId({ pattern: '!@#$%*', length: cfg.minSpecialChar })
       if (cfg.minNumeric) passwd += generateId({ pattern: '0123456789', length: cfg.minNumeric })
       return passwd
+    }
+
+    pushDownload = async ({ description, worker, data, source, req, file, type }) => {
+      const { getPlugin } = this.app.bajo
+      const { recordCreate } = getPlugin('waibuDb')
+      const { push } = getPlugin('bajoQueue')
+      description = description ?? file
+      const jobQueue = {
+        worker,
+        source,
+        payload: {
+          type: 'object',
+          data
+        }
+      }
+      if (!type) type = path.extname(file)
+      if (type[0] === '.') type = type.slice(1)
+      const body = { file, description, jobQueue, type }
+      const rec = await recordCreate({ model: 'SumbaDownload', body, req, options: { noFlash: true } })
+      jobQueue.payload.data.download = { id: rec.data.id, file }
+      await push(jobQueue)
     }
   }
 }

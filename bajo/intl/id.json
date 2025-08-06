@@ -106,6 +106,7 @@
   "resetPassword": "Reset Kata Sandi",
   "contactFormSubmitted": "Form kontak sukses dikirim",
   "currentApiKey": "Kunci API Saat Ini",
+  "downloadList": "Daftar Unduh",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
@@ -123,7 +124,8 @@
     "socX": "X (Twitter)",
     "socInstagram": "Instagram",
     "socFacebook": "Facebook",
-    "socLinkedIn": "LinkedIn"
+    "socLinkedIn": "LinkedIn",
+    "size": "Besaran"
   },
   "validation": {
     "password": {
