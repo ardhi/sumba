@@ -27,10 +27,11 @@ const id = {
     schema.view.fields = ['createdAt']
     schema.view.label = { createdAt: 'conversation' }
     schema.view.formatter = {
-      createdAt: (val, rec) => {
+      createdAt: async function (val, rec) {
         const message = this.app.bajoMarkdown ? this.app.bajoMarkdown.parseContent(rec.message) : rec.message
         const isMe = rec.userId === req.user.id
-        return `<c:div margin="bottom-3"><c:badge background="color:${isMe ? 'primary' : 'secondary'}" t:content="${isMe ? 'you' : 'us'}" /> <small>${req.format(val, 'datetime')}</small></c:div> ${message}`
+        const sentence = `<c:div margin="bottom-3"><c:badge background="color:${isMe ? 'primary' : 'secondary'}" t:content="${isMe ? 'you' : 'us'}" /> <small>${req.format(val, 'datetime')}</small></c:div>`
+        return (await this.component.buildSentence(sentence)) + message
       }
     }
     return await reply.view('sumba.template:/help/trouble-tickets/details.html', { list, schema, master, form, error })
