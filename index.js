@@ -10,6 +10,7 @@ async function factory (pkgName) {
       this.dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config']
       this.config = {
         multiSite: false,
+        license: false,
         waibu: {
           title: 'Sumba',
           prefix: 'site'
@@ -169,6 +170,7 @@ async function factory (pkgName) {
           { title: 'manageUser', href: `waibuAdmin:/${prefix}/user/list` },
           { title: 'manageTeam', href: `waibuAdmin:/${prefix}/team/list` },
           { title: 'manageTeamUser', href: `waibuAdmin:/${prefix}/team-user/list` },
+          { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` },
           { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
         ]
       }]

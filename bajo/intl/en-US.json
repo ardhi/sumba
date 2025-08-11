@@ -106,6 +106,8 @@
   "contactFormSubmitted": "Contact form successfully submitted",
   "currentApiKey": "Current API Key",
   "downloadList": "Download List",
+  "manageDownload": "Manage Download",
+  "license": "License",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

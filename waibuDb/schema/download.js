@@ -2,10 +2,9 @@ async function download () {
   return {
     common: {
       disabled: ['create', 'update', 'get'],
-      hidden: ['id'],
       formatter: {
         description: async function (val, rec) {
-          const sentence = `<c:a target="_blank" href="sumba:/your-stuff/download/get/${rec.file}" content="${val}" />`
+          const sentence = `<c:a target="_blank" href="sumba:/your-stuff/download/get/${rec.file}" content="${val}" @click.stop />`
           return await this.component.buildSentence(sentence)
         }
       }

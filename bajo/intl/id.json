@@ -107,6 +107,8 @@
   "contactFormSubmitted": "Form kontak sukses dikirim",
   "currentApiKey": "Kunci API Saat Ini",
   "downloadList": "Daftar Unduh",
+  "manageDownload": "Kelola Unduhan",
+  "license": "Lisensi",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
