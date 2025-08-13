@@ -10,9 +10,8 @@ async function factory (pkgName) {
       this.dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config']
       this.config = {
         multiSite: false,
-        license: false,
         waibu: {
-          title: 'Sumba',
+          title: 'site',
           prefix: 'site'
         },
         waibuMpa: {
