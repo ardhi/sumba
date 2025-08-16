@@ -107,6 +107,7 @@
   "currentApiKey": "Current API Key",
   "downloadList": "Download List",
   "manageDownload": "Manage Download",
+  "userSession": "User Session",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

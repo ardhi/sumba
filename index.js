@@ -172,6 +172,11 @@ async function factory (pkgName) {
           { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` },
           { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
         ]
+      }, {
+        title: 'misc',
+        children: [
+          { title: 'userSession', href: `waibuAdmin:/${prefix}/session/list` }
+        ]
       }]
     }
 

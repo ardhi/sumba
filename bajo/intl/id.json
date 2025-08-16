@@ -108,6 +108,7 @@
   "currentApiKey": "Kunci API Saat Ini",
   "downloadList": "Daftar Unduh",
   "manageDownload": "Kelola Unduhan",
+  "userSession": "Sesi Pengguna",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
