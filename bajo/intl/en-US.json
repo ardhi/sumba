@@ -126,7 +126,9 @@
     "socInstagram": "Instagram",
     "socFacebook": "Facebook",
     "socLinkedIn": "LinkedIn",
-    "size": "Size"
+    "size": "Size",
+    "user": "User",
+    "team": "Team"
   },
   "validation": {
     "password": {

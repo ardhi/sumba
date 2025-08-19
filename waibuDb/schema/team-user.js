@@ -5,6 +5,18 @@ async function teamUser () {
         { name: 'meta', fields: ['id', 'createdAt', 'updatedAt'] },
         { name: 'general', fields: ['userId:6-md', 'teamId:6-md'] }
       ],
+      calcFields: [
+        { name: 'user', type: 'string' },
+        { name: 'team', type: 'string' }
+      ],
+      valueFormatter: {
+        user: (val, rec) => {
+          return rec._rel.user.username
+        },
+        team: (val, rec) => {
+          return rec._rel.team.name
+        }
+      },
       widget: {
         userId: {
           component: 'form-select-ext',
@@ -12,7 +24,8 @@ async function teamUser () {
             remoteUrl: 'sumba.restapi:/manage/user',
             remoteSearchField: 'username',
             remoteLabelField: 'username',
-            remoteApiKey: true
+            remoteApiKey: true,
+            rel: 'user:username'
           }
         },
         teamId: {
@@ -21,14 +34,15 @@ async function teamUser () {
             remoteUrl: 'sumba.restapi:/manage/team',
             remoteSearchField: 'name',
             remoteLabelField: 'name',
-            remoteApiKey: true
+            remoteApiKey: true,
+            rel: 'team:name'
           }
         }
       }
     },
     view: {
       list: {
-        fields: ['userId', 'teamId', 'createdAt', 'updatedAt'],
+        fields: ['user', 'team', 'createdAt', 'updatedAt'],
         stat: {
           aggregate: [
             { fields: ['userId'], group: 'userId', aggregate: ['count'] },

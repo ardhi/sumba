@@ -9,7 +9,13 @@ async function userId (opts = {}) {
         site: {
           schema: 'SumbaSite',
           propName: 'id',
-          type: 'one-on-one'
+          type: 'one-to-one'
+        },
+        user: {
+          schema: 'SumbaUser',
+          propName: 'id',
+          type: 'one-to-one',
+          fields: ['id', 'username', 'email', 'firstName', 'lastName']
         }
       },
       index: true

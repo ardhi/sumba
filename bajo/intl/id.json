@@ -127,7 +127,9 @@
     "socInstagram": "Instagram",
     "socFacebook": "Facebook",
     "socLinkedIn": "LinkedIn",
-    "size": "Besaran"
+    "size": "Besaran",
+    "user": "Pengguna",
+    "team": "Tim"
   },
   "validation": {
     "password": {
