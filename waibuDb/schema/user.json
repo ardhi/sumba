@@ -41,7 +41,7 @@
     },
     "add": {
       "forceVisible": ["password"],
-      "hidden": ["id", "createdAt", "updatedAt"]
+      "hidden": ["id", "createdAt", "updatedAt", "provider"]
     },
     "edit": {
       "forceVisible": ["password"],

@@ -24,7 +24,7 @@
       "hidden": ["id", "createdAt", "updatedAt", "status"]
     },
     "edit": {
-      "readonly": ["id", "createdAt", "updatedAt", "alias"]
+      "readonly": ["id", "createdAt", "updatedAt"]
     }
   }
 }

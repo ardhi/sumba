@@ -26,7 +26,6 @@
     "type": "string",
     "maxLength": 50,
     "index": true,
-    "required": true,
     "default": "local"
   }, {
     "name": "email",

@@ -494,6 +494,14 @@ async function factory (pkgName) {
       jobQueue.payload.data.download = { id: rec.data.id, file }
       await push(jobQueue)
     }
+
+    getApiKeyFromUserId = async id => {
+      const { hash } = this.app.bajoExtra
+      const { recordGet } = this.app.dobo
+      const options = { forceNoHidden: true, noHook: true, noCache: true, attachment: true, mimeType: true }
+      const resp = await recordGet('SumbaUser', id, options)
+      return await hash(resp.salt)
+    }
   }
 }
 

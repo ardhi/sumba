@@ -8,4 +8,7 @@
 }, {
   "path": "/your-stuff/**/*",
   "routeHandler": "restapi"
+}, {
+  "path": "/manage/**/*",
+  "routeHandler": "restapi"
 }]
