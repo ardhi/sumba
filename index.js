@@ -3,11 +3,12 @@ import path from 'path'
 async function factory (pkgName) {
   const me = this
 
-  return class Sumba extends this.lib.Plugin {
+  class Sumba extends this.lib.Plugin {
+    static alias = 'sumba'
+    static dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config']
+
     constructor () {
       super(pkgName, me.app)
-      this.alias = 'sumba'
-      this.dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config']
       this.config = {
         multiSite: false,
         waibu: {
@@ -395,12 +396,13 @@ async function factory (pkgName) {
         const { recordFind, recordGet } = this.app.dobo
         const defSetting = {}
         const nsSetting = {}
+        const names = this.app.getPluginNames()
         const query = {
-          ns: { $in: this.app.bajo.pluginNames },
+          ns: { $in: names },
           siteId: site.id
         }
         const all = await recordFind('SumbaSiteSetting', { query, limit: -1 })
-        for (const ns of this.app.bajo.pluginNames) {
+        for (const ns of names) {
           nsSetting[ns] = {}
           defSetting[ns] = get(this, `app.${ns}.config.siteSetting`, {})
           const items = filter(all, { ns })
@@ -503,6 +505,8 @@ async function factory (pkgName) {
       return await hash(resp.salt)
     }
   }
+
+  return Sumba
 }
 
 export default factory
