@@ -3,7 +3,7 @@ const hidden = ['password', 'token', 'siteId']
 
 async function get ({ ctx }) {
   const { recordUpdate } = this.app.waibuDb
-  const { omit } = this.lib._
+  const { omit } = this.app.lib._
 
   const { docSchemaModel } = this.app.waibuRestApi
   const schema = await docSchemaModel({ model, method: 'update', ctx, options: { hidden, noId: true } })

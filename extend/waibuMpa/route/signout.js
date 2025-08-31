@@ -2,7 +2,7 @@ const signout = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { runHook } = this.app.bajo
-    // const { isEmpty } = this.lib._
+    // const { isEmpty } = this.app.lib._
     const { getSessionId } = this.app.waibuMpa
 
     let { referer } = req.body || {}

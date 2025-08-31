@@ -1,7 +1,7 @@
 const doboBeforeRecordCreate = {
   level: 1000,
   handler: async function (body, options = {}) {
-    const { get, isEmpty } = this.lib._
+    const { get, isEmpty } = this.app.lib._
     const user = get(options, 'req.user')
     if (user) {
       if (isEmpty(body.firstName)) body.firstName = user.firstName

@@ -10,7 +10,7 @@ async function status (opts = {}) {
     }],
     hook: {
       beforeCreate: async function ({ body }) {
-        const { isSet } = this.lib.aneka
+        const { isSet } = this.app.lib.aneka
         if (!isSet(body[opts.fieldName])) body[opts.fieldName] = opts.default
       }
     }

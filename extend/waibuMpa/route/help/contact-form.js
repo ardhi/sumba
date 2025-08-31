@@ -1,8 +1,8 @@
 const contactForm = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep } = this.lib.aneka
-    const { pick } = this.lib._
+    const { defaultsDeep } = this.app.lib.aneka
+    const { pick } = this.app.lib._
     const { recordCreate, recordFind } = this.app.waibuDb
 
     const def = req.user ? pick(req.user, ['firstName', 'lastName', 'email']) : {}

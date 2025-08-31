@@ -2,7 +2,7 @@ import passwordRule from '../../../../../lib/password-rule.js'
 const model = 'SumbaUser'
 
 async function getUser (req, reply) {
-  const { dayjs } = this.lib
+  const { dayjs } = this.app.lib
   const { recordFind } = this.app.waibuDb
   const invalidFpl = 'sumba.template:/user/fpl-invalid.html'
   if (Buffer.from(req.params.fpl, 'base64').toString('base64') !== req.params.fpl) return invalidFpl
@@ -19,9 +19,9 @@ const forgotPasswordLink = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { sendMail } = this.app.waibu
-    const { defaultsDeep } = this.lib.aneka
+    const { defaultsDeep } = this.app.lib.aneka
     const { importPkg } = this.app.bajo
-    const { isString } = this.lib._
+    const { isString } = this.app.lib._
     const { recordUpdate } = this.app.dobo
     const Joi = await importPkg('dobo:joi')
 

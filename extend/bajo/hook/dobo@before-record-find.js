@@ -1,7 +1,7 @@
 const useAdmin = ['waibuAdmin']
 
 export async function rebuildFilter (model, filter, req) {
-  const { isEmpty, map, find, get } = this.lib._
+  const { isEmpty, map, find, get } = this.app.lib._
   const { hasField } = this.app.dobo
   filter.query = filter.query ?? {}
   const hasSiteId = hasField('siteId', model)

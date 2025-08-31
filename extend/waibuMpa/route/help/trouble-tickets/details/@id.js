@@ -3,7 +3,7 @@ const model = 'SumbaTicketDetail'
 const id = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { cloneDeep } = this.lib._
+    const { cloneDeep } = this.app.lib._
     const { recordCreate, recordFind, getSchemaExt } = this.app.waibuDb
     const { schema } = await getSchemaExt(model, 'list')
 

@@ -1,7 +1,7 @@
 export default {
   level: 1,
   handler: async function (socket) {
-    const { merge } = this.lib._
+    const { merge } = this.app.lib._
     const { recordGet } = this.app.dobo
     const { getSessionId } = this.app.waibuMpa
 

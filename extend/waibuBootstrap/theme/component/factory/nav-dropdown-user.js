@@ -1,7 +1,7 @@
 async function navDropdownUser () {
   return class NavDropdownUser extends this.baseFactory {
     build = async () => {
-      const { has, omit, find, filter } = this.plugin.lib._
+      const { has, omit, find, filter } = this.app.lib._
       const { routePath } = this.plugin.app.waibu
       const { req } = this.component
       const icon = this.component.req.iconset ? await this.component.buildTag({ tag: 'icon', attr: { name: 'person' } }) : ''

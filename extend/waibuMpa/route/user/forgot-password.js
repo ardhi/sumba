@@ -5,8 +5,8 @@ const profile = {
   handler: async function (req, reply) {
     if (!this.app.masohiMail) return await reply.view('sumba.template:/user/forgot-password.html')
     const { sendMail } = this.app.waibu
-    const { defaultsDeep } = this.lib.aneka
-    const { dayjs } = this.lib
+    const { defaultsDeep } = this.app.lib.aneka
+    const { dayjs } = this.app.lib
     const { recordFind } = this.app.dobo
     const form = defaultsDeep(req.body, {})
     let error

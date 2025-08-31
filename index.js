@@ -3,7 +3,7 @@ import path from 'path'
 async function factory (pkgName) {
   const me = this
 
-  class Sumba extends this.lib.Plugin {
+  class Sumba extends this.app.pluginClass.base {
     static alias = 'sumba'
     static dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config']
 
@@ -121,7 +121,7 @@ async function factory (pkgName) {
     init = async () => {
       const { getPluginDataDir } = this.app.bajo
       this.downloadDir = `${getPluginDataDir(this.name)}/download`
-      this.lib.fs.ensureDirSync(this.downloadDir)
+      this.app.lib.fs.ensureDirSync(this.downloadDir)
       for (const type of ['secure', 'anonymous', 'team']) {
         this[`${type}Routes`] = this[`${type}Routes`] ?? []
         this[`${type}NegRoutes`] = this[`${type}NegRoutes`] ?? []
@@ -129,8 +129,8 @@ async function factory (pkgName) {
     }
 
     _getSetting = async (type, source) => {
-      const { defaultsDeep } = this.lib.aneka
-      const { get } = this.lib._
+      const { defaultsDeep } = this.app.lib.aneka
+      const { get } = this.app.lib._
 
       const setting = defaultsDeep(get(this.config, `auth.${source}.${type}`, {}), get(this.config, `auth.common.${type}`, {}))
       if (type === 'basic') setting.type = 'Basic'
@@ -138,7 +138,7 @@ async function factory (pkgName) {
     }
 
     _getToken = async (type, req, source) => {
-      const { isEmpty } = this.lib._
+      const { isEmpty } = this.app.lib._
 
       const setting = await this._getSetting(type, source)
       let token = req.headers[setting.headerKey.toLowerCase()]
@@ -183,7 +183,7 @@ async function factory (pkgName) {
 
     getUser = async (rec, safe = true) => {
       const { recordGet } = this.app.dobo
-      const { omit, isPlainObject } = this.lib._
+      const { omit, isPlainObject } = this.app.lib._
       let user
       if (isPlainObject(rec)) user = rec
       else user = await recordGet('SumbaUser', rec, { noHook: true })
@@ -192,7 +192,7 @@ async function factory (pkgName) {
 
     mergeTeam = async (user, site) => {
       if (!user) return
-      const { map, pick } = this.lib._
+      const { map, pick } = this.app.lib._
       const { recordFindAll } = this.app.dobo
       user.teams = []
       const query = { userId: user.id, siteId: site.id }
@@ -223,9 +223,9 @@ async function factory (pkgName) {
 
     createJwtFromUserRecord = async (rec) => {
       const { importPkg } = this.app.bajo
-      const { dayjs } = this.lib
+      const { dayjs } = this.app.lib
       const { hash } = this.app.bajoExtra
-      const { get, pick } = this.lib._
+      const { get, pick } = this.app.lib._
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createSigner } = fastJwt
@@ -255,7 +255,7 @@ async function factory (pkgName) {
     }
 
     verifyApiKey = async (req, reply, source, payload) => {
-      const { merge } = this.lib._
+      const { merge } = this.app.lib._
       const { isMd5, hash } = this.app.bajoExtra
       const { getUser } = this
       const { recordFind } = this.app.dobo
@@ -274,10 +274,10 @@ async function factory (pkgName) {
     verifyBasic = async (req, reply, source, payload) => {
       const { getUserFromUsernamePassword } = this
       const { getUser } = this
-      const { isEmpty, merge } = this.lib._
+      const { isEmpty, merge } = this.app.lib._
 
       const setHeader = async (setting, reply) => {
-        const { isString } = this.lib._
+        const { isString } = this.app.lib._
 
         let header = setting.type
         const exts = []
@@ -317,7 +317,7 @@ async function factory (pkgName) {
       const { importPkg } = this.app.bajo
       const { recordGet } = this.app.dobo
       const { getUser } = this
-      const { isEmpty, merge } = this.lib._
+      const { isEmpty, merge } = this.app.lib._
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createVerifier } = fastJwt
@@ -343,8 +343,8 @@ async function factory (pkgName) {
     }
 
     checkPathsByTeam = ({ paths = [], method = 'GET', teams = [], guards = [] }) => {
-      const { includes } = this.lib.aneka
-      const { outmatch } = this.lib
+      const { includes } = this.app.lib.aneka
+      const { outmatch } = this.app.lib
 
       for (const item of guards) {
         const matchPath = outmatch(item.path)
@@ -361,7 +361,7 @@ async function factory (pkgName) {
     }
 
     checkPathsByRoute = ({ paths = [], method = 'GET', guards = [] }) => {
-      const { outmatch } = this.lib
+      const { outmatch } = this.app.lib
 
       for (const item of guards) {
         const matchPath = outmatch(item.path)
@@ -375,7 +375,7 @@ async function factory (pkgName) {
     }
 
     checkPathsByGuard = ({ guards, paths }) => {
-      const { outmatch } = this.lib
+      const { outmatch } = this.app.lib
       const matcher = outmatch(guards)
       let guarded
       for (const path of paths) {
@@ -385,14 +385,14 @@ async function factory (pkgName) {
     }
 
     getSite = async (hostname, useId) => {
-      const { omit } = this.lib._
+      const { omit } = this.app.lib._
       const { recordFind } = this.app.dobo
       const omitted = ['status']
 
       const mergeSetting = async (site) => {
-        const { defaultsDeep } = this.lib.aneka
+        const { defaultsDeep } = this.app.lib.aneka
         const { parseObject } = this.app.bajo
-        const { trim, get, filter } = this.lib._
+        const { trim, get, filter } = this.app.lib._
         const { recordFind, recordGet } = this.app.dobo
         const defSetting = {}
         const nsSetting = {}
@@ -451,7 +451,7 @@ async function factory (pkgName) {
     signin = async ({ user, req, reply }) => {
       const { getSessionId } = this.app.waibuMpa
       const { runHook } = this.app.bajo
-      const { isEmpty, omit } = this.lib._
+      const { isEmpty, omit } = this.app.lib._
       let { referer } = req.body || {}
       if (req.session.ref) referer = req.session.ref
       req.session.ref = null

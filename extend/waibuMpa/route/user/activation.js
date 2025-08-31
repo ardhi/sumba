@@ -3,7 +3,7 @@ const model = 'SumbaUser'
 const userActivation = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep } = this.lib.aneka
+    const { defaultsDeep } = this.app.lib.aneka
     const { recordFind, recordUpdate } = this.app.dobo
     const form = defaultsDeep(req.body, { key: req.query.key })
     let error

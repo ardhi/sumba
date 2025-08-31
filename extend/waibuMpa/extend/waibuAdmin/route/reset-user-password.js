@@ -6,7 +6,7 @@ const resetUserPassword = {
   handler: async function (req, reply) {
     const { importPkg } = this.app.bajo
     const { recordFindOne, recordUpdate } = this.app.dobo
-    const { defaultsDeep } = this.lib.aneka
+    const { defaultsDeep } = this.app.lib.aneka
     const Joi = await importPkg('dobo:joi')
     const model = 'SumbaUser'
     const form = defaultsDeep(req.body, { username: req.query.username })

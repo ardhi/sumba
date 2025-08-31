@@ -1,10 +1,10 @@
 const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep } = this.lib.aneka
+    const { defaultsDeep } = this.app.lib.aneka
     // const { attachmentCopyUploaded } = this.app.dobo
     const { recordUpdate, recordGet } = this.app.waibuDb
-    const { omit, pick } = this.lib._
+    const { omit, pick } = this.app.lib._
     const { hash } = this.app.bajoExtra
     const resp = await recordGet({ model: 'SumbaUser', req, id: req.user.id, options: { forceNoHidden: true, noHook: true, noCache: true } })
     let form = defaultsDeep(req.body, omit(resp.data, ['password']))

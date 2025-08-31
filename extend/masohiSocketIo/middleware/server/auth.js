@@ -1,7 +1,7 @@
 const auth = {
   level: 5,
   handler: async function (socket) {
-    const { camelCase } = this.lib._
+    const { camelCase } = this.app.lib._
     const { req } = socket
     const { session } = req
     const site = await this.getSite(session.siteId)

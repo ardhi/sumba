@@ -3,7 +3,7 @@ const model = 'SumbaUser'
 const resetApiKey = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { defaultsDeep } = this.lib.aneka
+    const { defaultsDeep } = this.app.lib.aneka
     const { importPkg, generateId } = this.app.bajo
     const { recordGet, recordUpdate } = this.app.dobo
     const { hash } = this.app.bajoExtra
