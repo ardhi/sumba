@@ -22,7 +22,7 @@ const profile = {
         try {
           await schema.validateAsync(req.body, this.app.dobo.config.validationParams)
         } catch (err) {
-          throw this.error('validationError', { details: err.details, values: err.values, ns: this.name, statusCode: 422, code: 'DB_VALIDATION' })
+          throw this.error('validationError', { details: err.details, values: err.values, ns: this.ns, statusCode: 422, code: 'DB_VALIDATION' })
         }
         const rec = await recordGet(model, req.user.id, { forceNoHidden: true })
         const verified = await bcrypt.compare(req.body.currentPassword, rec.password)

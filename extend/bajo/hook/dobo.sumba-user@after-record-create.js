@@ -7,7 +7,7 @@ async function afterRecordCreate (body, options = {}, rec) {
   const subject = options.req.t('newUserSignup')
   await sendMail(
     `sumba.template:/_mail/user-signup-success${data.status === 'ACTIVE' ? '-active' : ''}.html`,
-    { to, subject, data, options, source: this.name }
+    { to, subject, data, options, source: this.ns }
   )
 }
 

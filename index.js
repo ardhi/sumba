@@ -120,7 +120,7 @@ async function factory (pkgName) {
 
     init = async () => {
       const { getPluginDataDir } = this.app.bajo
-      this.downloadDir = `${getPluginDataDir(this.name)}/download`
+      this.downloadDir = `${getPluginDataDir(this.ns)}/download`
       this.app.lib.fs.ensureDirSync(this.downloadDir)
       for (const type of ['secure', 'anonymous', 'team']) {
         this[`${type}Routes`] = this[`${type}Routes`] ?? []
@@ -154,7 +154,7 @@ async function factory (pkgName) {
     adminMenu = async (locals, req) => {
       if (!this.app.waibuAdmin) return
       const { getPluginPrefix } = this.app.waibu
-      const prefix = getPluginPrefix(this.name)
+      const prefix = getPluginPrefix(this.ns)
       return [{
         title: 'supportSystem',
         children: [
@@ -396,7 +396,7 @@ async function factory (pkgName) {
         const { recordFind, recordGet } = this.app.dobo
         const defSetting = {}
         const nsSetting = {}
-        const names = this.app.getPluginNames()
+        const names = this.app.getAllNs()
         const query = {
           ns: { $in: names },
           siteId: site.id
@@ -458,7 +458,7 @@ async function factory (pkgName) {
       const _user = omit(user, ['password', 'token'])
       req.session.userId = _user.id
       const sid = await getSessionId(req.headers.cookie)
-      await runHook(`${this.name}:afterSignin`, _user, sid, req)
+      await runHook(`${this.ns}:afterSignin`, _user, sid, req)
       const { query, params } = req
       const url = !isEmpty(referer) ? referer : this.config.redirect.afterSignin
       req.flash('notify', req.t('signinSuccessfully'))

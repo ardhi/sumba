@@ -24,7 +24,7 @@ const profile = {
         data._meta = { hostHeader: req.headers.host }
         await sendMail(
           'sumba.template:/_mail/user-forgot-password-link.html',
-          { to, subject, data, options, source: this.name }
+          { to, subject, data, options, source: this.ns }
         )
         req.flash('notify', req.t('emailSent'))
         return reply.redirectTo(this.config.redirect.signin)

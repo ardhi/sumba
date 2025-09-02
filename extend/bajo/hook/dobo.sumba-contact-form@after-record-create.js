@@ -10,7 +10,7 @@ async function afterRecordCreate (body, options = {}, rec) {
   const subject = options.req.t('contactForm')
   await sendMail(
     'sumba.template:/_mail/help-contact-form.html',
-    { to, bcc, subject, data, options, source: this.name }
+    { to, bcc, subject, data, options, source: this.ns }
   )
 }
 

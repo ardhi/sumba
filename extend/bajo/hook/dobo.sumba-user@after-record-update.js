@@ -10,19 +10,19 @@ async function afterRecordUpdate (id, body, options = {}, rec) {
     subject = options.req.t('userActivation')
     await sendMail(
       'sumba.template:/_mail/user-activation-success.html',
-      { to, subject, data, options, source: this.name }
+      { to, subject, data, options, source: this.ns }
     )
   } else if (oldData.token !== data.token) {
     subject = options.req.t('resetApiKey')
     await sendMail(
       'sumba.template:/_mail/mystuff-reset-api-key.html',
-      { to, subject, data, options, source: this.name }
+      { to, subject, data, options, source: this.ns }
     )
   } else if (body.password) {
     subject = options.req.t('changePassword')
     await sendMail(
       'sumba.template:/_mail/mystuff-change-password.html',
-      { to, subject, data, options, source: this.name }
+      { to, subject, data, options, source: this.ns }
     )
   }
 }
