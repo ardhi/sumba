@@ -2,11 +2,11 @@
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/ardhi/sumba) ![NPM Version](https://img.shields.io/npm/v/sumba)
 
-> <br />**Attention**: I do NOT accept any pull request at the moment, thanks! ([Why?](tutorial/00-welcome.md#contribution))<br /><br />
+> <br />**Attention**: I do NOT accept any pull request at the moment, thanks! ([Why?](wiki/CONTRIBUTING.md))<br /><br />
 
 <img src="docs/static/logo.png" width="300" alt="sumba">
 
-Web Framework for [Bajo](https://github.com/ardhi/bajo)
+### Biz Suite for [Bajo](https://github.com/ardhi/bajo)
 
 ## Installation
 
@@ -20,12 +20,14 @@ Now open your ```{data-dir}/config/.plugins``` and add ```sumba```, ```bajo-extr
 
 ## Documentations
 
-- [Getting Started](tutorial/01-getting-started.md)
-- [User Guide](tutorial/02-user-guide.md)
-- [Developer Guide](tutorial/03-dev-guide.md)
-- [Config Object](tutorial/04-config.md)
+- [Homepage](https://sumba.bajo.app/)
+- [Getting Started](wiki/GETTING-STARTED.md)
+- [User Guide](wiki/USER-GUIDE.md)
+- [Developer Guide](wiki/DEV-GUIDE.md)
+- [Config Object](wiki/CONFIG.md)
+- [Ecosystem](wiki/ECOSYSTEM.md)
 - [API](https://ardhi.github.io/sumba)
-- [Contributing](CONTRIBUTING.md)
+- [Contributing](wiki/CONTRIBUTING.md)
 
 ## Hire Me
 
