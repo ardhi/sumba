@@ -14,14 +14,14 @@
       "homepageTitle": "Sumba API",
       "sections": ["Classes", "Events", "Modules", "Global"],
       "menu": [{
-        "title": "Homepage",
-        "link": "https://sumba.bajo.app/"
-      }, {
         "title": "NPM",
         "link": "https://www.npmjs.com/package/sumba"
       }, {
         "title": "Github",
         "link": "https://github.com/ardhi/sumba"
+      }, {
+        "title": "Sumba",
+        "link": "https://sumba.bajo.app/"
       }, {
         "title": "Bajo",
         "link": "https://bajo.app/"
