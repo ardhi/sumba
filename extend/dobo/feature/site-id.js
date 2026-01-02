@@ -4,11 +4,11 @@ async function siteId (opts = {}) {
       name: 'siteId',
       type: 'string',
       maxLength: 50,
-      rel: {
+      ref: {
         site: {
-          schema: 'SumbaUser',
+          model: 'SumbaUser',
           propName: 'id',
-          type: 'one-on-many'
+          type: '1:1'
         }
       },
       index: true

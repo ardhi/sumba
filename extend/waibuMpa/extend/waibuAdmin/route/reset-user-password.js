@@ -5,10 +5,9 @@ const resetUserPassword = {
   title: 'resetUserPassword',
   handler: async function (req, reply) {
     const { importPkg } = this.app.bajo
-    const { recordFindOne, recordUpdate } = this.app.dobo
     const { defaultsDeep } = this.app.lib.aneka
     const Joi = await importPkg('dobo:joi')
-    const model = 'SumbaUser'
+    const model = this.app.dobo.getModel('SumbaUser')
     const form = defaultsDeep(req.body, { username: req.query.username })
     let error
     if (req.method === 'POST') {
@@ -24,9 +23,9 @@ const resetUserPassword = {
         } catch (err) {
           throw this.error('validationError', { details: err.details, values: err.values, ns: this.ns, statusCode: 422, code: 'DB_VALIDATION' })
         }
-        const rec = await recordFindOne(model, { query: { username: req.body.username } })
+        const rec = await model.findOneRecord({ query: { username: req.body.username } })
         if (!rec) throw this.error('unknownUser', { details: [{ field: 'username', error: 'unknownUser' }], statusCode: 400 })
-        await recordUpdate(model, rec.id, { password: req.body.password }, { req, reply })
+        await model.updateRecord(rec.id, { password: req.body.password }, { req, reply })
         form.password = ''
         form.verifyPassword = ''
       } catch (err) {

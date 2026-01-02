@@ -1,0 +1,19 @@
+{
+  "properties": [
+    "description,,50,true",
+    "file,text,,,true",
+    "type,,20,true",
+    "jobQueue,object",
+    {
+      "name": "size",
+      "type": "integer",
+      "default": 0,
+      "index": true
+    }
+  ],
+  "features": ["sumba:siteId", "sumba:userId", "dobo:createdAt", "dobo:updatedAt", {
+    "name": "sumba:status",
+    "default": "INQUEUE",
+    "values": ["INQUEUE", "PROCESSING", "COMPLETE", "FAIL"]
+  }]
+}

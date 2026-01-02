@@ -4,11 +4,11 @@ async function teamId (opts = {}) {
       name: 'teamId',
       type: 'string',
       maxLength: 50,
-      rel: {
+      ref: {
         site: {
-          schema: 'SumbaSite',
+          model: 'SumbaSite',
           propName: 'id',
-          type: 'one-to-one'
+          type: '1:1'
         }
       },
       index: true

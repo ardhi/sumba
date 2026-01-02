@@ -2,7 +2,7 @@ async function navDropdownUser () {
   return class NavDropdownUser extends this.baseFactory {
     build = async () => {
       const { has, omit, find, filter } = this.app.lib._
-      const { routePath } = this.plugin.app.waibu
+      const { routePath } = this.app.waibu
       const { req } = this.component
       const icon = this.component.req.iconset ? await this.component.buildTag({ tag: 'icon', attr: { name: 'person' } }) : ''
       let text = ''
@@ -22,7 +22,7 @@ async function navDropdownUser () {
         delete attr.dropdownMenu
         attr.href = routePath(this.component.req.user ? 'sumba:/your-stuff/profile' : 'sumba:/signin')
       } else {
-        const menu = find(this.plugin.app.sumba.config.waibuMpa.menuHandler, { title: 'account' })
+        const menu = find(this.app.sumba.config.waibuMpa.menuHandler, { title: 'account' })
         if (menu) {
           const items = filter(menu.children, c => {
             if (!has(c, 'visible')) return true

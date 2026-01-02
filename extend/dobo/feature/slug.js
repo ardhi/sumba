@@ -1,12 +1,11 @@
 import slug from 'slug'
 
-async function autoInc ({ schema, body, opts }) {
-  const { recordFind } = this.app.dobo
+async function autoInc (body, opts) {
   const { set, last } = this.app.lib._
   const query = set({}, opts.fieldName, { $regex: new RegExp('^' + body[opts.fieldName]) })
   const sort = set({}, opts.fieldName, -1)
   const options = { noHook: true, skipCache: true, thrownNotFound: false }
-  const resp = await recordFind(schema.name, { query, limit: 1, sort }, options)
+  const resp = await this.findRecord({ query, limit: 1, sort }, options)
   if (resp.length === 0) return body[opts.fieldName]
   const rslugs = resp[0][opts.fieldName].split('-')
   const slugs = body[opts.fieldName].split('-')
@@ -23,7 +22,7 @@ async function autoInc ({ schema, body, opts }) {
       body[opts.fieldName] = slugs.join('-')
     }
   }
-  return await autoInc.call(this, { schema, body, opts })
+  return await autoInc.call(this, body, opts)
 }
 
 async function mainFn (opts = {}) {
@@ -38,7 +37,7 @@ async function mainFn (opts = {}) {
       index: 'unique'
     }],
     hook: {
-      beforeCreate: async function ({ schema, body }) {
+      beforeCreate: async function (body) {
         const { error } = this.app.bajo
         const { isEmpty, isString } = this.app.lib._
         if (isEmpty(body[opts.fieldName])) {
@@ -53,7 +52,7 @@ async function mainFn (opts = {}) {
           }
           body[opts.fieldName] = slug(source.join(' '))
         }
-        if (opts.autoInc) body[opts.fieldName] = await autoInc.call(this, { schema, body, opts })
+        if (opts.autoInc) body[opts.fieldName] = await autoInc.call(this, body, opts)
       }
     }
   }

@@ -3,11 +3,11 @@ const model = 'SumbaTicket'
 const list = {
   method: ['GET'],
   handler: async function (req, reply) {
-    const { recordFind, getSchemaExt } = this.app.waibuDb
+    const { findRecord, getSchemaExt } = this.app.waibuDb
     const { getExcerpt } = this.app.bajoTemplate
     const { schema } = await getSchemaExt(model, 'list')
     const options = { count: true }
-    const list = await recordFind({ model, req, options })
+    const list = await findRecord({ model, req, options })
     schema.view.disabled = ['update', 'remove']
     schema.view.fields = ['createdAt', 'subject', 'status']
     schema.view.label = { subject: 'Your Message' }

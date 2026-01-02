@@ -5,16 +5,16 @@ async function userId (opts = {}) {
       name: opts.fieldName,
       type: 'string',
       maxLength: 50,
-      rel: {
+      ref: {
         site: {
-          schema: 'SumbaSite',
+          model: 'SumbaSite',
           propName: 'id',
-          type: 'one-to-one'
+          type: '1:1'
         },
         user: {
-          schema: 'SumbaUser',
+          model: 'SumbaUser',
           propName: 'id',
-          type: 'one-to-one',
+          type: '1:1',
           fields: ['id', 'username', 'email', 'firstName', 'lastName']
         }
       },

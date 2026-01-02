@@ -1,0 +1,69 @@
+{
+  "buildLevel": 2,
+  "properties": [{
+    "name": "username",
+    "type": "string",
+    "minLength": 5,
+    "maxLength": 50,
+    "rules": ["alphanum"]
+  }, {
+    "name": "password",
+    "type": "string",
+    "minLength": 8,
+    "maxLength": 100
+  }, {
+    "name": "token",
+    "type": "string",
+    "maxLength": 50,
+    "index": true
+  }, {
+    "name": "salt",
+    "type": "string",
+    "maxLength": 50,
+    "required": true
+  }, {
+    "name": "provider",
+    "type": "string",
+    "maxLength": 50,
+    "index": true,
+    "default": "local"
+  }, {
+    "name": "email",
+    "type": "string",
+    "maxLength": 100,
+    "required": true,
+    "rules": ["email"]
+  }, {
+    "name": "firstName",
+    "type": "string",
+    "maxLength": 50,
+    "required": true,
+    "index": true
+  }, {
+    "name": "lastName",
+    "type": "string",
+    "maxLength": 50,
+    "required": true,
+    "index": true
+  }],
+  "rules": [{ "rule": "trim", "fields": ["username", "firstName", "lastName"] }],
+  "indexes": [{
+    "fields": ["username", "siteId"],
+    "unique": true
+  }, {
+    "fields": ["email", "siteId"],
+    "unique": true
+  }],
+  "hidden": ["password", "token"],
+  "features": [
+    "sumba:address",
+    "sumba:social",
+    {
+      "name": "sumba:status",
+      "default": "UNVERIFIED"
+    },
+    "sumba:siteId",
+    "dobo:createdAt",
+    "dobo:updatedAt"
+  ]
+}

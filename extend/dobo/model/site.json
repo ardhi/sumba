@@ -1,0 +1,35 @@
+{
+  "buildLevel": 1,
+  "properties": [{
+    "name": "hostname",
+    "type": "string",
+    "minLength": 5,
+    "maxLength": 100,
+    "index": "unique"
+  }, {
+    "name": "alias",
+    "type": "string",
+    "maxLength": 100,
+    "index": "unique"
+  }, {
+    "name": "title",
+    "type": "string",
+    "maxLength": 50,
+    "required": true
+  }, {
+    "name": "orgName",
+    "type": "string",
+    "minLength": 5,
+    "maxLength": 100,
+    "index": true
+  }, {
+    "name": "email",
+    "type": "string",
+    "maxLength": 100,
+    "rules": ["email"]
+  }],
+  "features": ["sumba:personInCharge", "sumba:address", "sumba:social", {
+    "name": "sumba:status",
+    "default": "ACTIVE"
+  }, "dobo:createdAt", "dobo:updatedAt"]
+}

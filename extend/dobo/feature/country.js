@@ -8,7 +8,7 @@ async function country (opts = {}) {
       index: opts.index ?? true,
       rules: ['uppercase', { rule: 'length', params: 2 }]
     }],
-    globalRules: [{ rule: 'trim', fields: [opts.fieldName] }]
+    rules: [{ rule: 'trim', fields: [opts.fieldName] }]
   }
 }
 

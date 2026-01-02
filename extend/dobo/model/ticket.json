@@ -1,0 +1,18 @@
+{
+  "properties": [
+    "subject,,255,true,true",
+    "cat,,50,true",
+    "message,text,,,true"
+  ],
+  "features": [
+    "dobo:createdAt",
+    "dobo:updatedAt",
+    "sumba:siteId",
+    "sumba:userId",
+    {
+      "name": "sumba:status",
+      "default": "OPEN",
+      "values": ["OPEN", "CLOSED"]
+    }
+  ]
+}

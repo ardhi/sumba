@@ -1,0 +1,15 @@
+{
+  "properties": [
+    "alias,,20,,true",
+    "name,,50,true,true"
+  ],
+  "indexes": [{
+    "fields": ["alias", "siteId"],
+    "unique": true
+  }],
+  "features": ["dobo:createdAt", "dobo:updatedAt", "sumba:siteId", {
+    "name": "sumba:status",
+    "default": "ENABLED",
+    "values": ["ENABLED", "DISABLED"]
+  }]
+}

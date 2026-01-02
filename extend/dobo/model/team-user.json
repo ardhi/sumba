@@ -1,0 +1,21 @@
+{
+  "properties": [{
+    "name": "teamId",
+    "type": "string",
+    "maxLength": 50,
+    "required": true,
+    "ref": {
+      "team": {
+        "model": "SumbaTeam",
+        "propName": "id",
+        "type": "1:1",
+        "fields": ["id", "name"]
+      }
+    }
+  }],
+  "indexes": [{
+    "fields": ["userId", "siteId", "teamId"],
+    "unique": true
+  }],
+  "features": ["dobo:createdAt", "dobo:updatedAt", "sumba:siteId", "sumba:userId"]
+}

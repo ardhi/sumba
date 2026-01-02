@@ -2,7 +2,7 @@ const model = 'SumbaUser'
 const hidden = ['password', 'token', 'siteId']
 
 async function get ({ ctx }) {
-  const { recordUpdate } = this.app.waibuDb
+  const { updateRecord } = this.app.waibuDb
   const { omit } = this.app.lib._
 
   const { docSchemaModel } = this.app.waibuRestApi
@@ -10,7 +10,7 @@ async function get ({ ctx }) {
   const handler = async function get (req, reply, options) {
     options.hidden = hidden
     const body = omit(req.body, ['username', 'status', ...hidden])
-    return await recordUpdate({ model, req, reply, id: req.user.id, body, options })
+    return await updateRecord({ model, req, reply, id: req.user.id, body, options })
   }
   return { schema, handler }
 }

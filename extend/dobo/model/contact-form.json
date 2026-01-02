@@ -1,0 +1,16 @@
+{
+  "properties": [
+    "firstName,,50,true,true",
+    "lastName,,50,true,true",
+    "email,,50,true,true",
+    "cat,,50,true",
+    "subject,,255,,true",
+    "message,text"
+  ],
+  "features": [{
+      "name": "sumba:status",
+      "default": "NEW",
+      "values": ["NEW", "ACK"]
+    }, "sumba:userId", "sumba:siteId", "dobo:createdAt", "dobo:updatedAt"
+  ]
+}

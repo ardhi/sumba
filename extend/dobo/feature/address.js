@@ -40,7 +40,7 @@ async function address (opts = {}) {
       type: 'string',
       maxLength: 100
     }],
-    globalRules: [{
+    rules: [{
       rule: 'trim',
       fields: ['address1', 'address2', 'city', 'zipCode', 'provinceState', 'phone', 'website']
     }]

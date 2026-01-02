@@ -8,7 +8,7 @@ async function download () {
           return await this.component.buildSentence(sentence)
         },
         size: function (val, rec) {
-          const { formatByte } = this.plugin.app.bajoExtra
+          const { formatByte } = this.app.bajoExtra
           return formatByte(rec.size)
         }
       }

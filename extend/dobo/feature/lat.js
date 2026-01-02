@@ -14,10 +14,10 @@ async function lat (opts = {}) {
       scale: opts.scale
     }],
     hook: {
-      beforeCreate: async function ({ scheme, body }) {
+      beforeCreate: async function (body) {
         await latLngHook.call(this, body, opts)
       },
-      beforeUpdate: async function ({ scheme, body }) {
+      beforeUpdate: async function (body) {
         await latLngHook.call(this, body, opts)
       }
     }

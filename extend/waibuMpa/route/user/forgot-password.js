@@ -1,5 +1,3 @@
-const model = 'SumbaUser'
-
 const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
@@ -7,13 +5,13 @@ const profile = {
     const { sendMail } = this.app.waibu
     const { defaultsDeep } = this.app.lib.aneka
     const { dayjs } = this.app.lib
-    const { recordFind } = this.app.dobo
+    const model = this.app.dobo.getModel('SumbaUser')
     const form = defaultsDeep(req.body, {})
     let error
     if (req.method === 'POST') {
       try {
         const query = { status: 'ACTIVE', $or: [{ username: req.body.usernameEmail }, { email: req.body.usernameEmail }] }
-        const result = await recordFind(model, { query, limit: 1 }, { dataOnly: true, noHook: true, forceNoHidden: true })
+        const result = await model.findRecord({ query, limit: 1 }, { dataOnly: true, noHook: true, forceNoHidden: true })
         if (result.length === 0) throw this.error('validationError', { details: [{ field: 'usernameEmail', error: 'unknownUsernameEmailOrInactive' }] })
         const data = result[0]
         const to = `${data.firstName} ${data.lastName} <${data.email}>`

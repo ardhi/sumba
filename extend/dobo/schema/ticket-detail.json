@@ -1,7 +1,0 @@
-{
-  "properties": [
-    "masterId::255:true:true",
-    "message:text"
-  ],
-  "feature": ["createdAt", "sumba.userId", "sumba.siteId"]
-}

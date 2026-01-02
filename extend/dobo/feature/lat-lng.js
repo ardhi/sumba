@@ -23,11 +23,11 @@ async function latLng (opts = {}) {
       scale: opts.scale
     }],
     hook: {
-      beforeCreate: async function ({ scheme, body }) {
+      beforeCreate: async function (body) {
         await latLngHook.call(this, body, merge({}, opts, { lat: opts.fieldNameLat }))
         await latLngHook.call(this, body, merge({}, opts, { lng: opts.fieldNameLng }))
       },
-      beforeUpdate: async function ({ scheme, body }) {
+      beforeUpdate: async function (body) {
         await latLngHook.call(this, body, merge({}, opts, { lat: opts.fieldNameLat }))
         await latLngHook.call(this, body, merge({}, opts, { lng: opts.fieldNameLng }))
       }

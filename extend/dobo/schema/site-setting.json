@@ -1,8 +1,0 @@
-{
-  "properties": [
-    "ns::50:true:true",
-    "key::50:true:true",
-    "value:text"
-  ],
-  "feature": ["sumba.siteId", "updatedAt"]
-}

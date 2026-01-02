@@ -1,0 +1,7 @@
+{
+  "properties": [
+    "masterId,,255,true,true",
+    "message,text"
+  ],
+  "features": ["dobo:createdAt", "sumba:userId", "sumba:siteId"]
+}

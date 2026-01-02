@@ -1,4 +1,4 @@
-async function hook (schema, body, options) {
+async function hook (body, options) {
   const { isSet } = this.app.lib.aneka
   let val = body[options.fieldName]
   if (!isSet(val)) return
@@ -16,11 +16,11 @@ async function url (opts = {}) {
       type: 'string'
     }],
     hook: {
-      beforeCreate: async function ({ schema, body }) {
-        await hook.call(this, schema, body, opts)
+      beforeCreate: async function (body) {
+        await hook.call(this, body, opts)
       },
-      beforeUpdate: async function ({ schema, body }) {
-        await hook.call(this, schema, body, opts)
+      beforeUpdate: async function (body) {
+        await hook.call(this, body, opts)
       }
     }
   }

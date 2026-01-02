@@ -2,8 +2,8 @@ const signup = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { defaultsDeep } = this.app.lib.aneka
-    const { generateId } = this.app.bajo
-    const { recordCreate } = this.app.waibuDb
+    const { generateId } = this.app.lib.aneka
+    const { createRecord } = this.app.waibuDb
 
     const form = defaultsDeep(req.body, {})
     let error
@@ -24,7 +24,7 @@ const signup = {
         const validation = { ns: ['sumba', 'dobo'], fields, extFields }
         req.body.token = generateId()
         req.body.provider = 'local'
-        const { data } = await recordCreate({ model: 'SumbaUser', req, reply, options: { validation, noFlash: true, forceNoHidden: true } })
+        const { data } = await createRecord({ model: 'SumbaUser', req, reply, options: { validation, noFlash: true, forceNoHidden: true } })
         req.flash('notify', req.t('userCreated'))
         return await reply.view('sumba.template:/user/signup/success.html', { form: req.body, data })
       } catch (err) {
