@@ -22,7 +22,7 @@ const resetApiKey = {
           throw this.error('validationError', { details: err.details, values: err.values, ns: this.ns, statusCode: 422, code: 'DB_VALIDATION' })
         }
         const rec = await model.getRecord(req.user.id, { forceNoHidden: true })
-        const verified = await bcrypt.compare(req.body.password, rec.password)
+        const verified = await bcrypt.compare(form.password, rec.password)
         if (!verified) throw this.error('validationError', { details: [{ field: 'password', error: 'invalidPassword' }], statusCode: 400 })
         await model.updateRecord(req.user.id, { salt: generateId() }, { req, reply, noFlash: true, forceNoHidden: true })
         await delay(2000) // ensure req.user cache is expired

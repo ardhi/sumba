@@ -1,4 +1,4 @@
-async function afterRecordUpdate (id, body, options = {}, rec) {
+async function afterUpdateRecord (id, body, rec, options = {}) {
   if (!options.req) return
   if (!this.app.waibu) return
   const { data, oldData } = rec
@@ -27,4 +27,4 @@ async function afterRecordUpdate (id, body, options = {}, rec) {
   }
 }
 
-export default afterRecordUpdate
+export default afterUpdateRecord

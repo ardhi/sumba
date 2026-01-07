@@ -5,9 +5,9 @@
   ],
   "indexes": [{
     "fields": ["alias", "siteId"],
-    "unique": true
+    "type": "unique"
   }],
-  "features": ["dobo:createdAt", "dobo:updatedAt", "sumba:siteId", {
+  "features": ["dobo:createdAt", "dobo:updatedAt", "dobo:immutable", "sumba:siteId", {
     "name": "sumba:status",
     "default": "ENABLED",
     "values": ["ENABLED", "DISABLED"]

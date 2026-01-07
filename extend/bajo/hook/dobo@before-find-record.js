@@ -1,11 +1,12 @@
 const useAdmin = ['waibuAdmin']
 
-export async function rebuildFilter (filter, req) {
+export async function rebuildFilter (modelName, filter, req) {
   const { isEmpty, map, find, get } = this.app.lib._
   filter.query = filter.query ?? {}
-  const hasSiteId = this.hasProperty('siteId')
-  const hasUserId = this.hasProperty('userId')
-  const hasTeamId = this.hasProperty('teamId')
+  const model = this.app.dobo.getModel(modelName)
+  const hasSiteId = model.hasProperty('siteId')
+  const hasUserId = model.hasProperty('userId')
+  const hasTeamId = model.hasProperty('teamId')
   const isAdmin = find(get(req, 'user.teams', []), { alias: 'administrator' }) && useAdmin.includes(get(req, 'routeOptions.config.ns'))
   if (!(hasSiteId || hasUserId || hasTeamId)) return filter
   const q = { $and: [] }
@@ -25,10 +26,10 @@ export async function rebuildFilter (filter, req) {
   return filter
 }
 
-export async function handler (filter, options = {}) {
+export async function handler (modelName, filter, options = {}) {
   const { req } = options
   if (options.noAutoFilter || !req) return
-  filter = await rebuildFilter.call(this, filter, req)
+  filter = await rebuildFilter.call(this, modelName, filter, req)
 }
 
 const doboBeforeFindRecord = {

@@ -1,6 +1,6 @@
 import resetToken from '../../../lib/reset-token.js'
 
-async function beforeRecordUpdate (id, body, options = {}) {
+async function beforeUpdateRecord (id, body, options = {}) {
   if (body.salt) {
     const { token, salt } = await resetToken.call(this, body.salt)
     body.token = token
@@ -8,4 +8,4 @@ async function beforeRecordUpdate (id, body, options = {}) {
   }
 }
 
-export default beforeRecordUpdate
+export default beforeUpdateRecord

@@ -49,10 +49,10 @@
   "rules": [{ "rule": "trim", "fields": ["username", "firstName", "lastName"] }],
   "indexes": [{
     "fields": ["username", "siteId"],
-    "unique": true
+    "type": "unique"
   }, {
     "fields": ["email", "siteId"],
-    "unique": true
+    "type": "unique"
   }],
   "hidden": ["password", "token"],
   "features": [

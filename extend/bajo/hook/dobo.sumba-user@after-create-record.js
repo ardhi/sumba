@@ -1,4 +1,4 @@
-async function afterRecordCreate (body, options = {}, rec) {
+async function afterCreateRecord (body, rec, options = {}) {
   if (!options.req) return
   if (!this.app.waibu) return
   const { sendMail } = this.app.waibu
@@ -11,4 +11,4 @@ async function afterRecordCreate (body, options = {}, rec) {
   )
 }
 
-export default afterRecordCreate
+export default afterCreateRecord

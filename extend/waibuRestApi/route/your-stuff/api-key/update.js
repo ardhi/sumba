@@ -24,7 +24,7 @@ async function update ({ ctx }) {
   const { generateId } = this.app.lib.aneka
   const { hash } = this.app.bajoExtra
   const bcrypt = await importPkg('bajoExtra:bcrypt')
-  const model = this.app.getModel('SumbaUser')
+  const model = this.app.dobo.getModel('SumbaUser')
 
   const schema = { body, response: await response.call(this) }
 

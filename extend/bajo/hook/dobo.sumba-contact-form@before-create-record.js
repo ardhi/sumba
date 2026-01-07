@@ -1,4 +1,4 @@
-const doboBeforeRecordCreate = {
+const beforeCreateRecord = {
   level: 1000,
   handler: async function (body, options = {}) {
     const { get, isEmpty } = this.app.lib._
@@ -13,4 +13,4 @@ const doboBeforeRecordCreate = {
   }
 }
 
-export default doboBeforeRecordCreate
+export default beforeCreateRecord

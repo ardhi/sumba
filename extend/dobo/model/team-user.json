@@ -15,7 +15,7 @@
   }],
   "indexes": [{
     "fields": ["userId", "siteId", "teamId"],
-    "unique": true
+    "type": "unique"
   }],
   "features": ["dobo:createdAt", "dobo:updatedAt", "sumba:siteId", "sumba:userId"]
 }

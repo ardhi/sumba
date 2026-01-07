@@ -2,5 +2,6 @@
   "alias": "administrator",
   "name": "Administrator",
   "siteId": "?:SumbaSite::alias:default",
-  "status": "ENABLED"
+  "status": "ENABLED",
+  "_immutable": true
 }]

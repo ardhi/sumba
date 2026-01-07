@@ -9,7 +9,32 @@ const manageSite = {
     const template = `waibuDb.template:/crud/${req.query.edit ? 'edit' : 'details'}.html`
     const model = 'SumbaSite'
     req.params.id = req.site.id
+    req.query.id = req.site.id
     req.params.base = ''
+    /*
+    const options = {
+      schema: {
+        view: {
+          details: {
+            control: {
+              noBackBtn: true,
+              noCloneBtn: true,
+              noDeleteBtn: true,
+              editHref: '?edit=1'
+            }
+          },
+          edit: {
+            control: {
+              noDetailsBtn: true,
+              noCloneBtn: true,
+              noDeleteBtn: true,
+              backHref: '?details=1'
+            }
+          }
+        }
+      }
+    }
+    */
     return await action.call(this, { req, reply, model, template })
   }
 }

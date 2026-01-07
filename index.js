@@ -16,7 +16,7 @@ async function factory (pkgName) {
    */
   class Sumba extends this.app.baseClass.Base {
     static alias = 'sumba'
-    static dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config']
+    static dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config', 'bajo-markdown']
 
     constructor () {
       super(pkgName, me.app)
@@ -198,8 +198,9 @@ async function factory (pkgName) {
       if (isPlainObject(rec)) user = rec
       else {
         const mdl = this.app.dobo.getModel('SumbaUser')
-        user = await mdl.getRerocrd(rec, { noHook: true })
+        user = await mdl.getRecord(rec, { noHook: true, throwNotFound: false })
       }
+      if (!user) return null
       return safe ? omit(user, this.unsafeUserFields) : user
     }
 
@@ -208,18 +209,21 @@ async function factory (pkgName) {
       const { map, pick } = this.app.lib._
       user.teams = []
       const query = { userId: user.id, siteId: site.id }
-      const userTeam = await this.app.dobo.getModel('SumbaTeamUser').findAllRecord({ query })
+      let mdl = this.app.dobo.getModel('SumbaTeamUser')
+      const userTeam = await mdl.findAllRecord({ query })
       if (userTeam.length === 0) return
       delete query.userId
-      query.id = { $in: map(userTeam, 'id'), status: 'ENABLED' }
-      const team = await this.app.dobo.getModel('SumbaTeam').findAllRecord({ query })
+      query.id = { $in: map(userTeam, 'id') }
+      query.status = 'ENABLED'
+      mdl = this.app.dobo.getModel('SumbaTeam')
+      const team = await mdl.findAllRecord({ query })
       if (team.length > 0) user.teams.push(...map(team, t => pick(t, ['id', 'alias'])))
     }
 
     getUserFromUsernamePassword = async (username = '', password = '', req) => {
       const { importPkg } = this.app.bajo
       const model = this.app.dobo.getModel('SumbaUser')
-      await model.validate({ username, password }, model, { ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
+      await model.validate({ username, password }, null, { partial: true, ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
       const bcrypt = await importPkg('bajoExtra:bcrypt')
 
       const query = { username, provider: 'local' }
@@ -453,6 +457,19 @@ async function factory (pkgName) {
       site = row
       await mergeSetting(site)
       return site
+    }
+
+    signout = async ({ req, reply, reason }) => {
+      const { runHook } = this.app.bajo
+      const { getSessionId } = this.app.waibuMpa
+      const sid = await getSessionId(req.headers.cookie)
+      req.session.userId = null
+      await runHook(`${this.ns}:afterSignout`, sid, req)
+      const { query, params } = req
+      // const url = !isEmpty(referer) ? referer : this.config.redirect.home
+      const url = this.config.redirect.afterSignout
+      req.flash('notify', req.t(reason ?? 'signoutSuccessfully'))
+      return reply.redirectTo(url, { query, params })
     }
 
     signin = async ({ user, req, reply }) => {
