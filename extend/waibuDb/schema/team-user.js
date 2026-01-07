@@ -11,10 +11,10 @@ async function teamUser () {
       ],
       valueFormatter: {
         user: (val, rec) => {
-          return rec._rel.user.username
+          return rec._ref.user.username
         },
         team: (val, rec) => {
-          return rec._rel.team.name
+          return rec._ref.team.name
         }
       },
       widget: {
