@@ -14,7 +14,7 @@ async function navDropdownUser () {
         } else text = req.t('guest')
       }
       const html = []
-      const attr = omit(this.params.attr, ['text'])
+      const attr = omit(this.params.attr, ['text', 'noMenu'])
       attr.dropdown = true
       attr.content = `${icon} ${text}`
       if (this.params.attr.noMenu) {
@@ -53,7 +53,7 @@ async function navDropdownUser () {
         }
       }
       this.params.noTag = true
-      this.params.html = await this.component.buildTag({ tag: 'navItem', attr, html: html.join('\n') })
+      this.params.html = await this.component.buildTag({ tag: 'navItem', attr, html: html.join('\n'), noEscape: true })
     }
   }
 }
