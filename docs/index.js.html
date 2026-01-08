@@ -16,9 +16,9 @@ async function factory (pkgName) {
    *
    * @class
    */
-  class Sumba extends this.app.pluginClass.base {
+  class Sumba extends this.app.baseClass.Base {
     static alias = 'sumba'
-    static dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config']
+    static dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config', 'bajo-markdown']
 
     constructor () {
       super(pkgName, me.app)
@@ -195,37 +195,41 @@ async function factory (pkgName) {
     }
 
     getUser = async (rec, safe = true) => {
-      const { recordGet } = this.app.dobo
       const { omit, isPlainObject } = this.app.lib._
       let user
       if (isPlainObject(rec)) user = rec
-      else user = await recordGet('SumbaUser', rec, { noHook: true })
+      else {
+        const mdl = this.app.dobo.getModel('SumbaUser')
+        user = await mdl.getRecord(rec, { noHook: true, throwNotFound: false })
+      }
+      if (!user) return null
       return safe ? omit(user, this.unsafeUserFields) : user
     }
 
     mergeTeam = async (user, site) => {
       if (!user) return
       const { map, pick } = this.app.lib._
-      const { recordFindAll } = this.app.dobo
       user.teams = []
       const query = { userId: user.id, siteId: site.id }
-      const userTeam = await recordFindAll('SumbaTeamUser', { query })
+      let mdl = this.app.dobo.getModel('SumbaTeamUser')
+      const userTeam = await mdl.findAllRecord({ query })
       if (userTeam.length === 0) return
       delete query.userId
-      query.id = { $in: map(userTeam, 'id'), status: 'ENABLED' }
-      const team = await recordFindAll('SumbaTeam', { query })
+      query.id = { $in: map(userTeam, 'id') }
+      query.status = 'ENABLED'
+      mdl = this.app.dobo.getModel('SumbaTeam')
+      const team = await mdl.findAllRecord({ query })
       if (team.length > 0) user.teams.push(...map(team, t => pick(t, ['id', 'alias'])))
     }
 
     getUserFromUsernamePassword = async (username = '', password = '', req) => {
       const { importPkg } = this.app.bajo
-      const { recordFind, validate } = this.app.dobo
-      const model = 'SumbaUser'
-      await validate({ username, password }, model, { ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
+      const model = this.app.dobo.getModel('SumbaUser')
+      await model.validate({ username, password }, null, { partial: true, ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
       const bcrypt = await importPkg('bajoExtra:bcrypt')
 
       const query = { username, provider: 'local' }
-      const rows = await recordFind(model, { query }, { req, forceNoHidden: true, noHook: true })
+      const rows = await model.findRecord({ query }, { req, forceNoHidden: true, noHook: true })
       if (rows.length === 0) throw this.error('validationError', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })
       const rec = rows[0]
       if (rec.status !== 'ACTIVE') throw this.error('validationError', { details: ['User is inactive or temporarily disabled'], statusCode: 401 })
@@ -271,13 +275,12 @@ async function factory (pkgName) {
       const { merge } = this.app.lib._
       const { isMd5, hash } = this.app.bajoExtra
       const { getUser } = this
-      const { recordFind } = this.app.dobo
 
       let token = await this._getToken('apiKey', req, source)
       if (!isMd5(token)) return false
       token = await hash(token)
       const query = { token }
-      const rows = await recordFind('SumbaUser', { query }, { req, noHook: true })
+      const rows = await this.app.dobo.getModel('SumbaUser').findRecord({ query }, { req, noHook: true })
       if (rows.length === 0) throw this.error('invalidKey', merge({ statusCode: 401 }, payload))
       if (rows[0].status !== 'ACTIVE') throw this.error('userInactive', merge({ details: [{ field: 'status', error: 'inactive' }], statusCode: 401 }, payload))
       req.user = await getUser(rows[0])
@@ -328,7 +331,6 @@ async function factory (pkgName) {
 
     verifyJwt = async (req, reply, source, payload) => {
       const { importPkg } = this.app.bajo
-      const { recordGet } = this.app.dobo
       const { getUser } = this
       const { isEmpty, merge } = this.app.lib._
 
@@ -344,7 +346,7 @@ async function factory (pkgName) {
       const decoded = await verifier(token)
       const id = decoded.payload.uid
       try {
-        const rec = await recordGet('SumbaUser', id, { req, noHook: true })
+        const rec = await this.app.dobo.getModel('SumbaUser').getRecord(id, { req, noHook: true })
         if (!rec) throw this.error('invalidToken', { statusCode: 401 })
         if (rec.status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
         req.user = await getUser(rec)
@@ -399,14 +401,12 @@ async function factory (pkgName) {
 
     getSite = async (hostname, useId) => {
       const { omit } = this.app.lib._
-      const { recordFind } = this.app.dobo
       const omitted = ['status']
 
       const mergeSetting = async (site) => {
         const { defaultsDeep } = this.app.lib.aneka
-        const { parseObject } = this.app.bajo
+        const { parseObject } = this.app.lib
         const { trim, get, filter } = this.app.lib._
-        const { recordFind, recordGet } = this.app.dobo
         const defSetting = {}
         const nsSetting = {}
         const names = this.app.getAllNs()
@@ -414,7 +414,7 @@ async function factory (pkgName) {
           ns: { $in: names },
           siteId: site.id
         }
-        const all = await recordFind('SumbaSiteSetting', { query, limit: -1 })
+        const all = await this.app.dobo.getModel('SumbaSiteSetting').findRecord({ query, limit: -1 })
         for (const ns of names) {
           nsSetting[ns] = {}
           defSetting[ns] = get(this, `app.${ns}.config.siteSetting`, {})
@@ -429,14 +429,14 @@ async function factory (pkgName) {
         }
         site.setting = parseObject(defaultsDeep({}, nsSetting, defSetting))
         // additional fields
-        const country = await recordGet('CdbCountry', site.country, { noHook: true })
+        const country = await this.app.dobo.getModel('CdbCountry').getRecord(site.country, { noHook: true })
         site.countryName = (country ?? {}).name ?? site.country
       }
 
       let site = {}
 
       if (!this.config.multiSite) {
-        const resp = await recordFind('SumbaSite', { query: { alias: 'default' } }, { noHook: true })
+        const resp = await this.app.dobo.getModel('SumbaSite').findRecord({ query: { alias: 'default' } }, { noHook: true })
         site = omit(resp[0], omitted)
         await mergeSetting(site)
         return site
@@ -452,13 +452,26 @@ async function factory (pkgName) {
         }
       }
       const filter = { query, limit: 1 }
-      const rows = await recordFind('SumbaSite', filter, { noHook: true })
+      const rows = await this.app.dobo.getModel('SumbaSite').findRecord(filter, { noHook: true })
       if (rows.length === 0) throw this.error('unknownSite')
       const row = omit(rows[0], omitted)
       if (row.status !== 'ACTIVE') throw this.error('siteInactiveInfo')
       site = row
       await mergeSetting(site)
       return site
+    }
+
+    signout = async ({ req, reply, reason }) => {
+      const { runHook } = this.app.bajo
+      const { getSessionId } = this.app.waibuMpa
+      const sid = await getSessionId(req.headers.cookie)
+      req.session.userId = null
+      await runHook(`${this.ns}:afterSignout`, sid, req)
+      const { query, params } = req
+      // const url = !isEmpty(referer) ? referer : this.config.redirect.home
+      const url = this.config.redirect.afterSignout
+      req.flash('notify', req.t(reason ?? 'signoutSuccessfully'))
+      return reply.redirectTo(url, { query, params })
     }
 
     signin = async ({ user, req, reply }) => {
@@ -479,7 +492,7 @@ async function factory (pkgName) {
     }
 
     generatePassword = (req) => {
-      const { generateId } = this.app.bajo
+      const { generateId } = this.app.lib.aneka
       const cfg = req ? req.site.setting.sumba.userPassword : this.config.siteSetting.userPassword
       let passwd = generateId()
       if (cfg.minLowercase) passwd += generateId({ pattern: 'abcdefghijklmnopqrstuvwxyz', length: cfg.minLowercase })
@@ -491,7 +504,7 @@ async function factory (pkgName) {
 
     pushDownload = async ({ description, worker, data, source, req, file, type }) => {
       const { getPlugin } = this.app.bajo
-      const { recordCreate } = getPlugin('waibuDb')
+      const { createRecord } = getPlugin('waibuDb')
       const { push } = getPlugin('bajoQueue')
       description = description ?? file
       const jobQueue = {
@@ -505,16 +518,15 @@ async function factory (pkgName) {
       if (!type) type = path.extname(file)
       if (type[0] === '.') type = type.slice(1)
       const body = { file, description, jobQueue, type }
-      const rec = await recordCreate({ model: 'SumbaDownload', body, req, options: { noFlash: true } })
+      const rec = await createRecord({ model: 'SumbaDownload', body, req, options: { noFlash: true } })
       jobQueue.payload.data.download = { id: rec.data.id, file }
       await push(jobQueue)
     }
 
     getApiKeyFromUserId = async id => {
       const { hash } = this.app.bajoExtra
-      const { recordGet } = this.app.dobo
       const options = { forceNoHidden: true, noHook: true, noCache: true, attachment: true, mimeType: true }
-      const resp = await recordGet('SumbaUser', id, options)
+      const resp = await this.app.dobo.getModel('SumbaUser').getRecord(id, options)
       return await hash(resp.salt)
     }
   }
