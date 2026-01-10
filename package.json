@@ -9,7 +9,9 @@
   },
   "type": "module",
   "bajo": {
-    "type": "plugin"
+    "type": "plugin",
+    "alias": "sumba",
+    "dependencies": ["bajo-extra", "bajo-common-db", "bajo-config", "bajo-markdown"]
   },
   "repository": {
     "type": "git",
