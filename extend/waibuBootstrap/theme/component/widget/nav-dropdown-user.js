@@ -1,5 +1,5 @@
 async function navDropdownUser () {
-  return class NavDropdownUser extends this.baseFactory {
+  return class NavDropdownUser extends this.app.baseClass.MpaWidget {
     build = async () => {
       const { has, omit, find, filter } = this.app.lib._
       const { routePath } = this.app.waibu
