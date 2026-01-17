@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-01-17
+
+- [2.1.2] Add theme & iconset check from ```req.headers['x-theme']``` &  ```req.headers['x-iconset']```
+
 ## 2026-01-13
 
 - [2.1.1] Bug fix on waibuMpa's widgeting system
