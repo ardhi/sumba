@@ -1,6 +1,6 @@
 {
   "name": "sumba",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Biz Suite for Bajo Framework",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "bajo": {
     "type": "plugin",
     "alias": "sumba",
-    "dependencies": ["bajo-extra", "bajo-common-db", "bajo-config", "bajo-markdown"]
+    "dependencies": ["bajo-extra", "bajo-common-db"]
   },
   "repository": {
     "type": "git",

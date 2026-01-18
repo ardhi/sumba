@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-01-18
+
+- [2.1.3] Drop some less necessary dependencies
+
 ## 2026-01-17
 
 - [2.1.2] Add theme & iconset check from ```req.headers['x-theme']``` &  ```req.headers['x-iconset']```
