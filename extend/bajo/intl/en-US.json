@@ -1,4 +1,5 @@
 {
+  "sumba": "Site Manager",
   "invalidKey": "Invalid api key provided",
   "userInactive": "User is inactive or temporarily disabled",
   "invalidToken": "Invalid token or token is expired",

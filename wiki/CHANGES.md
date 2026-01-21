@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-01-21
+
+- [2.1.4] Update translations
+
 ## 2026-01-18
 
 - [2.1.3] Drop some less necessary dependencies

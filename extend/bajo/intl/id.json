@@ -1,4 +1,5 @@
 {
+  "sumba": "Manajemen Situs",
   "invalidKey": "Kunci API yang diberikan tidak valud",
   "userInactive": "Pengguna sedang tidak aktif atau sedang ditangguhkan secara temporer",
   "invalidToken": "Token tidak valid atau token telah kadaluarsa",
