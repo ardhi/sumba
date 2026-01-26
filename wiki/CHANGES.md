@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-01-26
+
+- [2.1.5] Bug fix on feature ```siteId```
+- [2.1.5] Bug fix on feature ```userId```
+
 ## 2026-01-21
 
 - [2.1.4] Update translations

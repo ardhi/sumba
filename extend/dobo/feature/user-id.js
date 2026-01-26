@@ -6,16 +6,10 @@ async function userId (opts = {}) {
       type: 'string',
       maxLength: 50,
       ref: {
-        site: {
-          model: 'SumbaSite',
-          propName: 'id',
-          type: '1:1'
-        },
         user: {
           model: 'SumbaUser',
           propName: 'id',
-          type: '1:1',
-          fields: ['id', 'username', 'email', 'firstName', 'lastName']
+          type: '1:1'
         }
       },
       index: true

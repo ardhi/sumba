@@ -6,7 +6,7 @@ async function siteId (opts = {}) {
       maxLength: 50,
       ref: {
         site: {
-          model: 'SumbaUser',
+          model: 'SumbaSite',
           propName: 'id',
           type: '1:1'
         }
