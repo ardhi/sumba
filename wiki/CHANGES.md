@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-03
+
+- [2.1.6] Bug fix on widget's menu direction
+
 ## 2026-01-26
 
 - [2.1.5] Bug fix on feature ```siteId```
