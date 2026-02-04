@@ -54,6 +54,7 @@ async function factory (pkgName) {
             ]
           }, {
             title: 'help',
+            icon: 'signInfo',
             level: 9999,
             children: [
               { title: 'contactForm', href: 'sumba:/help/contact-form' },

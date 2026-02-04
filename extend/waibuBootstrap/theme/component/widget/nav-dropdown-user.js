@@ -39,6 +39,7 @@ async function navDropdownUser () {
                       <c:div margin="top-1" text="align:center">${req.user.firstName} ${req.user.lastName}</c:div>
                     </c:dropdown-item>
                   </div>
+                  <c:dropdown-item divider />
                 `)
                 html.push(profile)
               } else {

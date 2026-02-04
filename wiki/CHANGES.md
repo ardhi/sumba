@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-02-04
+
+- [2.1.7] Add icon to the menu
+- [2.1.7] Bug fix on ```<c:nav-dropdown-user>```
+
 ## 2026-02-03
 
 - [2.1.6] Bug fix on widget's menu direction
