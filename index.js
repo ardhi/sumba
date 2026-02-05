@@ -37,6 +37,7 @@ async function factory (pkgName) {
           },
           menuHandler: [{
             title: 'account',
+            icon: 'person',
             level: 9998,
             children: [
               // anonymous only

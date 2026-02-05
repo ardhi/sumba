@@ -28,7 +28,7 @@
         "noCloneBtn": true,
         "detailsHref": "waibuAdmin:/site/site"
       },
-      "readonly": ["id", "createdAt", "updatedAt", "hostname"]
+      "readonly": ["id", "createdAt", "updatedAt"]
     }
   }
 }

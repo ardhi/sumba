@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-02-05
+
+- [2.1.8] Bug fix on site update: ```hostname``` should be editable
+- [2.1.8] Missing icon on ```account``` menu
+
 ## 2026-02-04
 
 - [2.1.7] Add icon to the menu
