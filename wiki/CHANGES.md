@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-06
+
+- [2.1.9] Bug fix on ```getSite()``` for multisite system
+
 ## 2026-02-05
 
 - [2.1.8] Bug fix on site update: ```hostname``` should be editable

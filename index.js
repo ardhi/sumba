@@ -433,8 +433,8 @@ async function factory (pkgName) {
       let site = {}
 
       if (!this.config.multiSite) {
-        const resp = await this.app.dobo.getModel('SumbaSite').findRecord({ query: { alias: 'default' } }, { noHook: true })
-        site = omit(resp[0], omitted)
+        const resp = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noHook: true })
+        site = omit(resp, omitted)
         await mergeSetting(site)
         return site
       }
@@ -448,12 +448,10 @@ async function factory (pkgName) {
           ]
         }
       }
-      const filter = { query, limit: 1 }
-      const rows = await this.app.dobo.getModel('SumbaSite').findRecord(filter, { noHook: true })
-      if (rows.length === 0) throw this.error('unknownSite')
-      const row = omit(rows[0], omitted)
+      const row = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query }, { noHook: true })
+      if (!row) throw this.error('unknownSite')
       if (row.status !== 'ACTIVE') throw this.error('siteInactiveInfo')
-      site = row
+      site = omit(row, omitted)
       await mergeSetting(site)
       return site
     }
