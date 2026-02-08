@@ -19,7 +19,7 @@ export const body = {
   }
 }
 
-async function update ({ ctx }) {
+async function update () {
   const { importPkg } = this.app.bajo
   const { generateId } = this.app.lib.aneka
   const { hash } = this.app.bajoExtra

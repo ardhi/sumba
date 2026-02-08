@@ -23,7 +23,7 @@ export const body = {
 
 const model = 'SumbaUser'
 
-async function update ({ ctx }) {
+async function update () {
   const { importPkg } = this.app.bajo
   const bcrypt = await importPkg('bajoExtra:bcrypt')
 

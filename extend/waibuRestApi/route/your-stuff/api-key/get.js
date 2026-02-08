@@ -1,6 +1,6 @@
 import { response } from './update.js'
 
-async function get ({ ctx }) {
+async function get () {
   const { hash } = this.app.bajoExtra
   const schema = { response: await response.call(this) }
   const handler = async function get (req, reply) {

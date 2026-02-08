@@ -1,6 +1,6 @@
 import { data } from '../../../../../lib/token-schema.js'
 
-async function get ({ ctx }) {
+async function get () {
   const schema = {
     response: {
       '2xx': {
