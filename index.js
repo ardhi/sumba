@@ -115,6 +115,7 @@ async function factory (pkgName) {
         },
         siteSetting: {
           forgotPasswordExpDur: '5m',
+          timeZone: 'UTC',
           userPassword: {
             minUppercase: 1,
             minLowercase: 1,

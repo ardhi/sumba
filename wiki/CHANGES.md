@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-08
+
+- [2.2.0] Add ```siteSetting.timeZone``` in config object
+
 ## 2026-02-06
 
 - [2.1.9] Bug fix on ```getSite()``` for multisite system
