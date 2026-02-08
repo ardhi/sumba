@@ -5,7 +5,7 @@
   <c:form-input type="email" name="email" label-floating />
   <c:form-input name="firstName" col="6-lg" label-floating />
   <c:form-input name="lastName" col="6-lg" label-floating />
-  <c:form-check name="agree" col="12" value="true" t:label="agreeToTerm%s%s|<%= _routePath('sumba:/info/terms-conditions') %>|termsConditions" />
+  <c:form-check wrapper-class="text-start" name="agree" col="12" value="true" t:label="agreeToTerm%s%s|<%= _routePath('sumba:/info/terms-conditions') %>|termsConditions" />
 </c:form>
 <% if (!page.noLinks) { %>
 <c:div move-to="#footer" flex="justify-content:center">
