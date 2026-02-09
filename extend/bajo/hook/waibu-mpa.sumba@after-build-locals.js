@@ -12,9 +12,6 @@ async function afterBuildLocals (locals, req) {
   }
   items.push({ icon: 'envelope', 't:tooltip': 'contactForm', href: routePath('sumba:/help/contact-form') })
   items.push({ icon: 'chat', 't:tooltip': 'troubleTickets', href: routePath('sumba:/help/trouble-tickets') })
-  for (const item of items) {
-    if (locals._meta.url.startsWith(item.href)) item.active = true
-  }
   locals.sidebar = items
 }
 

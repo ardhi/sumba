@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-09
+
+- [2.2.3] Bug fix on sidebar menu
+
 ## 2026-02-08
 
 - [2.2.0] Add ```siteSetting.timeZone``` in config object
