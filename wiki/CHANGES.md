@@ -3,6 +3,8 @@
 ## 2026-02-09
 
 - [2.2.3] Bug fix on sidebar menu
+- [2.2.4] Bug fix on signout template
+- [2.2.4] Bug fix on sidebar buttons
 
 ## 2026-02-08
 

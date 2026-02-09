@@ -10,6 +10,7 @@ async function afterBuildLocals (locals, req) {
     items.push({ icon: 'key', 't:tooltip': 'forgotPassword', href: routePath('sumba:/user/forgot-password') })
     items.push({ icon: 'personAdd', 't:tooltip': 'newUserSignup', href: routePath('sumba:/user/signup') })
   }
+  items.push({ divider: true })
   items.push({ icon: 'envelope', 't:tooltip': 'contactForm', href: routePath('sumba:/help/contact-form') })
   items.push({ icon: 'chat', 't:tooltip': 'troubleTickets', href: routePath('sumba:/help/trouble-tickets') })
   locals.sidebar = items
