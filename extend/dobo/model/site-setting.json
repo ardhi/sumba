@@ -4,5 +4,9 @@
     "key,,50,true,true",
     "value,text"
   ],
+  "indexes": [{
+    "fields": ["ns", "key", "siteId"],
+    "type": "unique"
+  }],
   "features": ["sumba:siteId", "dobo:updatedAt"]
 }

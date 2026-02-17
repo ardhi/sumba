@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-02-17
+
+- [2.3.0] Add admin menu links to ```siteSetting```
+- [2.3.0] Bug fix on ```getSite()```
+- [2.3.0] Add unique index on model ```SumbaSiteSetting```
+- [2.3.0] Add admin subroute to manage site setting
+- [2.3.0] Bug fix on ```req.theme``` and ```req.iconset``` resolver
+
 ## 2026-02-09
 
 - [2.2.3] Bug fix on sidebar menu

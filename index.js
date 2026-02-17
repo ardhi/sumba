@@ -182,6 +182,8 @@ async function factory (pkgName) {
           { title: 'manageTeam', href: `waibuAdmin:/${prefix}/team/list` },
           { title: 'manageTeamUser', href: `waibuAdmin:/${prefix}/team-user/list` },
           { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` },
+          { title: '-' },
+          { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/list` },
           { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
         ]
       }, {
@@ -403,7 +405,7 @@ async function factory (pkgName) {
 
       const mergeSetting = async (site) => {
         const { defaultsDeep } = this.app.lib.aneka
-        const { parseObject } = this.app.lib
+        const { parseObject, dayjs } = this.app.lib
         const { trim, get, filter } = this.app.lib._
         const defSetting = {}
         const nsSetting = {}
@@ -412,20 +414,27 @@ async function factory (pkgName) {
           ns: { $in: names },
           siteId: site.id
         }
-        const all = await this.app.dobo.getModel('SumbaSiteSetting').findRecord({ query, limit: -1 })
+        const all = await this.app.dobo.getModel('SumbaSiteSetting').findAllRecord({ query })
         for (const ns of names) {
           nsSetting[ns] = {}
           defSetting[ns] = get(this, `app.${ns}.config.siteSetting`, {})
           const items = filter(all, { ns })
           for (const item of items) {
             let value = trim([item.value] ?? '')
-            if (['[', '{'].includes(value[0])) value = JSON.parse(value)
-            else if (Number(value)) value = Number(value)
+            if (['[', '{'].includes(value[0])) {
+              try {
+                value = parseObject(JSON.parse(value))
+              } catch (err) {}
+            } else if (Number(value)) value = Number(value)
             else if (['true', 'false'].includes(value)) value = value === 'true'
+            else {
+              const dt = dayjs(value)
+              if (dt.isValid()) value = dt.toDate()
+            }
             nsSetting[ns][item.key] = value
           }
         }
-        site.setting = parseObject(defaultsDeep({}, nsSetting, defSetting))
+        site.setting = defaultsDeep({}, nsSetting, defSetting)
         // additional fields
         const country = await this.app.dobo.getModel('CdbCountry').getRecord(site.country, { noHook: true })
         site.countryName = (country ?? {}).name ?? site.country
