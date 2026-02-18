@@ -23,10 +23,7 @@ async function address (opts = {}) {
       index: true
     }, {
       name: 'country',
-      type: 'string',
-      maxLength: 2,
-      index: true,
-      rules: ['uppercase', { rule: 'length', params: 2 }]
+      type: 'sumba:country'
     }, {
       name: 'phone',
       type: 'string',

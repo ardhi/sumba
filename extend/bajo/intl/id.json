@@ -110,6 +110,10 @@
   "downloadList": "Daftar Unduh",
   "manageDownload": "Kelola Unduhan",
   "userSession": "Sesi Pengguna",
+  "XHandler": "Akun Twitter/X",
+  "unverified": "Belum Terverifikasi",
+  "active": "Aktif",
+  "inactive": "Non Aktif",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

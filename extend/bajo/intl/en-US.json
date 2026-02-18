@@ -109,7 +109,10 @@
   "downloadList": "Download List",
   "manageDownload": "Manage Download",
   "userSession": "User Session",
-  "XHandler": "Twitter Account",
+  "XHandler": "Twitter/X Account",
+  "unverified": "Unverified",
+  "active": "Active",
+  "inactive": "Inactive",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
