@@ -110,9 +110,11 @@
   "manageDownload": "Manage Download",
   "userSession": "User Session",
   "XHandler": "Twitter/X Account",
-  "unverified": "Unverified",
-  "active": "Active",
-  "inactive": "Inactive",
+  "statusUnverified": "Unverified",
+  "statusActive": "Active",
+  "statusInactive": "Inactive",
+  "siteSetting": "Site Settings",
+  "validCountryCodeRequired": "Value must be one of valid country codes",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
@@ -133,7 +135,9 @@
     "socLinkedIn": "LinkedIn",
     "size": "Size",
     "user": "User",
-    "team": "Team"
+    "team": "Team",
+    "ns": "Module's Namespace",
+    "value": "Value"
   },
   "validation": {
     "password": {

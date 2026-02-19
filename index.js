@@ -534,6 +534,13 @@ async function factory (pkgName) {
       const resp = await this.app.dobo.getModel('SumbaUser').getRecord(id, options)
       return await hash(resp.salt)
     }
+
+    getCountriesValues = async () => {
+      const { getModel } = this.app.dobo
+      const model = getModel('CdbCountry')
+      const items = await model.findAllRecord()
+      return items.map(item => ({ value: item.id, text: item.name }))
+    }
   }
 
   return Sumba

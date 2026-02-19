@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-02-20
+
+- [2.4.0] Add ```getCountriesValues()```
+- [2.4.0] Update ```sumba:country``` feature to use ```prop.values``` as a handler
+- [2.4.0] No longer use the removed ```FormSelectCountry```, instead use ```FormSelectExt```
+
 ## 2026-02-17
 
 - [2.3.0] Add admin menu links to ```siteSetting```

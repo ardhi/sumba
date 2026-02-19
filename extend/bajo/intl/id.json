@@ -111,9 +111,11 @@
   "manageDownload": "Kelola Unduhan",
   "userSession": "Sesi Pengguna",
   "XHandler": "Akun Twitter/X",
-  "unverified": "Belum Terverifikasi",
-  "active": "Aktif",
-  "inactive": "Non Aktif",
+  "statusUnverified": "Belum Terverifikasi",
+  "statusActive": "Aktif",
+  "statusInactive": "Non Aktif",
+  "siteSetting": "Setelan Situs",
+  "validCountryCodeRequired": "Nilai harus salah satu dari kode negara yang berlaku",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
@@ -134,7 +136,9 @@
     "socLinkedIn": "LinkedIn",
     "size": "Besaran",
     "user": "Pengguna",
-    "team": "Tim"
+    "team": "Tim",
+    "ns": "Ruang Nama Modul",
+    "value": "Value"
   },
   "validation": {
     "password": {
