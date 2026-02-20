@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-21
+
+- [2.4.1] Bug fix on intl functions. Now moved to ```preParsing``` instead of ```onRequest```
+
 ## 2026-02-20
 
 - [2.4.0] Add ```getCountriesValues()```

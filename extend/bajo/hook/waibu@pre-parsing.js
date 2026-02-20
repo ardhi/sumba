@@ -1,4 +1,4 @@
-const onRequest = {
+const preParsing = {
   level: 10,
   handler: async function (req, reply) {
     const { getHostname } = this.app.waibu
@@ -6,4 +6,4 @@ const onRequest = {
   }
 }
 
-export default onRequest
+export default preParsing
