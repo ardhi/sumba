@@ -1,28 +1,30 @@
 async function afterUpdateRecord (id, body, rec, options = {}) {
-  if (!options.req) return
-  if (!this.app.waibu) return
   const { data, oldData } = rec
-  const { sendMail } = this.app.waibu
+  const { req } = options
+  const { get } = this.app.lib._
+  const t = get(req, 't', this.t)
   const to = `${data.firstName} ${data.lastName} <${data.email}>`
+  const source = this.ns
   let subject
+  const payload = { to, subject, data }
 
   if (oldData.status === 'UNVERIFIED' && data.status === 'ACTIVE') {
-    subject = options.req.t('userActivation')
-    await sendMail(
+    payload.subject = t('userActivation')
+    await this.sendMail(
       'sumba.template:/_mail/user-activation-success.html',
-      { to, subject, data, options, source: this.ns }
+      { payload, options, source }
     )
   } else if (oldData.token !== data.token) {
-    subject = options.req.t('resetApiKey')
-    await sendMail(
+    payload.subject = t('resetApiKey')
+    await this.sendMail(
       'sumba.template:/_mail/mystuff-reset-api-key.html',
-      { to, subject, data, options, source: this.ns }
+      { payload, options, source }
     )
   } else if (body.password) {
-    subject = options.req.t('changePassword')
-    await sendMail(
+    payload.subject = t('changePassword')
+    await this.sendMail(
       'sumba.template:/_mail/mystuff-change-password.html',
-      { to, subject, data, options, source: this.ns }
+      { payload, options, source }
     )
   }
 }

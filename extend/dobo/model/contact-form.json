@@ -3,7 +3,7 @@
     "firstName,,50,true,true",
     "lastName,,50,true,true",
     "email,,50,true,true",
-    "cat,,50,true",
+    "category,,50,true",
     "subject,,255,,true",
     "message,text"
   ],

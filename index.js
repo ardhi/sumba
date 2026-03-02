@@ -541,6 +541,39 @@ async function factory (pkgName) {
       const items = await model.findAllRecord()
       return items.map(item => ({ value: item.id, text: item.name }))
     }
+
+    /**
+     * Method to send mail through Masohi Messaging System. It is a thin wrapper
+     * for {@link https://github.com/ardhi/masohi-mail|masohi-mail} send method.
+     *
+     * If both masohiMail and waibu are not loaded, nothing is delivered.
+     *
+     * @method
+     * @async
+     * @param {(string|Array)} tpl - Mail's template to use. If a string is given, the same template will be used for html & plaintext versions. Otherwise, the first template will be used for html mail, and the second one is for it's plaintext version
+     * @param {Object} [params={}] - {@link https://github.com/ardhi/masohi-mail|masohi-mail}'s params object.
+     * @returns
+     */
+    sendMail = async (tpl, { payload = {}, conn, source, options = {} } = {}) => {
+      if (!this.app.masohiMail || !this.app.waibu) return
+      conn = conn ?? 'masohiMail:default'
+      const { importModule } = this.app.bajo
+      const { get, isString } = this.app.lib._
+      const { generateId } = this.app.lib.aneka
+      const { render } = this.app.bajoTemplate
+      const buildLocals = await importModule('waibu:/lib/build-locals.js')
+
+      if (isString(tpl)) tpl = [tpl]
+      const locals = await buildLocals.call(this, { params: payload.data, opts: options })
+      payload.from = payload.from ?? get(options, 'req.site.email', payload.from)
+      const opts = {
+        lang: get(options, 'req.lang'),
+        groupId: get(options, 'req.id', generateId())
+      }
+      payload.html = await render(tpl[0], locals, opts)
+      if (tpl[1]) payload.text = await render(tpl[1], locals, opts)
+      await this.app.masohiMail.send({ payload, source: source ?? this.ns, conn })
+    }
   }
 
   return Sumba

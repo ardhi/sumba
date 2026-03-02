@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-03-02
+
+- [2.5.0] Add ```sendMail()``` to send mail using ```masohiMail```
+- [2.5.0] Update all mail templates and hooks to match with the new specs
+
 ## 2026-02-21
 
 - [2.4.1] Bug fix on intl functions. Now moved to ```preParsing``` instead of ```onRequest```

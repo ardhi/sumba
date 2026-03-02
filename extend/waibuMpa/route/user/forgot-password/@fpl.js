@@ -17,7 +17,6 @@ async function getUser (req, reply) {
 const forgotPasswordLink = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
-    const { sendMail } = this.app.waibu
     const { defaultsDeep } = this.app.lib.aneka
     const { importPkg } = this.app.bajo
     const { isString } = this.app.lib._
@@ -45,9 +44,10 @@ const forgotPasswordLink = {
         const to = `${user.firstName} ${user.lastName} <${user.email}>`
         const subject = req.t('forgotPasswordChanged')
         const options = { req, reply, tpl: '' }
-        await sendMail(
+        const payload = { to, subject, data: user }
+        await this.sendMail(
           'sumba.template:/_mail/user-forgot-password-changed.html',
-          { to, subject, data: user, options, source: this.ns }
+          { payload, options, source: this.ns }
         )
         req.flash('notify', req.t('passwordChangedReSignin'))
         return reply.redirectTo(this.config.redirect.signin)

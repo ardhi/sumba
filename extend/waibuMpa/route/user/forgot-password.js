@@ -2,7 +2,6 @@ const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     if (!this.app.masohiMail) return await reply.view('sumba.template:/user/forgot-password.html')
-    const { sendMail } = this.app.waibu
     const { defaultsDeep } = this.app.lib.aneka
     const { dayjs } = this.app.lib
     const model = this.app.dobo.getModel('SumbaUser')
@@ -20,9 +19,10 @@ const profile = {
         const exp = req.site.setting.sumba.forgotPasswordExpDur
         data.fpToken = Buffer.from(`${data.token}:${dayjs().add(exp, 'ms').unix()}`).toString('base64')
         data._meta = { hostHeader: req.headers.host }
-        await sendMail(
+        const payload = { to, subject, data }
+        await this.sendMail(
           'sumba.template:/_mail/user-forgot-password-link.html',
-          { to, subject, data, options, source: this.ns }
+          { payload, options, source: this.ns }
         )
         req.flash('notify', req.t('emailSent'))
         return reply.redirectTo(this.config.redirect.signin)

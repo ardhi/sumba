@@ -1,13 +1,14 @@
 async function afterCreateRecord (body, rec, options = {}) {
-  if (!options.req) return
-  if (!this.app.waibu) return
-  const { sendMail } = this.app.waibu
   const { data } = rec
+  const { req } = options
+  const { get } = this.app.lib._
+  const t = get(req, 't', this.t)
   const to = `${data.firstName} ${data.lastName} <${data.email}>`
-  const subject = options.req.t('newUserSignup')
-  await sendMail(
+  const subject = t('newUserSignup')
+  const payload = { to, subject, data }
+  await this.sendMail(
     `sumba.template:/_mail/user-signup-success${data.status === 'ACTIVE' ? '-active' : ''}.html`,
-    { to, subject, data, options, source: this.ns }
+    { payload, options, source: this.ns }
   )
 }
 
