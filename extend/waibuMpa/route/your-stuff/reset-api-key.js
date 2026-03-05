@@ -24,7 +24,9 @@ const resetApiKey = {
         const rec = await model.getRecord(req.user.id, { forceNoHidden: true })
         const verified = await bcrypt.compare(form.password, rec.password)
         if (!verified) throw this.error('validationError', { details: [{ field: 'password', error: 'invalidPassword' }], statusCode: 400 })
-        await model.updateRecord(req.user.id, { salt: generateId() }, { req, reply, noFlash: true, forceNoHidden: true })
+        await model.transaction(async (trx) => {
+          await model.updateRecord(req.user.id, { salt: generateId() }, { req, reply, noFlash: true, forceNoHidden: true, trx })
+        })
         await delay(2000) // ensure req.user cache is expired
         req.flash('notify', req.t('resetApiKeySuccessfull'))
         return reply.redirectTo('sumba:/your-stuff/profile')

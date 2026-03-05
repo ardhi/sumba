@@ -40,15 +40,17 @@ const forgotPasswordLink = {
         } catch (err) {
           throw this.error('validationError', { details: err.details, values: err.values, ns: this.ns, statusCode: 422, code: 'DB_VALIDATION' })
         }
-        await model.updateRecord(user.id, { password: req.body.newPassword }, { noFlash: true })
-        const to = `${user.firstName} ${user.lastName} <${user.email}>`
-        const subject = req.t('forgotPasswordChanged')
-        const options = { req, reply, tpl: '' }
-        const payload = { to, subject, data: user }
-        await this.sendMail(
-          'sumba.template:/_mail/user-forgot-password-changed.html',
-          { payload, options, source: this.ns }
-        )
+        await model.transaction(async trx => {
+          await model.updateRecord(user.id, { password: req.body.newPassword }, { noFlash: true, trx })
+          const to = `${user.firstName} ${user.lastName} <${user.email}>`
+          const subject = req.t('forgotPasswordChanged')
+          const options = { req, reply, tpl: '' }
+          const payload = { to, subject, data: user }
+          await this.sendMail(
+            'sumba.template:/_mail/user-forgot-password-changed.html',
+            { payload, options, source: this.ns }
+          )
+        })
         req.flash('notify', req.t('passwordChangedReSignin'))
         return reply.redirectTo(this.config.redirect.signin)
       } catch (err) {

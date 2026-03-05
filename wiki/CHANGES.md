@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-03-05
+
+- [2.6.0] Update multiple endpoints to support dobo's transaction
+- [2.6.0] Bug fix on ```profile.edit``` route
+
 ## 2026-03-02
 
 - [2.5.0] Add ```sendMail()``` to send mail using ```masohiMail```

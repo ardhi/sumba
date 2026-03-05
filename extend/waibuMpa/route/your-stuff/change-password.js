@@ -26,7 +26,9 @@ const profile = {
         const rec = await model.getRecord(req.user.id, { forceNoHidden: true })
         const verified = await bcrypt.compare(req.body.currentPassword, rec.password)
         if (!verified) throw this.error('invalidCurrentPassword', { details: [{ field: 'currentPassword', error: 'invalidPassword' }], statusCode: 400 })
-        await model.updateRecord(req.user.id, { password: req.body.newPassword }, { req, reply, noFlash: true })
+        await model.transaction(async (trx) => {
+          await model.updateRecord(req.user.id, { password: req.body.newPassword }, { req, reply, noFlash: true, trx })
+        })
         // signout and redirect to signin
         req.session.userId = null
         req.flash('notify', req.t('passwordChangedReSignin'))

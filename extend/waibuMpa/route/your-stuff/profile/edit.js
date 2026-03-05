@@ -1,3 +1,5 @@
+const fields = ['email', 'firstName', 'lastName', 'address1', 'address2', 'city', 'zipCode', 'provinceState', 'country', 'phone', 'website']
+
 const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
@@ -7,13 +9,13 @@ const profile = {
     const { omit, pick } = this.app.lib._
     const { hash } = this.app.bajoExtra
     const resp = await getRecord({ model: 'SumbaUser', req, id: req.user.id, options: { forceNoHidden: true, noHook: true, noCache: true } })
-    let form = defaultsDeep(req.body, omit(resp.data, ['password']))
+    let form = defaultsDeep(req.body, omit(resp.data, ['password', 'salt']))
     form.token = await hash(form.token)
     let error
     if (req.method === 'POST') {
       try {
-        const body = pick(form, ['firstName', 'lastName', 'address1', 'address2', 'city', 'zipCode', 'provinceState', 'country', 'phone', 'website'])
-        const options = { noFlash: true, hidden: [], setField: 'profile', setFile: 'main.png' }
+        const body = pick(form, fields)
+        const options = { noFlash: true, hidden: [], setField: 'profile', setFile: 'main.png', partial: true, fields }
         const resp = await updateRecord({ req, reply, model: 'SumbaUser', id: req.user.id, body, options })
         form = resp.data
         req.flash('notify', req.t('profileUpdated'))

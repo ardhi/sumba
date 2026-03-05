@@ -10,7 +10,7 @@ const contactForm = {
     let error
     if (req.method === 'POST') {
       try {
-        const { data } = await createRecord({ model: 'SumbaContactForm', req, reply, options: { noFlash: true } })
+        const { data } = await createRecord({ model: 'SumbaContactForm', req, reply, transaction: true, options: { noFlash: true } })
         req.flash('notify', req.t('contactFormSubmitted'))
         return await reply.view('sumba.template:/help/contact-form/success.html', { form: req.body, data })
       } catch (err) {
