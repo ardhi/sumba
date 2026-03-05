@@ -4,6 +4,9 @@
 
 - [2.6.0] Update multiple endpoints to support dobo's transaction
 - [2.6.0] Bug fix on ```profile.edit``` route
+- [2.7.0] Add hook ```sumba:afterCollectSecureRoutes```
+- [2.7.0] Add hook ```sumba:afterCollectAnonymousRoutes```
+- [2.7.0] Add hook ```sumba:afterCollectTeamRoutes```
 
 ## 2026-03-02
 
