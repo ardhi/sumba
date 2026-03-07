@@ -228,7 +228,7 @@ async function factory (pkgName) {
       await model.validate({ username, password }, null, { partial: true, ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
       const bcrypt = await importPkg('bajoExtra:bcrypt')
 
-      const query = { username, provider: 'local' }
+      const query = { username, provider: 'local', siteId: req.site.id }
       const rows = await model.findRecord({ query }, { req, forceNoHidden: true, noHook: true })
       if (rows.length === 0) throw this.error('validationError', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })
       const rec = rows[0]

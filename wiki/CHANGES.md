@@ -3,6 +3,7 @@
 ## 2026-03-07
 
 - [2.7.1] Bug fix on ```site``` attachment
+- [2.7.1] Bug fix on ```getUserFromUsernamePassword()```
 
 ## 2026-03-05
 
