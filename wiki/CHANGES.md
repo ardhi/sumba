@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-07
+
+- [2.7.1] Bug fix on ```site``` attachment
+
 ## 2026-03-05
 
 - [2.6.0] Update multiple endpoints to support dobo's transaction
