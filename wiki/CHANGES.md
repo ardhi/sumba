@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-08
+
+- [2.7.3] Bug fix on ```mergeTeam()```
+
 ## 2026-03-07
 
 - [2.7.1] Bug fix on ```site``` attachment

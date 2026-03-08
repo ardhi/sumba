@@ -215,7 +215,7 @@ async function factory (pkgName) {
       const userTeam = await mdl.findAllRecord({ query })
       if (userTeam.length === 0) return
       delete query.userId
-      query.id = { $in: map(userTeam, 'id') }
+      query.id = { $in: map(userTeam, 'teamId') }
       query.status = 'ENABLED'
       mdl = this.app.dobo.getModel('SumbaTeam')
       const team = await mdl.findAllRecord({ query })
