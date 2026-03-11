@@ -115,6 +115,13 @@
   "statusInactive": "Inactive",
   "siteSetting": "Site Settings",
   "validCountryCodeRequired": "Value must be one of valid country codes",
+  "aliasRequired": "Alias is required",
+  "aliasOrHOstnameExists%s%s": "A site with alias '%s' or hostname '%s' exists already",
+  "aliasNotFound%s": "Alias '%s' is nowhere to be found",
+  "writingModel%s%s": "Writing model '%s' (%s record(s))",
+  "aboutToDeleteSite%s": "You're about to delete a site with alias '%s'. Are you sure?",
+  "aboutToCreateSite%s": "You're about to create a site with alias '%s'. Continue?",
+  "removedFrom%s%s": "Removed from '%s' (%s record(s))",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

@@ -13,5 +13,6 @@
   "website": "http://www.your-domain.com",
   "phone": "+001-000000001",
   "waPhone": "+001-111111111",
-  "status": "ACTIVE"
+  "status": "ACTIVE",
+  "_immutable": true
 }]

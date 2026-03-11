@@ -1,5 +1,6 @@
 [{
   "userId": "?:SumbaUser::username:admin",
   "teamId": "?:SumbaTeam::alias:administrator",
-  "siteId": "?:SumbaSite::alias:default"
+  "siteId": "?:SumbaSite::alias:default",
+  "_immutable": true
 }]

@@ -12,5 +12,6 @@
   "country": "US",
   "provider": "local",
   "siteId": "?:SumbaSite::alias:default",
-  "status": "ACTIVE"
+  "status": "ACTIVE",
+  "_immutable": true
 }]

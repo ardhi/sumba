@@ -17,5 +17,11 @@
     "fields": ["userId", "siteId", "teamId"],
     "type": "unique"
   }],
-  "features": ["dobo:createdAt", "dobo:updatedAt", "sumba:siteId", "sumba:userId"]
+  "features": [
+    "dobo:createdAt",
+    "dobo:updatedAt",
+    "sumba:siteId",
+    "sumba:userId",
+    "dobo:immutable"
+  ]
 }

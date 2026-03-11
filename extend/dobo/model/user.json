@@ -64,6 +64,7 @@
     },
     "sumba:siteId",
     "dobo:createdAt",
-    "dobo:updatedAt"
+    "dobo:updatedAt",
+    "dobo:immutable"
   ]
 }

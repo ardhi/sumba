@@ -1,4 +1,6 @@
 import path from 'path'
+import createNewSite from './lib/create-new-site.js'
+import removeSite from './lib/remove-site.js'
 
 /**
  * Plugin factory
@@ -127,6 +129,7 @@ async function factory (pkgName) {
         }
       }
       this.unsafeUserFields = ['password']
+      this.selfBind(['createNewSite', 'removeSite'])
     }
 
     init = async () => {
@@ -574,6 +577,9 @@ async function factory (pkgName) {
       if (tpl[1]) payload.text = await render(tpl[1], locals, opts)
       await this.app.masohiMail.send({ payload, source: source ?? this.ns, conn })
     }
+
+    createNewSite = createNewSite
+    removeSite = removeSite
   }
 
   return Sumba

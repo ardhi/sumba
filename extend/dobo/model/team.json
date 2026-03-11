@@ -7,9 +7,16 @@
     "fields": ["alias", "siteId"],
     "type": "unique"
   }],
-  "features": ["dobo:createdAt", "dobo:updatedAt", "dobo:immutable", "sumba:siteId", {
-    "name": "sumba:status",
-    "default": "ENABLED",
-    "values": ["ENABLED", "DISABLED"]
-  }]
+  "features": [
+    "dobo:createdAt",
+    "dobo:updatedAt",
+    "dobo:immutable",
+    "sumba:siteId",
+    {
+      "name": "sumba:status",
+      "default": "ENABLED",
+      "values": ["ENABLED", "DISABLED"]
+    },
+    "dobo:immutable"
+  ]
 }

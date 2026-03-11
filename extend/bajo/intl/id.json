@@ -116,6 +116,13 @@
   "statusInactive": "Non Aktif",
   "siteSetting": "Setelan Situs",
   "validCountryCodeRequired": "Nilai harus salah satu dari kode negara yang berlaku",
+  "aliasRequired": "Alias tidak boleh kosong",
+  "aliasOrHOstnameExists%s%s": "Situs dengan alias '%s' atau nama host '%s' telah ada",
+  "aliasNotFound%s": "Alias '%s' tidak ditemukan",
+  "writingModel%s%s": "Menulis model '%s' (%s data)",
+  "aboutToDeleteSite%s": "Anda akan menghapus sebuah situs dengan alias '%s'. Anda yakin?",
+  "aboutToCreateSite%s": "Anda akan membuat sebuah situs dengan alias '%s'. Lanjutkan?",
+  "removedFrom%s%s": "Dihapus dari '%s' (%s data)",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
