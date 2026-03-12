@@ -1,18 +1,29 @@
 const useAdmin = ['waibuAdmin']
 
 export async function rebuildFilter (modelName, filter, req) {
-  const { isEmpty, map, find, get } = this.app.lib._
+  const { isEmpty, isPlainObject, map, find, get } = this.app.lib._
   filter.query = filter.query ?? {}
+
+  const queryByModel = (query) => {
+    // by model
+    const setting = get(req, `site.setting.dobo.query.${modelName}`)
+    if (isPlainObject(setting) && !isEmpty(setting)) query.$and.push(setting)
+    return query
+  }
+
   const model = this.app.dobo.getModel(modelName)
   const hasSiteId = model.hasProperty('siteId')
   const hasUserId = model.hasProperty('userId')
   const hasTeamId = model.hasProperty('teamId')
   const isAdmin = find(get(req, 'user.teams', []), { alias: 'administrator' }) && useAdmin.includes(get(req, 'routeOptions.config.ns'))
-  if (!(hasSiteId || hasUserId || hasTeamId)) return filter
   const q = { $and: [] }
   if (!isEmpty(filter.query)) {
     if (filter.query.$and) q.$and.push(...filter.query.$and)
     else q.$and.push(filter.query)
+  }
+  if (!(hasSiteId || hasUserId || hasTeamId)) {
+    filter.query = queryByModel(q)
+    return filter
   }
   if (hasSiteId) q.$and.push({ siteId: req.site.id })
   if (hasTeamId && !isAdmin) {
@@ -22,7 +33,7 @@ export async function rebuildFilter (modelName, filter, req) {
   } else if (!isAdmin) {
     if (hasUserId) q.$and.push({ userId: req.user.id })
   }
-  filter.query = q
+  filter.query = queryByModel(q)
   return filter
 }
 

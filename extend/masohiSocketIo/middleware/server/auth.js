@@ -4,7 +4,7 @@ const auth = {
     const { camelCase } = this.app.lib._
     const { req } = socket
     const { session } = req
-    const site = await this.getSite(session.siteId)
+    const site = await this.getSite(session.siteId, true)
     socket.join(camelCase(`site ${site.alias}`))
     let user
     if (session.userId) {

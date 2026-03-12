@@ -20,7 +20,10 @@ async function factory (pkgName) {
     constructor () {
       super(pkgName, me.app)
       this.config = {
-        multiSite: false,
+        multiSite: {
+          enabled: false,
+          catchAll: 'default'
+        },
         waibu: {
           title: 'site',
           prefix: 'site'
@@ -445,7 +448,8 @@ async function factory (pkgName) {
 
       let site = {}
 
-      if (!this.config.multiSite) {
+      const multiSite = this.config.multiSite === true ? { enabled: true, catchAll: 'default' } : this.config.multiSite
+      if (!multiSite.enabled) {
         const resp = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noHook: true })
         site = omit(resp, omitted)
         await mergeSetting(site)
@@ -453,16 +457,15 @@ async function factory (pkgName) {
       }
       let query
       if (useId) query = { id: hostname }
-      else {
-        query = {
-          $or: [
-            { hostname },
-            { alias: hostname }
-          ]
+      else query = { hostname }
+      let row = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query }, { noHook: true })
+      if (!row) {
+        if (multiSite.catchAll) {
+          query = { alias: multiSite.catchAll === true ? 'default' : multiSite.catchAll }
+          row = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query }, { noHook: true })
         }
+        if (!row) throw this.error('unknownSite')
       }
-      const row = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query }, { noHook: true })
-      if (!row) throw this.error('unknownSite')
       if (row.status !== 'ACTIVE') throw this.error('siteInactiveInfo')
       site = omit(row, omitted)
       await mergeSetting(site)

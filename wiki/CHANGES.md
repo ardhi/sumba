@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-03-12
+
+- [2.9.0] Add ability to restrict/filter dobo's records through site setting
+- [2.9.0] Multisite config now accept object. If set to ```true``` it defaults to ```catchAll: 'default'```
+
 ## 2026-03-11
 
 - [2.8.0] Add ```createNewSite()``` and ```applet.crateNewSite```
