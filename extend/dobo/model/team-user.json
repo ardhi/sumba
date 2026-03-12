@@ -1,4 +1,5 @@
 {
+  "buildLevel": 4,
   "properties": [{
     "name": "teamId",
     "type": "string",

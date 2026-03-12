@@ -5,6 +5,7 @@
 - [2.8.0] Add ```createNewSite()``` and ```applet.crateNewSite```
 - [2.8.0] Add ```removeSite()``` and ```applet.removeSite```
 - [2.8.0] Set ```site.json```, ```user.json```, ```team.json```, ```team-user.json``` first fixture as immutable row
+- [2.8.1] Bug fix in ```createNewSite()```
 
 ## 2026-03-08
 
