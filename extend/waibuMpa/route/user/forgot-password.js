@@ -4,6 +4,7 @@ const profile = {
     if (!this.app.masohiMail) return await reply.view('sumba.template:/user/forgot-password.html')
     const { defaultsDeep } = this.app.lib.aneka
     const { dayjs } = this.app.lib
+    const { get } = this.app.lib._
     const model = this.app.dobo.getModel('SumbaUser')
     const form = defaultsDeep(req.body, {})
     let error
@@ -16,7 +17,7 @@ const profile = {
         const to = `${data.firstName} ${data.lastName} <${data.email}>`
         const subject = req.t('forgotPasswordLink')
         const options = { req, reply }
-        const exp = req.site.setting.sumba.forgotPasswordExpDur
+        const exp = get(req, 'site.setting.sumba.forgotPasswordExpDur')
         data.fpToken = Buffer.from(`${data.token}:${dayjs().add(exp, 'ms').unix()}`).toString('base64')
         data._meta = { hostHeader: req.headers.host }
         const payload = { to, subject, data }

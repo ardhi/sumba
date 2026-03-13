@@ -1,6 +1,7 @@
 import path from 'path'
 import createNewSite from './lib/create-new-site.js'
 import removeSite from './lib/remove-site.js'
+import getSite from './lib/get-site.js'
 
 /**
  * Plugin factory
@@ -132,7 +133,7 @@ async function factory (pkgName) {
         }
       }
       this.unsafeUserFields = ['password']
-      this.selfBind(['createNewSite', 'removeSite'])
+      this.selfBind(['createNewSite', 'removeSite', 'getSite'])
     }
 
     init = async () => {
@@ -405,73 +406,6 @@ async function factory (pkgName) {
       return guarded
     }
 
-    getSite = async (hostname, useId) => {
-      const { omit } = this.app.lib._
-      const omitted = ['status']
-
-      const mergeSetting = async (site) => {
-        const { defaultsDeep } = this.app.lib.aneka
-        const { parseObject, dayjs } = this.app.lib
-        const { trim, get, filter } = this.app.lib._
-        const defSetting = {}
-        const nsSetting = {}
-        const names = this.app.getAllNs()
-        const query = {
-          ns: { $in: names },
-          siteId: site.id
-        }
-        const all = await this.app.dobo.getModel('SumbaSiteSetting').findAllRecord({ query })
-        for (const ns of names) {
-          nsSetting[ns] = {}
-          defSetting[ns] = get(this, `app.${ns}.config.siteSetting`, {})
-          const items = filter(all, { ns })
-          for (const item of items) {
-            let value = trim([item.value] ?? '')
-            if (['[', '{'].includes(value[0])) {
-              try {
-                value = parseObject(JSON.parse(value))
-              } catch (err) {}
-            } else if (Number(value)) value = Number(value)
-            else if (['true', 'false'].includes(value)) value = value === 'true'
-            else {
-              const dt = dayjs(value)
-              if (dt.isValid()) value = dt.toDate()
-            }
-            nsSetting[ns][item.key] = value
-          }
-        }
-        site.setting = defaultsDeep({}, nsSetting, defSetting)
-        // additional fields
-        const country = await this.app.dobo.getModel('CdbCountry').getRecord(site.country, { noHook: true })
-        site.countryName = (country ?? {}).name ?? site.country
-      }
-
-      let site = {}
-
-      const multiSite = this.config.multiSite === true ? { enabled: true, catchAll: 'default' } : this.config.multiSite
-      if (!multiSite.enabled) {
-        const resp = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noHook: true })
-        site = omit(resp, omitted)
-        await mergeSetting(site)
-        return site
-      }
-      let query
-      if (useId) query = { id: hostname }
-      else query = { hostname }
-      let row = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query }, { noHook: true })
-      if (!row) {
-        if (multiSite.catchAll) {
-          query = { alias: multiSite.catchAll === true ? 'default' : multiSite.catchAll }
-          row = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query }, { noHook: true })
-        }
-        if (!row) throw this.error('unknownSite')
-      }
-      if (row.status !== 'ACTIVE') throw this.error('siteInactiveInfo')
-      site = omit(row, omitted)
-      await mergeSetting(site)
-      return site
-    }
-
     signout = async ({ req, reply, reason }) => {
       const { runHook } = this.app.bajo
       const { getSessionId } = this.app.waibuMpa
@@ -502,9 +436,10 @@ async function factory (pkgName) {
       return reply.redirectTo(url, { query, params })
     }
 
-    generatePassword = (req) => {
+    generatePassword = (req = {}) => {
+      const { get } = this.app.lib._
       const { generateId } = this.app.lib.aneka
-      const cfg = req ? req.site.setting.sumba.userPassword : this.config.siteSetting.userPassword
+      const cfg = get(req, 'site.setting.sumba.userPassword', this.config.siteSetting.userPassword)
       let passwd = generateId()
       if (cfg.minLowercase) passwd += generateId({ pattern: 'abcdefghijklmnopqrstuvwxyz', length: cfg.minLowercase })
       if (cfg.minUppercase) passwd += generateId({ pattern: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', length: cfg.minUppercase })
@@ -583,6 +518,7 @@ async function factory (pkgName) {
 
     createNewSite = createNewSite
     removeSite = removeSite
+    getSite = getSite
   }
 
   return Sumba

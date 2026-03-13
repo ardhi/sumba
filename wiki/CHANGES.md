@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-13
+
+- [2.10.0] ```getSite()``` now accept object & array based on their keys to
+
 ## 2026-03-12
 
 - [2.9.0] Add ability to restrict/filter dobo's records through site setting
