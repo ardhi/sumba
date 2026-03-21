@@ -1,19 +1,6 @@
 {
   "buildLevel": 4,
-  "properties": [{
-    "name": "teamId",
-    "type": "string",
-    "maxLength": 50,
-    "required": true,
-    "ref": {
-      "team": {
-        "model": "SumbaTeam",
-        "propName": "id",
-        "type": "1:1",
-        "fields": ["id", "name"]
-      }
-    }
-  }],
+  "properties": [],
   "indexes": [{
     "fields": ["userId", "siteId", "teamId"],
     "type": "unique"
@@ -21,6 +8,7 @@
   "features": [
     "dobo:createdAt",
     "dobo:updatedAt",
+    "sumba:teamId",
     "sumba:siteId",
     "sumba:userId",
     "dobo:immutable"

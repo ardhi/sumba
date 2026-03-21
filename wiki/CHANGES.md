@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-03-22
+
+- [2.11.0] Add ```Team Setting``` feature
+- [2.11.0] Rewrite ```getUser()```
+- [2.11.0] Rewrite ```getSite()```
+- [2.11.0] Bug fix in model reference not displayed correctly on ```Details View```
+
 ## 2026-03-13
 
 - [2.10.0] ```getSite()``` now accept object & array based on their keys to

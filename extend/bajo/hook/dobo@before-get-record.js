@@ -5,7 +5,8 @@ export async function checker (modelName, id, options = {}) {
 
   const model = this.app.dobo.getModel(modelName)
   if (options.noAutoFilter || !req) return
-  const filter = await rebuildFilter.call(this, modelName, {}, req)
+  const filter = {}
+  await rebuildFilter.call(this, modelName, filter, req)
   if (filter.query.$and) filter.query.$and.push({ id })
   else filter.query.id = id
   filter.limit = 1

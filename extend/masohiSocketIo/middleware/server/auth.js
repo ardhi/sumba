@@ -11,7 +11,6 @@ const auth = {
       user = await this.getUser(session.userId)
       if (user) {
         socket.join(camelCase(`user ${user.username}`))
-        await this.mergeTeam(user, site)
         for (const team of user.teams) {
           socket.join(camelCase(`team ${team.alias}`))
         }

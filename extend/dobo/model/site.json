@@ -3,14 +3,15 @@
   "properties": [{
     "name": "hostname",
     "type": "string",
-    "minLength": 5,
     "maxLength": 100,
+    "required": true,
     "index": "unique"
   }, {
     "name": "alias",
     "type": "string",
     "maxLength": 100,
     "index": "unique",
+    "required": true,
     "immutable": true
   }, {
     "name": "title",
@@ -20,7 +21,6 @@
   }, {
     "name": "orgName",
     "type": "string",
-    "minLength": 5,
     "maxLength": 100,
     "index": true
   }, {

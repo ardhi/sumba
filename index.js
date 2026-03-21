@@ -2,6 +2,7 @@ import path from 'path'
 import createNewSite from './lib/create-new-site.js'
 import removeSite from './lib/remove-site.js'
 import getSite from './lib/get-site.js'
+import getUser from './lib/get-user.js'
 
 /**
  * Plugin factory
@@ -11,6 +12,7 @@ import getSite from './lib/get-site.js'
  */
 async function factory (pkgName) {
   const me = this
+  const { getModel } = this.app.dobo
 
   /**
    * Sumba class
@@ -133,7 +135,7 @@ async function factory (pkgName) {
         }
       }
       this.unsafeUserFields = ['password']
-      this.selfBind(['createNewSite', 'removeSite', 'getSite'])
+      this.selfBind(['createNewSite', 'removeSite', 'getSite', 'getUser'])
     }
 
     init = async () => {
@@ -188,6 +190,7 @@ async function factory (pkgName) {
           { title: 'manageUser', href: `waibuAdmin:/${prefix}/user/list` },
           { title: 'manageTeam', href: `waibuAdmin:/${prefix}/team/list` },
           { title: 'manageTeamUser', href: `waibuAdmin:/${prefix}/team-user/list` },
+          { title: 'manageTeamSetting', href: `waibuAdmin:/${prefix}/team-setting/list` },
           { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` },
           { title: '-' },
           { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/list` },
@@ -201,37 +204,9 @@ async function factory (pkgName) {
       }]
     }
 
-    getUser = async (rec, safe = true) => {
-      const { omit, isPlainObject } = this.app.lib._
-      let user
-      if (isPlainObject(rec)) user = rec
-      else {
-        const mdl = this.app.dobo.getModel('SumbaUser')
-        user = await mdl.getRecord(rec, { noHook: true, throwNotFound: false })
-      }
-      if (!user) return null
-      return safe ? omit(user, this.unsafeUserFields) : user
-    }
-
-    mergeTeam = async (user, site) => {
-      if (!user) return
-      const { map, pick } = this.app.lib._
-      user.teams = []
-      const query = { userId: user.id, siteId: site.id }
-      let mdl = this.app.dobo.getModel('SumbaTeamUser')
-      const userTeam = await mdl.findAllRecord({ query })
-      if (userTeam.length === 0) return
-      delete query.userId
-      query.id = { $in: map(userTeam, 'teamId') }
-      query.status = 'ENABLED'
-      mdl = this.app.dobo.getModel('SumbaTeam')
-      const team = await mdl.findAllRecord({ query })
-      if (team.length > 0) user.teams.push(...map(team, t => pick(t, ['id', 'alias'])))
-    }
-
     getUserFromUsernamePassword = async (username = '', password = '', req) => {
       const { importPkg } = this.app.bajo
-      const model = this.app.dobo.getModel('SumbaUser')
+      const model = getModel('SumbaUser')
       await model.validate({ username, password }, null, { partial: true, ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
       const bcrypt = await importPkg('bajoExtra:bcrypt')
 
@@ -287,7 +262,7 @@ async function factory (pkgName) {
       if (!isMd5(token)) return false
       token = await hash(token)
       const query = { token }
-      const rows = await this.app.dobo.getModel('SumbaUser').findRecord({ query }, { req, noHook: true })
+      const rows = await getModel('SumbaUser').findRecord({ query }, { req, noHook: true })
       if (rows.length === 0) throw this.error('invalidKey', merge({ statusCode: 401 }, payload))
       if (rows[0].status !== 'ACTIVE') throw this.error('userInactive', merge({ details: [{ field: 'status', error: 'inactive' }], statusCode: 401 }, payload))
       req.user = await getUser(rows[0])
@@ -353,7 +328,7 @@ async function factory (pkgName) {
       const decoded = await verifier(token)
       const id = decoded.payload.uid
       try {
-        const rec = await this.app.dobo.getModel('SumbaUser').getRecord(id, { req, noHook: true })
+        const rec = await getModel('SumbaUser').getRecord(id, { req, noHook: true })
         if (!rec) throw this.error('invalidToken', { statusCode: 401 })
         if (rec.status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
         req.user = await getUser(rec)
@@ -472,7 +447,7 @@ async function factory (pkgName) {
     getApiKeyFromUserId = async id => {
       const { hash } = this.app.bajoExtra
       const options = { forceNoHidden: true, noHook: true, noCache: true, attachment: true, mimeType: true }
-      const resp = await this.app.dobo.getModel('SumbaUser').getRecord(id, options)
+      const resp = await getModel('SumbaUser').getRecord(id, options)
       return await hash(resp.salt)
     }
 
@@ -519,6 +494,7 @@ async function factory (pkgName) {
     createNewSite = createNewSite
     removeSite = removeSite
     getSite = getSite
+    getUser = getUser
   }
 
   return Sumba
