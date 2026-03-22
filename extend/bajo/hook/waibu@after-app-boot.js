@@ -1,5 +1,4 @@
-import collectRoutes from '../../../lib/collect-routes.js'
-import collectTeam from '../../../lib/collect-team.js'
+import { collectRoutes, collectTeam } from '../../../lib/collect.js'
 
 async function afterAppBoot () {
   const { runHook } = this.app.bajo

@@ -1,5 +1,4 @@
-import checkUserId from '../../../lib/check-user-id.js'
-import checkTeam from '../../../lib/check-team.js'
+import { checkUserId, checkTeam } from '../../../lib/util.js'
 
 const preParsing = {
   level: 10,

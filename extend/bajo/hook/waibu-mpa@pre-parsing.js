@@ -1,7 +1,4 @@
-import checkUserId from '../../../lib/check-user-id.js'
-import checkTheme from '../../../lib/check-theme.js'
-import checkIconset from '../../../lib/check-iconset.js'
-import checkTeam from '../../../lib/check-team.js'
+import { checkUserId, checkTeam, checkTheme, checkIconset } from '../../../lib/util.js'
 
 const preParsing = {
   level: 10,

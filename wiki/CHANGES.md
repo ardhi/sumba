@@ -2,6 +2,12 @@
 
 ## 2026-03-22
 
+- [2.12.0] Add no route settings sitewise
+- [2.12.0] Add no route settings for teams
+- [2.12.0] Some organizatorial changes in module files
+
+## 2026-03-22
+
 - [2.11.0] Add ```Team Setting``` feature
 - [2.11.0] Rewrite ```getUser()```
 - [2.11.0] Rewrite ```getSite()```
