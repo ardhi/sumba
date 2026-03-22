@@ -34,11 +34,6 @@ export async function rebuildFilter (modelName, filter, req) {
     if (filter.query.$and) q.$and.push(...filter.query.$and)
     else q.$and.push(filter.query)
   }
-  /*
-  if (!(hasSiteId || hasUserId || hasTeamId)) {
-    return filter
-  }
-  */
   if (hasSiteId) q.$and.push({ siteId: req.site.id })
   if (hasTeamId && !isAdmin) {
     const teamIds = map(req.user.teams, 'id')

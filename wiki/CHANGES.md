@@ -6,6 +6,7 @@
 - [2.11.0] Rewrite ```getUser()```
 - [2.11.0] Rewrite ```getSite()```
 - [2.11.0] Bug fix in model reference not displayed correctly on ```Details View```
+- [2.11.1] Bug fix in ```parseNsSetting()```
 
 ## 2026-03-13
 
