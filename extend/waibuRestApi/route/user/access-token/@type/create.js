@@ -14,12 +14,11 @@ async function create () {
 
   const handler = async function (req, reply) {
     const { hash } = this.app.bajoExtra
-    const { getUserFromUsernamePassword, createJwtFromUserRecord } = this
 
     if (!['api-key', 'jwt', 'apiKey'].includes(req.params.type)) throw this.error('invalidTokenType')
-    const rec = await getUserFromUsernamePassword(req.body.username, req.body.password, req)
+    const rec = await this.getUserByUsernamePassword(req.body.username, req.body.password, req)
     if (req.params.type === 'jwt') {
-      const jwt = await createJwtFromUserRecord(rec)
+      const jwt = await this.createJwtFromUserRecord(rec)
       return { data: jwt }
     }
     return { data: { token: await hash(rec.salt) } }

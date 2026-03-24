@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-25
+
+- [2.13.0] Add bajo cache handling for ```getUser*()``` and ```getSite()```
+
 ## 2026-03-22
 
 - [2.12.0] Add no route settings sitewise

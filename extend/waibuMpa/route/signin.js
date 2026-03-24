@@ -7,7 +7,7 @@ const signin = {
     let error
     if (req.method === 'POST') {
       try {
-        const user = await this.getUserFromUsernamePassword(username, password, req)
+        const user = await this.getUserByUsernamePassword(username, password, req)
         return await this.signin({ user, req, reply })
       } catch (err) {
         error = err

@@ -8,7 +8,7 @@ const auth = {
     socket.join(camelCase(`site ${site.alias}`))
     let user
     if (session.userId) {
-      user = await this.getUser(session.userId)
+      user = await this.getUserById(session.userId)
       if (user) {
         socket.join(camelCase(`user ${user.username}`))
         for (const team of user.teams) {

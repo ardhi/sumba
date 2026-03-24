@@ -2,7 +2,7 @@ import path from 'path'
 import createNewSite from './lib/create-new-site.js'
 import removeSite from './lib/remove-site.js'
 import getSite from './lib/get-site.js'
-import getUser from './lib/get-user.js'
+import { getUserById, getUserByToken, getUserByUsernamePassword } from './lib/get-user.js'
 
 /**
  * Plugin factory
@@ -132,10 +132,15 @@ async function factory (pkgName) {
             noWhitespace: false,
             latinOnlyChars: false
           }
+        },
+        cacheTtl: {
+          getSiteDur: '1m',
+          getUserByIdDur: '1m',
+          getUserByTokenDur: '1m'
         }
       }
       this.unsafeUserFields = ['password']
-      this.selfBind(['createNewSite', 'removeSite', 'getSite', 'getUser'])
+      this.selfBind(['createNewSite', 'removeSite', 'getSite', 'getUserById', 'getUserByToken', 'getUserByUsernamePassword'])
     }
 
     init = async () => {
@@ -204,22 +209,6 @@ async function factory (pkgName) {
       }]
     }
 
-    getUserFromUsernamePassword = async (username = '', password = '', req) => {
-      const { importPkg } = this.app.bajo
-      const model = getModel('SumbaUser')
-      await model.validate({ username, password }, null, { partial: true, ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
-      const bcrypt = await importPkg('bajoExtra:bcrypt')
-
-      const query = { username, provider: 'local', siteId: req.site.id }
-      const rows = await model.findRecord({ query }, { req, forceNoHidden: true, noHook: true })
-      if (rows.length === 0) throw this.error('validationError', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })
-      const rec = rows[0]
-      if (rec.status !== 'ACTIVE') throw this.error('validationError', { details: ['User is inactive or temporarily disabled'], statusCode: 401 })
-      const verified = await bcrypt.compare(password, rec.password)
-      if (!verified) throw this.error('validationError', { details: [{ field: 'password', error: 'invalidPassword' }], statusCode: 401 })
-      return rec
-    }
-
     createJwtFromUserRecord = async (rec) => {
       const { importPkg } = this.app.bajo
       const { dayjs } = this.app.lib
@@ -240,12 +229,11 @@ async function factory (pkgName) {
     }
 
     verifySession = async (req, reply, source, payload) => {
-      const { getUser } = this
       const { routePath } = this.app.waibu
 
       if (!req.session) return false
       if (req.session.userId) {
-        req.user = await getUser(req.session.userId)
+        req.user = await this.getUserById(req.session.userId, req)
         return true
       }
       const redir = routePath(this.config.redirect.signin, req)
@@ -256,22 +244,18 @@ async function factory (pkgName) {
     verifyApiKey = async (req, reply, source, payload) => {
       const { merge } = this.app.lib._
       const { isMd5, hash } = this.app.bajoExtra
-      const { getUser } = this
 
       let token = await this._getToken('apiKey', req, source)
       if (!isMd5(token)) return false
       token = await hash(token)
-      const query = { token }
-      const rows = await getModel('SumbaUser').findRecord({ query }, { req, noHook: true })
-      if (rows.length === 0) throw this.error('invalidKey', merge({ statusCode: 401 }, payload))
-      if (rows[0].status !== 'ACTIVE') throw this.error('userInactive', merge({ details: [{ field: 'status', error: 'inactive' }], statusCode: 401 }, payload))
-      req.user = await getUser(rows[0])
+      const user = await this.getUserByToken(token, req)
+      if (!user) throw this.error('invalidKey', merge({ statusCode: 401 }, payload))
+      if (user.status !== 'ACTIVE') throw this.error('userInactive', merge({ details: [{ field: 'status', error: 'inactive' }], statusCode: 401 }, payload))
+      req.user = user
       return true
     }
 
     verifyBasic = async (req, reply, source, payload) => {
-      const { getUserFromUsernamePassword } = this
-      const { getUser } = this
       const { isEmpty, merge } = this.app.lib._
 
       const setHeader = async (setting, reply) => {
@@ -299,8 +283,7 @@ async function factory (pkgName) {
       const decoded = Buffer.from(authInfo, 'base64').toString()
       const [username, password] = decoded.split(':')
       try {
-        const user = await getUserFromUsernamePassword(username, password, req)
-        req.user = await getUser(user)
+        req.user = await this.getUserByUsernamePassword(username, password, req)
       } catch (err) {
         if (err.statusCode === 401 && setting.realm) {
           await setHeader(setting, reply)
@@ -313,7 +296,6 @@ async function factory (pkgName) {
 
     verifyJwt = async (req, reply, source, payload) => {
       const { importPkg } = this.app.bajo
-      const { getUser } = this
       const { isEmpty, merge } = this.app.lib._
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
@@ -328,10 +310,10 @@ async function factory (pkgName) {
       const decoded = await verifier(token)
       const id = decoded.payload.uid
       try {
-        const rec = await getModel('SumbaUser').getRecord(id, { req, noHook: true })
-        if (!rec) throw this.error('invalidToken', { statusCode: 401 })
-        if (rec.status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
-        req.user = await getUser(rec)
+        const user = await this.getUserById(id, req)
+        if (!user) throw this.error('invalidToken', { statusCode: 401 })
+        if (user.status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
+        req.user = user
       } catch (err) {
         merge(err, payload)
         throw err
@@ -494,7 +476,9 @@ async function factory (pkgName) {
     createNewSite = createNewSite
     removeSite = removeSite
     getSite = getSite
-    getUser = getUser
+    getUserById = getUserById
+    getUserByToken = getUserByToken
+    getUserByUsernamePassword = getUserByUsernamePassword
   }
 
   return Sumba
