@@ -3,6 +3,7 @@
 ## 2026-03-25
 
 - [2.13.0] Add bajo cache handling for ```getUser*()``` and ```getSite()```
+- [2.13.1] Bug fix in ```collect.js```
 
 ## 2026-03-22
 

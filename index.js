@@ -341,7 +341,6 @@ async function factory (pkgName) {
 
     checkPathsByRoute = ({ paths = [], method = 'GET', guards = [] }) => {
       const { outmatch } = this.app.lib
-
       for (const item of guards) {
         const matchPath = outmatch(item.path)
         for (const path of paths) {
