@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-27
+
+- [2.14.0] Add support for cache storage management
+
 ## 2026-03-25
 
 - [2.13.0] Add bajo cache handling for ```getUser*()``` and ```getSite()```

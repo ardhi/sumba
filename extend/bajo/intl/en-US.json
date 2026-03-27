@@ -123,6 +123,7 @@
   "aboutToDeleteSite%s": "You're about to delete a site with alias '%s'. Are you sure?",
   "aboutToCreateSite%s": "You're about to create a site with alias '%s'. Continue?",
   "removedFrom%s%s": "Removed from '%s' (%s record(s))",
+  "cacheStorage": "Cache Storage",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

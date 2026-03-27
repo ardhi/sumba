@@ -124,6 +124,7 @@
   "aboutToDeleteSite%s": "Anda akan menghapus sebuah situs dengan alias '%s'. Anda yakin?",
   "aboutToCreateSite%s": "Anda akan membuat sebuah situs dengan alias '%s'. Lanjutkan?",
   "removedFrom%s%s": "Dihapus dari '%s' (%s data)",
+  "cacheStorage": "Penyimpanan Cache",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

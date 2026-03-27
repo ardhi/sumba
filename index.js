@@ -204,7 +204,8 @@ async function factory (pkgName) {
       }, {
         title: 'misc',
         children: [
-          { title: 'userSession', href: `waibuAdmin:/${prefix}/session/list` }
+          { title: 'userSession', href: `waibuAdmin:/${prefix}/session/list` },
+          { title: 'cacheStorage', href: `waibuAdmin:/${prefix}/cache/list` }
         ]
       }]
     }
