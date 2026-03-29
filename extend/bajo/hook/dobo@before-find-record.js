@@ -3,6 +3,10 @@ const useAdmin = ['waibuAdmin']
 export async function rebuildFilter (modelName, filter, req) {
   const { isEmpty, isPlainObject, map, find, get } = this.app.lib._
   filter.query = filter.query ?? {}
+  if (req.routeOptions.config.interSite) {
+    filter.query = { $and: [filter.query] }
+    return
+  }
 
   const queryBySiteSetting = (query) => {
     if (!req.site) return

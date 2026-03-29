@@ -13,7 +13,7 @@ async function createSite (path, ...args) {
   try {
     await createNewSite(alias, hostname, true)
   } catch (err) {
-    this.print.fatal(err.message)
+    this.print.fatal(err)
   }
   this.app.exit()
 }

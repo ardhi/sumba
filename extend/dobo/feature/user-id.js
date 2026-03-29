@@ -1,8 +1,7 @@
 async function userId (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'userId'
   return {
     properties: [{
-      name: opts.fieldName,
+      name: 'userId',
       type: 'string',
       maxLength: 50,
       ref: {

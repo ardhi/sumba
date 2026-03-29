@@ -125,6 +125,9 @@
   "aboutToCreateSite%s": "Anda akan membuat sebuah situs dengan alias '%s'. Lanjutkan?",
   "removedFrom%s%s": "Dihapus dari '%s' (%s data)",
   "cacheStorage": "Penyimpanan Cache",
+  "protectedArea": "Wilayah Dilindungi",
+  "pleaseAuthenticate": "Silahkan melakukan otentikasi terlebih dahulu, terima kasih!",
+  "manageAllSite": "Kelola Semua Situs",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

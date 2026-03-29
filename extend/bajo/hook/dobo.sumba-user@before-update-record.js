@@ -1,8 +1,6 @@
-import resetToken from '../../../lib/reset-token.js'
-
 async function beforeUpdateRecord (id, body, options = {}) {
   if (body.salt) {
-    const { token, salt } = await resetToken.call(this, body.salt)
+    const { token, salt } = await this.resetToken(body.salt)
     body.token = token
     body.salt = salt
   }

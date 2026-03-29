@@ -1,4 +1,4 @@
-import { checkUserId, checkTeam, checkTheme, checkIconset } from '../../../lib/util.js'
+import { checkUserId, checkTeam, checkTheme, checkIconset, checkinterSite } from '../../../lib/util.js'
 
 const preParsing = {
   level: 10,
@@ -7,6 +7,7 @@ const preParsing = {
     await checkIconset.call(this, req, reply)
     await checkUserId.call(this, req, reply, 'waibuMpa')
     await checkTeam.call(this, req, reply, 'waibuMpa')
+    await checkinterSite.call(this, req, reply)
   }
 }
 

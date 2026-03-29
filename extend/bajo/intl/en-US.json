@@ -124,6 +124,9 @@
   "aboutToCreateSite%s": "You're about to create a site with alias '%s'. Continue?",
   "removedFrom%s%s": "Removed from '%s' (%s record(s))",
   "cacheStorage": "Cache Storage",
+  "protectedArea": "Protected Area",
+  "pleaseAuthenticate": "Please authenticate yourself, thank you!",
+  "manageAllSite": "Manage All Sites",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

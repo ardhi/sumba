@@ -3,6 +3,13 @@ import createNewSite from './lib/create-new-site.js'
 import removeSite from './lib/remove-site.js'
 import getSite from './lib/get-site.js'
 import { getUserById, getUserByToken, getUserByUsernamePassword } from './lib/get-user.js'
+import { joiPasswordExtendCore } from 'joi-password'
+
+const defMultiSite = {
+  enabled: false,
+  catchAll: 'default',
+  admins: []
+}
 
 /**
  * Plugin factory
@@ -13,6 +20,7 @@ import { getUserById, getUserByToken, getUserByUsernamePassword } from './lib/ge
 async function factory (pkgName) {
   const me = this
   const { getModel } = this.app.dobo
+  const { cloneDeep } = this.app.lib._
 
   /**
    * Sumba class
@@ -23,10 +31,8 @@ async function factory (pkgName) {
     constructor () {
       super(pkgName, me.app)
       this.config = {
-        multiSite: {
-          enabled: false,
-          catchAll: 'default'
-        },
+        multiSite: cloneDeep(defMultiSite),
+        interSiteAdmins: [],
         waibu: {
           title: 'site',
           prefix: 'site'
@@ -85,16 +91,16 @@ async function factory (pkgName) {
             apiKey: {
               type: 'Bearer',
               qsKey: 'apiKey',
-              headerKey: 'X-Sumba-ApiKey'
+              headerKey: 'X-Auth-ApiKey'
             },
             basic: {
             },
             jwt: {
               type: 'Bearer',
               qsKey: 'token',
-              headerKey: 'X-Sumba-Token',
+              headerKey: 'X-Auth-Jwt',
               secret: '668de9cf57316c7dbf52f7ff7611c299',
-              expiresIn: 604800000
+              expiresInDur: '7d'
             }
           },
           waibuRestApi: {
@@ -109,8 +115,8 @@ async function factory (pkgName) {
             methods: ['basic', 'apiKey', 'jwt'],
             basic: {
               useUtf8: true,
-              realm: 'Protected Area',
-              warningMessage: 'Please authenticate yourself, thank you!'
+              realm: true,
+              warningMessage: 'pleaseAuthenticate'
             },
             silentOnError: false
           }
@@ -125,12 +131,18 @@ async function factory (pkgName) {
           forgotPasswordExpDur: '5m',
           timeZone: 'UTC',
           userPassword: {
-            minUppercase: 1,
-            minLowercase: 1,
+            minUpperCase: 1,
+            minLowerCase: 1,
             minSpecialChar: 1,
             minNumeric: 1,
             noWhitespace: false,
-            latinOnlyChars: false
+            latinOnlyChars: false,
+            pattern: {
+              lowerCase: 'abcdefghijklmnopqrstuvwxyz',
+              upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+              specialChar: '!@#$%*',
+              numeric: '0123456789'
+            }
           }
         },
         cacheTtl: {
@@ -150,6 +162,19 @@ async function factory (pkgName) {
       for (const type of ['secure', 'anonymous', 'team']) {
         this[`${type}Routes`] = this[`${type}Routes`] ?? []
         this[`${type}NegRoutes`] = this[`${type}NegRoutes`] ?? []
+      }
+      if (this.config.multiSite === true) {
+        this.config.multiSite = cloneDeep(defMultiSite)
+        this.config.multiSite.enabled = true
+      }
+    }
+
+    start = async () => {
+      const { getModel } = this.app.dobo
+      if (this.config.interSiteAdmins.length === 0) {
+        const site = await getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noHook: true })
+        const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id } }, { noHook: true })
+        this.config.interSiteAdmins.push(user.id)
       }
     }
 
@@ -202,10 +227,18 @@ async function factory (pkgName) {
           { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
         ]
       }, {
+        title: 'manageAllSite',
+        interSite: true,
+        href: `waibuAdmin:/${prefix}/_is_/site/list`
+      }, {
+        title: '-',
+        interSite: true
+      }, {
         title: 'misc',
+        interSite: true,
         children: [
-          { title: 'userSession', href: `waibuAdmin:/${prefix}/session/list` },
-          { title: 'cacheStorage', href: `waibuAdmin:/${prefix}/cache/list` }
+          { title: 'userSession', href: `waibuAdmin:/${prefix}/_is_/session/list` },
+          { title: 'cacheStorage', href: `waibuAdmin:/${prefix}/_is_/cache/list` }
         ]
       }]
     }
@@ -219,13 +252,13 @@ async function factory (pkgName) {
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createSigner } = fastJwt
 
-      const opts = pick(this.config.auth.common.jwt, ['expiresIn'])
+      const opts = pick(this.config.auth.common.jwt, ['expiresInDur'])
       opts.key = get(this.config, 'auth.common.jwt.secret')
       const sign = createSigner(opts)
       const apiKey = await hash(rec.password)
       const payload = { uid: rec.id, apiKey }
       const token = await sign(payload)
-      const expiresAt = dayjs().add(opts.expiresIn).toDate()
+      const expiresAt = dayjs().add(opts.expiresInDur).toDate()
       return { token, expiresAt }
     }
 
@@ -260,11 +293,9 @@ async function factory (pkgName) {
       const { isEmpty, merge } = this.app.lib._
 
       const setHeader = async (setting, reply) => {
-        const { isString } = this.app.lib._
-
         let header = setting.type
         const exts = []
-        if (isString(setting.realm)) exts.push(`realm="${setting.realm}"`)
+        if (setting.realm) exts.push(`realm="${req.t('protectedArea')}"`)
         if (setting.useUtf8) exts.push('charset="UTF-8"')
         if (exts.length > 0) header += ` ${exts.join(', ')}`
         reply.header('WWW-Authenticate', header)
@@ -278,7 +309,7 @@ async function factory (pkgName) {
       if (isEmpty(authInfo)) {
         if (setting.realm) {
           await setHeader(setting, reply)
-          throw this.error(setting.warningMessage)
+          throw this.error(req.t('pleaseAuthenticate'), { statusCode: 403 })
         } else return false
       }
       const decoded = Buffer.from(authInfo, 'base64').toString()
@@ -398,10 +429,10 @@ async function factory (pkgName) {
       const { generateId } = this.app.lib.aneka
       const cfg = get(req, 'site.setting.sumba.userPassword', this.config.siteSetting.userPassword)
       let passwd = generateId()
-      if (cfg.minLowercase) passwd += generateId({ pattern: 'abcdefghijklmnopqrstuvwxyz', length: cfg.minLowercase })
-      if (cfg.minUppercase) passwd += generateId({ pattern: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', length: cfg.minUppercase })
-      if (cfg.minSpecialChar) passwd += generateId({ pattern: '!@#$%*', length: cfg.minSpecialChar })
-      if (cfg.minNumeric) passwd += generateId({ pattern: '0123456789', length: cfg.minNumeric })
+      if (cfg.minLowerCase > 0) passwd += generateId({ pattern: cfg.pattern.lowerCase, length: cfg.minLowercase })
+      if (cfg.minUpperCase > 0) passwd += generateId({ pattern: cfg.pattern.upperCase, length: cfg.minUppercase })
+      if (cfg.minSpecialChar > 0) passwd += generateId({ pattern: cfg.pattern.specialChar, length: cfg.minSpecialChar })
+      if (cfg.minNumeric > 0) passwd += generateId({ pattern: cfg.pattern.numeric, length: cfg.minNumeric })
       return passwd
     }
 
@@ -471,6 +502,34 @@ async function factory (pkgName) {
       payload.html = await render(tpl[0], locals, opts)
       if (tpl[1]) payload.text = await render(tpl[1], locals, opts)
       await this.app.masohiMail.send({ payload, source: source ?? this.ns, conn })
+    }
+
+    resetToken = async (salt) => {
+      const { generateId } = this.app.lib.aneka
+      const { hash } = this.app.bajoExtra
+      salt = salt ?? generateId()
+      const token = await hash(await hash(salt))
+      return { salt, token }
+    }
+
+    passwordRule = async (req = {}) => {
+      const { get } = this.app.lib._
+      const { importPkg } = this.app.bajo
+      const joi = await importPkg('dobo:joi')
+      const joiPassword = joi.extend(joiPasswordExtendCore)
+      let password = joiPassword
+        .string()
+        .min(8)
+        .max(100)
+        .required()
+      const cfg = get(req, 'site.setting.sumba.userPassword', this.config.siteSetting.userPassword)
+      if (cfg.minUppeCase) password = password.minOfUppercase(cfg.minUpperCase)
+      if (cfg.minLowercase) password = password.minOfLowercase(cfg.minLowerCase)
+      if (cfg.minSpecialChar) password = password.minOfSpecialCharacters(cfg.minSpecialChar)
+      if (cfg.minNumeric) password = password.minOfNumeric(cfg.minNumeric)
+      if (cfg.noWhitespace) password = password.noWhiteSpaces()
+      if (cfg.latinOnlyChars) password = password.onlyLatinCharacters()
+      return password
     }
 
     createNewSite = createNewSite

@@ -1,5 +1,3 @@
-import passwordRule from '../../../../../lib/password-rule.js'
-
 const resetUserPassword = {
   method: ['GET', 'POST'],
   title: 'resetUserPassword',
@@ -12,7 +10,7 @@ const resetUserPassword = {
     let error
     if (req.method === 'POST') {
       try {
-        const password = await passwordRule.call(this, req)
+        const password = await this.passwordRule(req)
         const schema = Joi.object({
           username: Joi.string().max(50).required(),
           password,

@@ -1,4 +1,4 @@
-import latLngHook from '../../../lib/lat-lng-hook.js'
+import { latLngHook } from '../../../lib/util.js'
 
 async function lat (opts = {}) {
   opts.fieldName = opts.fieldName ?? 'lat'

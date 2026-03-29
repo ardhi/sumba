@@ -3,8 +3,7 @@ const doboBeforeCreateRecord = {
   handler: async function (modelName, body, options = {}) {
     const { get } = this.app.lib._
     const { req } = options
-
-    if (options.noAutoFilter || !req) return
+    if (options.noAutoFilter || !req || get(req, 'routeOptions.config.interSite')) return
     const item = { siteId: 'site.id', userId: 'user.id' }
     const model = this.app.dobo.getModel(modelName)
     for (const i in item) {

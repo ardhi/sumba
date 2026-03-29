@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-03-30
+
+- [2.15.0] Add inter site module mechanism
+- [2.15.0] Add admin sub route for inter site modules
+- [2.15.0] Bug fix in ```createNewSite()```
+- [2.15.0] Bug fix in ```removeSite()```
+
 ## 2026-03-27
 
 - [2.14.0] Add support for cache storage management

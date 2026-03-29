@@ -1,5 +1,3 @@
-import passwordRule from '../../../../lib/password-rule.js'
-
 const profile = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
@@ -12,7 +10,7 @@ const profile = {
     let error
     if (req.method === 'POST') {
       try {
-        const newPassword = await passwordRule.call(this, req)
+        const newPassword = await this.passwordRule(req)
         const schema = Joi.object({
           currentPassword: Joi.string().min(8).max(50).required(),
           newPassword,

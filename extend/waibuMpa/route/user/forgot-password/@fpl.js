@@ -1,4 +1,3 @@
-import passwordRule from '../../../../../lib/password-rule.js'
 
 async function getUser (req, reply) {
   const { dayjs } = this.app.lib
@@ -30,7 +29,7 @@ const forgotPasswordLink = {
     let error
     if (req.method === 'POST') {
       try {
-        const newPassword = await passwordRule.call(this, req)
+        const newPassword = await this.passwordRule(req)
         const schema = Joi.object({
           newPassword,
           verifyNewPassword: Joi.ref('newPassword')
