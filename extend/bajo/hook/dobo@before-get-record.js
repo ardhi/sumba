@@ -9,9 +9,8 @@ export async function checker (modelName, id, options = {}) {
   await rebuildFilter.call(this, modelName, filter, req)
   if (filter.query.$and) filter.query.$and.push({ id })
   else filter.query.id = id
-  filter.limit = 1
-  const rows = await model.findRecord(filter, { count: false })
-  if (rows.length === 0) throw this.app.dobo.error('recordNotFound%s%s', id, this.name, { statusCode: 404 })
+  const row = await model.findOneRecord(filter, { count: false })
+  if (!row) throw this.app.dobo.error('recordNotFound%s%s', id, this.name, { statusCode: 404 })
 }
 
 const doboBeforeGetRecord = {

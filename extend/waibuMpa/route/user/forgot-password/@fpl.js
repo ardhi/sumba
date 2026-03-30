@@ -1,16 +1,15 @@
-
 async function getUser (req, reply) {
   const { dayjs } = this.app.lib
-  const { findRecord } = this.app.waibuDb
+  const { findOneRecord } = this.app.waibuDb
   const invalidFpl = 'sumba.template:/user/fpl-invalid.html'
   if (Buffer.from(req.params.fpl, 'base64').toString('base64') !== req.params.fpl) return invalidFpl
   const fpToken = Buffer.from(req.params.fpl, 'base64').toString()
   const [token, sec] = fpToken.split(':')
   if (dayjs().unix() > Number(sec)) return invalidFpl
   const query = { token, status: 'ACTIVE' }
-  const users = await findRecord({ model: 'SumbaUser', req, options: { query, limit: 1, dataOnly: true, noHook: true } })
-  if (users.length === 0) return invalidFpl
-  return users[0]
+  const user = await findOneRecord({ model: 'SumbaUser', req, options: { query, dataOnly: true, noHook: true } })
+  if (user) return invalidFpl
+  return user
 }
 
 const forgotPasswordLink = {

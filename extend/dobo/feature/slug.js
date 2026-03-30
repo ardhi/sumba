@@ -5,9 +5,9 @@ async function autoInc (body, opts) {
   const query = set({}, opts.fieldName, { $regex: new RegExp('^' + body[opts.fieldName]) })
   const sort = set({}, opts.fieldName, -1)
   const options = { noHook: true, skipCache: true, thrownNotFound: false }
-  const resp = await this.findRecord({ query, limit: 1, sort }, options)
-  if (resp.length === 0) return body[opts.fieldName]
-  const rslugs = resp[0][opts.fieldName].split('-')
+  const resp = await this.findOneRecord({ query, sort }, options)
+  if (resp) return body[opts.fieldName]
+  const rslugs = resp[opts.fieldName].split('-')
   const slugs = body[opts.fieldName].split('-')
   let num
   if (Number(last(rslugs)) && body[opts.fieldName] === rslugs.slice(0, rslugs.length - 1).join('-')) {

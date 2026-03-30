@@ -3,7 +3,7 @@ const contactForm = {
   handler: async function (req, reply) {
     const { defaultsDeep } = this.app.lib.aneka
     const { pick } = this.app.lib._
-    const { createRecord, findRecord } = this.app.waibuDb
+    const { createRecord, findAllRecord } = this.app.waibuDb
 
     const def = req.user ? pick(req.user, ['firstName', 'lastName', 'email']) : {}
     const form = defaultsDeep(req.body, def)
@@ -17,7 +17,7 @@ const contactForm = {
         error = err
       }
     }
-    const cats = await findRecord({ model: 'SumbaContactFormCat', req, options: { sort: 'level:1+name:1', limit: -1, dataOnly: true } })
+    const cats = await findAllRecord({ model: 'SumbaContactFormCat', req, options: { sort: 'level:1+name:1', dataOnly: true } })
     return await reply.view('sumba.template:/help/contact-form/form.html', { form, error, cats })
   }
 }

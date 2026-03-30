@@ -11,9 +11,8 @@ const profile = {
     if (req.method === 'POST') {
       try {
         const query = { status: 'ACTIVE', $or: [{ username: req.body.usernameEmail }, { email: req.body.usernameEmail }] }
-        const result = await model.findRecord({ query, limit: 1 }, { dataOnly: true, noHook: true, forceNoHidden: true })
-        if (result.length === 0) throw this.error('validationError', { details: [{ field: 'usernameEmail', error: 'unknownUsernameEmailOrInactive' }] })
-        const data = result[0]
+        const data = await model.findOneRecord({ query }, { dataOnly: true, noHook: true, forceNoHidden: true })
+        if (data) throw this.error('validationError', { details: [{ field: 'usernameEmail', error: 'unknownUsernameEmailOrInactive' }] })
         const to = `${data.firstName} ${data.lastName} <${data.email}>`
         const subject = req.t('forgotPasswordLink')
         const options = { req, reply }

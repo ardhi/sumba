@@ -4,10 +4,10 @@ const id = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { cloneDeep } = this.app.lib._
-    const { createRecord, findRecord, getSchemaExt } = this.app.waibuDb
+    const { createRecord, findOneRecord, findRecord, getSchemaExt } = this.app.waibuDb
     const { schema } = await getSchemaExt(model, 'list')
 
-    const master = (await findRecord({ model: 'SumbaTicket', req, options: { dataOnly: true, query: { id: req.params.id }, limit: 1 } }))[0]
+    const master = await findOneRecord({ model: 'SumbaTicket', req, options: { dataOnly: true, query: { id: req.params.id } } })
     if (!master) throw this.error('_notFound')
     const form = cloneDeep(req.body)
     let error

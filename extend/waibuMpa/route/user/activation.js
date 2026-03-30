@@ -8,10 +8,10 @@ const userActivation = {
     if (req.method === 'POST') {
       try {
         const query = { status: 'UNVERIFIED', token: req.body.key }
-        const result = await model.findRecord({ query, limit: 1 })
-        if (result.length === 0) throw this.error('validationError', { details: [{ field: 'key', error: 'invalidActivationKey' }] })
+        const result = await model.findOneRecord({ query })
+        if (result) throw this.error('validationError', { details: [{ field: 'key', error: 'invalidActivationKey' }] })
         await model.transaction(async (trx) => {
-          await model.updateRecord(result[0].id, { status: 'ACTIVE' }, { req, noValidation: true, noFlash: true, trx })
+          await model.updateRecord(result.id, { status: 'ACTIVE' }, { req, noValidation: true, noFlash: true, trx })
         })
         req.flash('notify', req.t('userActivated'))
         return reply.redirectTo(this.config.redirect.signin, req)

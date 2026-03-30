@@ -4,7 +4,7 @@ const add = {
   method: ['GET', 'POST'],
   handler: async function (req, reply) {
     const { defaultsDeep } = this.app.lib.aneka
-    const { createRecord, findRecord } = this.app.waibuDb
+    const { createRecord, findAllRecord } = this.app.waibuDb
     const options = {}
     const form = defaultsDeep(req.body, {})
     let error
@@ -16,7 +16,7 @@ const add = {
         error = err
       }
     }
-    const cats = await findRecord({ model: 'SumbaTicketCat', req, options: { sort: 'level:1+name:1', limit: -1, dataOnly: true } })
+    const cats = await findAllRecord({ model: 'SumbaTicketCat', req, options: { sort: 'level:1+name:1', dataOnly: true } })
     return await reply.view('sumba.template:/help/trouble-tickets/add.html', { form, error, cats })
   }
 }

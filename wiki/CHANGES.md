@@ -6,6 +6,7 @@
 - [2.15.0] Add admin sub route for inter site modules
 - [2.15.0] Bug fix in ```createNewSite()```
 - [2.15.0] Bug fix in ```removeSite()```
+- [2.15.1] Code cleanups
 
 ## 2026-03-27
 
