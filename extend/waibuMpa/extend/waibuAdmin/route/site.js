@@ -1,6 +1,6 @@
 const manageSite = {
   method: ['GET', 'POST'],
-  title: 'manageSite',
+  title: 'siteProfile',
   handler: async function (req, reply) {
     const { importModule } = this.app.bajo
     const detailsHandler = await importModule('waibuDb:/lib/crud/details-handler.js')

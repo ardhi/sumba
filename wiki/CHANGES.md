@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-04-02
+
+- [2.16.0] Add ```SumbaUserSetting``` model and necessary handlings
+- [2.16.0] Reorganize admin menu
+
 ## 2026-03-30
 
 - [2.15.0] Add inter site module mechanism

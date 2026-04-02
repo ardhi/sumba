@@ -1,0 +1,17 @@
+{
+  "buildLevel": 5,
+  "properties": [
+    "ns,,50,true,true",
+    "key,,255,true,true",
+    "value,text"
+  ],
+  "indexes": [{
+    "fields": ["ns", "key", "siteId", "userId"],
+    "type": "unique"
+  }],
+  "features": [
+    "sumba:siteId",
+    "dobo:updatedAt",
+    "sumba:userId"
+  ]
+}

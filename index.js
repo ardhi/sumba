@@ -205,7 +205,27 @@ async function factory (pkgName) {
       if (!this.app.waibuAdmin) return
       const { getPluginPrefix } = this.app.waibu
       const prefix = getPluginPrefix(this.ns)
-      return [{
+      const items = [{
+        title: 'manageSite',
+        children: [
+          { title: 'siteProfile', href: `waibuAdmin:/${prefix}/site` },
+          { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/list` }
+        ]
+      }, {
+        title: 'manageUser',
+        children: [
+          { title: 'userProfile', href: `waibuAdmin:/${prefix}/user/list` },
+          { title: 'userSetting', href: `waibuAdmin:/${prefix}/user-setting/list` },
+          { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
+        ]
+      }, {
+        title: 'manageTeam',
+        children: [
+          { title: 'teamProfile', href: `waibuAdmin:/${prefix}/team/list` },
+          { title: 'teamUser', href: `waibuAdmin:/${prefix}/team-user/list` },
+          { title: 'teamSetting', href: `waibuAdmin:/${prefix}/team-setting/list` }
+        ]
+      }, {
         title: 'supportSystem',
         children: [
           { title: 'contactForm', href: `waibuAdmin:/${prefix}/contact-form/list` },
@@ -214,17 +234,9 @@ async function factory (pkgName) {
           { title: 'ticketCat', href: `waibuAdmin:/${prefix}/ticket-cat/list` }
         ]
       }, {
-        title: 'management',
+        title: 'misc',
         children: [
-          { title: 'manageSite', href: `waibuAdmin:/${prefix}/site` },
-          { title: 'manageUser', href: `waibuAdmin:/${prefix}/user/list` },
-          { title: 'manageTeam', href: `waibuAdmin:/${prefix}/team/list` },
-          { title: 'manageTeamUser', href: `waibuAdmin:/${prefix}/team-user/list` },
-          { title: 'manageTeamSetting', href: `waibuAdmin:/${prefix}/team-setting/list` },
-          { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` },
-          { title: '-' },
-          { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/list` },
-          { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
+          { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` }
         ]
       }, {
         title: 'manageAllSite',
@@ -237,10 +249,14 @@ async function factory (pkgName) {
         title: 'misc',
         interSite: true,
         children: [
-          { title: 'userSession', href: `waibuAdmin:/${prefix}/_is_/session/list` },
-          { title: 'cacheStorage', href: `waibuAdmin:/${prefix}/_is_/cache/list` }
+          { title: 'userSession', href: `waibuAdmin:/${prefix}/_is_/session/list` }
         ]
       }]
+      if (this.app.bajoCache) {
+        const item = items.find(i => i.title === 'misc')
+        if (item) item.children.push({ title: 'cacheStorage', href: `waibuAdmin:/${prefix}/_is_/cache/list` })
+      }
+      return items
     }
 
     createJwtFromUserRecord = async (rec) => {

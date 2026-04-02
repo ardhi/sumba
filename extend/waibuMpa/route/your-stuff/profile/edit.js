@@ -8,7 +8,7 @@ const profile = {
     const { updateRecord, getRecord } = this.app.waibuDb
     const { omit, pick } = this.app.lib._
     const { hash } = this.app.bajoExtra
-    const resp = await getRecord({ model: 'SumbaUser', req, id: req.user.id, options: { forceNoHidden: true, noHook: true, noCache: true } })
+    const resp = await getRecord({ model: 'SumbaUser', req, id: req.user.id, options: { forceNoHidden: ['token'], noHook: true, noCache: true } })
     let form = defaultsDeep(req.body, omit(resp.data, ['password', 'salt']))
     form.token = await hash(form.token)
     let error
