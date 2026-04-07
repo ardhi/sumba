@@ -1,18 +1,18 @@
 async function hook (body, options) {
   const { isSet } = this.app.lib.aneka
-  let val = body[options.fieldName]
+  let val = body[options.field]
   if (!isSet(val)) return
   const [, ...params] = val.split('://')
   if (params.length === 0) val = options.defProto + '://' + val
-  body[options.fieldName] = val
+  body[options.field] = val
 }
 
 async function url (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'url'
+  opts.field = opts.field ?? 'url'
   opts.defProto = opts.defProto ?? 'http'
   return {
     properties: [{
-      name: opts.fieldName ?? 'url',
+      name: opts.field ?? 'url',
       type: 'string'
     }],
     hook: {

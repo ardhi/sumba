@@ -1,0 +1,16 @@
+{
+  "common": {
+    "widget": {
+      "cat": {
+        "attr": {
+          "url": "sumba.restapi:/manage/ticket-cat"
+        }
+      },
+      "userId": {
+        "attr": {
+          "url": "sumba.restapi:/manage/user"
+        }
+      }
+    }
+  }
+}

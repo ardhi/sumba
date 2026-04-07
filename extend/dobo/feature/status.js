@@ -1,17 +1,20 @@
 async function status (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'status'
+  opts.field = opts.field ?? 'status'
+  opts.required = opts.required ?? true
+  opts.values = opts.values ?? ['UNVERIFIED', 'ACTIVE', 'INACTIVE']
   return {
     properties: [{
-      name: opts.fieldName ?? 'status',
+      name: opts.field ?? 'status',
       type: 'string',
       maxLength: 50,
       index: true,
-      values: opts.values ?? ['UNVERIFIED', 'ACTIVE', 'INACTIVE']
+      required: opts.required,
+      values: opts.values
     }],
     hook: {
       beforeCreate: async function (body) {
         const { isSet } = this.app.lib.aneka
-        if (!isSet(body[opts.fieldName])) body[opts.fieldName] = opts.default
+        if (!isSet(body[opts.field])) body[opts.field] = opts.default
       }
     }
   }

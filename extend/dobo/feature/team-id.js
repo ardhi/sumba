@@ -8,14 +8,16 @@ async function teamId (opts = {}) {
       ref: {
         site: {
           model: 'SumbaSite',
-          propName: 'id',
+          field: 'id',
           type: '1:1',
           fields: ['id', 'alias', 'hostname', 'title']
         },
         team: {
           model: 'SumbaTeam',
-          propName: 'id',
+          field: 'id',
           type: '1:1',
+          labelField: 'name',
+          searchField: 'name',
           fields: ['id', 'name']
         }
       },

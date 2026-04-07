@@ -7,7 +7,7 @@ async function siteId (opts = {}) {
       ref: {
         site: {
           model: 'SumbaSite',
-          propName: 'id',
+          field: 'id',
           type: '1:1'
         }
       },

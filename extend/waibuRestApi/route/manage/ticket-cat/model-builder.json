@@ -1,0 +1,4 @@
+{
+  "model": "SumbaTicketCat",
+  "disabled": ["create", "update", "remove"]
+}

@@ -1,8 +1,8 @@
 async function phone (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'phone'
+  opts.field = opts.field ?? 'phone'
   return {
     properties: [{
-      name: opts.fieldName ?? 'phone',
+      name: opts.field ?? 'phone',
       type: 'string',
       maxLength: 50
     }]

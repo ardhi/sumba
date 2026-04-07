@@ -7,7 +7,9 @@ async function userId (opts = {}) {
       ref: {
         user: {
           model: 'SumbaUser',
-          propName: 'id',
+          field: 'id',
+          labelField: 'username',
+          searchField: 'username',
           type: '1:1'
         }
       },

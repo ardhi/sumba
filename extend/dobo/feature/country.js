@@ -1,8 +1,8 @@
 async function country (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'country'
+  opts.field = opts.field ?? 'country'
   return {
     properties: [{
-      name: opts.fieldName,
+      name: opts.field,
       type: 'string',
       maxLength: 2,
       index: opts.index ?? true,
@@ -10,7 +10,7 @@ async function country (opts = {}) {
       rules: ['uppercase', { rule: 'length', params: 2 }],
       rulesMsg: { 'any.only': 'validCountryCodeRequired' }
     }],
-    rules: [{ rule: 'trim', fields: [opts.fieldName] }]
+    rules: [{ rule: 'trim', fields: [opts.field] }]
   }
 }
 

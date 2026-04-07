@@ -1,8 +1,8 @@
 async function ts (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'ts'
+  opts.field = opts.field ?? 'ts'
   return {
     properties: [{
-      name: opts.fieldName ?? 'ts',
+      name: opts.field ?? 'ts',
       type: 'timestamp',
       required: opts.required ?? true,
       index: opts.index ?? true

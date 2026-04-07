@@ -131,6 +131,10 @@
   "protectedArea": "Protected Area",
   "pleaseAuthenticate": "Please authenticate yourself, thank you!",
   "manageAllSite": "Manage All Sites",
+  "statusEnabled": "Enabled",
+  "statusDisabled": "Disabled",
+  "statusOpen": "Open",
+  "statusClosed": "Closed",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

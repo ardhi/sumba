@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-04-07
+
+- [2.17.0] Change all ```opts.fieldName``` to ```opts.field``` in features
+- [2.17.0] Rewrite necessary changes on model reference to match the new architecture
+
 ## 2026-04-02
 
 - [2.16.0] Add ```SumbaUserSetting``` model and necessary handlings

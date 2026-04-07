@@ -2,20 +2,20 @@ import { latLngHook } from '../../../lib/util.js'
 
 async function latLng (opts = {}) {
   const { merge } = this.app.lib._
-  opts.fieldNameLat = opts.fieldNameLat ?? 'lat'
-  opts.fieldNameLng = opts.fieldNameLng ?? 'lng'
+  opts.fieldLat = opts.fieldLat ?? 'lat'
+  opts.fieldLng = opts.fieldLng ?? 'lng'
   opts.scale = opts.scale ?? 5
   opts.precision = opts.precision ?? 8
   return {
     properties: [{
-      name: opts.fieldNameLat,
+      name: opts.fieldLat,
       type: 'double',
       required: opts.required ?? true,
       index: opts.required ?? true,
       precision: opts.precision,
       scale: opts.scale
     }, {
-      name: opts.fieldNameLng,
+      name: opts.fieldLng,
       type: 'double',
       required: opts.required ?? true,
       index: opts.required ?? true,
@@ -24,12 +24,12 @@ async function latLng (opts = {}) {
     }],
     hook: {
       beforeCreate: async function (body) {
-        await latLngHook.call(this, body, merge({}, opts, { lat: opts.fieldNameLat }))
-        await latLngHook.call(this, body, merge({}, opts, { lng: opts.fieldNameLng }))
+        await latLngHook.call(this, body, merge({}, opts, { lat: opts.fieldLat }))
+        await latLngHook.call(this, body, merge({}, opts, { lng: opts.fieldLng }))
       },
       beforeUpdate: async function (body) {
-        await latLngHook.call(this, body, merge({}, opts, { lat: opts.fieldNameLat }))
-        await latLngHook.call(this, body, merge({}, opts, { lng: opts.fieldNameLng }))
+        await latLngHook.call(this, body, merge({}, opts, { lat: opts.fieldLat }))
+        await latLngHook.call(this, body, merge({}, opts, { lng: opts.fieldLng }))
       }
     }
   }

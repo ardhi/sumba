@@ -1,7 +1,20 @@
 {
   "properties": [
     "subject,,255,true,true",
-    "cat,,50,true",
+    {
+      "name": "cat",
+      "type": "string",
+      "maxLength": 50,
+      "index": true,
+      "required": true,
+      "ref": {
+        "cat": {
+          "model": "SumbaTicketCat",
+          "searchField": "name",
+          "labelField": "name"
+        }
+      }
+    },
     "message,text,,,true"
   ],
   "features": [

@@ -132,6 +132,10 @@
   "protectedArea": "Wilayah Dilindungi",
   "pleaseAuthenticate": "Silahkan melakukan otentikasi terlebih dahulu, terima kasih!",
   "manageAllSite": "Kelola Semua Situs",
+  "statusEnabled": "Dihidupkan",
+  "statusDisabled": "Dimatikan",
+  "statusOpen": "Terbuka",
+  "statusClosed": "Tertutup",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

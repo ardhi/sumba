@@ -1,8 +1,8 @@
 async function email (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'email'
+  opts.field = opts.field ?? 'email'
   return {
     properties: [{
-      name: opts.fieldName ?? 'email',
+      name: opts.field ?? 'email',
       type: 'string',
       maxLength: 50,
       rules: ['email']

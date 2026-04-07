@@ -1,12 +1,12 @@
 import { latLngHook } from '../../../lib/util.js'
 
 async function lat (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'lat'
+  opts.field = opts.field ?? 'lat'
   opts.scale = opts.scale ?? 5
   opts.precision = opts.precision ?? 8
   return {
     properties: [{
-      name: opts.fieldName,
+      name: opts.field,
       type: 'double',
       required: opts.required ?? true,
       index: opts.required ?? true,
