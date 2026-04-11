@@ -136,6 +136,7 @@
   "statusDisabled": "Dimatikan",
   "statusOpen": "Terbuka",
   "statusClosed": "Tertutup",
+  "allSites": "Semua Situs",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

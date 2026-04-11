@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-11
+
+- [2.18.0] Some major rewrites :/
+
 ## 2026-04-07
 
 - [2.17.0] Change all ```opts.fieldName``` to ```opts.field``` in features

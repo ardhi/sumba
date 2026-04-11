@@ -11,7 +11,7 @@ const list = {
     schema.view.disabled = ['update', 'remove']
     schema.view.fields = ['createdAt', 'subject', 'status']
     schema.view.label = { subject: 'Your Message' }
-    schema.view.formatter = {
+    schema.view.format = {
       subject: (val, rec) => {
         return `<strong>${val}</strong><br />${getExcerpt(rec.message, 35)}`
       }

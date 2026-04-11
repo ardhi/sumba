@@ -135,6 +135,7 @@
   "statusDisabled": "Disabled",
   "statusOpen": "Open",
   "statusClosed": "Closed",
+  "allSites": "All Sites",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

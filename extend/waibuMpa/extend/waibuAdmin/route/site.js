@@ -11,7 +11,51 @@ const manageSite = {
     req.params.id = req.site.id
     req.query.id = req.site.id
     req.params.base = ''
-    return await action.call(this, { req, reply, model, template })
+    const options = {
+      modelOpts: {
+        formatValue: true,
+        retainOriginalValue: true
+      },
+      schema: {
+        view: {
+          details: {
+            control: {
+              wdbBtnBack: {
+                disabled: true
+              },
+              wdbBtnClone: {
+                disabled: true
+              },
+              wdbBtnDelete: {
+                disabled: true
+              },
+              wdbBtnEdit: {
+                href: 'waibuAdmin:/site/site?edit=true'
+              }
+            }
+          },
+          edit: {
+            control: {
+              wdbBtnBack: {
+                disabled: true
+              },
+              wdbBtnClone: {
+                disabled: true
+              },
+              wdbBtnDelete: {
+                disabled: true
+              },
+              wdbBtnDetails: {
+                href: 'waibuAdmin:/site/site'
+              }
+            },
+            readonly: ['id', 'createdAt', 'updatedAt']
+          }
+        }
+      }
+    }
+
+    return await action.call(this, { req, reply, model, template, options })
   }
 }
 

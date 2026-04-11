@@ -209,7 +209,8 @@ async function factory (pkgName) {
         title: 'manageSite',
         children: [
           { title: 'siteProfile', href: `waibuAdmin:/${prefix}/site` },
-          { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/list` }
+          { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/list` },
+          { title: 'allSites', href: `waibuAdmin:/${prefix}/all-sites/list` }
         ]
       }, {
         title: 'manageUser',
@@ -236,25 +237,13 @@ async function factory (pkgName) {
       }, {
         title: 'misc',
         children: [
-          { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` }
-        ]
-      }, {
-        title: 'manageAllSite',
-        interSite: true,
-        href: `waibuAdmin:/${prefix}/_is_/site/list`
-      }, {
-        title: '-',
-        interSite: true
-      }, {
-        title: 'misc',
-        interSite: true,
-        children: [
-          { title: 'userSession', href: `waibuAdmin:/${prefix}/_is_/session/list` }
+          { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` },
+          { title: 'userSession', href: `waibuAdmin:/${prefix}/session/list` }
         ]
       }]
       if (this.app.bajoCache) {
         const item = items.find(i => i.title === 'misc')
-        if (item) item.children.push({ title: 'cacheStorage', href: `waibuAdmin:/${prefix}/_is_/cache/list` })
+        if (item) item.children.push({ title: 'cacheStorage', href: `waibuAdmin:/${prefix}/cache/list` })
       }
       return items
     }

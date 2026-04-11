@@ -8,7 +8,7 @@ async function teamUser () {
       calcFields: [
         { name: 'team', type: 'string' }
       ],
-      valueFormatter: {
+      formatValue: {
         team: (val, rec) => {
           return rec._ref.team.name
         }

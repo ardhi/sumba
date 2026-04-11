@@ -7,7 +7,7 @@ async function user ({ req } = {}) {
         { name: 'address', fields: ['address1:12', 'address2:12', 'city:6-md 8-sm', 'zipCode:2-md 4-sm', 'provinceState:4-md', 'country:6-md', 'phone:6-md', 'website:12'] },
         { name: 'socialMedia', fields: ['socX:3-md 6-sm', 'socInstagram:3-md 6-sm', 'socFacebook:3-md 6-sm', 'socLinkedIn:3-md 6-sm'] }
       ],
-      valueFormatter: {
+      formatValue: {
         token: async function (val, rec) {
           const { hash } = this.app.bajoExtra
           return await hash(rec.salt)

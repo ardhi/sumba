@@ -26,7 +26,7 @@ const id = {
     schema.view.disabled = ['update', 'remove']
     schema.view.fields = ['createdAt']
     schema.view.label = { createdAt: 'conversation' }
-    schema.view.formatter = {
+    schema.view.format = {
       createdAt: async function (val, rec) {
         const message = this.app.bajoMarkdown ? this.app.bajoMarkdown.parseContent(rec.message) : rec.message
         const isMe = rec.userId === req.user.id
