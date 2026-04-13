@@ -40,5 +40,6 @@
     "dobo:createdAt",
     "dobo:updatedAt",
     "dobo:immutable"
-  ]
+  ],
+  "scanables": ["hostname", "alias", "title", "orgName"]
 }

@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-13
+
+- [2.18.1] Bug fix on ```SumbaSite``` model
+
 ## 2026-04-11
 
 - [2.18.0] Some major rewrites :/
