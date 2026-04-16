@@ -14,7 +14,8 @@ const manageSite = {
     const options = {
       modelOpts: {
         formatValue: true,
-        retainOriginalValue: true
+        retainOriginalValue: true,
+        noCache: true
       },
       schema: {
         view: {

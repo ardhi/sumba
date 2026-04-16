@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-04-16
+
+- [2.19.0] Add cache clearing if a site is updated/removed
+- [2.19.0] Add cache clearing if a user is updated/removed
+- [2.19.0] Necessary changes to all routes to support ```formatValue``` & ```retainOriginalValue``` options
+- [2.19.0] Change cache key for ```getUser()```
+- [2.19.0] Change cache key for ```getSite()```
+
 ## 2026-04-13
 
 - [2.18.1] Bug fix on ```SumbaSite``` model
