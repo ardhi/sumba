@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-17
+
+- [2.19.1] Bug fix in profile edit's route
+
 ## 2026-04-16
 
 - [2.19.0] Add cache clearing if a site is updated/removed
