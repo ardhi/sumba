@@ -17,7 +17,8 @@ async function personInCharge (opts = {}) {
     }, {
       name: 'picEmail',
       type: 'string',
-      maxLength: 50
+      maxLength: 50,
+      rules: ['email']
     }]
   }
 }

@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-04-18
+
+- [2.19.2] Bug fix in ```sumba:personInCharge``` feature: add email rules
+- [2.19.2] Bug fix in ```SumbaUser``` schema
+- [2.19.2] Bug fix in ```reset-user-password``` route
+
 ## 2026-04-17
 
 - [2.19.1] Bug fix in profile edit's route

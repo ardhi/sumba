@@ -14,9 +14,6 @@ async function user ({ req } = {}) {
         }
       },
       widget: {
-        country: {
-          component: 'form-select-ext'
-        },
         token: {
           component: 'form-plaintext'
         }

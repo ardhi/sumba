@@ -21,7 +21,7 @@ const resetUserPassword = {
         } catch (err) {
           throw this.error('validationError', { details: err.details, values: err.values, ns: this.ns, statusCode: 422, code: 'DB_VALIDATION' })
         }
-        const rec = await model.findOneRecord({ query: { username: req.body.username } })
+        const rec = await model.findOneRecord({ query: { username: req.body.username } }, { req })
         if (!rec) throw this.error('unknownUser', { details: [{ field: 'username', error: 'unknownUser' }], statusCode: 400 })
         await model.updateRecord(rec.id, { password: req.body.password }, { req, reply })
         form.password = ''
