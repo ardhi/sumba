@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-19
+
+- [2.19.3] Update all widgets ```wdb-table``` to ```wdb-data-table```
+
 ## 2026-04-18
 
 - [2.19.2] Bug fix in ```sumba:personInCharge``` feature: add email rules
