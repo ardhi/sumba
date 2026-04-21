@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-21
+
+- [2.19.4] Bug fix in ```getCountriesValues()```
+
 ## 2026-04-19
 
 - [2.19.3] Update all widgets ```wdb-table``` to ```wdb-data-table```

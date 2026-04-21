@@ -472,7 +472,7 @@ async function factory (pkgName) {
     getCountriesValues = async () => {
       const { getModel } = this.app.dobo
       const model = getModel('CdbCountry')
-      const items = await model.findAllRecord()
+      const items = await model.findAllRecord({}, { noMagic: true, dataOnly: true })
       return items.map(item => ({ value: item.id, text: item.name }))
     }
 
