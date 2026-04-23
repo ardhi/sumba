@@ -537,6 +537,26 @@ async function factory (pkgName) {
       return password
     }
 
+    parseRouteGuard = item => {
+      const { routePath, routePathHandlers } = this.app.waibu
+      const { isString, isEmpty } = this.app.lib._
+      if (isString(item)) {
+        let [path, methods] = item.split('|').map(i => i.trim())
+        methods = isEmpty(methods) ? ['*'] : methods.split(',').map(i => i.trim())
+        item = { path, methods }
+      }
+      item.methods = item.methods ?? ['*']
+      if (item.methods.includes('*')) item.methods = ['*']
+      const [, routeHandler] = item.path.split(':')[0].split('.')
+      if (!isEmpty(routeHandler) && !routePathHandlers[routeHandler]) return
+      const rns = isEmpty(routeHandler) ? 'waibuMpa' : routePathHandlers[routeHandler].ns
+      if (!this.app[rns]) return
+      item.inverse = item.path[0] === '!'
+      if (item.inverse) item.path = item.path.slice(1)
+      item.path = routePath(item.path, { defFormat: false })
+      return item
+    }
+
     createNewSite = createNewSite
     removeSite = removeSite
     getSite = getSite

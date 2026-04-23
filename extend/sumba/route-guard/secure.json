@@ -1,0 +1,8 @@
+[
+  "sumba:/your-stuff/**/*",
+  "sumba:/signout",
+  "sumba:/help/trouble-tickets/**/*",
+  "sumba.restapi:/user/api-key",
+  "sumba.restapi:/your-stuff/**/*",
+  "sumba.restapi:/manage/**/*"
+]

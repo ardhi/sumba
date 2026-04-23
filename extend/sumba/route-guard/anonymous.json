@@ -1,0 +1,10 @@
+[{
+  "path": "sumba:/user/**/*",
+  "methods": ["*"]
+}, {
+  "path": "sumba:/signin",
+  "methods": ["*"]
+}, {
+  "path": "sumba.restapi:/user/access-token/**/*",
+  "methods": ["*"]
+}]

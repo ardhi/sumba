@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-04-23
+
+- [2.20.0] Add ```parseRouteGuard()```
+- [2.20.0] Change endpoint ```sumba/route``` to ```sumba/route-guard```
+- [2.20.0] Deep merging of route guards
+
 ## 2026-04-21
 
 - [2.19.4] Bug fix in ```getCountriesValues()```
