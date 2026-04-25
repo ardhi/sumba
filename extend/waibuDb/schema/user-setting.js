@@ -5,14 +5,6 @@ async function teamUser ({ req } = {}) {
         { name: 'meta', fields: ['id', 'userId', 'createdAt', 'updatedAt'] },
         { name: 'general', fields: ['ns', 'key', 'value'] }
       ],
-      calcFields: [
-        { name: 'user', type: 'string' }
-      ],
-      formatValue: {
-        user: (val, rec) => {
-          return rec._ref.user.name
-        }
-      },
       widget: {
         userId: {
           component: 'form-select-ext',

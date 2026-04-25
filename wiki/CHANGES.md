@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-04-25
+
+- [2.21.0] Change options to format value using the new key set by dobo
+- [2.21.0] Remove ```options.retainOriginalValue``` since it is not needed anymore
+- [2.21.0] Remove ```property.formatValue``` from all properties
+- [2.21.0] Remove ```schema.formatValue``` from all schemas
+- [2.21.0] Remove ```schema.calcFields``` from all schemas
+
 ## 2026-04-23
 
 - [2.20.0] Add ```parseRouteGuard()```

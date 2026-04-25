@@ -13,8 +13,7 @@ const manageSite = {
     req.params.base = ''
     const options = {
       modelOpts: {
-        formatValue: true,
-        retainOriginalValue: true,
+        fmt: true,
         noCache: true
       },
       schema: {

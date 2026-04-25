@@ -8,11 +8,6 @@ async function teamUser () {
       calcFields: [
         { name: 'team', type: 'string' }
       ],
-      formatValue: {
-        team: (val, rec) => {
-          return rec._ref.team.name
-        }
-      },
       widget: {
         teamId: {
           component: 'form-select-ext',

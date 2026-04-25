@@ -10,7 +10,7 @@ const profile = {
     const { omit, pick } = this.app.lib._
     const { hash } = this.app.bajoExtra
 
-    const options = { forceNoHidden: ['token'], noHook: true, noCache: true, formatValue: true, retainOriginalValue: true }
+    const options = { forceNoHidden: ['token'], noHook: true, noCache: true, fmt: true }
     const mdl = this.app.dobo.getModel(model)
 
     const { schema } = await getSchemaExt(model, 'edit', { ...options, args: [{ req, model: mdl }] })
