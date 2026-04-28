@@ -3,7 +3,7 @@ async function user ({ req } = {}) {
     common: {
       layout: [
         { name: 'meta', fields: ['id:3', 'createdAt:3', 'updatedAt:3', 'status:3'] },
-        { name: 'account', fields: ['username:3', 'email:3', 'provider:3', 'password:3', 'firstName:3', 'lastName:3', 'token:6'] },
+        { name: 'account', fields: ['username:3', 'email:3', 'provider:3', 'password:3', 'firstName:3', 'lastName:3', 'apiKey:6'] },
         { name: 'address', fields: ['address1:12', 'address2:12', 'city:6-md 8-sm', 'zipCode:2-md 4-sm', 'provinceState:4-md', 'country:6-md', 'phone:6-md', 'website:12'] },
         { name: 'socialMedia', fields: ['socX:3-md 6-sm', 'socInstagram:3-md 6-sm', 'socFacebook:3-md 6-sm', 'socLinkedIn:3-md 6-sm'] }
       ],
@@ -19,7 +19,7 @@ async function user ({ req } = {}) {
           sort: 'username:1',
           limit: 10
         },
-        fields: ['createdAt', 'status', 'username', 'provider', 'email', 'firstName', 'lastName', 'city', 'zipCode', 'provinceState', 'country', 'phone'],
+        fields: ['createdAt', 'status', 'username', 'provider', 'email', 'firstName', 'lastName', 'city', 'zipCode', 'provinceState', 'country', 'phone', 'apiKey'],
         stat: {
           aggregate: [
             { fields: ['status'], group: 'status', aggregate: ['count'] },

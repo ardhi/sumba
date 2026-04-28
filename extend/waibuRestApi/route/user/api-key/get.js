@@ -12,10 +12,8 @@ async function get () {
   }
 
   const handler = async function (req, reply, options) {
-    const { hash } = this.app.bajoExtra
-
     const profile = await this.app.dobo.getModel('SumbaUser').getRecord(req.user.id)
-    return { data: { token: await hash(profile.password) } }
+    return { data: { token: profile.apiKey } }
   }
   return { schema, handler }
 }

@@ -1,7 +1,7 @@
 export async function clearCache (id, result) {
   if (!this.app.bajoCache) return
   const { hash } = this.app.bajoExtra
-  const { clear } = this.app.bajoCache
+  const { clear } = this.app.bajoCache ?? {}
   const { get, isEmpty } = this.app.lib._
   let token = get(result, 'data.token', get(result, 'oldData.token', ''))
   if (!isEmpty(token)) token = await hash(token)

@@ -4,11 +4,10 @@ const resetApiKey = {
     const { defaultsDeep } = this.app.lib.aneka
     const { importPkg } = this.app.bajo
     const { generateId } = this.app.lib.aneka
-    const { hash } = this.app.bajoExtra
     const delay = await importPkg('bajo:delay')
     const bcrypt = await importPkg('bajoExtra:bcrypt')
     const Joi = await importPkg('dobo:joi')
-    const form = defaultsDeep(req.body, { apiKey: await hash(req.user.salt) })
+    const form = defaultsDeep(req.body, { apiKey: req.user.apiKey })
     const model = this.app.dobo.getModel('SumbaUser')
     let error
     if (req.method === 'POST') {
@@ -21,7 +20,7 @@ const resetApiKey = {
         } catch (err) {
           throw this.error('validationError', { details: err.details, values: err.values, ns: this.ns, statusCode: 422, code: 'DB_VALIDATION' })
         }
-        const rec = await model.getRecord(req.user.id, { forceNoHidden: true })
+        const rec = await model.getRecord(req.user.id, { forceNoHidden: true, noMagic: true })
         const verified = await bcrypt.compare(form.password, rec.password)
         if (!verified) throw this.error('validationError', { details: [{ field: 'password', error: 'invalidPassword' }], statusCode: 400 })
         await model.transaction(async (trx) => {

@@ -91,7 +91,8 @@ async function factory (pkgName) {
             apiKey: {
               type: 'Bearer',
               qsKey: 'apiKey',
-              headerKey: 'X-Auth-ApiKey'
+              headerKey: 'X-Auth-ApiKey',
+              algo: 'sha256' // changing this require each and every user to reset their apiKey
             },
             basic: {
             },
@@ -251,7 +252,6 @@ async function factory (pkgName) {
     createJwtFromUserRecord = async (rec) => {
       const { importPkg } = this.app.bajo
       const { dayjs } = this.app.lib
-      const { hash } = this.app.bajoExtra
       const { get, pick } = this.app.lib._
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
@@ -260,7 +260,7 @@ async function factory (pkgName) {
       const opts = pick(this.config.auth.common.jwt, ['expiresInDur'])
       opts.key = get(this.config, 'auth.common.jwt.secret')
       const sign = createSigner(opts)
-      const apiKey = await hash(rec.password)
+      const apiKey = await this.hash(rec.token)
       const payload = { uid: rec.id, apiKey }
       const token = await sign(payload)
       const expiresAt = dayjs().add(opts.expiresInDur).toDate()
@@ -281,12 +281,12 @@ async function factory (pkgName) {
     }
 
     verifyApiKey = async (req, reply, source, payload) => {
-      const { merge } = this.app.lib._
-      const { isMd5, hash } = this.app.bajoExtra
+      const { merge, camelCase } = this.app.lib._
+      const checker = this.app.bajoExtra[camelCase(`is ${this.config.auth.common.apiKey.algo}`)]
 
       let token = await this._getToken('apiKey', req, source)
-      if (!isMd5(token)) return false
-      token = await hash(token)
+      if (!checker(token)) return false
+      token = await this.hash(token)
       const user = await this.getUserByToken(token, req)
       if (!user) throw this.error('invalidKey', merge({ statusCode: 401 }, payload))
       if (user.status !== 'ACTIVE') throw this.error('userInactive', merge({ details: [{ field: 'status', error: 'inactive' }], statusCode: 401 }, payload))
@@ -463,10 +463,9 @@ async function factory (pkgName) {
     }
 
     getApiKeyFromUserId = async id => {
-      const { hash } = this.app.bajoExtra
       const options = { forceNoHidden: true, noHook: true, noCache: true, attachment: true, mimeType: true }
       const resp = await getModel('SumbaUser').getRecord(id, options)
-      return await hash(resp.salt)
+      return await this.hash(resp.salt)
     }
 
     getCountriesValues = async () => {
@@ -509,11 +508,10 @@ async function factory (pkgName) {
       await this.app.masohiMail.send({ payload, source: source ?? this.ns, conn })
     }
 
-    resetToken = async (salt) => {
+    resetToken = async (text) => {
       const { generateId } = this.app.lib.aneka
-      const { hash } = this.app.bajoExtra
-      salt = salt ?? generateId()
-      const token = await hash(await hash(salt))
+      const salt = text ?? generateId()
+      const token = await this.hash(await this.hash(salt))
       return { salt, token }
     }
 
@@ -555,6 +553,11 @@ async function factory (pkgName) {
       if (item.inverse) item.path = item.path.slice(1)
       item.path = routePath(item.path, { defFormat: false })
       return item
+    }
+
+    hash = async (item) => {
+      const { hash } = this.app.bajoExtra
+      return await hash(item, this.config.auth.common.apiKey.algo)
     }
 
     createNewSite = createNewSite

@@ -8,7 +8,6 @@ const profile = {
     const { updateRecord, getRecord } = this.app.waibuDb
     const { getSchemaExt } = this.app.waibuDb
     const { omit, pick } = this.app.lib._
-    const { hash } = this.app.bajoExtra
 
     const options = { forceNoHidden: ['token'], noHook: true, noCache: true, fmt: true }
     const mdl = this.app.dobo.getModel(model)
@@ -17,7 +16,6 @@ const profile = {
 
     const resp = await getRecord({ model, req, id: req.user.id, options })
     let form = defaultsDeep(req.body, omit(resp.data, ['password', 'salt']))
-    form.token = await hash(form.token)
     let error
     if (req.method === 'POST') {
       try {

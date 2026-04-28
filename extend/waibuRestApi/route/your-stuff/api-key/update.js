@@ -22,7 +22,6 @@ export const body = {
 async function update () {
   const { importPkg } = this.app.bajo
   const { generateId } = this.app.lib.aneka
-  const { hash } = this.app.bajoExtra
   const bcrypt = await importPkg('bajoExtra:bcrypt')
   const model = this.app.dobo.getModel('SumbaUser')
 
@@ -34,7 +33,7 @@ async function update () {
     if (!verified) throw this.error('invalidPassword', { details: [{ field: 'password', error: 'invalidPassword' }], statusCode: 400 })
     const input = { salt: generateId() }
     const resp = await model.updateRecord(req.user.id, input, { forceNoHidden: true })
-    return { data: { token: await hash(resp.salt) } }
+    return { data: { token: resp.apiKey } }
   }
 
   return { schema, handler }

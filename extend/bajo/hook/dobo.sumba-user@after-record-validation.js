@@ -3,7 +3,6 @@ async function afterRecordValidation (body, options) {
   const { has } = this.app.lib._
 
   if (has(body, 'password') && !isBcrypt(body.password)) body.password = await hash(body.password, 'bcrypt')
-  // if (has(body, 'token') && !isMd5(body.token)) body.token = await hash(body.token)
 }
 
 export default afterRecordValidation

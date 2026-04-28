@@ -159,7 +159,8 @@
     "user": "Pengguna",
     "team": "Tim",
     "ns": "Ruang Nama Modul",
-    "value": "Value"
+    "value": "Value",
+    "notes": "Catatan"
   },
   "validation": {
     "password": {

@@ -158,7 +158,8 @@
     "user": "User",
     "team": "Team",
     "ns": "Module's Namespace",
-    "value": "Value"
+    "value": "Value",
+    "notes": "Notes"
   },
   "validation": {
     "password": {

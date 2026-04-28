@@ -1,6 +1,6 @@
 export async function clearCache (id, result) {
   if (!this.app.bajoCache) return
-  const { clear } = this.app.bajoCache
+  const { clear } = this.app.bajoCache ?? {}
   const { get } = this.app.lib._
   await clear({ key: 'dobo|SumbaSite|getSite|default' })
   await clear({ key: `dobo|SumbaSite|getSite|multiSite|${id}` })
