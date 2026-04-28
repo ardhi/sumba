@@ -28,6 +28,7 @@ async function user () {
       maxLength: 100,
       virtual: true,
       getValue: async function (val, rec) {
+        if (!rec.salt) return
         return await this.plugin.hash(rec.salt)
       }
     }, {
@@ -63,7 +64,7 @@ async function user () {
       fields: ['email', 'siteId'],
       type: 'unique'
     }],
-    hidden: ['password', 'token'],
+    hidden: ['password'],
     features: [
       'sumba:address',
       'sumba:social',

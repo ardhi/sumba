@@ -173,8 +173,8 @@ async function factory (pkgName) {
     start = async () => {
       const { getModel } = this.app.dobo
       if (this.config.interSiteAdmins.length === 0) {
-        const site = await getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noHook: true })
-        const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id } }, { noHook: true })
+        const site = await getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noMagic: true })
+        const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id } }, { noMagic: true })
         this.config.interSiteAdmins.push(user.id)
       }
     }
