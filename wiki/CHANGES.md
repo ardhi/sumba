@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-05-11
+
+- [2.23.0] Unify route guards and put it in ```SumbaRouteGuard``` database
+- [2.23.0] Phased out ```setting.noRoutes```
+
 ## 2026-04-25
 
 - [2.21.1] Bug fix on team routes collections

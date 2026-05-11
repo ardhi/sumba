@@ -152,6 +152,8 @@ async function factory (pkgName) {
           getUserByTokenDur: '1m'
         }
       }
+      this.userGuards = []
+      this.teamGuards = []
       this.unsafeUserFields = ['password']
       this.selfBind(['createNewSite', 'removeSite', 'getSite', 'getUserById', 'getUserByToken', 'getUserByUsernamePassword'])
     }
@@ -160,10 +162,6 @@ async function factory (pkgName) {
       const { getPluginDataDir } = this.app.bajo
       this.downloadDir = `${getPluginDataDir(this.ns)}/download`
       this.app.lib.fs.ensureDirSync(this.downloadDir)
-      for (const type of ['secure', 'anonymous', 'team']) {
-        this[`${type}Routes`] = this[`${type}Routes`] ?? []
-        this[`${type}NegRoutes`] = this[`${type}NegRoutes`] ?? []
-      }
       if (this.config.multiSite === true) {
         this.config.multiSite = cloneDeep(defMultiSite)
         this.config.multiSite.enabled = true
@@ -226,6 +224,11 @@ async function factory (pkgName) {
           { title: 'teamProfile', href: `waibuAdmin:/${prefix}/team/list` },
           { title: 'teamUser', href: `waibuAdmin:/${prefix}/team-user/list` },
           { title: 'teamSetting', href: `waibuAdmin:/${prefix}/team-setting/list` }
+        ]
+      }, {
+        title: 'permission',
+        children: [
+          { title: 'routeGuard', href: `waibuAdmin:/${prefix}/route-guard/list` }
         ]
       }, {
         title: 'supportSystem',
@@ -358,7 +361,7 @@ async function factory (pkgName) {
       return true
     }
 
-    checkPathsByTeam = ({ paths = [], method = 'GET', teams = [], guards = [] }) => {
+    checkPathsByRoute = ({ paths = [], method = 'GET', teams = [], guards = [] }) => {
       const { includes } = this.app.lib.aneka
       const { outmatch } = this.app.lib
 
@@ -366,24 +369,10 @@ async function factory (pkgName) {
         const matchPath = outmatch(item.path)
         for (const path of paths) {
           if (matchPath(path)) {
-            const matchMethods = outmatch(item.methods, { separator: false })
-            if (matchMethods(method)) {
-              if (item.teams.length === 0) return item
+            if (item.methods.includes(method)) {
+              if (teams.length === 0) return item
               if (includes(teams, item.teams)) return item
             }
-          }
-        }
-      }
-    }
-
-    checkPathsByRoute = ({ paths = [], method = 'GET', guards = [] }) => {
-      const { outmatch } = this.app.lib
-      for (const item of guards) {
-        const matchPath = outmatch(item.path)
-        for (const path of paths) {
-          if (matchPath(path)) {
-            const matchMethods = outmatch(item.methods, { separator: false })
-            if (matchMethods(method)) return item
           }
         }
       }
@@ -535,29 +524,23 @@ async function factory (pkgName) {
       return password
     }
 
-    parseRouteGuard = item => {
-      const { routePath, routePathHandlers } = this.app.waibu
-      const { isString, isEmpty } = this.app.lib._
-      if (isString(item)) {
-        let [path, methods] = item.split('|').map(i => i.trim())
-        methods = isEmpty(methods) ? ['*'] : methods.split(',').map(i => i.trim())
-        item = { path, methods }
-      }
-      item.methods = item.methods ?? ['*']
-      if (item.methods.includes('*')) item.methods = ['*']
-      const [, routeHandler] = item.path.split(':')[0].split('.')
-      if (!isEmpty(routeHandler) && !routePathHandlers[routeHandler]) return
-      const rns = isEmpty(routeHandler) ? 'waibuMpa' : routePathHandlers[routeHandler].ns
-      if (!this.app[rns]) return
-      item.inverse = item.path[0] === '!'
-      if (item.inverse) item.path = item.path.slice(1)
-      item.path = routePath(item.path, { defFormat: false })
-      return item
-    }
-
     hash = async (item) => {
       const { hash } = this.app.bajoExtra
       return await hash(item, this.config.auth.common.apiKey.algo)
+    }
+
+    getRouteGuards = async (reread) => {
+      const { getModel } = this.app.dobo
+      const { routePath } = this.app.waibu
+      const { map, orderBy } = this.app.lib._
+      if (!reread) return this.routeGuards
+      const model = getModel('SumbaRouteGuard')
+      const results = await model.findAllRecord({ query: { status: 'ACTIVE' } }, { noMagic: true, dataOnly: true })
+      this.routeGuards = orderBy(map(results, item => {
+        item.path = routePath(item.path)
+        return item
+      }), ['weight', 'path'])
+      return this.routeGuards
     }
 
     createNewSite = createNewSite

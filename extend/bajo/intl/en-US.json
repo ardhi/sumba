@@ -61,11 +61,6 @@
   "troubleTickets": "Trouble Tickets",
   "guest": "Guest",
   "warningMemberOnly%s": "Please authenticate yourself first, because the <a href=\"%s\">page<a> your're trying to access is a member only page",
-  "collectingRouteGuards": "Collecting route guards:",
-  "secureRoutes%d": "- Secure routes: %d",
-  "secureNegRoutes%d": "- Secure, negated routes: %d",
-  "anonRoutes%d": "- Anonymous routes: %d",
-  "anonNegRoutes%d": "- Anonymous, negated routes: %d",
   "replies": "Replies",
   "compose": "Compose",
   "yourReply": "Your Reply",
@@ -136,6 +131,8 @@
   "statusOpen": "Open",
   "statusClosed": "Closed",
   "allSites": "All Sites",
+  "permission": "Permission",
+  "routeGuard": "Route Guard",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
@@ -159,7 +156,12 @@
     "team": "Team",
     "ns": "Module's Namespace",
     "value": "Value",
-    "notes": "Notes"
+    "notes": "Notes",
+    "path": "Path",
+    "inverse": "Inverse?",
+    "anonymous": "Anonymous?",
+    "methods": "Methods",
+    "teams": "Teams"
   },
   "validation": {
     "password": {

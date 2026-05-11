@@ -1,0 +1,4 @@
+{
+  "model": "SumbaRouteGuard",
+  "disabled": ["create", "update", "remove"]
+}

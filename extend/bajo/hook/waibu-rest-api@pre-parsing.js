@@ -1,11 +1,11 @@
-import { checkUserId, checkTeam, checkinterSite } from '../../../lib/util.js'
+import { checkUserId, checkTeam, checkInterSite } from '../../../lib/util.js'
 
 const preParsing = {
   level: 10,
   handler: async function (req, reply) {
-    await checkUserId.call(this, req, reply, 'waibuRestApi')
-    await checkTeam.call(this, req, reply, 'waibuRestApi')
-    await checkinterSite.call(this, req, reply)
+    if (!await checkUserId.call(this, req, reply, 'waibuRestApi')) return
+    if (!await checkTeam.call(this, req, reply, 'waibuRestApi')) return
+    await checkInterSite.call(this, req, reply)
   }
 }
 
