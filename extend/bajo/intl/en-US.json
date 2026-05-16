@@ -132,7 +132,9 @@
   "statusClosed": "Closed",
   "allSites": "All Sites",
   "permission": "Permission",
-  "routeGuard": "Route Guard",
+  "routeGuard": "Route",
+  "modelGuard": "Model",
+  "attribGuard": "Attribute",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
@@ -161,7 +163,10 @@
     "inverse": "Inverse?",
     "anonymous": "Anonymous?",
     "methods": "Methods",
-    "teams": "Teams"
+    "teamIds": "Teams",
+    "column": "Column",
+    "hiddenCols": "Hidden Columns",
+    "models": "Models"
   },
   "validation": {
     "password": {

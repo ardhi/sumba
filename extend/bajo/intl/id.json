@@ -137,6 +137,10 @@
   "statusOpen": "Terbuka",
   "statusClosed": "Tertutup",
   "allSites": "Semua Situs",
+  "permission": "Permisi",
+  "routeGuard": "Rute",
+  "modelGuard": "Model",
+  "attribGuard": "Atribut",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
@@ -159,8 +163,16 @@
     "user": "Pengguna",
     "team": "Tim",
     "ns": "Ruang Nama Modul",
-    "value": "Value",
-    "notes": "Catatan"
+    "value": "Nilai",
+    "notes": "Catatan",
+    "path": "Jejak",
+    "inverse": "Inverse?",
+    "anonymous": "Anonim?",
+    "methods": "Metode",
+    "teamIds": "Tim",
+    "column": "Kolom",
+    "hideCols": "Sembunyikan Kolom",
+    "models": "Model"
   },
   "validation": {
     "password": {

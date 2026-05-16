@@ -2,6 +2,12 @@
 
 ## 2026-05-11
 
+- [2.24.0] Complete rewrite of route guards
+- [2.24.0] Add model guards
+- [2.24.0] Add attribute guards
+
+## 2026-05-11
+
 - [2.23.0] Unify route guards and put it in ```SumbaRouteGuard``` database
 - [2.23.0] Phased out ```setting.noRoutes```
 

@@ -32,10 +32,13 @@ async function factory (pkgName) {
       super(pkgName, me.app)
       this.config = {
         multiSite: cloneDeep(defMultiSite),
-        interSiteAdmins: [],
+        crossSiteAdmins: [],
         waibu: {
           title: 'site',
           prefix: 'site'
+        },
+        dobo: {
+          model: {}
         },
         waibuMpa: {
           home: 'sumba:/your-stuff/profile',
@@ -152,8 +155,6 @@ async function factory (pkgName) {
           getUserByTokenDur: '1m'
         }
       }
-      this.userGuards = []
-      this.teamGuards = []
       this.unsafeUserFields = ['password']
       this.selfBind(['createNewSite', 'removeSite', 'getSite', 'getUserById', 'getUserByToken', 'getUserByUsernamePassword'])
     }
@@ -170,10 +171,10 @@ async function factory (pkgName) {
 
     start = async () => {
       const { getModel } = this.app.dobo
-      if (this.config.interSiteAdmins.length === 0) {
+      if (this.config.crossSiteAdmins.length === 0) {
         const site = await getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noMagic: true })
         const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id } }, { noMagic: true })
-        this.config.interSiteAdmins.push(user.id)
+        this.config.crossSiteAdmins.push(user.id)
       }
     }
 
@@ -228,7 +229,9 @@ async function factory (pkgName) {
       }, {
         title: 'permission',
         children: [
-          { title: 'routeGuard', href: `waibuAdmin:/${prefix}/route-guard/list` }
+          { title: 'routeGuard', href: `waibuAdmin:/${prefix}/route-guard/list` },
+          { title: 'modelGuard', href: `waibuAdmin:/${prefix}/model-guard/list` },
+          { title: 'attribGuard', href: `waibuAdmin:/${prefix}/attrib-guard/list` }
         ]
       }, {
         title: 'supportSystem',
@@ -272,13 +275,14 @@ async function factory (pkgName) {
 
     verifySession = async (req, reply, source, payload) => {
       const { routePath } = this.app.waibu
+      const { query, params } = req
 
       if (!req.session) return false
       if (req.session.userId) {
         req.user = await this.getUserById(req.session.userId, req)
         return true
       }
-      const redir = routePath(this.config.redirect.signin, req)
+      const redir = routePath(this.config.redirect.signin, { query, params })
       req.session.ref = req.url
       throw this.error('_redirect', { redirect: redir })
     }
@@ -361,7 +365,7 @@ async function factory (pkgName) {
       return true
     }
 
-    checkPathsByRoute = ({ paths = [], method = 'GET', teams = [], guards = [] }) => {
+    checkPathsByRoute = ({ paths = [], teamIds = [], guards = [] }) => {
       const { includes } = this.app.lib.aneka
       const { outmatch } = this.app.lib
 
@@ -369,10 +373,8 @@ async function factory (pkgName) {
         const matchPath = outmatch(item.path)
         for (const path of paths) {
           if (matchPath(path)) {
-            if (item.methods.includes(method)) {
-              if (teams.length === 0) return item
-              if (includes(teams, item.teams)) return item
-            }
+            if (includes(teamIds, item.teamIds)) return item
+            if (teamIds.length === 0) return item
           }
         }
       }
@@ -535,7 +537,12 @@ async function factory (pkgName) {
       const { map, orderBy } = this.app.lib._
       if (!reread) return this.routeGuards
       const model = getModel('SumbaRouteGuard')
-      const results = await model.findAllRecord({ query: { status: 'ACTIVE' } }, { noMagic: true, dataOnly: true })
+      let results = await model.findAllRecord({ query: { status: 'ACTIVE' } }, { noMagic: true, noCache: true, noDriverHook: true, dataOnly: true })
+      results = results.map(item => {
+        item.teamIds = item.teamIds ?? []
+        item.methods = item.methods ?? []
+        return item
+      })
       this.routeGuards = orderBy(map(results, item => {
         item.path = routePath(item.path)
         return item

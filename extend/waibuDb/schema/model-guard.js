@@ -1,4 +1,4 @@
-async function routeGuard () {
+async function modelGuard () {
   return {
     common: {
       widget: {
@@ -12,4 +12,4 @@ async function routeGuard () {
   }
 }
 
-export default routeGuard
+export default modelGuard

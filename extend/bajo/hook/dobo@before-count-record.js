@@ -1,8 +1,8 @@
-import { handler } from './dobo@before-find-record.js'
+import { handler } from './dobo@before-driver-find-record.js'
 
-const doboBeforeCountRecord = {
+const doboBeforeDriverCountRecord = {
   level: 1000,
   handler
 }
 
-export default doboBeforeCountRecord
+export default doboBeforeDriverCountRecord

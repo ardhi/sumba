@@ -4,13 +4,14 @@ const resetUserPassword = {
   handler: async function (req, reply) {
     const { importPkg } = this.app.bajo
     const { defaultsDeep } = this.app.lib.aneka
+    const { passwordRule } = this.app.sumba
     const Joi = await importPkg('dobo:joi')
     const model = this.app.dobo.getModel('SumbaUser')
     const form = defaultsDeep(req.body, { username: req.query.username })
     let error
     if (req.method === 'POST') {
       try {
-        const password = await this.passwordRule(req)
+        const password = await passwordRule(req)
         const schema = Joi.object({
           username: Joi.string().max(50).required(),
           password,

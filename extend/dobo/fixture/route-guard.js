@@ -10,7 +10,7 @@ const routes = [
   '~sumba.restapi:/user/access-token/**/*'
 ]
 
-async function userGuard () {
+async function routeGuard () {
   return routes.map(r => {
     const anonymous = r[0] === '~'
     return {
@@ -23,4 +23,4 @@ async function userGuard () {
   })
 }
 
-export default userGuard
+export default routeGuard
