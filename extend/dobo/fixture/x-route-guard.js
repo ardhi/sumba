@@ -16,8 +16,6 @@ async function routeGuard () {
     return {
       path: anonymous ? r.slice(1) : r,
       anonymous,
-      _immutable: true,
-      siteId: '?:SumbaSite::alias:default',
       status: 'ACTIVE'
     }
   })

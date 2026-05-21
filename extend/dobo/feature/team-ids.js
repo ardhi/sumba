@@ -11,8 +11,7 @@ async function teamIds (opts = {}) {
           searchField: 'name',
           fields: ['id', 'alias', 'name']
         }
-      },
-      index: true
+      }
     }]
   }
 }

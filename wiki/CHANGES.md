@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-05-22
+
+- [2.25.0] Reorganize admin menu layout & order
+- [2.25.0] Add ```getModelGuards()```
+- [2.25.0] Add ```getAttribGuards()```
+- [2.25.0] Bug fix in ```getRouteGuards()```
+
 ## 2026-05-11
 
 - [2.24.0] Complete rewrite of route guards

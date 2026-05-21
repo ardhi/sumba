@@ -1,51 +1,69 @@
 async function applyModelGuard ({ model, q, teamIds, options }) {
-  const { isEmpty, get, set, uniq } = this.app.lib._
+  const { get, set, orderBy, intersection, without } = this.app.lib._
+  const { include } = this.app.lib.aneka
   const { req } = options
-  const { getModel } = this.app.dobo
+  const results = []
 
-  const guards = []
-  const query = { status: 'ACTIVE', siteId: req.site.id + '' }
-  const results = await getModel('SumbaModelGuard').findAllRecord({ query }, { noMagic: true, dataOnly: true, noDriverHook: true })
-  const item = {}
-
-  function add (res) {
-    item[res.column].push(...res.value)
+  const guards = await this.getModelGuards()
+  const columns = model.getNonVirtualProperties().map(prop => prop.name)
+  const filterFn = item => {
+    const bySiteId = item.siteIds.includes(req.site.id + '')
+    const byModel = item.models.includes(model.name)
+    const byTeamId = item.teamIds.length === 0 || include(item.teamIds, teamIds)
+    const byColumn = columns.includes(item.column)
+    return bySiteId && byModel && byTeamId && byColumn
   }
 
-  for (const res of results) {
-    res.teamIds = res.teamIds ?? []
-    if (!(res.models ?? []).includes(model.name) || isEmpty(res.value)) continue
-    item[res.column] = item[res.column] ?? []
-    if (teamIds.length > 0) {
-      for (const id of res.teamIds) {
-        if (teamIds.includes(id)) add(res)
-      }
+  guards.global = orderBy(guards.global.filter(filterFn), ['column'])
+  guards.local = orderBy(guards.local.filter(filterFn), ['column'])
+  for (const col of columns) {
+    let values = []
+    let items = guards.global.filter(item => item.column === col && !item.negation)
+    for (const item of items) {
+      values.push(...item.value)
     }
-  }
-  for (const key in item) {
-    item[key] = uniq(item[key])
-    if (item[key].length === 0) continue
-    guards.push(set({}, key, { $in: item[key] }))
+    items = guards.global.filter(item => item.column === col && item.negation)
+    for (const item of items) {
+      values = without(values, ...item.value)
+    }
+    items = guards.local.filter(item => item.column === col && !item.negation)
+    const newValues = []
+    for (const item of items) {
+      newValues.push(...item.value)
+    }
+    if (newValues.length > 0) values = intersection(values, newValues)
+    items = guards.local.filter(item => item.column === col && item.negation)
+    for (const item of items) {
+      values = without(values, ...item.value)
+    }
+    if (values.length) results.push(set({}, col, { $in: values }))
   }
 
   const allowEmpty = get(this, `config.dobo.model.${model.name}.allowEmptyQuery`, true)
-  if (guards.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery') // signal driver to about with no result immediately
-  q.$and.push(...guards)
+  if (results.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery') // signal driver to about with no result immediately
+  q.$and.push(...results)
 }
 
 export async function applyAttribGuard ({ model, teamIds, options }) {
-  const { getModel } = this.app.dobo
   const { uniq } = this.app.lib._
+  const { include } = this.app.lib.aneka
   const { req } = options
+  const results = []
 
-  const query = { status: 'ACTIVE', siteId: req.site.id + '' }
-  const results = await getModel('SumbaAttribGuard').findAllRecord({ query }, { noMagic: true, dataOnly: true, noDriverHook: true })
-  const result = results.find(item => (item.models ?? []).includes(model.name))
-  if (!result) return
-  options.hidden = options.hidden ?? []
-  for (const id of result.teamIds ?? []) {
-    if (teamIds.includes(id)) options.hidden.push(...(result.hiddenCols ?? []))
+  const guards = await this.getAttribGuards()
+  const filterFn = item => {
+    const bySiteId = item.siteIds.includes(req.site.id + '')
+    const byModel = item.models.includes(model.name)
+    const byTeamId = item.teamIds.length === 0 || include(item.teamIds, teamIds)
+    return bySiteId && byModel && byTeamId
   }
+
+  let item = guards.global.filter(filterFn)[0]
+  if (item) results.push(...item.hiddenCols)
+  item = guards.local.filter(filterFn)[0]
+  if (item) results.push(...item.hiddenCols)
+  options.hidden = options.hidden ?? []
+  if (results.length > 0) options.hidden.push(...results)
   options.hidden = uniq(options.hidden)
 }
 
@@ -65,7 +83,7 @@ export async function rebuildFilter (model, filter = {}, options = {}) {
     if (filter.query.$and) q.$and.push(...filter.query.$and)
     else q.$and.push(filter.query)
   }
-  if (req.routeOptions.config.crossSite) return
+  if (req.routeOptions.config.xSite) return
   if (hasSiteId) q.$and.push({ siteId: req.site.id + '' })
   if (aliases.includes('administrator')) {
     filter.query = q

@@ -1,36 +1,47 @@
+export async function buildEnd (model) {
+  const prop = model.properties.find(prop => prop.name === 'models')
+  if (prop) prop.values = this.app.sumba.getModelNames(true)
+}
+
+export const properties = [
+  {
+    name: 'models',
+    type: 'array',
+    required: true
+  },
+  'column,,50,true,true',
+  {
+    name: 'negation',
+    type: 'boolean',
+    required: true,
+    default: false
+  },
+  {
+    name: 'status',
+    type: 'sumba:status',
+    values: ['ACTIVE', 'INACTIVE'],
+    default: 'ACTIVE'
+  },
+  'value,array,,,true',
+  'siteId,sumba:siteId',
+  'teamIds,sumba:teamIds'
+]
+
+export const options = {
+  attachment: false,
+  cache: { ttlDur: 0 }
+}
+
+export const features = [
+  'dobo:updatedAt'
+]
+
 async function routeGuard () {
   return {
-    properties: [
-      {
-        name: 'models',
-        type: 'array',
-        required: true
-      },
-      'column,,50,true,true',
-      'value,array',
-      'teamIds,sumba:teamIds'
-    ],
-    indexes: [{
-      type: 'unique',
-      fields: ['models', 'column', 'siteId']
-    }],
-    features: [
-      {
-        name: 'sumba:status',
-        values: ['ACTIVE', 'INACTIVE'],
-        default: 'ACTIVE'
-      },
-      'dobo:immutable',
-      'dobo:updatedAt',
-      'sumba:siteId'
-    ],
-    options: {
-      attachment: false
-    },
-    buildEnd: async function (model) {
-      const prop = model.properties.find(prop => prop.name === 'models')
-      prop.values = this.app.dobo.models.map(model => model.name).sort().map(item => ({ value: item, text: item }))
-    }
+    properties,
+    features,
+    options,
+    buildEnd
   }
 }
 

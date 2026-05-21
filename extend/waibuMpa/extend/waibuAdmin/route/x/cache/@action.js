@@ -1,7 +1,7 @@
 const action = {
   method: ['GET', 'POST'],
   title: 'cacheStorage',
-  crossSite: true,
+  xSite: true,
   handler: async function (req, reply) {
     if (!this.app.bajoCache) throw this.error('_notFound')
     const { importModule } = this.app.bajo

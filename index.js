@@ -20,7 +20,7 @@ const defMultiSite = {
 async function factory (pkgName) {
   const me = this
   const { getModel } = this.app.dobo
-  const { cloneDeep } = this.app.lib._
+  const { cloneDeep, uniq, isEmpty } = this.app.lib._
 
   /**
    * Sumba class
@@ -32,7 +32,7 @@ async function factory (pkgName) {
       super(pkgName, me.app)
       this.config = {
         multiSite: cloneDeep(defMultiSite),
-        crossSiteAdmins: [],
+        crossSiteAdmins: [], // format: "<siteAlias>:<username>"
         waibu: {
           title: 'site',
           prefix: 'site'
@@ -155,6 +155,10 @@ async function factory (pkgName) {
           getUserByTokenDur: '1m'
         }
       }
+      this.routeGuards = { local: [], global: [] }
+      this.modelGuards = { local: [], global: [] }
+      this.attribGuards = { local: [], global: [] }
+
       this.unsafeUserFields = ['password']
       this.selfBind(['createNewSite', 'removeSite', 'getSite', 'getUserById', 'getUserByToken', 'getUserByUsernamePassword'])
     }
@@ -174,7 +178,7 @@ async function factory (pkgName) {
       if (this.config.crossSiteAdmins.length === 0) {
         const site = await getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noMagic: true })
         const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id } }, { noMagic: true })
-        this.config.crossSiteAdmins.push(user.id)
+        this.config.crossSiteAdmins.push(`${site.alias}:${user.username}`)
       }
     }
 
@@ -205,52 +209,60 @@ async function factory (pkgName) {
       if (!this.app.waibuAdmin) return
       const { getPluginPrefix } = this.app.waibu
       const prefix = getPluginPrefix(this.ns)
+      const params = { action: 'list' }
       const items = [{
+        title: 'xSite',
+        children: [
+          { title: 'allSites', href: `waibuAdmin:/${prefix}/x/site/:action`, params },
+          { title: 'xRouteGuard', href: `waibuAdmin:/${prefix}/x/route-guard/:action`, params },
+          { title: 'xModelGuard', href: `waibuAdmin:/${prefix}/x/model-guard/:action`, params },
+          { title: 'xAttribGuard', href: `waibuAdmin:/${prefix}/x/attrib-guard/:action`, params },
+          { title: 'userSession', href: `waibuAdmin:/${prefix}/x/session/:action`, params }
+        ]
+      }, {
         title: 'manageSite',
         children: [
           { title: 'siteProfile', href: `waibuAdmin:/${prefix}/site` },
-          { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/list` },
-          { title: 'allSites', href: `waibuAdmin:/${prefix}/all-sites/list` }
+          { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/:action`, params }
         ]
       }, {
         title: 'manageUser',
         children: [
-          { title: 'userProfile', href: `waibuAdmin:/${prefix}/user/list` },
-          { title: 'userSetting', href: `waibuAdmin:/${prefix}/user-setting/list` },
+          { title: 'userProfile', href: `waibuAdmin:/${prefix}/user/:action`, params },
+          { title: 'userSetting', href: `waibuAdmin:/${prefix}/user-setting/:action`, params },
           { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
         ]
       }, {
         title: 'manageTeam',
         children: [
-          { title: 'teamProfile', href: `waibuAdmin:/${prefix}/team/list` },
-          { title: 'teamUser', href: `waibuAdmin:/${prefix}/team-user/list` },
-          { title: 'teamSetting', href: `waibuAdmin:/${prefix}/team-setting/list` }
+          { title: 'teamProfile', href: `waibuAdmin:/${prefix}/team/:action`, params },
+          { title: 'teamUser', href: `waibuAdmin:/${prefix}/team-user/:action`, params },
+          { title: 'teamSetting', href: `waibuAdmin:/${prefix}/team-setting/:action`, params }
         ]
       }, {
         title: 'permission',
         children: [
-          { title: 'routeGuard', href: `waibuAdmin:/${prefix}/route-guard/list` },
-          { title: 'modelGuard', href: `waibuAdmin:/${prefix}/model-guard/list` },
-          { title: 'attribGuard', href: `waibuAdmin:/${prefix}/attrib-guard/list` }
+          { title: 'routeGuard', href: `waibuAdmin:/${prefix}/route-guard/:action`, params },
+          { title: 'modelGuard', href: `waibuAdmin:/${prefix}/model-guard/:action`, params },
+          { title: 'attribGuard', href: `waibuAdmin:/${prefix}/attrib-guard/:action`, params }
         ]
       }, {
         title: 'supportSystem',
         children: [
-          { title: 'contactForm', href: `waibuAdmin:/${prefix}/contact-form/list` },
-          { title: 'contactFormCat', href: `waibuAdmin:/${prefix}/contact-form-cat/list` },
-          { title: 'ticket', href: `waibuAdmin:/${prefix}/ticket/list` },
-          { title: 'ticketCat', href: `waibuAdmin:/${prefix}/ticket-cat/list` }
+          { title: 'contactForm', href: `waibuAdmin:/${prefix}/contact-form/:action`, params },
+          { title: 'contactFormCat', href: `waibuAdmin:/${prefix}/contact-form-cat/:action`, params },
+          { title: 'ticket', href: `waibuAdmin:/${prefix}/ticket/:action`, params },
+          { title: 'ticketCat', href: `waibuAdmin:/${prefix}/ticket-cat/:action`, params }
         ]
       }, {
         title: 'misc',
         children: [
-          { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` },
-          { title: 'userSession', href: `waibuAdmin:/${prefix}/session/list` }
+          { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/:action`, params }
         ]
       }]
       if (this.app.bajoCache) {
-        const item = items.find(i => i.title === 'misc')
-        if (item) item.children.push({ title: 'cacheStorage', href: `waibuAdmin:/${prefix}/cache/list` })
+        const item = items.find(i => i.title === 'xSite')
+        item.children.push({ title: 'cacheStorage', href: `waibuAdmin:/${prefix}/x/cache/:action`, params })
       }
       return items
     }
@@ -531,23 +543,83 @@ async function factory (pkgName) {
       return await hash(item, this.config.auth.common.apiKey.algo)
     }
 
-    getRouteGuards = async (reread) => {
+    _fetchGuards = async (type = 'Route') => {
       const { getModel } = this.app.dobo
+      const options = { noMagic: true, noCache: true, noDriverHook: true, dataOnly: true }
+      const filter = { query: { status: 'ACTIVE' } }
+      return {
+        global: await getModel(`SumbaX${type}Guard`).findAllRecord(filter, options),
+        local: await getModel(`Sumba${type}Guard`).findAllRecord(filter, options),
+        siteIds: (await getModel('SumbaSite').findAllRecord(filter.options)).map(item => item.id + '')
+      }
+    }
+
+    getRouteGuards = async (reread) => {
       const { routePath } = this.app.waibu
       const { map, orderBy } = this.app.lib._
+      const { isSet } = this.app.lib.aneka
       if (!reread) return this.routeGuards
-      const model = getModel('SumbaRouteGuard')
-      let results = await model.findAllRecord({ query: { status: 'ACTIVE' } }, { noMagic: true, noCache: true, noDriverHook: true, dataOnly: true })
-      results = results.map(item => {
-        item.teamIds = item.teamIds ?? []
-        item.methods = item.methods ?? []
-        return item
-      })
-      this.routeGuards = orderBy(map(results, item => {
-        item.path = routePath(item.path)
-        return item
-      }), ['weight', 'path'])
+
+      const result = await this._fetchGuards('Route')
+      for (const type of ['global', 'local']) {
+        result[type] = result[type].map(item => {
+          item.siteIds = item.siteIds ?? []
+          if (item.siteIds.length === 0) item.siteIds = [...result.siteIds]
+          if (item.siteId) item.siteIds = uniq([...item.siteIds, item.siteId].filter(i => isSet(i)).map(i => i + ''))
+          item.teamIds = (item.teamIds ?? []).filter(i => isSet(i)).map(i => i + '')
+          item.methods = item.methods ?? []
+          delete item.siteId
+          return item
+        })
+        this.routeGuards[type] = orderBy(map(result[type], item => {
+          item.path = routePath(item.path)
+          return item
+        }), ['weight', 'path'], ['desc', 'asc'])
+      }
       return this.routeGuards
+    }
+
+    getModelGuards = async (reread) => {
+      const { isSet } = this.app.lib.aneka
+      if (!reread) return this.modelGuards
+
+      const result = await this._fetchGuards('Model')
+      for (const type of ['global', 'local']) {
+        this.modelGuards[type] = result[type].filter(item => (!isEmpty(item.value)) && (!isEmpty(item.models))).map(item => {
+          item.siteIds = item.siteIds ?? []
+          if (item.siteIds.length === 0) item.siteIds = [...result.siteIds]
+          if (item.siteId) item.siteIds = uniq([...item.siteIds, item.siteId].filter(i => isSet(i)).map(i => i + ''))
+          item.teamIds = (item.teamIds ?? []).filter(i => isSet(i)).map(i => i + '')
+          delete item.siteId
+          return item
+        })
+      }
+      return this.modelGuards
+    }
+
+    getAttribGuards = async (reread) => {
+      const { isSet } = this.app.lib.aneka
+      if (!reread) return this.attribGuards
+
+      const result = await this._fetchGuards('Attrib')
+      for (const type of ['global', 'local']) {
+        this.attribGuards[type] = result[type].map(item => {
+          item.siteIds = item.siteIds ?? []
+          if (item.siteIds.length === 0) item.siteIds = [...result.siteIds]
+          if (item.siteId) item.siteIds = uniq([...item.siteIds, item.siteId].filter(i => isSet(i)).map(i => i + ''))
+          item.teamIds = (item.teamIds ?? []).filter(i => isSet(i)).map(i => i + '')
+          item.models = item.models ?? []
+          item.hiddenCols = item.hiddenCols ?? []
+          delete item.siteId
+          return item
+        })
+      }
+      return this.attribGuards
+    }
+
+    getModelNames = (asValue) => {
+      const values = this.app.dobo.models.map(item => item.name).sort()
+      return asValue ? values.map(item => ({ value: item, text: item })) : values
     }
 
     createNewSite = createNewSite
