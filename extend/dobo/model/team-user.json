@@ -8,9 +8,9 @@
   "features": [
     "dobo:createdAt",
     "dobo:updatedAt",
-    "sumba:teamId",
     "sumba:siteId",
     "sumba:userId",
+    "sumba:teamId",
     "dobo:immutable"
   ]
 }

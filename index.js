@@ -32,7 +32,7 @@ async function factory (pkgName) {
       super(pkgName, me.app)
       this.config = {
         multiSite: cloneDeep(defMultiSite),
-        crossSiteAdmins: [], // format: "<siteAlias>:<username>"
+        xSiteAdmins: [], // format: "<siteAlias>:<username>"
         waibu: {
           title: 'site',
           prefix: 'site'
@@ -175,10 +175,10 @@ async function factory (pkgName) {
 
     start = async () => {
       const { getModel } = this.app.dobo
-      if (this.config.crossSiteAdmins.length === 0) {
+      if (this.config.xSiteAdmins.length === 0) {
         const site = await getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noMagic: true })
         const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id } }, { noMagic: true })
-        this.config.crossSiteAdmins.push(`${site.alias}:${user.username}`)
+        this.config.xSiteAdmins.push(`${site.alias}:${user.username}`)
       }
     }
 
@@ -556,7 +556,7 @@ async function factory (pkgName) {
 
     getRouteGuards = async (reread) => {
       const { routePath } = this.app.waibu
-      const { map, orderBy } = this.app.lib._
+      const { orderBy } = this.app.lib._
       const { isSet } = this.app.lib.aneka
       if (!reread) return this.routeGuards
 
@@ -571,9 +571,13 @@ async function factory (pkgName) {
           delete item.siteId
           return item
         })
-        this.routeGuards[type] = orderBy(map(result[type], item => {
-          item.path = routePath(item.path)
-          return item
+        this.routeGuards[type] = orderBy(result[type].filter(item => {
+          try {
+            item.path = routePath(item.path)
+            return true
+          } catch (err) {
+            return false
+          }
         }), ['weight', 'path'], ['desc', 'asc'])
       }
       return this.routeGuards

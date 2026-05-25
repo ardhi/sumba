@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-05-25
+
+- [2.25.1] Bug fix in several places because name changing ```crossSiteAdmins``` to ```xSiteAdmins```
+
 ## 2026-05-22
 
 - [2.25.0] Reorganize admin menu layout & order

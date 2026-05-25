@@ -89,11 +89,29 @@ export async function rebuildFilter (model, filter = {}, options = {}) {
     filter.query = q
     return
   }
+  if (!req.user) {
+    filter.query = q
+    return
+  }
+
+  const condUserId = {
+    $or: [
+      { userId: req.user.id + '' },
+      { userId: { $eq: null } }
+    ]
+  }
+
+  const condTeamId = {
+    $or: [
+      { teamId: { $in: teamIds } },
+      { teamId: { $eq: null } }
+    ]
+  }
 
   if (hasTeamId) {
-    if (hasUserId) q.$and.push({ $or: [{ teamId: { $in: teamIds } }, { userId: req.user.id + '' }] })
-    else q.$and.push({ teamId: { $in: teamIds } })
-  } else if (hasUserId) q.$and.push({ userId: req.user.id + '' })
+    if (hasUserId) q.$and.push({ $or: [condTeamId, condUserId] })
+    else q.$and.push(condTeamId)
+  } else if (hasUserId) q.$and.push(condUserId)
 
   await applyModelGuard.call(this, { model, q, teamIds, options })
   await applyAttribGuard.call(this, { model, teamIds, options })
@@ -102,7 +120,8 @@ export async function rebuildFilter (model, filter = {}, options = {}) {
 
 export async function handler (model, filter, options = {}) {
   const { isEmpty } = this.app.lib._
-  if (options.noAutoFilter || !options.req || isEmpty((options.req ?? {}).site)) return
+  const { req = {} } = options
+  if (options.noAutoFilter || isEmpty(req) || isEmpty(req.site)) return
   await rebuildFilter.call(this, model, filter, options)
 }
 

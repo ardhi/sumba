@@ -1,9 +1,10 @@
 import { rebuildFilter } from './dobo@before-driver-find-record.js'
 
 export async function checker (model, id, options = {}) {
-  const { req } = options
+  const { isEmpty } = this.app.lib._
+  const { req = {} } = options
+  if (options.noAutoFilter || isEmpty(req) || isEmpty(req.site)) return
 
-  if (options.noAutoFilter || !req) return
   const filter = {}
   await rebuildFilter.call(this, model, filter, options)
   if (filter.query.$and) filter.query.$and.push({ id })
