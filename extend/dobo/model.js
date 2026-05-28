@@ -1,0 +1,215 @@
+const buildEnd = async function (model) {
+  const prop = model.properties.find(prop => prop.name === 'models')
+  if (prop) prop.values = this.getModelNames(true)
+}
+
+const mgProperties = [
+  {
+    name: 'models',
+    type: 'array',
+    required: true
+  },
+  'column,,50,true,true',
+  {
+    name: 'negation',
+    type: 'boolean',
+    required: true,
+    default: false
+  },
+  {
+    name: 'status',
+    type: 'sumba:status',
+    values: ['ACTIVE', 'INACTIVE'],
+    default: 'ACTIVE'
+  },
+  'value,array,,,true',
+  'siteId,sumba:siteId',
+  'teamIds,sumba:teamIds'
+]
+
+const options = {
+  attachment: false,
+  cache: { ttlDur: 0 }
+}
+
+const mgFeatures = [
+  'dobo:updatedAt'
+]
+
+const agProperties = [
+  {
+    name: 'models',
+    type: 'array',
+    required: true
+  },
+  'hiddenCols,array',
+  'siteId,sumba:siteId',
+  'teamIds,sumba:teamIds'
+]
+
+const agFeatures = [
+  {
+    name: 'sumba:status',
+    values: ['ACTIVE', 'INACTIVE'],
+    default: 'ACTIVE'
+  },
+  'dobo:updatedAt'
+]
+
+export const rgProperties = [
+  'path,,255,true,true',
+  {
+    name: 'methods',
+    type: 'array',
+    required: true,
+    default: ['GET', 'POST', 'UPDATE', 'DELETE'],
+    values: ['GET', 'POST', 'UPDATE', 'DELETE']
+  },
+  {
+    name: 'weight',
+    type: 'smallint',
+    default: 0
+  }, {
+    name: 'negation',
+    type: 'boolean',
+    required: true,
+    default: false
+  }, {
+    name: 'anonymous',
+    type: 'boolean',
+    required: true,
+    default: false
+  },
+  'siteId,sumba:siteId',
+  'teamIds,sumba:teamIds'
+]
+
+export const rgFeatures = [
+  {
+    name: 'sumba:status',
+    values: ['ACTIVE', 'INACTIVE'],
+    default: 'ACTIVE'
+  },
+  'dobo:updatedAt'
+]
+
+async function model () {
+  const { isString } = this.app.lib._
+  return [{
+    baseName: 'route-guard',
+    properties: rgProperties,
+    features: rgFeatures,
+    options
+  }, {
+    baseName: 'x-route-guard',
+    properties: rgProperties.filter(prop => !isString(prop) || (isString(prop) && !prop.startsWith('teamIds'))),
+    features: rgFeatures.filter(feat => !isString(feat) || (isString(feat) && !['sumba:siteId', 'dobo:updatedAt'].includes(feat))).concat('sumba:siteIds', 'dobo:updatedAt'),
+    options
+  }, {
+    baseName: 'attrib-guard',
+    properties: agProperties,
+    features: agFeatures,
+    options,
+    buildEnd
+  }, {
+    baseName: 'x-attrib-guard',
+    properties: agProperties.filter(prop => !isString(prop) || (isString(prop) && !prop.startsWith('teamIds'))),
+    features: agFeatures.filter(feat => !isString(feat) || (isString(feat) && !['sumba:siteId', 'dobo:updatedAt'].includes(feat))).concat('sumba:siteIds', 'dobo:updatedAt'),
+    options,
+    buildEnd
+  }, {
+    baseName: 'model-guard',
+    properties: mgProperties,
+    features: mgFeatures,
+    options,
+    buildEnd
+  }, {
+    baseName: 'x-model-guard',
+    properties: mgProperties.filter(prop => !isString(prop) || (isString(prop) && !prop.startsWith('teamIds'))),
+    features: mgFeatures.filter(feat => !isString(feat) || (isString(feat) && !['sumba:siteId', 'dobo:updatedAt'].includes(feat))).concat('sumba:siteIds', 'dobo:updatedAt'),
+    options,
+    buildEnd
+  }, {
+    buildLevel: 2,
+    baseName: 'user',
+    properties: [{
+      name: 'username',
+      type: 'string',
+      minLength: 5,
+      maxLength: 50,
+      rules: ['alphanum']
+    }, {
+      name: 'password',
+      type: 'string',
+      minLength: 8,
+      maxLength: 100
+    }, {
+      name: 'token',
+      type: 'string',
+      maxLength: 100,
+      index: true
+    }, {
+      name: 'salt',
+      type: 'string',
+      maxLength: 100,
+      required: true
+    }, {
+      name: 'apiKey',
+      type: 'string',
+      maxLength: 100,
+      virtual: true,
+      getValue: async function (val, rec) {
+        if (!rec.salt) return
+        return await this.plugin.hash(rec.salt)
+      }
+    }, {
+      name: 'provider',
+      type: 'string',
+      maxLength: 50,
+      index: true,
+      default: 'local'
+    }, {
+      name: 'email',
+      type: 'string',
+      maxLength: 100,
+      required: true,
+      rules: ['email']
+    }, {
+      name: 'firstName',
+      type: 'string',
+      maxLength: 50,
+      required: true,
+      index: true
+    }, {
+      name: 'lastName',
+      type: 'string',
+      maxLength: 50,
+      required: true,
+      index: true
+    }],
+    rules: [{ rule: 'trim', fields: ['username', 'firstName', 'lastName'] }],
+    indexes: [{
+      fields: ['username', 'siteId'],
+      type: 'unique'
+    }, {
+      fields: ['email', 'siteId'],
+      type: 'unique'
+    }],
+    hidden: ['password'],
+    features: [
+      'sumba:address',
+      'sumba:social',
+      {
+        name: 'sumba:status',
+        default: 'UNVERIFIED',
+        values: ['UNVERIFIED', 'ACTIVE', 'INACTIVE']
+      },
+      'sumba:siteId',
+      'dobo:createdAt',
+      'dobo:updatedAt',
+      'dobo:immutable'
+    ]
+  }]
+}
+
+export default model

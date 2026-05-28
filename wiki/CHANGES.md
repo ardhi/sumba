@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-05-28
+
+- [2.26.0] Change hooks to be written in one ```hook.js``` file
+- [2.26.0] Change model schemas to be written in one ```model.js``` file
+
 ## 2026-05-25
 
 - [2.25.1] Bug fix in several places because name changing ```crossSiteAdmins``` to ```xSiteAdmins```

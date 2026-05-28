@@ -1,0 +1,214 @@
+[{
+  "baseName": "contact-form-cat",
+  "features": ["sumba:category", "sumba:siteId"]
+}, {
+  "baseName": "contact-form",
+  "properties": [
+    "firstName,,50,true,true",
+    "lastName,,50,true,true",
+    "email,,50,true,true",
+    "category,,50,true",
+    "subject,,255,,true",
+    "message,text"
+  ],
+  "features": [{
+      "name": "sumba:status",
+      "default": "NEW",
+      "values": ["NEW", "ACK"]
+    }, "sumba:userId", "sumba:siteId", "dobo:createdAt", "dobo:updatedAt"
+  ]
+}, {
+  "baseName": "download",
+  "properties": [
+    "description,,50,true",
+    "file,text,,,true",
+    "type,,20,true",
+    "jobQueue,object",
+    {
+      "name": "size",
+      "type": "integer",
+      "default": 0,
+      "index": true
+    }
+  ],
+  "features": ["sumba:siteId", "sumba:userId", "dobo:createdAt", "dobo:updatedAt", {
+    "name": "sumba:status",
+    "default": "INQUEUE",
+    "values": ["INQUEUE", "PROCESSING", "COMPLETE", "FAIL"]
+  }]
+}, {
+  "baseName": "site-setting",
+  "properties": [
+    "ns,,50,true,true",
+    "key,,255,true,true",
+    "value,text"
+  ],
+  "indexes": [{
+    "fields": ["ns", "key", "siteId"],
+    "type": "unique"
+  }],
+  "features": [
+    "sumba:siteId",
+    "dobo:immutable",
+    "dobo:updatedAt"
+  ]
+}, {
+  "buildLevel": 1,
+  "baseName": "site",
+  "properties": [{
+    "name": "hostname",
+    "type": "string",
+    "maxLength": 100,
+    "required": true,
+    "index": "unique"
+  }, {
+    "name": "alias",
+    "type": "string",
+    "maxLength": 100,
+    "index": "unique",
+    "required": true,
+    "immutable": true
+  }, {
+    "name": "title",
+    "type": "string",
+    "maxLength": 50,
+    "required": true
+  }, {
+    "name": "orgName",
+    "type": "string",
+    "maxLength": 100,
+    "index": true
+  }, {
+    "name": "email",
+    "type": "string",
+    "maxLength": 100,
+    "rules": ["email"]
+  }],
+  "features": [
+    "sumba:personInCharge",
+    "sumba:address",
+    "sumba:social",
+    {
+      "name": "sumba:status",
+      "default": "ACTIVE"
+    },
+    "dobo:createdAt",
+    "dobo:updatedAt",
+    "dobo:immutable"
+  ],
+  "scanables": ["hostname", "alias", "title", "orgName"]
+}, {
+  "buildLevel": 5,
+  "baseName": "team-setting",
+  "properties": [
+    "ns,,50,true,true",
+    "key,,255,true,true",
+    "value,text"
+  ],
+  "indexes": [{
+    "fields": ["ns", "key", "siteId", "teamId"],
+    "type": "unique"
+  }],
+  "features": [
+    "sumba:siteId",
+    "dobo:updatedAt",
+    "sumba:teamId"
+  ]
+}, {
+  "buildLevel": 4,
+  "baseName": "team-user",
+  "properties": [],
+  "indexes": [{
+    "fields": ["userId", "siteId", "teamId"],
+    "type": "unique"
+  }],
+  "features": [
+    "dobo:createdAt",
+    "dobo:updatedAt",
+    "sumba:siteId",
+    "sumba:userId",
+    "sumba:teamId",
+    "dobo:immutable"
+  ]
+}, {
+  "buildLevel": 3,
+  "baseName": "team",
+  "properties": [
+    "alias,,20,,true",
+    "name,,50,true,true"
+  ],
+  "indexes": [{
+    "fields": ["alias", "siteId"],
+    "type": "unique"
+  }],
+  "features": [
+    "dobo:createdAt",
+    "dobo:updatedAt",
+    "dobo:immutable",
+    "sumba:siteId",
+    {
+      "name": "sumba:status",
+      "default": "ENABLED",
+      "values": ["ENABLED", "DISABLED"]
+    },
+    "dobo:immutable"
+  ]
+}, {
+  "baseName": "ticket-cat",
+  "features": ["sumba:category", "sumba:siteId"]
+}, {
+  "baseName": "ticket-detail",
+  "properties": [
+    "masterId,,255,true,true",
+    "message,text"
+  ],
+  "features": ["dobo:createdAt", "sumba:userId", "sumba:siteId"]
+}, {
+  "baseName": "ticket",
+  "properties": [
+    "subject,,255,true,true",
+    {
+      "name": "cat",
+      "type": "string",
+      "maxLength": 50,
+      "index": true,
+      "required": true,
+      "ref": {
+        "cat": {
+          "model": "SumbaTicketCat",
+          "searchField": "name",
+          "labelField": "name"
+        }
+      }
+    },
+    "message,text,,,true"
+  ],
+  "features": [
+    "dobo:createdAt",
+    "dobo:updatedAt",
+    "sumba:siteId",
+    "sumba:userId",
+    {
+      "name": "sumba:status",
+      "default": "OPEN",
+      "values": ["OPEN", "CLOSED"]
+    }
+  ]
+}, {
+  "buildLevel": 5,
+  "baseName": "user-setting",
+  "properties": [
+    "ns,,50,true,true",
+    "key,,255,true,true",
+    "value,text"
+  ],
+  "indexes": [{
+    "fields": ["ns", "key", "siteId", "userId"],
+    "type": "unique"
+  }],
+  "features": [
+    "sumba:siteId",
+    "dobo:updatedAt",
+    "sumba:userId"
+  ]
+}]
