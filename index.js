@@ -377,7 +377,7 @@ async function factory (pkgName) {
       return true
     }
 
-    checkPathsByRoute = ({ paths = [], teamIds = [], guards = [] }) => {
+    checkPathsByRoute = ({ req, paths = [], teamIds = [], guards = [] }) => {
       const { includes } = this.app.lib.aneka
       const { outmatch } = this.app.lib
 
@@ -385,8 +385,10 @@ async function factory (pkgName) {
         const matchPath = outmatch(item.path)
         for (const path of paths) {
           if (matchPath(path)) {
-            if (includes(teamIds, item.teamIds)) return item
-            if (teamIds.length === 0) return item
+            if (item.methods.includes(req.method)) {
+              if (includes(teamIds, item.teamIds)) return item
+              if (teamIds.length === 0) return item
+            }
           }
         }
       }

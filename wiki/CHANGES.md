@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-05-29
+
+- [2.26.1] Bug fix in ```util.js```
+- [2.26.1] Bug fix in ```checkPathsByRoute()```
+
 ## 2026-05-28
 
 - [2.26.0] Change hooks to be written in one ```hook.js``` file
