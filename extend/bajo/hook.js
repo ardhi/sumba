@@ -256,14 +256,6 @@ async function hook () {
       )
     }
   }, {
-    name: 'dobo.sumbaUser:afterRecordValidation',
-    handler: async function (body, options) {
-      const { isBcrypt, hash } = this.app.bajoExtra
-      const { has } = this.app.lib._
-
-      if (has(body, 'password') && !isBcrypt(body.password)) body.password = await hash(body.password, 'bcrypt')
-    }
-  }, {
     name: 'dobo.sumbaUser:afterRemoveRecord',
     handler: async function (id, rec, options = {}) {
       await clearCacheUser.call(this, id, rec)
@@ -301,30 +293,6 @@ async function hook () {
           'sumba.template:/_mail/mystuff-change-password.html',
           { payload, options, source }
         )
-      }
-    }
-  }, {
-    name: 'dobo.sumbaUser:beforeCreateRecord',
-    handler: async function (body, options = {}) {
-      const { token, salt } = await this.resetToken()
-      body.token = token
-      body.salt = salt
-    }
-  }, {
-    name: 'dobo.sumbaUser:beforeRecordValidation',
-    handler: async function (body, options = {}) {
-      const { set } = this.app.lib._
-      const password = await this.passwordRule(options.req)
-      const rule = { password }
-      set(options, 'validation.params.rule', rule)
-    }
-  }, {
-    name: 'dobo.sumbaUser:beforeUpdateRecord',
-    handler: async function (id, body, options = {}) {
-      if (body.salt) {
-        const { token, salt } = await this.resetToken(body.salt)
-        body.token = token
-        body.salt = salt
       }
     }
   }, {

@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-05-30
+
+- [2.27.0] Move all ```sumbaUser``` hooks to model hooks
+- [2.27.0] Bug fix in ```model.js```
+- [2.27.0] Bug fix in ```create-new-site.js```
+- [2.27.0] Bug fix in ```team-user.json``` fixture
+
 ## 2026-05-29
 
 - [2.26.1] Bug fix in ```util.js```

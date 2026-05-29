@@ -102,8 +102,11 @@ async function model () {
     options
   }, {
     baseName: 'x-route-guard',
-    properties: rgProperties.filter(prop => !isString(prop) || (isString(prop) && !prop.startsWith('teamIds'))),
-    features: rgFeatures.filter(feat => !isString(feat) || (isString(feat) && !['sumba:siteId', 'dobo:updatedAt'].includes(feat))).concat('sumba:siteIds', 'dobo:updatedAt'),
+    properties: rgProperties.filter(prop => {
+      if (!isString(prop)) return true
+      return !(prop.startsWith('teamIds') || prop.startsWith('siteId'))
+    }).concat('siteIds,sumba:siteIds'),
+    features: rgFeatures,
     options
   }, {
     baseName: 'attrib-guard',
@@ -113,8 +116,11 @@ async function model () {
     buildEnd
   }, {
     baseName: 'x-attrib-guard',
-    properties: agProperties.filter(prop => !isString(prop) || (isString(prop) && !prop.startsWith('teamIds'))),
-    features: agFeatures.filter(feat => !isString(feat) || (isString(feat) && !['sumba:siteId', 'dobo:updatedAt'].includes(feat))).concat('sumba:siteIds', 'dobo:updatedAt'),
+    properties: agProperties.filter(prop => {
+      if (!isString(prop)) return true
+      return !(prop.startsWith('teamIds') || prop.startsWith('siteId'))
+    }).concat('siteIds,sumba:siteIds'),
+    features: agFeatures,
     options,
     buildEnd
   }, {
@@ -125,8 +131,11 @@ async function model () {
     buildEnd
   }, {
     baseName: 'x-model-guard',
-    properties: mgProperties.filter(prop => !isString(prop) || (isString(prop) && !prop.startsWith('teamIds'))),
-    features: mgFeatures.filter(feat => !isString(feat) || (isString(feat) && !['sumba:siteId', 'dobo:updatedAt'].includes(feat))).concat('sumba:siteIds', 'dobo:updatedAt'),
+    properties: mgProperties.filter(prop => {
+      if (!isString(prop)) return true
+      return !(prop.startsWith('teamIds') || prop.startsWith('siteId'))
+    }).concat('siteIds,sumba:siteIds'),
+    features: mgFeatures,
     options,
     buildEnd
   }, {
@@ -208,7 +217,40 @@ async function model () {
       'dobo:createdAt',
       'dobo:updatedAt',
       'dobo:immutable'
-    ]
+    ],
+    hooks: [{
+      name: 'afterRecordValidation',
+      handler: async function (body, options) {
+        const { isBcrypt, hash } = this.app.bajoExtra
+        const { has } = this.app.lib._
+
+        if (has(body, 'password') && !isBcrypt(body.password)) body.password = await hash(body.password, 'bcrypt')
+      }
+    }, {
+      name: 'beforeCreateRecord',
+      handler: async function (body, options = {}) {
+        const { token, salt } = await this.plugin.resetToken()
+        body.token = token
+        body.salt = salt
+      }
+    }, {
+      name: 'beforeRecordValidation',
+      handler: async function (body, options = {}) {
+        const { set } = this.app.lib._
+        const password = await this.plugin.passwordRule(options.req)
+        const rule = { password }
+        set(options, 'validation.params.rule', rule)
+      }
+    }, {
+      name: 'beforeUpdateRecord',
+      handler: async function (id, body, options = {}) {
+        if (body.salt) {
+          const { token, salt } = await this.plugin.resetToken(body.salt)
+          body.token = token
+          body.salt = salt
+        }
+      }
+    }]
   }]
 }
 
