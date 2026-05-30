@@ -7,6 +7,7 @@
 - [2.27.0] Bug fix in ```create-new-site.js```
 - [2.27.0] Bug fix in ```team-user.json``` fixture
 - [2.27.1] Bug fix in ```util.pathToCheck()```
+- [2.27.2] Bug fix in ```hook.js```
 
 ## 2026-05-29
 

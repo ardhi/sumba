@@ -23,16 +23,16 @@ async function clearCacheUser (id, result) {
 
 async function applyModelGuard ({ model, q, teamIds, options }) {
   const { get, set, orderBy, intersection, without } = this.app.lib._
-  const { include } = this.app.lib.aneka
+  const { includes } = this.app.lib.aneka
   const { req } = options
   const results = []
 
   const guards = await this.getModelGuards()
   const columns = model.getNonVirtualProperties().map(prop => prop.name)
   const filterFn = item => {
-    const bySiteId = item.siteIds.includes(req.site.id + '')
+    const bySiteId = item.siteIds ? item.siteIds.includes(req.site.id + '') : true
     const byModel = item.models.includes(model.name)
-    const byTeamId = item.teamIds.length === 0 || include(item.teamIds, teamIds)
+    const byTeamId = item.teamIds ? includes(item.teamIds, teamIds) : true
     const byColumn = columns.includes(item.column)
     return bySiteId && byModel && byTeamId && byColumn
   }
@@ -54,7 +54,8 @@ async function applyModelGuard ({ model, q, teamIds, options }) {
     for (const item of items) {
       newValues.push(...item.value)
     }
-    if (newValues.length > 0) values = intersection(values, newValues)
+    if (values.length === 0) values = newValues
+    else if (newValues.length > 0) values = intersection(values, newValues)
     items = guards.local.filter(item => item.column === col && item.negation)
     for (const item of items) {
       values = without(values, ...item.value)
@@ -69,15 +70,15 @@ async function applyModelGuard ({ model, q, teamIds, options }) {
 
 export async function applyAttribGuard ({ model, teamIds, options }) {
   const { uniq } = this.app.lib._
-  const { include } = this.app.lib.aneka
+  const { includes } = this.app.lib.aneka
   const { req } = options
   const results = []
 
   const guards = await this.getAttribGuards()
   const filterFn = item => {
-    const bySiteId = item.siteIds.includes(req.site.id + '')
+    const bySiteId = item.siteIds ? item.siteIds.includes(req.site.id + '') : true
     const byModel = item.models.includes(model.name)
-    const byTeamId = item.teamIds.length === 0 || include(item.teamIds, teamIds)
+    const byTeamId = item.teamIds ? includes(item.teamIds, teamIds) : true
     return bySiteId && byModel && byTeamId
   }
 
