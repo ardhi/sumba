@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-06-01
+
+- [2.27.3] Bug fix in ```user.js``` schema
+
 ## 2026-05-30
 
 - [2.27.0] Move all ```sumbaUser``` hooks to model hooks
