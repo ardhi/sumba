@@ -11,7 +11,11 @@ async function user ({ req } = {}) {
     forceVisible: ['password', 'token'],
     format: {
       password: function (val, rec) {
-        return '*************'
+        return {
+          value: '*************',
+          icon: 'arrowsRepeat',
+          href: routePath('waibuAdmin:/site/reset-user-password', { query: { username: rec.username } })
+        }
         // return `<a href="waibuAdmin:/site/reset-user-password?username=${rec.username}">${req.t('resetPassword')}</a>`
       }
     },
@@ -23,6 +27,10 @@ async function user ({ req } = {}) {
       },
       password: {
         component: 'form-plaintext',
+        attr: {
+          font: 'monospace'
+        }
+        /*
         addons: [{
           attr: {
             'x-data': true,
@@ -32,6 +40,7 @@ async function user ({ req } = {}) {
           type: 'button',
           position: 'append'
         }]
+        */
       },
       apiKey: {
         attr: {

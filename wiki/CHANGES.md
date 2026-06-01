@@ -3,6 +3,7 @@
 ## 2026-06-01
 
 - [2.27.3] Bug fix in ```user.js``` schema
+- [2.28.0] Now using new ```format``` definition for ```virtual``` column
 
 ## 2026-05-30
 
