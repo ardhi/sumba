@@ -251,6 +251,37 @@ async function model () {
         }
       }
     }]
+  }, {
+    baseName: 'ticket',
+    properties: [
+      'subject,,255,true,true',
+      {
+        name: 'cat',
+        type: 'string',
+        maxLength: 50,
+        index: true,
+        required: true,
+        values: async function ({ req } = {}) {
+          const { getModel } = this.app.dobo
+          const model = await getModel('SumbaTicketCat')
+          const opts = { req, noMagic: true, dataOnly: true, fields: ['name'] }
+          const results = await model.findAllRecords({ sort: { level: 1, name: 1 } }, opts)
+          return results.map(r => r.name)
+        }
+      },
+      'message,text,,,true'
+    ],
+    features: [
+      'dobo:createdAt',
+      'dobo:updatedAt',
+      'sumba:siteId',
+      'sumba:userId',
+      {
+        name: 'sumba:status',
+        default: 'OPEN',
+        values: ['OPEN', 'CLOSED']
+      }
+    ]
   }]
 }
 

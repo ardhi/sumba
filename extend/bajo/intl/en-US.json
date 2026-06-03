@@ -140,6 +140,7 @@
   "xAttribGuard": "Attribute Guard",
   "xSite": "Cross-Site",
   "xSiteAdminArea": "Cross-Site Admin Area",
+  "x": "Cross-Site",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

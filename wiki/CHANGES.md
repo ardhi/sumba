@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-06-03
+
+- [2.29.0] Some models with property ```values``` now use the newly introduced function values
+- [2.29.0] Add redirections from empty folder to the right page
+
 ## 2026-06-01
 
 - [2.27.3] Bug fix in ```user.js``` schema
