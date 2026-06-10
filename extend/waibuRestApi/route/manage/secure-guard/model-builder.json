@@ -1,4 +1,4 @@
 {
-  "model": "SumbaRouteGuard",
+  "model": "SumbaSecureGuard",
   "disabled": ["create", "update", "remove"]
 }

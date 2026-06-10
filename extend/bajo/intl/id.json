@@ -138,15 +138,14 @@
   "statusClosed": "Tertutup",
   "allSites": "Semua Situs",
   "permission": "Permisi",
-  "routeGuard": "Pelindung Rute",
+  "anonymousGuard": "Pelindung Rute Anonim",
+  "secureGuard": "Pelindung Rute Aman",
   "modelGuard": "Pelindung Model",
   "attribGuard": "Pelindung Atribut",
-  "xRouteGuard": "Pelindung Rute",
-  "xModelGuard": "Pelindung Model",
-  "xAttribGuard": "Pelindung Atribut",
   "xSite": "Antar Situs",
   "xSiteAdminArea": "Area Admin Antar Situs",
   "x": "Antar Situs",
+  "misc": "Lain-lain",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
@@ -179,7 +178,8 @@
     "column": "Kolom",
     "hiddenCols": "Kolom Tersembunyi",
     "models": "Model",
-    "siteIds": "Situs"
+    "siteIds": "Situs",
+    "allTeams": "Semua Tim?"
   },
   "validation": {
     "password": {

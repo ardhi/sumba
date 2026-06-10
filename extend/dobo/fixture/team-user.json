@@ -2,5 +2,5 @@
   "siteId": "?:SumbaSite::alias:default",
   "userId": "?:SumbaUser::username:'admin'+siteId:'{siteId}'",
   "teamId": "?:SumbaTeam::alias:'administrator'+siteId:'{siteId}'",
-  "_immutable": true
+  "_immutable": ["*"]
 }]

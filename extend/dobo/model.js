@@ -3,142 +3,102 @@ const buildEnd = async function (model) {
   if (prop) prop.values = this.getModelNames(true)
 }
 
-const mgProperties = [
-  {
-    name: 'models',
-    type: 'array',
-    required: true
-  },
-  'column,,50,true,true',
-  {
-    name: 'negation',
-    type: 'boolean',
-    required: true,
-    default: false
-  },
-  {
-    name: 'status',
-    type: 'sumba:status',
-    values: ['ACTIVE', 'INACTIVE'],
-    default: 'ACTIVE'
-  },
-  'value,array,,,true',
-  'siteId,sumba:siteId',
-  'teamIds,sumba:teamIds'
-]
-
 const options = {
   attachment: false,
   cache: { ttlDur: 0 }
 }
 
-const mgFeatures = [
-  'dobo:updatedAt'
-]
+const allTeams = {
+  name: 'allTeams',
+  type: 'boolean',
+  default: true,
+  required: true
+}
 
-const agProperties = [
-  {
-    name: 'models',
-    type: 'array',
-    required: true
-  },
-  'hiddenCols,array',
-  'siteId,sumba:siteId',
-  'teamIds,sumba:teamIds'
-]
-
-const agFeatures = [
-  {
-    name: 'sumba:status',
-    values: ['ACTIVE', 'INACTIVE'],
-    default: 'ACTIVE'
-  },
-  'dobo:updatedAt'
-]
-
-export const rgProperties = [
-  'path,,255,true,true',
-  {
-    name: 'methods',
-    type: 'array',
-    required: true,
-    default: ['GET', 'POST', 'UPDATE', 'DELETE'],
-    values: ['GET', 'POST', 'UPDATE', 'DELETE']
-  },
-  {
-    name: 'weight',
-    type: 'smallint',
-    default: 0
-  }, {
-    name: 'negation',
-    type: 'boolean',
-    required: true,
-    default: false
-  }, {
-    name: 'anonymous',
-    type: 'boolean',
-    required: true,
-    default: false
-  },
-  'siteId,sumba:siteId',
-  'teamIds,sumba:teamIds'
-]
-
-export const rgFeatures = [
-  {
-    name: 'sumba:status',
-    values: ['ACTIVE', 'INACTIVE'],
-    default: 'ACTIVE'
-  },
-  'dobo:updatedAt'
-]
+const routeGuard = {
+  properties: [
+    {
+      name: 'path',
+      maxLength: 255,
+      required: true
+    },
+    allTeams,
+    'teamIds,sumba:teamIds',
+    {
+      name: 'weight',
+      type: 'smallint',
+      index: true,
+      default: 0
+    },
+    'siteId,sumba:siteId'
+  ],
+  features: [
+    'sumba:status',
+    'dobo:updatedAt',
+    'dobo:immutable'
+  ],
+  indexes: [{
+    type: 'unique',
+    fields: ['siteId', 'path']
+  }],
+  options: { ...options }
+}
 
 async function model () {
-  const { isString } = this.app.lib._
+  const { merge, cloneDeep } = this.app.lib._
   return [{
-    baseName: 'route-guard',
-    properties: rgProperties,
-    features: rgFeatures,
-    options
-  }, {
-    baseName: 'x-route-guard',
-    properties: rgProperties.filter(prop => {
-      if (!isString(prop)) return true
-      return !(prop.startsWith('teamIds') || prop.startsWith('siteId'))
-    }).concat('siteIds,sumba:siteIds'),
-    features: rgFeatures,
-    options
-  }, {
     baseName: 'attrib-guard',
-    properties: agProperties,
-    features: agFeatures,
-    options,
-    buildEnd
-  }, {
-    baseName: 'x-attrib-guard',
-    properties: agProperties.filter(prop => {
-      if (!isString(prop)) return true
-      return !(prop.startsWith('teamIds') || prop.startsWith('siteId'))
-    }).concat('siteIds,sumba:siteIds'),
-    features: agFeatures,
-    options,
+    properties: [
+      {
+        name: 'models',
+        type: 'array',
+        required: true
+      },
+      'hiddenFields,array',
+      allTeams,
+      'teamIds,sumba:teamIds',
+      'siteId,sumba:siteId'
+    ],
+    features: [
+      'sumba:status',
+      'dobo:updatedAt',
+      'dobo:immutable'
+    ],
+    options: { ...options },
     buildEnd
   }, {
     baseName: 'model-guard',
-    properties: mgProperties,
-    features: mgFeatures,
-    options,
+    properties: [
+      {
+        name: 'models',
+        type: 'array',
+        required: true
+      },
+      'field,,50,true,true',
+      {
+        name: 'behavior',
+        type: 'string',
+        maxLength: 20,
+        required: true,
+        values: ['IN', 'NIN'],
+        default: 'IN'
+      },
+      'value,array,,,true',
+      allTeams,
+      'teamIds,sumba:teamIds',
+      'siteId,sumba:siteId'
+    ],
+    features: [
+      'sumba:status',
+      'dobo:updatedAt',
+      'dobo:immutable'
+    ],
+    options: { ...options },
     buildEnd
-  }, {
-    baseName: 'x-model-guard',
-    properties: mgProperties.filter(prop => {
-      if (!isString(prop)) return true
-      return !(prop.startsWith('teamIds') || prop.startsWith('siteId'))
-    }).concat('siteIds,sumba:siteIds'),
-    features: mgFeatures,
-    options,
-    buildEnd
-  }, {
+  },
+  merge(cloneDeep(routeGuard), { baseName: 'anonymous-guard' }),
+  merge(cloneDeep(routeGuard), { baseName: 'secure-guard' }),
+  {
     buildLevel: 2,
     baseName: 'user',
     properties: [{

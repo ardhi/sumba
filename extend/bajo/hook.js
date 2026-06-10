@@ -22,45 +22,30 @@ async function clearCacheUser (id, result) {
 }
 
 async function applyModelGuard ({ model, q, teamIds, options }) {
-  const { get, set, orderBy, intersection, without } = this.app.lib._
+  const { get, set, orderBy, without } = this.app.lib._
   const { includes } = this.app.lib.aneka
   const { req } = options
   const results = []
 
   const guards = await this.getModelGuards()
-  const columns = model.getNonVirtualProperties().map(prop => prop.name)
+  const fields = model.getNonVirtualProperties().map(prop => prop.name)
   const filterFn = item => {
-    const bySiteId = item.siteIds ? item.siteIds.includes(req.site.id + '') : true
+    const bySiteId = item.siteId === req.site.id + ''
     const byModel = item.models.includes(model.name)
-    const byTeamId = item.teamIds ? includes(item.teamIds, teamIds) : true
-    const byColumn = columns.includes(item.column)
-    return bySiteId && byModel && byTeamId && byColumn
+    const byTeamId = includes(item.teamIds, teamIds)
+    const byFields = fields.includes(item.field)
+    return bySiteId && byModel && byTeamId && byFields
   }
 
-  guards.global = orderBy(guards.global.filter(filterFn), ['column'])
-  guards.local = orderBy(guards.local.filter(filterFn), ['column'])
-  for (const col of columns) {
+  const rules = orderBy(guards.filter(filterFn), ['field'])
+  for (const field of fields) {
     let values = []
-    let items = guards.global.filter(item => item.column === col && !item.negation)
+    const items = rules.filter(item => item.field === field)
     for (const item of items) {
-      values.push(...item.value)
+      if (item.behavior === 'NIN') values = without(values, ...item.value)
+      else if (item.behavior === 'IN') values.push(...item.value)
     }
-    items = guards.global.filter(item => item.column === col && item.negation)
-    for (const item of items) {
-      values = without(values, ...item.value)
-    }
-    items = guards.local.filter(item => item.column === col && !item.negation)
-    const newValues = []
-    for (const item of items) {
-      newValues.push(...item.value)
-    }
-    if (values.length === 0) values = newValues
-    else if (newValues.length > 0) values = intersection(values, newValues)
-    items = guards.local.filter(item => item.column === col && item.negation)
-    for (const item of items) {
-      values = without(values, ...item.value)
-    }
-    if (values.length) results.push(set({}, col, { $in: values }))
+    if (values.length) results.push(set({}, field, { $in: values }))
   }
 
   const allowEmpty = get(this, `config.dobo.model.${model.name}.allowEmptyQuery`, true)
@@ -76,16 +61,14 @@ export async function applyAttribGuard ({ model, teamIds, options }) {
 
   const guards = await this.getAttribGuards()
   const filterFn = item => {
-    const bySiteId = item.siteIds ? item.siteIds.includes(req.site.id + '') : true
+    const bySiteId = item.siteId === req.site.id + ''
     const byModel = item.models.includes(model.name)
-    const byTeamId = item.teamIds ? includes(item.teamIds, teamIds) : true
+    const byTeamId = includes(item.teamIds, teamIds)
     return bySiteId && byModel && byTeamId
   }
 
-  let item = guards.global.filter(filterFn)[0]
-  if (item) results.push(...item.hiddenCols)
-  item = guards.local.filter(filterFn)[0]
-  if (item) results.push(...item.hiddenCols)
+  const item = guards.filter(filterFn)[0]
+  if (item) results.push(...item.hiddenFields)
   options.hidden = options.hidden ?? []
   if (results.length > 0) options.hidden.push(...results)
   options.hidden = uniq(options.hidden)
@@ -168,7 +151,7 @@ async function hook () {
       }
     }
   }, {
-    name: ['dobo.sumbaAttribGuard:afterTransaction', 'dobo.sumbaXAttribGuard:afterTransaction'],
+    name: ['dobo.sumbaAttribGuard:afterTransaction'],
     handler: async function (action, ...args) {
       if (!['createRecord', 'updateRecord', 'removeRecord'].includes(action)) return
       await this.getAttribGuards(true)
@@ -205,16 +188,22 @@ async function hook () {
       options.checksumId = true
     }
   }, {
-    name: ['dobo.sumbaModelGuard:afterTransaction', 'dobo.sumbaXModelGuard:afterTransaction'],
+    name: ['dobo.sumbaModelGuard:afterTransaction'],
     handler: async function (action, ...args) {
       if (!['createRecord', 'updateRecord', 'removeRecord'].includes(action)) return
       await this.getModelGuards(true)
     }
   }, {
-    name: ['dobo.sumbaRouteGuard:afterTransaction', 'dobo.sumbaXRouteGuard:afterTransaction'],
+    name: ['dobo.sumbaSecureGuard:afterTransaction'],
     handler: async function (action, ...args) {
       if (!['createRecord', 'updateRecord', 'removeRecord'].includes(action)) return
-      await this.getRouteGuards(true)
+      await this.getSecureGuards(true)
+    }
+  }, {
+    name: ['dobo.sumbaAnonymousGuard:afterTransaction'],
+    handler: async function (action, ...args) {
+      if (!['createRecord', 'updateRecord', 'removeRecord'].includes(action)) return
+      await this.getAnonymousGuards(true)
     }
   }, {
     name: 'dobo.sumbaSite:afterCreateRecord',
@@ -237,7 +226,7 @@ async function hook () {
     name: ['dobo.sumbaTeam:afterTransaction', 'dobo.sumbaSite:afterTransaction'],
     handler: async function (action, ...args) {
       if (!['createRecord', 'updateRecord', 'removeRecord'].includes(action)) return
-      await this.getRouteGuards(true)
+      await this.getSecureGuards(true)
       await this.getModelGuards(true)
       await this.getAttribGuards(true)
     }
@@ -353,7 +342,7 @@ async function hook () {
       await checkIconset.call(this, req, reply)
       const secure = await checkUserId.call(this, req, reply, 'waibuMpa')
       if (!secure) return
-      await checkTeam.call(this, req, reply, secure)
+      await checkTeam.call(this, req, reply)
       await checkXSite.call(this, req, reply)
     }
   }, {
@@ -362,7 +351,7 @@ async function hook () {
     handler: async function (req, reply) {
       const secure = await checkUserId.call(this, req, reply, 'waibuRestApi')
       if (!secure) return
-      await checkTeam.call(this, req, reply, secure)
+      await checkTeam.call(this, req, reply)
       await checkXSite.call(this, req, reply)
     }
   }, {
@@ -371,13 +360,14 @@ async function hook () {
     handler: async function (req, reply) {
       const secure = await checkUserId.call(this, req, reply, 'waibuStatic')
       if (!secure) return
-      await checkTeam.call(this, req, reply, secure)
+      await checkTeam.call(this, req, reply)
       await checkXSite.call(this, req, reply)
     }
   }, {
     name: 'waibu:afterAppBoot',
     handler: async function () {
-      await this.getRouteGuards(true)
+      await this.getAnonymousGuards(true)
+      await this.getSecureGuards(true)
       await this.getModelGuards(true)
       await this.getAttribGuards(true)
     }
@@ -392,6 +382,14 @@ async function hook () {
     handler: async function (req, reply) {
       const { getHostname } = this.app.waibu
       req.site = await this.getSite(getHostname(req))
+      req.user = {}
+    }
+  }, {
+    name: 'waibu:beforeStart',
+    handler: async function () {
+      if (this.app.sumba.config.multiSite.enabled) return
+      const routes = ['waibuAdmin:/site/x/site/*']
+      this.app.waibu.config.route.disabled.push(...routes)
     }
   }]
 }

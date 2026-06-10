@@ -1,0 +1,4 @@
+{
+  "model": "SumbaAnonymousGuard",
+  "disabled": ["create", "update", "remove"]
+}

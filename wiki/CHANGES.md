@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-06-10
+
+- [2.30.0] Refactoring all guards
+- [2.30.0] Feature ```sumba:status``` now by default using ```ACTIVE``` and ```INACTIVE``` states
+- [2.30.0] Bug in ```multiSite``` handling
+- [2.30.0] Add ```populateRouteGuards()```
+- [2.30.0] Bug fix in ```hook.js```
+
 ## 2026-06-03
 
 - [2.29.0] Some models with property ```values``` now use the newly introduced function values

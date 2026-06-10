@@ -132,15 +132,14 @@
   "statusClosed": "Closed",
   "allSites": "All Sites",
   "permission": "Permission",
-  "routeGuard": "Route Guard",
+  "anonymousGuard": "Anonymous Guard",
+  "secureGuard": "Secure Guard",
   "modelGuard": "Model Guard",
   "attribGuard": "Attribute Guard",
-  "xRouteGuard": "Route Guard",
-  "xModelGuard": "Model Guard",
-  "xAttribGuard": "Attribute Guard",
   "xSite": "Cross-Site",
   "xSiteAdminArea": "Cross-Site Admin Area",
   "x": "Cross-Site",
+  "misc": "Miscellaneous",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
@@ -173,7 +172,8 @@
     "column": "Column",
     "hiddenCols": "Hidden Columns",
     "models": "Models",
-    "siteIds": "Sites"
+    "siteIds": "Sites",
+    "allTeams": "All Teams?"
   },
   "validation": {
     "password": {

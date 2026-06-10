@@ -20,7 +20,7 @@ const defMultiSite = {
 async function factory (pkgName) {
   const me = this
   const { getModel } = this.app.dobo
-  const { cloneDeep, uniq, isEmpty } = this.app.lib._
+  const { cloneDeep, isEmpty } = this.app.lib._
 
   /**
    * Sumba class
@@ -51,6 +51,14 @@ async function factory (pkgName) {
             '/db/export': 'sumba:/db/export/list',
             '/help': 'sumba:/help/contact-form',
             '/help/trouble-tickets': 'sumba:/help/trouble-tickets/list'
+          },
+          redirectSubRoute: {
+            waibuAdmin: {
+              '/': 'waibuAdmin:/site/site',
+              '/x': 'waibuAdmin:/site/x/site/list',
+              '/x/*': 'waibuAdmin:/site/x/{2}/list',
+              '/*': 'waibuAdmin:/site/{1}/list'
+            }
           },
           menuHandler: [{
             title: 'account',
@@ -155,9 +163,11 @@ async function factory (pkgName) {
           getUserByTokenDur: '1m'
         }
       }
-      this.routeGuards = { local: [], global: [] }
-      this.modelGuards = { local: [], global: [] }
-      this.attribGuards = { local: [], global: [] }
+      this.secureGuards = []
+      this.modelGuards = []
+      this.attribGuards = []
+      this.secureGuards = []
+      this.anonymousGuards = []
 
       this.unsafeUserFields = ['password']
       this.selfBind(['createNewSite', 'removeSite', 'getSite', 'getUserById', 'getUserByToken', 'getUserByUsernamePassword'])
@@ -174,11 +184,93 @@ async function factory (pkgName) {
     }
 
     start = async () => {
-      const { getModel } = this.app.dobo
+      await this.populateRouteGuards()
+      if (!this.config.multiSite.enabled) {
+        this.config.xSiteAdmins = []
+        return
+      }
       if (this.config.xSiteAdmins.length === 0) {
         const site = await getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noMagic: true })
         const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id } }, { noMagic: true })
         this.config.xSiteAdmins.push(`${site.alias}:${user.username}`)
+      }
+    }
+
+    populateRouteGuards = async () => {
+      const { isString, get, difference } = this.app.lib._
+      const { pascalCase } = this.app.lib.aneka
+      const { eachPlugins, readConfig, breakNsPath } = this.app.bajo
+      const { getModel } = this.app.dobo
+
+      const allNs = this.app.getAllNs()
+      const sites = await getModel('SumbaSite').findAllRecord({ query: { status: 'ACTIVE' } }, { noMagic: true, dataOnly: true, fields: ['id', 'hostname'] })
+
+      const sanitize = (item, ns) => {
+        if (isString(item)) item = { path: item }
+        let [prefix, ...args] = item.path.split(':')
+        const neg = prefix[0] === '!'
+        if (neg) prefix = prefix.slice(1)
+        if (isEmpty(args)) {
+          args = prefix
+          prefix = null
+        } else args = args.join(':')
+        if (isEmpty(prefix)) prefix = ns
+        else {
+          const [_ns, subNs] = prefix.split('.')
+          if (subNs) prefix = `${ns}.${subNs}`
+          else if (!allNs.includes(_ns)) prefix = `${ns}.${_ns}`
+          else prefix = _ns
+        }
+        item.path = `${neg ? '!' : ''}${prefix}:${args}`
+        item._immutable = item._immutable ?? ['path']
+        if (neg) {
+          item.allTeams = true
+          item.teamIds = []
+          item._immutable = ['path', 'teamIds', 'allTeams']
+        }
+        return item
+      }
+
+      const filterFn = item => {
+        let [ns] = (item.path.split(':')[0] ?? '').split('.')
+        if (ns[0] === '!') ns = ns.slice(1)
+        return allNs.includes(ns)
+      }
+
+      for (const type of ['secure', 'anonymous']) {
+        const routes = []
+        // get it from <pluginDir>/extend/sumba/route/*
+        await eachPlugins(async function ({ file }) {
+          const { ns } = this
+          const items = (await readConfig(file)).map(item => sanitize(item, ns)).filter(filterFn)
+          routes.push(...items)
+        }, { glob: `route/${type}.*`, prefix: this.ns })
+        // get it from config
+        const items = get(this, `config.route.${type}`, []).map(item => {
+          if (isString(item)) item = { path: item }
+          const neg = item.path[0] === '!'
+          if (neg) item.path.slice(1)
+          const { fullNs } = breakNsPath(item.path)
+          if (neg) item.path = '!' + item.path
+          return sanitize(item, fullNs)
+        }).filter(filterFn)
+        routes.push(...items)
+        const paths = routes.map(item => item.path)
+        const model = getModel(pascalCase(`Sumba ${type} Guard`))
+        for (const site of sites) {
+          const query = { path: { $in: paths }, siteId: site.id }
+          const recs = await model.findAllRecord({ query }, { noMagic: true, dataOnly: true, fields: ['path', 'status'] })
+          const spaths = difference(paths, recs.map(rec => rec.path))
+          for (const path of spaths) {
+            const body = cloneDeep(routes.find(r => r.path === path))
+            body.status = 'ACTIVE'
+            body.siteId = site.id
+            await model.sanitizeFixture({ body, lookupValue: body })
+            try {
+              await model.createRecord(body, { noMagic: true, noReturn: true })
+            } catch (err) {}
+          }
+        }
       }
     }
 
@@ -208,18 +300,10 @@ async function factory (pkgName) {
     adminMenu = async (locals, req) => {
       if (!this.app.waibuAdmin) return
       const { getPluginPrefix } = this.app.waibu
+      const { findIndex } = this.app.lib._
       const prefix = getPluginPrefix(this.ns)
       const params = { action: 'list' }
       const items = [{
-        title: 'xSite',
-        children: [
-          { title: 'allSites', href: `waibuAdmin:/${prefix}/x/site/:action`, params },
-          { title: 'xRouteGuard', href: `waibuAdmin:/${prefix}/x/route-guard/:action`, params },
-          { title: 'xModelGuard', href: `waibuAdmin:/${prefix}/x/model-guard/:action`, params },
-          { title: 'xAttribGuard', href: `waibuAdmin:/${prefix}/x/attrib-guard/:action`, params },
-          { title: 'userSession', href: `waibuAdmin:/${prefix}/x/session/:action`, params }
-        ]
-      }, {
         title: 'manageSite',
         children: [
           { title: 'siteProfile', href: `waibuAdmin:/${prefix}/site` },
@@ -242,7 +326,8 @@ async function factory (pkgName) {
       }, {
         title: 'permission',
         children: [
-          { title: 'routeGuard', href: `waibuAdmin:/${prefix}/route-guard/:action`, params },
+          { title: 'secureGuard', href: `waibuAdmin:/${prefix}/secure-guard/:action`, params },
+          { title: 'anonymousGuard', href: `waibuAdmin:/${prefix}/anonymous-guard/:action`, params },
           { title: 'modelGuard', href: `waibuAdmin:/${prefix}/model-guard/:action`, params },
           { title: 'attribGuard', href: `waibuAdmin:/${prefix}/attrib-guard/:action`, params }
         ]
@@ -260,9 +345,23 @@ async function factory (pkgName) {
           { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/:action`, params }
         ]
       }]
+      const sessionMenu = { title: 'userSession', href: `waibuAdmin:/${prefix}/x/session/:action`, params }
+      const cacheMenu = { title: 'cacheStorage', href: `waibuAdmin:/${prefix}/x/cache/:action`, params }
+      if (this.config.multiSite.enabled) {
+        items.unshift({
+          title: 'xSite',
+          children: [
+            { title: 'allSites', href: `waibuAdmin:/${prefix}/x/site/:action`, params },
+            sessionMenu
+          ]
+        })
+      } else {
+        const idx = findIndex(items, i => i.title === 'misc')
+        if (idx > -1) items[idx].children.push(sessionMenu)
+      }
       if (this.app.bajoCache) {
-        const item = items.find(i => i.title === 'xSite')
-        item.children.push({ title: 'cacheStorage', href: `waibuAdmin:/${prefix}/x/cache/:action`, params })
+        const idx = findIndex(items, i => i.title === this.config.multiSite.enabled ? 'xSite' : 'misc')
+        if (idx > -1)items[idx].children.push(cacheMenu)
       }
       return items
     }
@@ -377,31 +476,11 @@ async function factory (pkgName) {
       return true
     }
 
-    checkPathsByRoute = ({ req, paths = [], teamIds = [], guards = [] }) => {
-      const { includes } = this.app.lib.aneka
+    checkRouteGuard = (guards, paths) => {
       const { outmatch } = this.app.lib
-
-      for (const item of guards) {
-        const matchPath = outmatch(item.path)
-        for (const path of paths) {
-          if (matchPath(path)) {
-            if (item.methods.includes(req.method)) {
-              if (includes(teamIds, item.teamIds)) return item
-              if (teamIds.length === 0) return item
-            }
-          }
-        }
-      }
-    }
-
-    checkPathsByGuard = ({ guards, paths }) => {
-      const { outmatch } = this.app.lib
-      const matcher = outmatch(guards)
-      let guarded
-      for (const path of paths) {
-        if (!guarded) guarded = matcher(path)
-      }
-      return guarded
+      const all = guards.map(item => item.path)
+      const isMatch = outmatch(all)
+      return paths.find(isMatch)
     }
 
     signout = async ({ req, reply, reason }) => {
@@ -545,81 +624,56 @@ async function factory (pkgName) {
       return await hash(item, this.config.auth.common.apiKey.algo)
     }
 
-    _fetchGuards = async (type = 'Route') => {
+    _fetchGuards = async (type) => {
       const { getModel } = this.app.dobo
       const options = { noMagic: true, noCache: true, noDriverHook: true, dataOnly: true }
       const filter = { query: { status: 'ACTIVE' } }
-      return {
-        global: await getModel(`SumbaX${type}Guard`).findAllRecord(filter, options),
-        local: await getModel(`Sumba${type}Guard`).findAllRecord(filter, options),
-        siteIds: (await getModel('SumbaSite').findAllRecord(filter.options)).map(item => item.id + '')
-      }
+      const results = await getModel(`Sumba${type}Guard`).findAllRecord(filter, options)
+      return results.map(result => {
+        result.teamIds = result.teamIds.map(item => item + '')
+        return result
+      })
     }
 
-    getRouteGuards = async (reread) => {
+    _getGuards = (inputs = []) => {
       const { routePath } = this.app.waibu
       const { orderBy } = this.app.lib._
-      const { isSet } = this.app.lib.aneka
-      if (!reread) return this.routeGuards
+      const normal = orderBy(inputs.filter(input => input.path[0] !== '!').map(result => {
+        result.path = routePath(result.path)
+        return result
+      }), ['weight', 'path'], ['desc', 'asc'])
+      const inverse = orderBy(inputs.filter(input => input.path[0] === '!').map(result => {
+        result.path = routePath(result.path)
+        return result
+      }), ['weight', 'path'], ['desc', 'asc'])
+      return [...normal, ...inverse]
+    }
 
-      const result = await this._fetchGuards('Route')
-      for (const type of ['global', 'local']) {
-        result[type] = result[type].map(item => {
-          item.siteIds = item.siteIds ?? []
-          if (item.siteIds.length === 0) item.siteIds = [...result.siteIds]
-          if (item.siteId) item.siteIds = uniq([...item.siteIds, item.siteId].filter(i => isSet(i)).map(i => i + ''))
-          item.teamIds = (item.teamIds ?? []).filter(i => isSet(i)).map(i => i + '')
-          item.methods = item.methods ?? []
-          delete item.siteId
-          return item
-        })
-        this.routeGuards[type] = orderBy(result[type].filter(item => {
-          try {
-            item.path = routePath(item.path)
-            return true
-          } catch (err) {
-            return false
-          }
-        }), ['weight', 'path'], ['desc', 'asc'])
-      }
-      return this.routeGuards
+    getAnonymousGuards = async (reread) => {
+      if (!reread) return this.anonymousGuards
+      const guards = await this._fetchGuards('Anonymous')
+      this.anonymousGuards = this._getGuards(guards)
+      return this.anonymousGuards
+    }
+
+    getSecureGuards = async (reread) => {
+      if (!reread) return this.secureGuards
+      const guards = await this._fetchGuards('Secure')
+      this.secureGuards = this._getGuards(guards)
+      return this.secureGuards
     }
 
     getModelGuards = async (reread) => {
-      const { isSet } = this.app.lib.aneka
       if (!reread) return this.modelGuards
 
-      const result = await this._fetchGuards('Model')
-      for (const type of ['global', 'local']) {
-        this.modelGuards[type] = result[type].filter(item => (!isEmpty(item.value)) && (!isEmpty(item.models))).map(item => {
-          item.siteIds = item.siteIds ?? []
-          if (item.siteIds.length === 0) item.siteIds = [...result.siteIds]
-          if (item.siteId) item.siteIds = uniq([...item.siteIds, item.siteId].filter(i => isSet(i)).map(i => i + ''))
-          item.teamIds = (item.teamIds ?? []).filter(i => isSet(i)).map(i => i + '')
-          delete item.siteId
-          return item
-        })
-      }
+      this.modelGuards = await this._fetchGuards('Model')
       return this.modelGuards
     }
 
     getAttribGuards = async (reread) => {
-      const { isSet } = this.app.lib.aneka
       if (!reread) return this.attribGuards
 
-      const result = await this._fetchGuards('Attrib')
-      for (const type of ['global', 'local']) {
-        this.attribGuards[type] = result[type].map(item => {
-          item.siteIds = item.siteIds ?? []
-          if (item.siteIds.length === 0) item.siteIds = [...result.siteIds]
-          if (item.siteId) item.siteIds = uniq([...item.siteIds, item.siteId].filter(i => isSet(i)).map(i => i + ''))
-          item.teamIds = (item.teamIds ?? []).filter(i => isSet(i)).map(i => i + '')
-          item.models = item.models ?? []
-          item.hiddenCols = item.hiddenCols ?? []
-          delete item.siteId
-          return item
-        })
-      }
+      this.attribGuards = await this._fetchGuards('Model')
       return this.attribGuards
     }
 
@@ -632,6 +686,7 @@ async function factory (pkgName) {
     removeSite = removeSite
     getSite = getSite
     getUserById = getUserById
+
     getUserByToken = getUserByToken
     getUserByUsernamePassword = getUserByUsernamePassword
   }

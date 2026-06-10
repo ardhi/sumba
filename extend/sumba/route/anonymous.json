@@ -1,0 +1,5 @@
+[
+  "/user/**/*",
+  "/signin",
+  "restapi:/user/access-token/**/*"
+]

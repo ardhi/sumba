@@ -88,10 +88,7 @@
     "sumba:personInCharge",
     "sumba:address",
     "sumba:social",
-    {
-      "name": "sumba:status",
-      "default": "ACTIVE"
-    },
+    "sumba:status",
     "dobo:createdAt",
     "dobo:updatedAt",
     "dobo:immutable"
@@ -146,11 +143,7 @@
     "dobo:updatedAt",
     "dobo:immutable",
     "sumba:siteId",
-    {
-      "name": "sumba:status",
-      "default": "ENABLED",
-      "values": ["ENABLED", "DISABLED"]
-    },
+    "sumba:status",
     "dobo:immutable"
   ]
 }, {

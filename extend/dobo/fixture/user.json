@@ -13,5 +13,5 @@
   "provider": "local",
   "siteId": "?:SumbaSite::alias:default",
   "status": "ACTIVE",
-  "_immutable": true
+  "_immutable": ["*"]
 }]

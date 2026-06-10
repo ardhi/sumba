@@ -1,0 +1,8 @@
+[
+  "/your-stuff/**/*",
+  "/signout",
+  "/help/trouble-tickets/**/*",
+  "restapi:/user/api-key",
+  "restapi:/your-stuff/**/*",
+  "restapi:/manage/**/*"
+]
