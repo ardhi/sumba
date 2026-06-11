@@ -1,4 +1,9 @@
-import { latLngHook } from '../../../lib/util.js'
+export async function latLngHook (body, options) {
+  const { isSet } = this.app.lib.aneka
+  const { round } = this.app.lib.aneka
+  if (!isSet(body[options.field])) return
+  body[options.field] = round(body[options.field], options.scale)
+}
 
 async function latLng (opts = {}) {
   const { merge } = this.app.lib._

@@ -1,4 +1,3 @@
-import { checkUserId, checkTeam, checkXSite, checkTheme, checkIconset } from '../../lib/util.js'
 import { removeRefs } from '../../lib/remove-site.js'
 import { getAllFixtures, createRefs } from '../../lib/create-new-site.js'
 import path from 'path'
@@ -338,30 +337,30 @@ async function hook () {
     level: 10,
     name: 'waibuMpa:preParsing',
     handler: async function (req, reply) {
-      await checkTheme.call(this, req, reply)
-      await checkIconset.call(this, req, reply)
-      const secure = await checkUserId.call(this, req, reply, 'waibuMpa')
+      await this.checkTheme(req, reply)
+      await this.checkIconset(req, reply)
+      const secure = await this.checkUser(req, reply, 'waibuMpa')
       if (!secure) return
-      await checkTeam.call(this, req, reply)
-      await checkXSite.call(this, req, reply)
+      await this.checkTeam(req, reply)
+      await this.checkXSite(req, reply)
     }
   }, {
     level: 10,
     name: 'waibuRestApi:preParsing',
     handler: async function (req, reply) {
-      const secure = await checkUserId.call(this, req, reply, 'waibuRestApi')
+      const secure = await this.checkUser(req, reply, 'waibuRestApi')
       if (!secure) return
-      await checkTeam.call(this, req, reply)
-      await checkXSite.call(this, req, reply)
+      await this.checkTeam(req, reply)
+      await this.checkXSite(req, reply)
     }
   }, {
     level: 10,
     name: 'waibuStatic:preParsing',
     handler: async function (req, reply) {
-      const secure = await checkUserId.call(this, req, reply, 'waibuStatic')
+      const secure = await this.checkUser(req, reply, 'waibuStatic')
       if (!secure) return
-      await checkTeam.call(this, req, reply)
-      await checkXSite.call(this, req, reply)
+      await this.checkTeam(req, reply)
+      await this.checkXSite(req, reply)
     }
   }, {
     name: 'waibu:afterAppBoot',

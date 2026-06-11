@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-06-11
+
+- [2.31.0] Add ```status``` field on ```SumbaTeamUser```
+- [2.31.0] Remove ```util.js``` as all functions now moved to base class
+
 ## 2026-06-10
 
 - [2.30.0] Refactoring all guards

@@ -2,7 +2,7 @@ async function teamUser () {
   return {
     common: {
       layout: [
-        { name: 'meta', fields: ['id', 'createdAt', 'updatedAt'] },
+        { name: 'meta', fields: ['id:3-md', 'createdAt:3-md', 'updatedAt:3-md', 'status:3-md'] },
         { name: 'general', fields: ['userId:6-md', 'teamId:6-md'] }
       ],
       widget: {
@@ -20,7 +20,7 @@ async function teamUser () {
     },
     view: {
       list: {
-        fields: ['userId', 'teamId', 'createdAt', 'updatedAt'],
+        fields: ['userId', 'teamId', 'status', 'createdAt', 'updatedAt'],
         stat: {
           aggregate: [
             { fields: ['userId'], group: 'userId', aggregate: ['count'] },

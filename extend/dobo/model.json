@@ -125,6 +125,7 @@
     "sumba:siteId",
     "sumba:userId",
     "sumba:teamId",
+    "sumba:status",
     "dobo:immutable"
   ]
 }, {

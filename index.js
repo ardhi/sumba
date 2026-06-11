@@ -682,6 +682,155 @@ async function factory (pkgName) {
       return asValue ? values.map(item => ({ value: item, text: item })) : values
     }
 
+    pathsToCheck = (req) => {
+      const { uniq, without } = this.app.lib._
+      const items = [req.routeOptions.url, req.url].map(url => url.split('?')[0].split('#')[0])
+      return uniq(without(items, undefined, null))
+    }
+
+    checkIconset = async (req, reply) => {
+      const { get, isString } = this.app.lib._
+      const mpa = this.app.waibuMpa
+
+      if (!req.site) return
+      const siteIconset = get(req, 'site.setting.waibuMpa.iconset')
+      req.iconset = siteIconset ?? get(mpa, 'config.iconset.set', 'default')
+      const hiconset = req.headers['x-iconset']
+      if (isString(hiconset) && mpa.getIconset(hiconset)) req.iconset = hiconset
+      req.iconset = req.iconset ?? 'default'
+    }
+
+    checkTheme = async (req, reply) => {
+      const { get, isString } = this.app.lib._
+      const mpa = this.app.waibuMpa
+
+      if (!req.site) return
+      const siteTheme = get(req, 'site.setting.waibuMpa.theme')
+      req.theme = siteTheme ?? get(mpa, 'config.theme.set', 'default')
+      const htheme = req.headers['x-theme']
+      if (isString(htheme) && mpa.getTheme(htheme)) req.theme = htheme
+      req.theme = req.theme ?? 'default'
+    }
+
+    checkTeam = async (req, reply) => {
+      const { includes } = this.app.lib.aneka
+      const { outmatch } = this.app.lib
+
+      if (req.user.isAdmin) return
+      if (req.routeOptions.config.xSite && req.user.isXSiteAdmin) return
+
+      const teamIds = req.user.teams.map(item => item.id + '')
+      if (req.user.teams.map(item => item.alias).length === 0) throw this.error('accessDenied', { statusCode: 403 })
+
+      const paths = this.pathsToCheck(req)
+      const results = (await this.getSecureGuards()).filter(item => {
+        if (item.siteId !== req.site.id + '' || item.path[0] === '!') return false
+        return paths.some(outmatch([item.path]))
+      })
+      for (const result of results) {
+        if (result.allTeams) continue
+        if (!includes(teamIds, result.teamIds)) throw this.error('accessDenied', { statusCode: 403 })
+      }
+      // passed
+    }
+
+    checkUser = async (req, reply, source) => {
+      const { merge, isEmpty, camelCase, get } = this.app.lib._
+      const { routePath } = this.app.waibu
+      const userId = get(req, 'session.userId')
+
+      const setUser = async () => {
+        if (!userId) return
+        try {
+          const user = await this.getUserById(userId, req)
+          if (user) req.user = user
+          else req.session.userId = null
+        } catch (err) {
+          console.log(err)
+          req.session.userId = null
+        }
+      }
+
+      if (req.session) req.session.siteId = req.site.id
+
+      const webApp = get(req, 'routeOptions.config.webApp', 'waibu')
+      if (!req.routeOptions.url) {
+        if (!req.session) return
+        await setUser()
+        return
+      }
+
+      const paths = this.pathsToCheck(req)
+      let guards = (await this.getAnonymousGuards()).filter(item => item.siteId === req.site.id + '')
+      const anonymous = this.checkRouteGuard(guards, paths)
+      if (anonymous) {
+        if (!userId) return false
+        req.session.ref = req.url
+        return reply.redirectTo(routePath(this.config.redirect.signout))
+      }
+      guards = (await this.getSecureGuards()).filter(item => item.siteId === req.site.id + '')
+      const secure = this.checkRouteGuard(guards, paths)
+      if (!secure) {
+        if (userId) await setUser()
+        return false // regular, unguarded path. Not secure & not anonymous path
+      }
+      if (userId) {
+        await setUser()
+        return secure
+      }
+      const silentOnError = this.config.auth[webApp].silentOnError ?? this.config.auth.common.silentOnError
+      const payload = silentOnError ? { noContent: true } : undefined
+      const authMethods = this.config.auth[webApp].methods ?? []
+      if (isEmpty(authMethods)) throw this.error('noAuthMethod', merge({ statusCode: 500 }, payload))
+      let success
+      for (const m of authMethods) {
+        const handler = this[camelCase(`verify ${m}`)]
+        if (!handler) throw this.error('invalidAuthMethod%s', m, merge({ statusCode: 500 }, payload))
+        const check = await handler(req, reply, source, payload)
+        if (check) {
+          success = check
+          break
+        }
+      }
+      if (!success) throw this.error('accessDeniedNoAuth', merge({ statusCode: 403 }, payload))
+      return secure
+    }
+
+    checkXSite = async (req, reply) => {
+      const { get } = this.app.lib._
+      if (!this.config.multiSite.enabled) return
+      if (!get(req, 'routeOptions.config.xSite')) return
+      if (!get(req, 'user.isXSiteAdmin')) throw this.error('accessDenied', { statusCode: 403 })
+    }
+
+    parseNsSettings = (ns, setting, items) => {
+      const { trim, set, isPlainObject, isArray, isEmpty, find } = this.app.lib._
+      const { parseObject, dayjs } = this.app.lib
+
+      for (const item of items) {
+        if (item.ns === '_var' || ns === '_var') continue
+        let value = trim([item.value] ?? '')
+        if (value[0] === '#' && value[value.length - 1] === '#') {
+          const val = value.slice(1, -1)
+          const newValue = find(items, { ns: '_var', key: val })
+          if (newValue) value = newValue.value
+        }
+        if (['[', '{'].includes(value[0]) && [']', '}'].includes(value[value.length - 1])) {
+          try {
+            value = parseObject(JSON.parse(value))
+          } catch (err) {}
+        } else if (Number(value)) value = Number(value)
+        else if (['true', 'false'].includes(value)) value = value === 'true'
+        else if (item.key.endsWith('$in')) value = value.split('\n').map(v => v.trim())
+        else {
+          const dt = dayjs(value)
+          if (dt.isValid()) value = dt.toDate()
+        }
+        if ((isPlainObject(value) || isArray(value)) && isEmpty(value)) continue
+        set(setting, `${ns}.${item.key}`, value)
+      }
+    }
+
     createNewSite = createNewSite
     removeSite = removeSite
     getSite = getSite
