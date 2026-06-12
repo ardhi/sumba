@@ -2,6 +2,10 @@
 
 ## 2026-06-12
 
+- [2.32.2] Bug fix in ```preRequest``` hook
+
+## 2026-06-12
+
 - [2.32.0] Necessary updates to ```bajo@2.18.0``` specs
 - [2.32.0] Bug fix in ```_getGuards()```
 - [2.32.0] Bug fix in ```getAttribGuards()```

@@ -4,7 +4,7 @@ const apiToken = {
     const { get } = this.app.lib._
     const uid = get(req, 'user.id')
     if (!uid) return ''
-    const rec = await this.app.dobo.getModel('SumbaUser').getRecord(req.user.id, { forceNoHidden: true, noCache: true })
+    const rec = await this.app.dobo.getModel('SumbaUser').getRecord(uid, { forceNoHidden: true, noCache: true })
     return (await this.createJwtFromUserRecord(rec)).token
   }
 }
