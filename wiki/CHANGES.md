@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-06-12
+
+- [2.32.0] Necessary updates to ```bajo@2.18.0``` specs
+- [2.32.0] Bug fix in ```_getGuards()```
+- [2.32.0] Bug fix in ```getAttribGuards()```
+- [2.32.0] Bug fix in ```hooks.js```
+- [2.32.0] Change ```behavior``` to ```condition``` in ```SumbaModelGuard``` model
+
 ## 2026-06-11
 
 - [2.31.0] Add ```status``` field on ```SumbaTeamUser```

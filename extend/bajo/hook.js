@@ -21,8 +21,9 @@ async function clearCacheUser (id, result) {
 }
 
 async function applyModelGuard ({ model, q, teamIds, options }) {
-  const { get, set, orderBy, without } = this.app.lib._
+  const { set, orderBy } = this.app.lib._
   const { includes } = this.app.lib.aneka
+  const { sanitizeByType } = this.app.dobo
   const { req } = options
   const results = []
 
@@ -31,24 +32,29 @@ async function applyModelGuard ({ model, q, teamIds, options }) {
   const filterFn = item => {
     const bySiteId = item.siteId === req.site.id + ''
     const byModel = item.models.includes(model.name)
-    const byTeamId = includes(item.teamIds, teamIds)
     const byFields = fields.includes(item.field)
-    return bySiteId && byModel && byTeamId && byFields
+    return bySiteId && byModel && byFields
   }
 
   const rules = orderBy(guards.filter(filterFn), ['field'])
   for (const field of fields) {
-    let values = []
+    if (!model.getNonVirtualProperties(true).includes(field)) continue // or, should it throws exception instead?
+    const prop = model.getProperty(field)
     const items = rules.filter(item => item.field === field)
     for (const item of items) {
-      if (item.behavior === 'NIN') values = without(values, ...item.value)
-      else if (item.behavior === 'IN') values.push(...item.value)
+      const values = item.value.map(val => {
+        return sanitizeByType(val, prop.type, { strict: true, inputFormat: 'string', model: model.name })
+      })
+      const op = item.condition.toLowerCase()
+      let value
+      if (['in', 'nin'].includes(op)) value = set({}, '$' + op, values)
+      else if (op === 'between') value = { $gte: values[0], $lte: values[1] }
+      else value = set({}, '$' + op, values[0])
+      const teamOk = item.allTeams ? true : (item.teamIds.length === 0 ? false : includes(item.teamIds, teamIds))
+      if (!teamOk) throw this.error('_abortAction')
+      results.push(set({}, field, value))
     }
-    if (values.length) results.push(set({}, field, { $in: values }))
   }
-
-  const allowEmpty = get(this, `config.dobo.model.${model.name}.allowEmptyQuery`, true)
-  if (results.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery') // signal driver to about with no result immediately
   q.$and.push(...results)
 }
 
@@ -62,20 +68,19 @@ export async function applyAttribGuard ({ model, teamIds, options }) {
   const filterFn = item => {
     const bySiteId = item.siteId === req.site.id + ''
     const byModel = item.models.includes(model.name)
-    const byTeamId = includes(item.teamIds, teamIds)
+    const byTeamId = item.allTeams ? true : includes(item.teamIds, teamIds)
     return bySiteId && byModel && byTeamId
   }
-
-  const item = guards.filter(filterFn)[0]
-  if (item) results.push(...item.hiddenFields)
+  guards.filter(filterFn).forEach(item => results.push(...item.hiddenFields))
   options.hidden = options.hidden ?? []
-  if (results.length > 0) options.hidden.push(...results)
+  options.hidden.push(...results)
   options.hidden = uniq(options.hidden)
 }
 
 async function rebuildFilter (model, filter = {}, options = {}) {
   const { isEmpty, get } = this.app.lib._
   const { req } = options
+  const allowEmpty = !get(this, `app.${model.ns}.config.sumba.allowEmptyQuery`, []).includes(model.name)
   const hasSiteId = model.hasProperty('siteId')
   const hasUserId = model.hasProperty('userId')
   const hasTeamId = model.hasProperty('teamId')
@@ -89,13 +94,17 @@ async function rebuildFilter (model, filter = {}, options = {}) {
     if (filter.query.$and) q.$and.push(...filter.query.$and)
     else q.$and.push(filter.query)
   }
-  if (req.routeOptions.config.xSite) return
+  if (req.routeOptions.config.xSite) {
+    filter.query = q
+    return
+  }
   if (hasSiteId) q.$and.push({ siteId: req.site.id + '' })
   if (aliases.includes('administrator')) {
     filter.query = q
     return
   }
-  if (!req.user) {
+  if (isEmpty(req.user)) {
+    if (q.$and.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery')
     filter.query = q
     return
   }
@@ -119,8 +128,9 @@ async function rebuildFilter (model, filter = {}, options = {}) {
     else q.$and.push(condTeamId)
   } else if (hasUserId) q.$and.push(condUserId)
 
-  await applyModelGuard.call(this, { model, q, teamIds, options })
+  await applyModelGuard.call(this, { model, q, teamIds, options, allowEmpty })
   await applyAttribGuard.call(this, { model, teamIds, options })
+  if (q.$and.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery')
   filter.query = q
 }
 

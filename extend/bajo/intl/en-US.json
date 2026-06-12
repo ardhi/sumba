@@ -173,7 +173,9 @@
     "hiddenCols": "Hidden Columns",
     "models": "Models",
     "siteIds": "Sites",
-    "allTeams": "All Teams?"
+    "allTeams": "All Teams?",
+    "condition": "Condition",
+    "hiddenFields": "Hide Fields"
   },
   "validation": {
     "password": {

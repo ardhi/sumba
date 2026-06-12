@@ -76,11 +76,11 @@ async function model () {
       },
       'field,,50,true,true',
       {
-        name: 'behavior',
+        name: 'condition',
         type: 'string',
         maxLength: 20,
         required: true,
-        values: ['IN', 'NIN'],
+        values: ['IN', 'NIN', 'EQ', 'NE', 'GT', 'GTE', 'LT', 'LTE', 'BETWEEN'],
         default: 'IN'
       },
       'value,array,,,true',

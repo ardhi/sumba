@@ -174,8 +174,7 @@ async function factory (pkgName) {
     }
 
     init = async () => {
-      const { getPluginDataDir } = this.app.bajo
-      this.downloadDir = `${getPluginDataDir(this.ns)}/download`
+      this.downloadDir = `${this.app.getPluginDataDir(this.ns)}/download`
       this.app.lib.fs.ensureDirSync(this.downloadDir)
       if (this.config.multiSite === true) {
         this.config.multiSite = cloneDeep(defMultiSite)
@@ -526,9 +525,8 @@ async function factory (pkgName) {
     }
 
     pushDownload = async ({ description, worker, data, source, req, file, type }) => {
-      const { getPlugin } = this.app.bajo
-      const { createRecord } = getPlugin('waibuDb')
-      const { push } = getPlugin('bajoQueue')
+      const { createRecord } = this.app.getPlugin('waibuDb')
+      const { push } = this.app.getPlugin('bajoQueue')
       description = description ?? file
       const jobQueue = {
         worker,
@@ -638,13 +636,21 @@ async function factory (pkgName) {
     _getGuards = (inputs = []) => {
       const { routePath } = this.app.waibu
       const { orderBy } = this.app.lib._
-      const normal = orderBy(inputs.filter(input => input.path[0] !== '!').map(result => {
-        result.path = routePath(result.path)
-        return result
+      const normal = orderBy(inputs.filter(input => {
+        try {
+          input.path = routePath(input.path)
+        } catch (err) {
+          return false
+        }
+        return input.path[0] !== '!'
       }), ['weight', 'path'], ['desc', 'asc'])
-      const inverse = orderBy(inputs.filter(input => input.path[0] === '!').map(result => {
-        result.path = routePath(result.path)
-        return result
+      const inverse = orderBy(inputs.filter(input => {
+        try {
+          input.path = routePath(input.path)
+        } catch (err) {
+          return false
+        }
+        return input.path[0] === '!'
       }), ['weight', 'path'], ['desc', 'asc'])
       return [...normal, ...inverse]
     }
@@ -673,7 +679,7 @@ async function factory (pkgName) {
     getAttribGuards = async (reread) => {
       if (!reread) return this.attribGuards
 
-      this.attribGuards = await this._fetchGuards('Model')
+      this.attribGuards = await this._fetchGuards('Attrib')
       return this.attribGuards
     }
 

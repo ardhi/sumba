@@ -179,7 +179,9 @@
     "hiddenCols": "Kolom Tersembunyi",
     "models": "Model",
     "siteIds": "Situs",
-    "allTeams": "Semua Tim?"
+    "allTeams": "Semua Tim?",
+    "condition": "Kondisi",
+    "hiddenFields": "Sembunyikan Kolom"
   },
   "validation": {
     "password": {
