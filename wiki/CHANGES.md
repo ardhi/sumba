@@ -7,6 +7,7 @@
 - [2.32.0] Bug fix in ```getAttribGuards()```
 - [2.32.0] Bug fix in ```hooks.js```
 - [2.32.0] Change ```behavior``` to ```condition``` in ```SumbaModelGuard``` model
+- [2.32.1] Bug fix in ```allowEmptyQuery``` options
 
 ## 2026-06-11
 

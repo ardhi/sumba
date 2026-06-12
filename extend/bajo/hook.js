@@ -80,7 +80,7 @@ export async function applyAttribGuard ({ model, teamIds, options }) {
 async function rebuildFilter (model, filter = {}, options = {}) {
   const { isEmpty, get } = this.app.lib._
   const { req } = options
-  const allowEmpty = !get(this, `app.${model.ns}.config.sumba.allowEmptyQuery`, []).includes(model.name)
+  const allowEmpty = !get(this, `app.${model.ns}.config.sumba.noEmptyQuery`, []).includes(model.name)
   const hasSiteId = model.hasProperty('siteId')
   const hasUserId = model.hasProperty('userId')
   const hasTeamId = model.hasProperty('teamId')
