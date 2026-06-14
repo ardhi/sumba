@@ -21,7 +21,7 @@ async function clearCacheUser (id, result) {
 }
 
 async function applyModelGuard ({ model, q, teamIds, options }) {
-  const { set, orderBy } = this.app.lib._
+  const { set, orderBy, isEmpty, isArray } = this.app.lib._
   const { includes } = this.app.lib.aneka
   const { sanitizeByType } = this.app.dobo
   const { req } = options
@@ -39,13 +39,19 @@ async function applyModelGuard ({ model, q, teamIds, options }) {
   const rules = orderBy(guards.filter(filterFn), ['field'])
   for (const field of fields) {
     if (!model.getNonVirtualProperties(true).includes(field)) continue // or, should it throws exception instead?
+    const opValue = req.getSetting(`sumba:modelGuard.${field}`, {})
+    for (const op of ['in', 'nin']) {
+      if (!isEmpty(opValue[op]) && isArray(opValue[op])) results.push(set({}, field, set({}, '$' + op, opValue[op])))
+    }
     const prop = model.getProperty(field)
     const items = rules.filter(item => item.field === field)
     for (const item of items) {
-      const values = item.value.map(val => {
+      let values = item.value.map(val => {
         return sanitizeByType(val, prop.type, { strict: true, inputFormat: 'string', model: model.name })
       })
       const op = item.condition.toLowerCase()
+      if (['in', 'nin'].includes(op) && !isEmpty(opValue[op]) && isArray(opValue[op])) values = values.filter(val => opValue[op].includes(val))
+      if (isEmpty(values)) continue
       let value
       if (['in', 'nin'].includes(op)) value = set({}, '$' + op, values)
       else if (op === 'between') value = { $gte: values[0], $lte: values[1] }
@@ -86,7 +92,7 @@ async function rebuildFilter (model, filter = {}, options = {}) {
   const hasTeamId = model.hasProperty('teamId')
   const teams = get(req, 'user.teams', [])
   const teamIds = teams.map(team => team.id + '')
-  const aliases = teams.map(team => team.alias)
+  // const aliases = teams.map(team => team.alias)
   const q = { $and: [] }
 
   filter.query = filter.query ?? {}
@@ -99,10 +105,12 @@ async function rebuildFilter (model, filter = {}, options = {}) {
     return
   }
   if (hasSiteId) q.$and.push({ siteId: req.site.id + '' })
+  /*
   if (aliases.includes('administrator')) {
     filter.query = q
     return
   }
+  */
   if (isEmpty(req.user)) {
     if (q.$and.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery')
     filter.query = q
