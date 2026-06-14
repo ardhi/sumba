@@ -1,8 +1,9 @@
 # Changes
 
-## 2026-06-12
+## 2026-06-15
 
 - [2.32.3] Bug fix in ```hook.js```
+- [2.32.4] Bug fix in ```create-new-site.js```
 
 ## 2026-06-12
 
