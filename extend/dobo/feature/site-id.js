@@ -5,10 +5,11 @@ async function siteId (opts = {}) {
       type: 'string',
       maxLength: 50,
       ref: {
-        siteDetail: {
+        siteId: {
           model: 'SumbaSite',
           field: 'id',
-          type: '1:1'
+          searchField: 'hostname',
+          fields: ['id', 'hostname']
         }
       },
       index: true

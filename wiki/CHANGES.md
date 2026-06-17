@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-06-17
+
+- [2.33.0] Add ```Site Setting``` in ```Cross-Site```
+- [2.33.0] Bug fix in ```hook.js```
+- [2.33.0] Bug fix in ```feature:siteId```
+
 ## 2026-06-15
 
 - [2.32.3] Bug fix in ```hook.js```

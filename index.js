@@ -351,6 +351,7 @@ async function factory (pkgName) {
           title: 'xSite',
           children: [
             { title: 'allSites', href: `waibuAdmin:/${prefix}/x/site/:action`, params },
+            { title: 'siteSetting', href: `waibuAdmin:/${prefix}/x/site-setting/:action`, params },
             sessionMenu
           ]
         })

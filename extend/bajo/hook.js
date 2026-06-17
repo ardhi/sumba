@@ -40,8 +40,13 @@ async function applyModelGuard ({ model, q, teamIds, options }) {
   for (const field of fields) {
     if (!model.getNonVirtualProperties(true).includes(field)) continue // or, should it throws exception instead?
     const opValue = req.getSetting(`sumba:modelGuard.${field}`, {})
-    for (const op of ['in', 'nin']) {
-      if (!isEmpty(opValue[op]) && isArray(opValue[op])) results.push(set({}, field, set({}, '$' + op, opValue[op])))
+    for (const op of ['in', 'nin', 'inOrNull']) {
+      if (isEmpty(opValue[op]) || !isArray(opValue[op])) continue
+      if (op === 'inOrNull') {
+        const val = set({}, field, set({}, '$in', opValue[op]))
+        const nl = set({}, field, { $eq: null })
+        results.push({ $or: [val, nl] })
+      } else results.push(set({}, field, set({}, '$' + op, opValue[op])))
     }
     const prop = model.getProperty(field)
     const items = rules.filter(item => item.field === field)

@@ -181,7 +181,8 @@
     "siteIds": "Situs",
     "allTeams": "Semua Tim?",
     "condition": "Kondisi",
-    "hiddenFields": "Sembunyikan Kolom"
+    "hiddenFields": "Sembunyikan Kolom",
+    "_immutable": "Immutable"
   },
   "validation": {
     "password": {

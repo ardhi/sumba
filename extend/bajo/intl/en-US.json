@@ -175,7 +175,8 @@
     "siteIds": "Sites",
     "allTeams": "All Teams?",
     "condition": "Condition",
-    "hiddenFields": "Hide Fields"
+    "hiddenFields": "Hide Fields",
+    "_immutable": "Immutable"
   },
   "validation": {
     "password": {
