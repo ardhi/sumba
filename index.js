@@ -745,7 +745,6 @@ async function factory (pkgName) {
       const { merge, isEmpty, camelCase, get } = this.app.lib._
       const { routePath } = this.app.waibu
       const userId = get(req, 'session.userId')
-
       const setUser = async () => {
         if (!userId) return
         try {
@@ -806,7 +805,8 @@ async function factory (pkgName) {
     checkXSite = async (req, reply) => {
       const { get } = this.app.lib._
       if (!this.config.multiSite.enabled) return
-      if (!get(req, 'routeOptions.config.xSite')) return
+      const config = get(req, 'routeOptions.config')
+      if (!get(config, 'xSite') || ['/dashboard'].includes(config.pathSrc)) return
       if (!get(req, 'user.isXSiteAdmin')) throw this.error('accessDenied', { statusCode: 403 })
     }
 

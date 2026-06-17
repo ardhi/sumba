@@ -4,7 +4,9 @@
 
 - [2.33.0] Add ```Site Setting``` in ```Cross-Site```
 - [2.33.0] Bug fix in ```hook.js```
-- [2.33.0] Bug fix in ```feature:siteId```
+- [2.33.0] Bug fix in ```sumba:siteId``` feature
+- [2.33.1] Bug fix in ```checkUser()```,  ```checkTeam()``` & ```checkXSite()```
+- [2.33.1] Bug fix in ```sumba:country``` feature
 
 ## 2026-06-15
 

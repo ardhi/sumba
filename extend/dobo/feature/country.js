@@ -7,7 +7,7 @@ async function country (opts = {}) {
       type: 'string',
       maxLength: 2,
       index: opts.index ?? true,
-      required: opts.required,
+      required: opts.required ?? true,
       values: 'sumba:getCountriesValues',
       rules: opts.enforceRule ? ['uppercase', { rule: 'length', params: 2 }] : [],
       rulesMsg: opts.enforceRule ? { 'any.only': 'validCountryCodeRequired' } : undefined

@@ -29,7 +29,7 @@ const id = {
     schema.view.format = {
       createdAt: async function (val, rec) {
         const message = this.app.bajoMarkdown ? this.app.bajoMarkdown.parseContent(rec.message) : rec.message
-        const isMe = rec.userId === req.user.id
+        const isMe = rec.userId === req.user.id + ''
         const sentence = `<c:div margin="bottom-3"><c:badge background="color:${isMe ? 'primary' : 'secondary'}" t:content="${isMe ? 'you' : 'us'}" /> <small>${req.format(val, 'datetime')}</small></c:div>`
         return (await this.component.buildSentence(sentence)) + message
       }
