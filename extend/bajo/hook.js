@@ -127,6 +127,7 @@ async function rebuildFilter (model, filter = {}, options = {}) {
     const fields = keys(req.getSetting('sumba:modelGuard', {}))
     const results = []
     for (const field of fields) {
+      if (!model.hasProperty(field)) continue
       const inSetting = filterModelFromSetting.call(this, { model, field, options })
       if (inSetting.results.length > 0) results.push(...inSetting.results)
     }
