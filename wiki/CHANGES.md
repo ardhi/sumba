@@ -4,6 +4,8 @@
 
 - [2.33.2] Bug fix in ```hook.js```
 - [2.33.3] Bug fix in ```hook.js```
+- [2.33.4] Bug fix in ```create-new-site.js```
+- [2.33.4] Normalize ```siteId``` & ```userId``` fields
 
 ## 2026-06-17
 

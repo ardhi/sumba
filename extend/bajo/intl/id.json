@@ -146,6 +146,7 @@
   "xSiteAdminArea": "Area Admin Antar Situs",
   "x": "Antar Situs",
   "misc": "Lain-lain",
+  "populateRouteGuard": "Isikan pelindung rute",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

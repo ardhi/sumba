@@ -140,6 +140,7 @@
   "xSiteAdminArea": "Cross-Site Admin Area",
   "x": "Cross-Site",
   "misc": "Miscellaneous",
+  "populateRouteGuard": "Populate route guard",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",

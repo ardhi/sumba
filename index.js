@@ -190,19 +190,19 @@ async function factory (pkgName) {
       }
       if (this.config.xSiteAdmins.length === 0) {
         const site = await getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noMagic: true })
-        const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id } }, { noMagic: true })
+        const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id + '' } }, { noMagic: true })
         this.config.xSiteAdmins.push(`${site.alias}:${user.username}`)
       }
     }
 
-    populateRouteGuards = async () => {
+    populateRouteGuards = async (sites) => {
       const { isString, get, difference } = this.app.lib._
       const { pascalCase } = this.app.lib.aneka
       const { eachPlugins, readConfig, breakNsPath } = this.app.bajo
       const { getModel } = this.app.dobo
 
       const allNs = this.app.getAllNs()
-      const sites = await getModel('SumbaSite').findAllRecord({ query: { status: 'ACTIVE' } }, { noMagic: true, dataOnly: true, fields: ['id', 'hostname'] })
+      if (!sites) sites = await getModel('SumbaSite').findAllRecord({ query: { status: 'ACTIVE' } }, { noMagic: true, dataOnly: true, fields: ['id', 'hostname'] })
 
       const sanitize = (item, ns) => {
         if (isString(item)) item = { path: item }
@@ -257,13 +257,13 @@ async function factory (pkgName) {
         const paths = routes.map(item => item.path)
         const model = getModel(pascalCase(`Sumba ${type} Guard`))
         for (const site of sites) {
-          const query = { path: { $in: paths }, siteId: site.id }
+          const query = { path: { $in: paths }, siteId: site.id + '' }
           const recs = await model.findAllRecord({ query }, { noMagic: true, dataOnly: true, fields: ['path', 'status'] })
           const spaths = difference(paths, recs.map(rec => rec.path))
           for (const path of spaths) {
             const body = cloneDeep(routes.find(r => r.path === path))
             body.status = 'ACTIVE'
-            body.siteId = site.id
+            body.siteId = site.id + ''
             await model.sanitizeFixture({ body, lookupValue: body })
             try {
               await model.createRecord(body, { noMagic: true, noReturn: true })
