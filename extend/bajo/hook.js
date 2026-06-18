@@ -20,6 +20,22 @@ async function clearCacheUser (id, result) {
   await clear({ key: `dobo|SumbaUser|getUserByToken|${token}` })
 }
 
+function filterModelFromSetting ({ model, field, options }) {
+  const { isEmpty, isArray, set } = this.app.lib._
+  const { req } = options
+  const opValue = req.getSetting(`sumba:modelGuard.${field}`, {})
+  const results = []
+  for (const op of ['in', 'nin', 'inOrNull']) {
+    if (isEmpty(opValue[op]) || !isArray(opValue[op])) continue
+    if (op === 'inOrNull') {
+      const val = set({}, field, set({}, '$in', opValue[op]))
+      const nl = set({}, field, { $eq: null })
+      results.push({ $or: [val, nl] })
+    } else results.push(set({}, field, set({}, '$' + op, opValue[op])))
+  }
+  return { results, opValue }
+}
+
 async function applyModelGuard ({ model, q, teamIds, options }) {
   const { set, orderBy, isEmpty, isArray } = this.app.lib._
   const { includes } = this.app.lib.aneka
@@ -39,15 +55,8 @@ async function applyModelGuard ({ model, q, teamIds, options }) {
   const rules = orderBy(guards.filter(filterFn), ['field'])
   for (const field of fields) {
     if (!model.getNonVirtualProperties(true).includes(field)) continue // or, should it throws exception instead?
-    const opValue = req.getSetting(`sumba:modelGuard.${field}`, {})
-    for (const op of ['in', 'nin', 'inOrNull']) {
-      if (isEmpty(opValue[op]) || !isArray(opValue[op])) continue
-      if (op === 'inOrNull') {
-        const val = set({}, field, set({}, '$in', opValue[op]))
-        const nl = set({}, field, { $eq: null })
-        results.push({ $or: [val, nl] })
-      } else results.push(set({}, field, set({}, '$' + op, opValue[op])))
-    }
+    const inSetting = filterModelFromSetting.call(this, { model, field, options })
+    if (inSetting.results.length > 0) inSetting.results.push(...inSetting.results)
     const prop = model.getProperty(field)
     const items = rules.filter(item => item.field === field)
     for (const item of items) {
@@ -55,7 +64,7 @@ async function applyModelGuard ({ model, q, teamIds, options }) {
         return sanitizeByType(val, prop.type, { strict: true, inputFormat: 'string', model: model.name })
       })
       const op = item.condition.toLowerCase()
-      if (['in', 'nin'].includes(op) && !isEmpty(opValue[op]) && isArray(opValue[op])) values = values.filter(val => opValue[op].includes(val))
+      if (['in', 'nin'].includes(op) && !isEmpty(inSetting.opValue[op]) && isArray(inSetting.opValue[op])) values = values.filter(val => inSetting.opValue[op].includes(val))
       if (isEmpty(values)) continue
       let value
       if (['in', 'nin'].includes(op)) value = set({}, '$' + op, values)
@@ -89,7 +98,7 @@ export async function applyAttribGuard ({ model, teamIds, options }) {
 }
 
 async function rebuildFilter (model, filter = {}, options = {}) {
-  const { isEmpty, get } = this.app.lib._
+  const { isEmpty, get, keys } = this.app.lib._
   const { req } = options
   const allowEmpty = !get(this, `app.${model.ns}.config.sumba.noEmptyQuery`, []).includes(model.name)
   const hasSiteId = model.hasProperty('siteId')
@@ -97,7 +106,7 @@ async function rebuildFilter (model, filter = {}, options = {}) {
   const hasTeamId = model.hasProperty('teamId')
   const teams = get(req, 'user.teams', [])
   const teamIds = teams.map(team => team.id + '')
-  // const aliases = teams.map(team => team.alias)
+  const aliases = teams.map(team => team.alias)
   const q = { $and: [] }
 
   filter.query = filter.query ?? {}
@@ -110,12 +119,21 @@ async function rebuildFilter (model, filter = {}, options = {}) {
     return
   }
   if (hasSiteId) q.$and.push({ siteId: req.site.id + '' })
-  /*
   if (aliases.includes('administrator')) {
+    if (get(req, 'site.alias') === 'default') {
+      filter.query = q
+      return
+    }
+    const fields = keys(req.getSetting('sumba:modelGuard', {}))
+    const results = []
+    for (const field of fields) {
+      const inSetting = filterModelFromSetting.call(this, { model, field, options })
+      if (inSetting.results.length > 0) results.push(...inSetting.results)
+    }
+    if (results.length > 0) q.$and.push(...results)
     filter.query = q
     return
   }
-  */
   if (isEmpty(req.user)) {
     if (q.$and.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery')
     filter.query = q
