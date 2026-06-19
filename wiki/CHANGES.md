@@ -7,6 +7,7 @@
 - [2.34.0] Add route checking to ```waibu:preParsing``` hook
 - [2.34.1] Bug fix in ```pathsToCheck()```
 - [2.34.1] Bug fix in ```hook.js```
+- [2.34.2] Bug fix in ```verifySession()```
 
 ## 2026-06-18
 

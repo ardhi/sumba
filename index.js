@@ -395,7 +395,7 @@ async function factory (pkgName) {
       }
       const redir = routePath(this.config.redirect.signin, { query, params })
       req.session.ref = req.url
-      throw this.error('_redirect', { redirect: redir })
+      throw this.error('_redirect', { path: redir })
     }
 
     verifyApiKey = async (req, reply, source, payload) => {
