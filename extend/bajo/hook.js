@@ -418,7 +418,7 @@ async function hook () {
       ctx.decorateRequest('user', null)
     }
   }, {
-    level: 5,
+    level: 10,
     name: 'waibu:preParsing',
     handler: async function (req, reply) {
       const { getHostname } = this.app.waibu

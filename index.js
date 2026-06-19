@@ -690,8 +690,9 @@ async function factory (pkgName) {
     }
 
     pathsToCheck = (req) => {
+      const { isSet } = this.app.lib.aneka
       const { uniq, without } = this.app.lib._
-      const items = [req.routeOptions.url, req.url].map(url => url.split('?')[0].split('#')[0])
+      const items = [req.routeOptions.url, req.url].filter(url => isSet(url)).map(url => url.split('?')[0].split('#')[0])
       return uniq(without(items, undefined, null))
     }
 
