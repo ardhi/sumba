@@ -3,6 +3,8 @@
 ## 2026-06-19
 
 - [2.33.5] Bug fix in ```team-user.json```
+- [2.34.0] Add ```checkRoute()```
+- [2.34.0] Add route checking to ```waibu:preParsing``` hook
 
 ## 2026-06-18
 

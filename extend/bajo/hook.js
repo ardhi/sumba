@@ -423,6 +423,7 @@ async function hook () {
     handler: async function (req, reply) {
       const { getHostname } = this.app.waibu
       req.site = await this.getSite(getHostname(req))
+      await this.checkRoute(req)
     }
   }, {
     name: 'waibu:beforeStart',

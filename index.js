@@ -810,6 +810,16 @@ async function factory (pkgName) {
       if (!get(req, 'user.isXSiteAdmin')) throw this.error('accessDenied', { statusCode: 403 })
     }
 
+    checkRoute = async (req) => {
+      const { routePath } = this.app.waibu
+      const { outmatch } = this.app.lib
+      const routes = req.getSetting('waibu:route.disabled', []).map(item => routePath(item, false))
+      if (routes.length === 0) return
+      const isMatch = outmatch(routes)
+      const paths = this.pathsToCheck(req)
+      if (paths.find(isMatch)) throw this.error('_notFound')
+    }
+
     parseNsSettings = (ns, setting, items) => {
       const { trim, set, isPlainObject, isArray, isEmpty, find } = this.app.lib._
       const { parseObject, dayjs } = this.app.lib
@@ -828,7 +838,6 @@ async function factory (pkgName) {
           } catch (err) {}
         } else if (Number(value)) value = Number(value)
         else if (['true', 'false'].includes(value)) value = value === 'true'
-        else if (item.key.endsWith('$in')) value = value.split('\n').map(v => v.trim())
         else {
           const dt = dayjs(value)
           if (dt.isValid()) value = dt.toDate()
