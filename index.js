@@ -728,7 +728,7 @@ async function factory (pkgName) {
       if (req.routeOptions.config.xSite && req.user.isXSiteAdmin) return
 
       const teamIds = req.user.teams.map(item => item.id + '')
-      if (req.user.teams.map(item => item.alias).length === 0) throw this.error('accessDenied', { statusCode: 403 })
+      // if (req.user.teams.map(item => item.alias).length === 0) throw this.error('accessDenied', { statusCode: 403 })
 
       const paths = this.pathsToCheck(req)
       const results = (await this.getSecureGuards()).filter(item => {

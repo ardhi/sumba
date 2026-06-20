@@ -379,8 +379,6 @@ async function hook () {
     level: 10,
     name: 'waibuMpa:preParsing',
     handler: async function (req, reply) {
-      await this.checkTheme(req, reply)
-      await this.checkIconset(req, reply)
       const secure = await this.checkUser(req, reply, 'waibuMpa')
       if (!secure) return
       await this.checkTeam(req, reply)
@@ -424,6 +422,8 @@ async function hook () {
       const { getHostname } = this.app.waibu
       req.site = await this.getSite(getHostname(req))
       await this.checkRoute(req)
+      await this.checkTheme(req, reply) // TODO: only check if webApp support it
+      await this.checkIconset(req, reply) // TODO: s.a.
     }
   }, {
     name: 'waibu:beforeStart',

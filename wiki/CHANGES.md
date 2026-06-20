@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-06-20
+
+- [2.34.3] Bug fix in ```checkTeam()```
+- [2.34.3] Bug fix in ```hook.js```
+
 ## 2026-06-19
 
 - [2.33.5] Bug fix in ```team-user.json```
