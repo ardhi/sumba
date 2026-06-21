@@ -4,6 +4,7 @@
 
 - [2.34.3] Bug fix in ```checkTeam()```
 - [2.34.3] Bug fix in ```hook.js```
+- [2.34.4] Bug fix in ```fixture/site.json```
 
 ## 2026-06-19
 
