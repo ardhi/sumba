@@ -67,7 +67,33 @@ async function model () {
     options: { ...options },
     buildEnd
   }, {
-    baseName: 'model-guard',
+    baseName: 'action-guard',
+    properties: [
+      {
+        name: 'models',
+        type: 'array',
+        required: true
+      },
+      {
+        name: 'value',
+        type: 'array',
+        required: true,
+        values: ['*', 'READ', 'CREATE', 'UPDATE', 'REMOVE', 'EXPORT', 'IMPORT'],
+        default: ['*']
+      },
+      allTeams,
+      'teamIds,sumba:teamIds',
+      'siteId,sumba:siteId'
+    ],
+    features: [
+      'sumba:status',
+      'dobo:updatedAt',
+      'dobo:immutable'
+    ],
+    options: { ...options },
+    buildEnd
+  }, {
+    baseName: 'query-guard',
     properties: [
       {
         name: 'models',

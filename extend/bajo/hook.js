@@ -1,183 +1,4 @@
-import { removeRefs } from '../../lib/remove-site.js'
-import { getAllFixtures, createRefs } from '../../lib/create-new-site.js'
 import path from 'path'
-
-async function clearCacheSite (id, result) {
-  if (!this.app.bajoCache) return
-  const { clear } = this.app.bajoCache ?? {}
-  const { get } = this.app.lib._
-  await clear({ key: 'dobo|SumbaSite|getSite|default' })
-  await clear({ key: `dobo|SumbaSite|getSite|multiSite|${id}` })
-  await clear({ key: `dobo|SumbaSite|getSite|multiSite|${get(result, 'data.hostname', get(result, 'oldData.hostname'))}` })
-}
-
-async function clearCacheUser (id, result) {
-  if (!this.app.bajoCache) return
-  const { clear } = this.app.bajoCache ?? {}
-  const { get } = this.app.lib._
-  const token = get(result, 'data.token', get(result, 'oldData.token', ''))
-  await clear({ key: `dobo|SumbaUser|getUserById|${id}` })
-  await clear({ key: `dobo|SumbaUser|getUserByToken|${token}` })
-}
-
-function filterModelFromSetting ({ model, field, options }) {
-  const { isEmpty, isArray, set } = this.app.lib._
-  const { req } = options
-  const opValue = req.getSetting(`sumba:modelGuard.${field}`, {})
-  const results = []
-  for (const op of ['in', 'nin', 'inOrNull']) {
-    if (isEmpty(opValue[op]) || !isArray(opValue[op])) continue
-    if (op === 'inOrNull') {
-      const val = set({}, field, set({}, '$in', opValue[op]))
-      const nl = set({}, field, { $eq: null })
-      results.push({ $or: [val, nl] })
-    } else results.push(set({}, field, set({}, '$' + op, opValue[op])))
-  }
-  return { results, opValue }
-}
-
-async function applyModelGuard ({ model, q, teamIds, options }) {
-  const { set, orderBy, isEmpty, isArray } = this.app.lib._
-  const { includes } = this.app.lib.aneka
-  const { sanitizeByType } = this.app.dobo
-  const { req } = options
-  const results = []
-
-  const guards = await this.getModelGuards()
-  const fields = model.getNonVirtualProperties().map(prop => prop.name)
-  const filterFn = item => {
-    const bySiteId = item.siteId === req.site.id + ''
-    const byModel = item.models.includes(model.name)
-    const byFields = fields.includes(item.field)
-    return bySiteId && byModel && byFields
-  }
-
-  const rules = orderBy(guards.filter(filterFn), ['field'])
-  for (const field of fields) {
-    if (!model.getNonVirtualProperties(true).includes(field)) continue // or, should it throws exception instead?
-    const inSetting = filterModelFromSetting.call(this, { model, field, options })
-    if (inSetting.results.length > 0) inSetting.results.push(...inSetting.results)
-    const prop = model.getProperty(field)
-    const items = rules.filter(item => item.field === field)
-    for (const item of items) {
-      let values = item.value.map(val => {
-        return sanitizeByType(val, prop.type, { strict: true, inputFormat: 'string', model: model.name })
-      })
-      const op = item.condition.toLowerCase()
-      if (['in', 'nin'].includes(op) && !isEmpty(inSetting.opValue[op]) && isArray(inSetting.opValue[op])) values = values.filter(val => inSetting.opValue[op].includes(val))
-      if (isEmpty(values)) continue
-      let value
-      if (['in', 'nin'].includes(op)) value = set({}, '$' + op, values)
-      else if (op === 'between') value = { $gte: values[0], $lte: values[1] }
-      else value = set({}, '$' + op, values[0])
-      const teamOk = item.allTeams ? true : (item.teamIds.length === 0 ? false : includes(item.teamIds, teamIds))
-      if (!teamOk) throw this.error('_abortAction')
-      results.push(set({}, field, value))
-    }
-  }
-  q.$and.push(...results)
-}
-
-export async function applyAttribGuard ({ model, teamIds, options }) {
-  const { uniq } = this.app.lib._
-  const { includes } = this.app.lib.aneka
-  const { req } = options
-  const results = []
-
-  const guards = await this.getAttribGuards()
-  const filterFn = item => {
-    const bySiteId = item.siteId === req.site.id + ''
-    const byModel = item.models.includes(model.name)
-    const byTeamId = item.allTeams ? true : includes(item.teamIds, teamIds)
-    return bySiteId && byModel && byTeamId
-  }
-  guards.filter(filterFn).forEach(item => results.push(...item.hiddenFields))
-  options.hidden = options.hidden ?? []
-  options.hidden.push(...results)
-  options.hidden = uniq(options.hidden)
-}
-
-async function rebuildFilter (model, filter = {}, options = {}) {
-  const { isEmpty, get, keys } = this.app.lib._
-  const { req } = options
-  const allowEmpty = !get(this, `app.${model.ns}.config.sumba.noEmptyQuery`, []).includes(model.name)
-  const hasSiteId = model.hasProperty('siteId')
-  const hasUserId = model.hasProperty('userId')
-  const hasTeamId = model.hasProperty('teamId')
-  const teams = get(req, 'user.teams', [])
-  const teamIds = teams.map(team => team.id + '')
-  const aliases = teams.map(team => team.alias)
-  const q = { $and: [] }
-
-  filter.query = filter.query ?? {}
-  if (!isEmpty(filter.query)) {
-    if (filter.query.$and) q.$and.push(...filter.query.$and)
-    else q.$and.push(filter.query)
-  }
-  if (req.routeOptions.config.xSite) {
-    filter.query = q
-    return
-  }
-  if (hasSiteId) q.$and.push({ siteId: req.site.id + '' })
-  if (aliases.includes('administrator')) {
-    if (get(req, 'site.alias') === 'default') {
-      filter.query = q
-      return
-    }
-    const fields = keys(req.getSetting('sumba:modelGuard', {}))
-    const results = []
-    for (const field of fields) {
-      if (!model.hasProperty(field)) continue
-      const inSetting = filterModelFromSetting.call(this, { model, field, options })
-      if (inSetting.results.length > 0) results.push(...inSetting.results)
-    }
-    if (results.length > 0) q.$and.push(...results)
-    filter.query = q
-    return
-  }
-  if (isEmpty(req.user)) {
-    if (q.$and.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery')
-    filter.query = q
-    return
-  }
-
-  const condUserId = {
-    $or: [
-      { userId: req.user.id + '' },
-      { userId: { $eq: null } }
-    ]
-  }
-
-  const condTeamId = {
-    $or: [
-      { teamId: { $in: teamIds } },
-      { teamId: { $eq: null } }
-    ]
-  }
-
-  if (hasTeamId) {
-    if (hasUserId) q.$and.push({ $or: [condTeamId, condUserId] })
-    else q.$and.push(condTeamId)
-  } else if (hasUserId) q.$and.push(condUserId)
-
-  await applyModelGuard.call(this, { model, q, teamIds, options, allowEmpty })
-  await applyAttribGuard.call(this, { model, teamIds, options })
-  if (q.$and.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery')
-  filter.query = q
-}
-
-async function checker (model, id, options = {}) {
-  const { isEmpty } = this.app.lib._
-  const { req = {} } = options
-  if (options.noAutoFilter || isEmpty(req) || isEmpty(req.site)) return
-
-  const filter = {}
-  await rebuildFilter.call(this, model, filter, options)
-  if (filter.query.$and) filter.query.$and.push({ id })
-  else filter.query.id = id
-  const row = await model.findOneRecord(filter, { count: false })
-  if (!row) throw this.app.dobo.error('recordNotFound%s%s', id, this.name, { statusCode: 404 })
-}
 
 async function hook () {
   return [{
@@ -229,16 +50,22 @@ async function hook () {
       options.checksumId = true
     }
   }, {
-    name: ['dobo.sumbaModelGuard:afterTransaction'],
+    name: ['dobo.sumbaQueryGuard:afterTransaction'],
     handler: async function (action, ...args) {
       if (!['createRecord', 'updateRecord', 'removeRecord'].includes(action)) return
-      await this.getModelGuards(true)
+      await this.getQueryGuards(true)
     }
   }, {
     name: ['dobo.sumbaSecureGuard:afterTransaction'],
     handler: async function (action, ...args) {
       if (!['createRecord', 'updateRecord', 'removeRecord'].includes(action)) return
       await this.getSecureGuards(true)
+    }
+  }, {
+    name: ['dobo.sumbaActionGuard:afterTransaction'],
+    handler: async function (action, ...args) {
+      if (!['createRecord', 'updateRecord', 'removeRecord'].includes(action)) return
+      await this.getActionGuards(true)
     }
   }, {
     name: ['dobo.sumbaAnonymousGuard:afterTransaction'],
@@ -249,26 +76,27 @@ async function hook () {
   }, {
     name: 'dobo.sumbaSite:afterCreateRecord',
     handler: async function afterCreateRecord (body, result, options) {
-      const fixtures = await getAllFixtures.call(this, result.data.alias)
-      await createRefs.call(this, result.data, fixtures, options)
+      const fixtures = await this.getAllFixtures(result.data.alias)
+      await this.createRefs(result.data, fixtures, options)
     }
   }, {
     name: 'dobo.sumbaSite:afterRemoveRecord',
     handler: async function afterRemoveRecord (id, result, options) {
-      await removeRefs.call(this, result.oldData, options)
-      await clearCacheSite.call(this, id, result)
+      await this.removeRefs(result.oldData, options)
+      await this.clearCacheSite(id, result)
     }
   }, {
     name: 'dobo.sumbaSite:afterUpdateRecord',
     handler: async function (id, input, result, opts) {
-      await clearCacheSite.call(this, id, result)
+      await this.clearCacheSite(id, result)
     }
   }, {
     name: ['dobo.sumbaTeam:afterTransaction', 'dobo.sumbaSite:afterTransaction'],
     handler: async function (action, ...args) {
       if (!['createRecord', 'updateRecord', 'removeRecord'].includes(action)) return
       await this.getSecureGuards(true)
-      await this.getModelGuards(true)
+      await this.getQueryGuards(true)
+      await this.getActionGuards(true)
       await this.getAttribGuards(true)
     }
   }, {
@@ -289,7 +117,7 @@ async function hook () {
   }, {
     name: 'dobo.sumbaUser:afterRemoveRecord',
     handler: async function (id, rec, options = {}) {
-      await clearCacheUser.call(this, id, rec)
+      await this.clearCacheUser(id, rec)
     }
   }, {
     name: 'dobo.sumbaUser:afterUpdateRecord',
@@ -301,7 +129,7 @@ async function hook () {
       const to = `${data.firstName} ${data.lastName} <${data.email}>`
       const source = this.ns
 
-      await clearCacheUser.call(this, id, rec)
+      await this.clearCacheUser(id, rec)
 
       let subject
       const payload = { to, subject, data }
@@ -328,6 +156,12 @@ async function hook () {
     }
   }, {
     level: 1000,
+    name: 'dobo.driver:beforeAny',
+    handler: async function (model, options) {
+      await this.applyActionHook({ model, options })
+    }
+  }, {
+    level: 1000,
     name: 'dobo.driver:beforeCreateRecord',
     handler: async function (model, body, options = {}) {
       const { get } = this.app.lib._
@@ -348,13 +182,13 @@ async function hook () {
       const { isEmpty } = this.app.lib._
       const { req = {} } = options
       if (options.noAutoFilter || isEmpty(req) || isEmpty(req.site)) return
-      await rebuildFilter.call(this, model, filter, options)
+      await this.rebuildFilter(model, filter, options)
     }
   }, {
     level: 1000,
     name: ['dobo.driver:beforeGetRecord', 'dobo.driver:beforeRemoveRecord', 'dobo.driver:beforeUpdateRecord'],
     handler: async function (model, id, options) {
-      await checker.call(this, model, id, options)
+      await this.applyQueryHook(model, id, options)
     }
   }, {
     name: 'waibuMpa.sumba:afterBuildLocals',
@@ -407,7 +241,8 @@ async function hook () {
     handler: async function () {
       await this.getAnonymousGuards(true)
       await this.getSecureGuards(true)
-      await this.getModelGuards(true)
+      await this.getQueryGuards(true)
+      await this.getActionGuards(true)
       await this.getAttribGuards(true)
     }
   }, {

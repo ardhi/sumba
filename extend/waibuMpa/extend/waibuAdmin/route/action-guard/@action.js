@@ -1,10 +1,10 @@
 const action = {
   method: ['GET', 'POST'],
-  title: 'modelGuard',
+  title: 'actionGuard',
   handler: async function (req, reply) {
     const { importModule } = this.app.bajo
     const crudSkel = await importModule('waibuAdmin:/lib/crud-skel.js')
-    return await crudSkel.call(this, 'SumbaModelGuard', req, reply)
+    return await crudSkel.call(this, 'SumbaActionGuard', req, reply)
   }
 }
 

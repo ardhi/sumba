@@ -1,35 +1,51 @@
 <!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Source: index.js</title><!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="light"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Sumba API</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Sumba.html">Sumba</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#factory">factory</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/sumba" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/sumba" target="">Github</a></div><div class="navbar-item"><a id="" href="https://sumba.bajo.app/" target="">Sumba</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">index.js</h1></header><article><pre class="prettyprint source lang-js"><code>import path from 'path'
+    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="light"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Sumba API</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Sumba.html">Sumba</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#TConfig">TConfig</a></div><div class="sidebar-section-children"><a href="global.html#TTokenBody">TTokenBody</a></div><div class="sidebar-section-children"><a href="global.html#TTokenData">TTokenData</a></div><div class="sidebar-section-children"><a href="global.html#factory">factory</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/sumba" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/sumba" target="">Github</a></div><div class="navbar-item"><a id="" href="https://sumba.bajo.app/" target="">Sumba</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">index.js</h1></header><article><pre class="prettyprint source lang-js"><code>import path from 'path'
+import { joiPasswordExtendCore } from 'joi-password'
+
+const defMultiSite = {
+  enabled: false,
+  catchAll: 'default'
+}
 
 /**
- * Plugin factory
+ * Plugin factory.
+ *
+ * **Never** call this function directly!!! It's only-meant to be called by the {@link https://ardhi.github.io/bajo|Bajo framework} during plugin initialization.
  *
  * @param {string} pkgName - NPM package name
- * @returns {class}
+ * @returns {Sumba} Sumba class
  */
 async function factory (pkgName) {
   const me = this
+  const { getModel } = this.app.dobo
+  const { cloneDeep, isEmpty } = this.app.lib._
 
   /**
-   * Sumba class
+   * Sumba class definition.
    *
    * @class
    */
   class Sumba extends this.app.baseClass.Base {
-    static alias = 'sumba'
-    static dependencies = ['bajo-extra', 'bajo-common-db', 'bajo-config', 'bajo-markdown']
-
+    /**
+     * Constructor
+     */
     constructor () {
       super(pkgName, me.app)
+      /**
+       * @type {TConfig}
+       */
       this.config = {
-        multiSite: false,
+        multiSite: cloneDeep(defMultiSite),
+        xSiteAdmins: [], // format: "&lt;siteAlias>:&lt;username>"
         waibu: {
           title: 'site',
           prefix: 'site'
         },
+        dobo: {
+          model: {}
+        },
         waibuMpa: {
-          home: 'sumba:/your-stuff/profile',
           icon: 'globe',
           redirect: {
             '/': 'sumba:/your-stuff/profile',
@@ -40,8 +56,17 @@ async function factory (pkgName) {
             '/help': 'sumba:/help/contact-form',
             '/help/trouble-tickets': 'sumba:/help/trouble-tickets/list'
           },
+          redirectSubRoute: {
+            waibuAdmin: {
+              '/': 'waibuAdmin:/site/site',
+              '/x': 'waibuAdmin:/site/x/site/list',
+              '/x/*': 'waibuAdmin:/site/x/{2}/list',
+              '/*': 'waibuAdmin:/site/{1}/list'
+            }
+          },
           menuHandler: [{
             title: 'account',
+            icon: 'person',
             level: 9998,
             children: [
               // anonymous only
@@ -59,6 +84,7 @@ async function factory (pkgName) {
             ]
           }, {
             title: 'help',
+            icon: 'signInfo',
             level: 9999,
             children: [
               { title: 'contactForm', href: 'sumba:/help/contact-form' },
@@ -80,16 +106,17 @@ async function factory (pkgName) {
             apiKey: {
               type: 'Bearer',
               qsKey: 'apiKey',
-              headerKey: 'X-Sumba-ApiKey'
+              headerKey: 'X-Auth-ApiKey',
+              algo: 'sha256' // changing this require each and every user to reset their apiKey
             },
             basic: {
             },
             jwt: {
               type: 'Bearer',
               qsKey: 'token',
-              headerKey: 'X-Sumba-Token',
+              headerKey: 'X-Auth-Jwt',
               secret: '668de9cf57316c7dbf52f7ff7611c299',
-              expiresIn: 604800000
+              expiresInDur: '7d'
             }
           },
           waibuRestApi: {
@@ -104,8 +131,8 @@ async function factory (pkgName) {
             methods: ['basic', 'apiKey', 'jwt'],
             basic: {
               useUtf8: true,
-              realm: 'Protected Area',
-              warningMessage: 'Please authenticate yourself, thank you!'
+              realm: true,
+              warningMessage: 'pleaseAuthenticate'
             },
             silentOnError: false
           }
@@ -118,30 +145,168 @@ async function factory (pkgName) {
         },
         siteSetting: {
           forgotPasswordExpDur: '5m',
+          timeZone: 'UTC',
           userPassword: {
-            minUppercase: 1,
-            minLowercase: 1,
+            minUpperCase: 1,
+            minLowerCase: 1,
             minSpecialChar: 1,
             minNumeric: 1,
             noWhitespace: false,
-            latinOnlyChars: false
+            latinOnlyChars: false,
+            pattern: {
+              lowerCase: 'abcdefghijklmnopqrstuvwxyz',
+              upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+              specialChar: '!@#$%*',
+              numeric: '0123456789'
+            }
           }
+        },
+        cacheTtl: {
+          getSiteDur: '1m',
+          getUserByIdDur: '1m',
+          getUserByTokenDur: '1m'
         }
       }
+      this.secureGuards = []
+      this.actionGuards = []
+      this.queryGuards = []
+      this.attribGuards = []
+      this.secureGuards = []
+      this.anonymousGuards = []
+
       this.unsafeUserFields = ['password']
     }
 
+    /**
+     * Plugin initialization method. This method is called by the {@link https://ardhi.github.io/bajo|Bajo framework} during plugin initialization.
+     *
+     * @async
+     * @method
+     */
     init = async () => {
-      const { getPluginDataDir } = this.app.bajo
-      this.downloadDir = `${getPluginDataDir(this.ns)}/download`
+      this.downloadDir = `${this.app.getPluginDataDir(this.ns)}/download`
       this.app.lib.fs.ensureDirSync(this.downloadDir)
-      for (const type of ['secure', 'anonymous', 'team']) {
-        this[`${type}Routes`] = this[`${type}Routes`] ?? []
-        this[`${type}NegRoutes`] = this[`${type}NegRoutes`] ?? []
+      if (this.config.multiSite === true) {
+        this.config.multiSite = cloneDeep(defMultiSite)
+        this.config.multiSite.enabled = true
       }
     }
 
-    _getSetting = async (type, source) => {
+    /**
+     * Plugin start method. This method is called by the {@link https://ardhi.github.io/bajo|Bajo framework} during plugin start.
+     *
+     * @async
+     * @method
+     */
+    start = async () => {
+      await this.populateRouteGuards()
+      if (!this.config.multiSite.enabled) {
+        this.config.xSiteAdmins = []
+        return
+      }
+      if (this.config.xSiteAdmins.length === 0) {
+        const site = await getModel('SumbaSite').findOneRecord({ query: { alias: 'default' } }, { noMagic: true })
+        const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id + '' } }, { noMagic: true })
+        this.config.xSiteAdmins.push(`${site.alias}:${user.username}`)
+      }
+    }
+
+    /**
+     * Populate route guards at start
+     *
+     * @async
+     * @method
+     * @param {array} [sites] - List of sites to populate route guards for. If not provided, it will fetch all active sites.
+     */
+    populateRouteGuards = async (sites) => {
+      const { isString, get, difference } = this.app.lib._
+      const { pascalCase } = this.app.lib.aneka
+      const { eachPlugins, readConfig, breakNsPath } = this.app.bajo
+      const { getModel } = this.app.dobo
+
+      const allNs = this.app.getAllNs()
+      if (!sites) sites = await getModel('SumbaSite').findAllRecord({ query: { status: 'ACTIVE' } }, { noMagic: true, dataOnly: true, fields: ['id', 'hostname'] })
+
+      const sanitize = (item, ns) => {
+        if (isString(item)) item = { path: item }
+        let [prefix, ...args] = item.path.split(':')
+        const neg = prefix[0] === '!'
+        if (neg) prefix = prefix.slice(1)
+        if (isEmpty(args)) {
+          args = prefix
+          prefix = null
+        } else args = args.join(':')
+        if (isEmpty(prefix)) prefix = ns
+        else {
+          const [_ns, subNs] = prefix.split('.')
+          if (subNs) prefix = `${ns}.${subNs}`
+          else if (!allNs.includes(_ns)) prefix = `${ns}.${_ns}`
+          else prefix = _ns
+        }
+        item.path = `${neg ? '!' : ''}${prefix}:${args}`
+        item._immutable = item._immutable ?? ['path']
+        if (neg) {
+          item.allTeams = true
+          item.teamIds = []
+          item._immutable = ['path', 'teamIds', 'allTeams']
+        }
+        return item
+      }
+
+      const filterFn = item => {
+        let [ns] = (item.path.split(':')[0] ?? '').split('.')
+        if (ns[0] === '!') ns = ns.slice(1)
+        return allNs.includes(ns)
+      }
+
+      for (const type of ['secure', 'anonymous']) {
+        const routes = []
+        // get it from &lt;pluginDir>/extend/sumba/route/*
+        await eachPlugins(async function ({ file }) {
+          const { ns } = this
+          const items = (await readConfig(file)).map(item => sanitize(item, ns)).filter(filterFn)
+          routes.push(...items)
+        }, { glob: `route/${type}.*`, prefix: this.ns })
+        // get it from config
+        const items = get(this, `config.route.${type}`, []).map(item => {
+          if (isString(item)) item = { path: item }
+          const neg = item.path[0] === '!'
+          if (neg) item.path.slice(1)
+          const { fullNs } = breakNsPath(item.path)
+          if (neg) item.path = '!' + item.path
+          return sanitize(item, fullNs)
+        }).filter(filterFn)
+        routes.push(...items)
+        const paths = routes.map(item => item.path)
+        const model = getModel(pascalCase(`Sumba ${type} Guard`))
+        for (const site of sites) {
+          const query = { path: { $in: paths }, siteId: site.id + '' }
+          const recs = await model.findAllRecord({ query }, { noMagic: true, dataOnly: true, fields: ['path', 'status'] })
+          const spaths = difference(paths, recs.map(rec => rec.path))
+          for (const path of spaths) {
+            const body = cloneDeep(routes.find(r => r.path === path))
+            body.status = 'ACTIVE'
+            body.siteId = site.id + ''
+            await model.sanitizeFixture({ body, lookupValue: body })
+            try {
+              await model.createRecord(body, { noMagic: true, noReturn: true })
+            } catch (err) {}
+          }
+        }
+      }
+    }
+
+    /**
+     * Get authentication setting based on type and source
+     *
+     * @async
+     * @method
+     * @private
+     * @param {string} type - The type of authentication setting to retrieve.
+     * @param {string} source - The source of the authentication setting.
+     * @returns {object} - The authentication setting object.
+     */
+    _getAuthSetting = async (type, source) => {
       const { defaultsDeep } = this.app.lib.aneka
       const { get } = this.app.lib._
 
@@ -150,10 +315,21 @@ async function factory (pkgName) {
       return setting
     }
 
-    _getToken = async (type, req, source) => {
+    /**
+     * Get authentication token based on type, request, and source
+     *
+     * @async
+     * @method
+     * @private
+     * @param {string} type - The type of authentication setting.
+     * @param {object} req - The request object.
+     * @param {string} source - The source of the authentication setting.
+     * @returns {string|boolean} - The token if found, otherwise false.
+     */
+    _getAuthToken = async (type, req, source) => {
       const { isEmpty } = this.app.lib._
 
-      const setting = await this._getSetting(type, source)
+      const setting = await this._getAuthSetting(type, source)
       let token = req.headers[setting.headerKey.toLowerCase()]
       if (!['basic'].includes(type) &amp;&amp; isEmpty(token)) token = req.query[setting.qsKey]
       if (isEmpty(token)) {
@@ -164,161 +340,200 @@ async function factory (pkgName) {
       return token
     }
 
+    /**
+     * Build admin menu based on locals and request
+     *
+     * @async
+     * @method
+     * @param {object} locals - The locals object.
+     * @param {object} req - The request object.
+     * @returns {array} - The admin menu items.
+     */
     adminMenu = async (locals, req) => {
       if (!this.app.waibuAdmin) return
       const { getPluginPrefix } = this.app.waibu
+      const { findIndex } = this.app.lib._
       const prefix = getPluginPrefix(this.ns)
-      return [{
-        title: 'supportSystem',
+      const params = { action: 'list' }
+      const items = [{
+        title: 'manageSite',
         children: [
-          { title: 'contactForm', href: `waibuAdmin:/${prefix}/contact-form/list` },
-          { title: 'contactFormCat', href: `waibuAdmin:/${prefix}/contact-form-cat/list` },
-          { title: 'ticket', href: `waibuAdmin:/${prefix}/ticket/list` },
-          { title: 'ticketCat', href: `waibuAdmin:/${prefix}/ticket-cat/list` }
+          { title: 'siteProfile', href: `waibuAdmin:/${prefix}/site` },
+          { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/:action`, params }
         ]
       }, {
-        title: 'management',
+        title: 'manageUser',
         children: [
-          { title: 'manageSite', href: `waibuAdmin:/${prefix}/site` },
-          { title: 'manageUser', href: `waibuAdmin:/${prefix}/user/list` },
-          { title: 'manageTeam', href: `waibuAdmin:/${prefix}/team/list` },
-          { title: 'manageTeamUser', href: `waibuAdmin:/${prefix}/team-user/list` },
-          { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/list` },
+          { title: 'userProfile', href: `waibuAdmin:/${prefix}/user/:action`, params },
+          { title: 'userSetting', href: `waibuAdmin:/${prefix}/user-setting/:action`, params },
           { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
+        ]
+      }, {
+        title: 'manageTeam',
+        children: [
+          { title: 'teamProfile', href: `waibuAdmin:/${prefix}/team/:action`, params },
+          { title: 'teamUser', href: `waibuAdmin:/${prefix}/team-user/:action`, params },
+          { title: 'teamSetting', href: `waibuAdmin:/${prefix}/team-setting/:action`, params }
+        ]
+      }, {
+        title: 'permission',
+        children: [
+          { title: 'secureGuard', href: `waibuAdmin:/${prefix}/secure-guard/:action`, params },
+          { title: 'anonymousGuard', href: `waibuAdmin:/${prefix}/anonymous-guard/:action`, params },
+          { title: 'queryGuard', href: `waibuAdmin:/${prefix}/query-guard/:action`, params },
+          { title: 'actionGuard', href: `waibuAdmin:/${prefix}/action-guard/:action`, params },
+          { title: 'attribGuard', href: `waibuAdmin:/${prefix}/attrib-guard/:action`, params }
+        ]
+      }, {
+        title: 'supportSystem',
+        children: [
+          { title: 'contactForm', href: `waibuAdmin:/${prefix}/contact-form/:action`, params },
+          { title: 'contactFormCat', href: `waibuAdmin:/${prefix}/contact-form-cat/:action`, params },
+          { title: 'ticket', href: `waibuAdmin:/${prefix}/ticket/:action`, params },
+          { title: 'ticketCat', href: `waibuAdmin:/${prefix}/ticket-cat/:action`, params }
         ]
       }, {
         title: 'misc',
         children: [
-          { title: 'userSession', href: `waibuAdmin:/${prefix}/session/list` }
+          { title: 'manageDownload', href: `waibuAdmin:/${prefix}/download/:action`, params }
         ]
       }]
-    }
-
-    getUser = async (rec, safe = true) => {
-      const { omit, isPlainObject } = this.app.lib._
-      let user
-      if (isPlainObject(rec)) user = rec
-      else {
-        const mdl = this.app.dobo.getModel('SumbaUser')
-        user = await mdl.getRecord(rec, { noHook: true, throwNotFound: false })
+      const sessionMenu = { title: 'userSession', href: `waibuAdmin:/${prefix}/x/session/:action`, params }
+      const cacheMenu = { title: 'cacheStorage', href: `waibuAdmin:/${prefix}/x/cache/:action`, params }
+      if (this.config.multiSite.enabled) {
+        items.unshift({
+          title: 'xSite',
+          children: [
+            { title: 'allSites', href: `waibuAdmin:/${prefix}/x/site/:action`, params },
+            { title: 'siteSetting', href: `waibuAdmin:/${prefix}/x/site-setting/:action`, params },
+            sessionMenu
+          ]
+        })
+      } else {
+        const idx = findIndex(items, i => i.title === 'misc')
+        if (idx > -1) items[idx].children.push(sessionMenu)
       }
-      if (!user) return null
-      return safe ? omit(user, this.unsafeUserFields) : user
+      if (this.app.bajoCache) {
+        const idx = findIndex(items, i => i.title === this.config.multiSite.enabled ? 'xSite' : 'misc')
+        if (idx > -1)items[idx].children.push(cacheMenu)
+      }
+      return items
     }
 
-    mergeTeam = async (user, site) => {
-      if (!user) return
-      const { map, pick } = this.app.lib._
-      user.teams = []
-      const query = { userId: user.id, siteId: site.id }
-      let mdl = this.app.dobo.getModel('SumbaTeamUser')
-      const userTeam = await mdl.findAllRecord({ query })
-      if (userTeam.length === 0) return
-      delete query.userId
-      query.id = { $in: map(userTeam, 'id') }
-      query.status = 'ENABLED'
-      mdl = this.app.dobo.getModel('SumbaTeam')
-      const team = await mdl.findAllRecord({ query })
-      if (team.length > 0) user.teams.push(...map(team, t => pick(t, ['id', 'alias'])))
-    }
-
-    getUserFromUsernamePassword = async (username = '', password = '', req) => {
-      const { importPkg } = this.app.bajo
-      const model = this.app.dobo.getModel('SumbaUser')
-      await model.validate({ username, password }, null, { partial: true, ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
-      const bcrypt = await importPkg('bajoExtra:bcrypt')
-
-      const query = { username, provider: 'local' }
-      const rows = await model.findRecord({ query }, { req, forceNoHidden: true, noHook: true })
-      if (rows.length === 0) throw this.error('validationError', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })
-      const rec = rows[0]
-      if (rec.status !== 'ACTIVE') throw this.error('validationError', { details: ['User is inactive or temporarily disabled'], statusCode: 401 })
-      const verified = await bcrypt.compare(password, rec.password)
-      if (!verified) throw this.error('validationError', { details: [{ field: 'password', error: 'invalidPassword' }], statusCode: 401 })
-      return rec
-    }
-
+    /**
+     * Create JWT from user record
+     *
+     * @async
+     * @method
+     * @param {object} rec - The user record object.
+     * @returns {object} - The JWT token and its expiration date.
+     */
     createJwtFromUserRecord = async (rec) => {
       const { importPkg } = this.app.bajo
       const { dayjs } = this.app.lib
-      const { hash } = this.app.bajoExtra
       const { get, pick } = this.app.lib._
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createSigner } = fastJwt
 
-      const opts = pick(this.config.auth.common.jwt, ['expiresIn'])
+      const opts = pick(this.config.auth.common.jwt, ['expiresInDur'])
       opts.key = get(this.config, 'auth.common.jwt.secret')
       const sign = createSigner(opts)
-      const apiKey = await hash(rec.password)
+      const apiKey = await this.hash(rec.token)
       const payload = { uid: rec.id, apiKey }
       const token = await sign(payload)
-      const expiresAt = dayjs().add(opts.expiresIn).toDate()
+      const expiresAt = dayjs().add(opts.expiresInDur).toDate()
       return { token, expiresAt }
     }
 
+    /**
+     * Verify user session
+     *
+     * @async
+     * @method
+     * @param {object} req - The request object.
+     * @param {object} reply - The reply object.
+     * @param {string} source - The source of the authentication setting.
+     * @param {object} payload - The payload object.
+     * @returns {boolean} - True if the session is valid, otherwise false.
+     */
     verifySession = async (req, reply, source, payload) => {
-      const { getUser } = this
       const { routePath } = this.app.waibu
+      const { query, params } = req
 
       if (!req.session) return false
       if (req.session.userId) {
-        req.user = await getUser(req.session.userId)
+        req.user = await this.getUserById(req.session.userId, req)
         return true
       }
-      const redir = routePath(this.config.redirect.signin, req)
+      const redir = routePath(this.config.redirect.signin, { query, params })
       req.session.ref = req.url
-      throw this.error('_redirect', { redirect: redir })
+      throw this.error('_redirect', { path: redir })
     }
 
+    /**
+     * Verify API key
+     *
+     * @async
+     * @method
+     * @param {object} req - The request object.
+     * @param {object} reply - The reply object.
+     * @param {string} source - The source of the authentication setting.
+     * @param {object} payload - The payload object.
+     * @returns {boolean} - True if the API key is valid, otherwise false.
+     */
     verifyApiKey = async (req, reply, source, payload) => {
-      const { merge } = this.app.lib._
-      const { isMd5, hash } = this.app.bajoExtra
-      const { getUser } = this
+      const { merge, camelCase } = this.app.lib._
+      const checker = this.app.bajoExtra[camelCase(`is ${this.config.auth.common.apiKey.algo}`)]
 
-      let token = await this._getToken('apiKey', req, source)
-      if (!isMd5(token)) return false
-      token = await hash(token)
-      const query = { token }
-      const rows = await this.app.dobo.getModel('SumbaUser').findRecord({ query }, { req, noHook: true })
-      if (rows.length === 0) throw this.error('invalidKey', merge({ statusCode: 401 }, payload))
-      if (rows[0].status !== 'ACTIVE') throw this.error('userInactive', merge({ details: [{ field: 'status', error: 'inactive' }], statusCode: 401 }, payload))
-      req.user = await getUser(rows[0])
+      let token = await this._getAuthToken('apiKey', req, source)
+      if (!checker(token)) return false
+      token = await this.hash(token)
+      const user = await this.getUserByToken(token, req)
+      if (!user) throw this.error('invalidKey', merge({ statusCode: 401 }, payload))
+      if (user.status !== 'ACTIVE') throw this.error('userInactive', merge({ details: [{ field: 'status', error: 'inactive' }], statusCode: 401 }, payload))
+      req.user = user
       return true
     }
 
+    /**
+     * Verify basic authentication
+     *
+     * @async
+     * @method
+     * @param {object} req - The request object.
+     * @param {object} reply - The reply object.
+     * @param {string} source - The source of the authentication setting.
+     * @param {object} payload - The payload object.
+     * @returns {boolean|string} - True if the basic authentication is valid, otherwise false or an error message.
+     */
     verifyBasic = async (req, reply, source, payload) => {
-      const { getUserFromUsernamePassword } = this
-      const { getUser } = this
       const { isEmpty, merge } = this.app.lib._
 
       const setHeader = async (setting, reply) => {
-        const { isString } = this.app.lib._
-
         let header = setting.type
         const exts = []
-        if (isString(setting.realm)) exts.push(`realm="${setting.realm}"`)
+        if (setting.realm) exts.push(`realm="${req.t('protectedArea')}"`)
         if (setting.useUtf8) exts.push('charset="UTF-8"')
         if (exts.length > 0) header += ` ${exts.join(', ')}`
         reply.header('WWW-Authenticate', header)
         reply.code(401)
       }
 
-      const setting = await this._getSetting('basic', source)
+      const setting = await this._getAuthSetting('basic', source)
       let authInfo
       const parts = (req.headers.authorization ?? '').split(' ')
       if (parts[0] === setting.type) authInfo = parts[1]
       if (isEmpty(authInfo)) {
         if (setting.realm) {
           await setHeader(setting, reply)
-          throw this.error(setting.warningMessage)
+          throw this.error(req.t('pleaseAuthenticate'), { statusCode: 403 })
         } else return false
       }
       const decoded = Buffer.from(authInfo, 'base64').toString()
       const [username, password] = decoded.split(':')
       try {
-        const user = await getUserFromUsernamePassword(username, password, req)
-        req.user = await getUser(user)
+        req.user = await this.getUserByUsernamePassword(username, password, req)
       } catch (err) {
         if (err.statusCode === 401 &amp;&amp; setting.realm) {
           await setHeader(setting, reply)
@@ -329,15 +544,25 @@ async function factory (pkgName) {
       return true
     }
 
+    /**
+     * Verify JWT authentication
+     *
+     * @async
+     * @method
+     * @param {object} req - The request object.
+     * @param {object} reply - The reply object.
+     * @param {string} source - The source of the authentication setting.
+     * @param {object} payload - The payload object.
+     * @returns {boolean} - True if the JWT authentication is valid, otherwise false.
+     */
     verifyJwt = async (req, reply, source, payload) => {
       const { importPkg } = this.app.bajo
-      const { getUser } = this
       const { isEmpty, merge } = this.app.lib._
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createVerifier } = fastJwt
-      const setting = await this._getSetting('jwt', source)
-      const token = await this._getToken('jwt', req, source)
+      const setting = await this._getAuthSetting('jwt', source)
+      const token = await this._getAuthToken('jwt', req, source)
       if (isEmpty(token)) return false
       const verifier = createVerifier({
         key: setting.secret,
@@ -346,10 +571,10 @@ async function factory (pkgName) {
       const decoded = await verifier(token)
       const id = decoded.payload.uid
       try {
-        const rec = await this.app.dobo.getModel('SumbaUser').getRecord(id, { req, noHook: true })
-        if (!rec) throw this.error('invalidToken', { statusCode: 401 })
-        if (rec.status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
-        req.user = await getUser(rec)
+        const user = await this.getUserById(id, req)
+        if (!user) throw this.error('invalidToken', { statusCode: 401 })
+        if (user.status !== 'ACTIVE') throw this.error('userInactive', { details: [{ field: 'status', error: 'inactive' }], statusCode: 401 })
+        req.user = user
       } catch (err) {
         merge(err, payload)
         throw err
@@ -357,111 +582,33 @@ async function factory (pkgName) {
       return true
     }
 
-    checkPathsByTeam = ({ paths = [], method = 'GET', teams = [], guards = [] }) => {
-      const { includes } = this.app.lib.aneka
+    /**
+     * Check route guard
+     *
+     * @method
+     * @param {Array} guards - The array of guard objects.
+     * @param {Array} paths - The array of paths to check.
+     * @returns {string|undefined} - The matched path or undefined if no match is found.
+     */
+    checkRouteGuard = (guards, paths) => {
       const { outmatch } = this.app.lib
-
-      for (const item of guards) {
-        const matchPath = outmatch(item.path)
-        for (const path of paths) {
-          if (matchPath(path)) {
-            const matchMethods = outmatch(item.methods, { separator: false })
-            if (matchMethods(method)) {
-              if (item.teams.length === 0) return item
-              if (includes(teams, item.teams)) return item
-            }
-          }
-        }
-      }
+      const all = guards.map(item => item.path)
+      const isMatch = outmatch(all)
+      return paths.find(isMatch)
     }
 
-    checkPathsByRoute = ({ paths = [], method = 'GET', guards = [] }) => {
-      const { outmatch } = this.app.lib
-
-      for (const item of guards) {
-        const matchPath = outmatch(item.path)
-        for (const path of paths) {
-          if (matchPath(path)) {
-            const matchMethods = outmatch(item.methods, { separator: false })
-            if (matchMethods(method)) return item
-          }
-        }
-      }
-    }
-
-    checkPathsByGuard = ({ guards, paths }) => {
-      const { outmatch } = this.app.lib
-      const matcher = outmatch(guards)
-      let guarded
-      for (const path of paths) {
-        if (!guarded) guarded = matcher(path)
-      }
-      return guarded
-    }
-
-    getSite = async (hostname, useId) => {
-      const { omit } = this.app.lib._
-      const omitted = ['status']
-
-      const mergeSetting = async (site) => {
-        const { defaultsDeep } = this.app.lib.aneka
-        const { parseObject } = this.app.lib
-        const { trim, get, filter } = this.app.lib._
-        const defSetting = {}
-        const nsSetting = {}
-        const names = this.app.getAllNs()
-        const query = {
-          ns: { $in: names },
-          siteId: site.id
-        }
-        const all = await this.app.dobo.getModel('SumbaSiteSetting').findRecord({ query, limit: -1 })
-        for (const ns of names) {
-          nsSetting[ns] = {}
-          defSetting[ns] = get(this, `app.${ns}.config.siteSetting`, {})
-          const items = filter(all, { ns })
-          for (const item of items) {
-            let value = trim([item.value] ?? '')
-            if (['[', '{'].includes(value[0])) value = JSON.parse(value)
-            else if (Number(value)) value = Number(value)
-            else if (['true', 'false'].includes(value)) value = value === 'true'
-            nsSetting[ns][item.key] = value
-          }
-        }
-        site.setting = parseObject(defaultsDeep({}, nsSetting, defSetting))
-        // additional fields
-        const country = await this.app.dobo.getModel('CdbCountry').getRecord(site.country, { noHook: true })
-        site.countryName = (country ?? {}).name ?? site.country
-      }
-
-      let site = {}
-
-      if (!this.config.multiSite) {
-        const resp = await this.app.dobo.getModel('SumbaSite').findRecord({ query: { alias: 'default' } }, { noHook: true })
-        site = omit(resp[0], omitted)
-        await mergeSetting(site)
-        return site
-      }
-      let query
-      if (useId) query = { id: hostname }
-      else {
-        query = {
-          $or: [
-            { hostname },
-            { alias: hostname }
-          ]
-        }
-      }
-      const filter = { query, limit: 1 }
-      const rows = await this.app.dobo.getModel('SumbaSite').findRecord(filter, { noHook: true })
-      if (rows.length === 0) throw this.error('unknownSite')
-      const row = omit(rows[0], omitted)
-      if (row.status !== 'ACTIVE') throw this.error('siteInactiveInfo')
-      site = row
-      await mergeSetting(site)
-      return site
-    }
-
-    signout = async ({ req, reply, reason }) => {
+    /**
+     * Sign out user and redirect to the specified URL
+     *
+     * @async
+     * @method
+     * @param {object} options - The options object.
+     * @param {object} options.req - The request object.
+     * @param {object} options.reply - The reply object.
+     * @param {string} [options.reason] - The reason for signing out.
+     */
+    signout = async (options = {}) => {
+      const { req, reply, reason } = options
       const { runHook } = this.app.bajo
       const { getSessionId } = this.app.waibuMpa
       const sid = await getSessionId(req.headers.cookie)
@@ -474,7 +621,18 @@ async function factory (pkgName) {
       return reply.redirectTo(url, { query, params })
     }
 
-    signin = async ({ user, req, reply }) => {
+    /**
+     * Sign in user and redirect to the specified URL
+     *
+     * @async
+     * @method
+     * @param {object} options - The options object.
+     * @param {object} options.req - The request object.
+     * @param {object} options.reply - The reply object.
+     * @param {object} options.user - The user object.
+     */
+    signin = async (options = {}) => {
+      const { req, reply, user } = options
       const { getSessionId } = this.app.waibuMpa
       const { runHook } = this.app.bajo
       const { isEmpty, omit } = this.app.lib._
@@ -491,21 +649,28 @@ async function factory (pkgName) {
       return reply.redirectTo(url, { query, params })
     }
 
-    generatePassword = (req) => {
+    /**
+     * Generate a random password based on the configuration settings
+     *
+     * @method
+     * @param {object} req - The request object.
+     * @returns {string} - The generated password.
+     */
+    generatePassword = (req = {}) => {
+      const { get } = this.app.lib._
       const { generateId } = this.app.lib.aneka
-      const cfg = req ? req.site.setting.sumba.userPassword : this.config.siteSetting.userPassword
+      const cfg = get(req, 'site.setting.sumba.userPassword', this.config.siteSetting.userPassword)
       let passwd = generateId()
-      if (cfg.minLowercase) passwd += generateId({ pattern: 'abcdefghijklmnopqrstuvwxyz', length: cfg.minLowercase })
-      if (cfg.minUppercase) passwd += generateId({ pattern: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', length: cfg.minUppercase })
-      if (cfg.minSpecialChar) passwd += generateId({ pattern: '!@#$%*', length: cfg.minSpecialChar })
-      if (cfg.minNumeric) passwd += generateId({ pattern: '0123456789', length: cfg.minNumeric })
+      if (cfg.minLowerCase > 0) passwd += generateId({ pattern: cfg.pattern.lowerCase, length: cfg.minLowercase })
+      if (cfg.minUpperCase > 0) passwd += generateId({ pattern: cfg.pattern.upperCase, length: cfg.minUppercase })
+      if (cfg.minSpecialChar > 0) passwd += generateId({ pattern: cfg.pattern.specialChar, length: cfg.minSpecialChar })
+      if (cfg.minNumeric > 0) passwd += generateId({ pattern: cfg.pattern.numeric, length: cfg.minNumeric })
       return passwd
     }
 
     pushDownload = async ({ description, worker, data, source, req, file, type }) => {
-      const { getPlugin } = this.app.bajo
-      const { createRecord } = getPlugin('waibuDb')
-      const { push } = getPlugin('bajoQueue')
+      const { createRecord } = this.app.getPlugin('waibuDb')
+      const { push } = this.app.getPlugin('bajoQueue')
       description = description ?? file
       const jobQueue = {
         worker,
@@ -523,11 +688,1177 @@ async function factory (pkgName) {
       await push(jobQueue)
     }
 
+    /**
+     * Get API key from user ID by hashing the user's salt
+     *
+     * @async
+     * @method
+     * @param {string|number} id - The user ID.
+     * @returns {Promise&lt;string>} - A promise that resolves to the API key.
+     */
     getApiKeyFromUserId = async id => {
-      const { hash } = this.app.bajoExtra
       const options = { forceNoHidden: true, noHook: true, noCache: true, attachment: true, mimeType: true }
-      const resp = await this.app.dobo.getModel('SumbaUser').getRecord(id, options)
-      return await hash(resp.salt)
+      const resp = await getModel('SumbaUser').getRecord(id, options)
+      return await this.hash(resp.salt)
+    }
+
+    /**
+     * Get a list of countries with their values and names
+     *
+     * @async
+     * @method
+     * @returns {Promise&lt;Array&lt;{ value: string|number, text: string }>>} - A promise that resolves to an array of country values and names.
+     */
+    getCountriesValues = async () => {
+      const { getModel } = this.app.dobo
+      const model = getModel('CdbCountry')
+      const items = await model.findAllRecord({}, { noMagic: true, dataOnly: true })
+      return items.map(item => ({ value: item.id, text: item.name }))
+    }
+
+    /**
+     * Method to send mail through Masohi Messaging System. It is a thin wrapper
+     * for {@link https://github.com/ardhi/masohi-mail|masohi-mail} send method.
+     *
+     * If both masohiMail and waibu are not loaded, nothing is delivered.
+     *
+     * @method
+     * @async
+     * @param {(string|Array)} tpl - Mail's template to use. If a string is given, the same template will be used for html &amp; plaintext versions. Otherwise, the first template will be used for html mail, and the second one is for it's plaintext version
+     * @param {Object} [params={}] - {@link https://github.com/ardhi/masohi-mail|masohi-mail}'s params object.
+     */
+    sendMail = async (tpl, { payload = {}, conn, source, options = {} } = {}) => {
+      if (!this.app.masohiMail || !this.app.waibu) return
+      conn = conn ?? 'masohiMail:default'
+      const { importModule } = this.app.bajo
+      const { get, isString } = this.app.lib._
+      const { generateId } = this.app.lib.aneka
+      const { render } = this.app.bajoTemplate
+      const buildLocals = await importModule('waibu:/lib/build-locals.js')
+
+      if (isString(tpl)) tpl = [tpl]
+      options.partial = false
+      const locals = await buildLocals.call(this, { params: payload.data, opts: options })
+      payload.from = payload.from ?? get(options, 'req.site.email', payload.from)
+      const opts = {
+        lang: get(options, 'req.lang'),
+        groupId: get(options, 'req.id', generateId())
+      }
+      payload.html = await render(tpl[0], locals, opts)
+      if (tpl[1]) payload.text = await render(tpl[1], locals, opts)
+      await this.app.masohiMail.send({ payload, source: source ?? this.ns, conn })
+    }
+
+    /**
+     * Reset token by generating a new salt and hashing it twice to create a new token.
+     *
+     * @async
+     * @method
+     * @param {string} [text] - Optional text to use as the salt. If not provided, a new salt will be generated.
+     * @returns {Promise&lt;{ salt: string, token: string }>} - A promise that resolves to an object containing the salt and token.
+     */
+    resetToken = async (text) => {
+      const { generateId } = this.app.lib.aneka
+      const salt = text ?? generateId()
+      const token = await this.hash(await this.hash(salt))
+      return { salt, token }
+    }
+
+    /**
+     * Generate a password validation rule based on the configuration settings.
+     *
+     * @async
+     * @method
+     * @param {object} req - The request object.
+     * @returns {object} - The Joi password validation rule.
+     */
+    passwordRule = async (req = {}) => {
+      const { get } = this.app.lib._
+      const { importPkg } = this.app.bajo
+      const joi = await importPkg('dobo:joi')
+      const joiPassword = joi.extend(joiPasswordExtendCore)
+      let password = joiPassword
+        .string()
+        .min(8)
+        .max(100)
+        .required()
+      const cfg = get(req, 'site.setting.sumba.userPassword', this.config.siteSetting.userPassword)
+      if (cfg.minUppeCase) password = password.minOfUppercase(cfg.minUpperCase)
+      if (cfg.minLowercase) password = password.minOfLowercase(cfg.minLowerCase)
+      if (cfg.minSpecialChar) password = password.minOfSpecialCharacters(cfg.minSpecialChar)
+      if (cfg.minNumeric) password = password.minOfNumeric(cfg.minNumeric)
+      if (cfg.noWhitespace) password = password.noWhiteSpaces()
+      if (cfg.latinOnlyChars) password = password.onlyLatinCharacters()
+      return password
+    }
+
+    /**
+     * Hash the given item using the specified algorithm from the configuration.
+     *
+     * @async
+     * @method
+     * @param {*} item - The item to be hashed.
+     * @returns {Promise&lt;string>} - A promise that resolves to the hashed value.
+     */
+    hash = async (item) => {
+      const { hash } = this.app.bajoExtra
+      return await hash(item, this.config.auth.common.apiKey.algo)
+    }
+
+    /**
+     * Fetch guards of the specified type from the database.
+     *
+     * @async
+     * @method
+     * @private
+     * @param {string} type - The type of guards to fetch.
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of guards.
+     */
+    _fetchGuards = async (type) => {
+      const { getModel } = this.app.dobo
+      const options = { noMagic: true, noCache: true, noDriverHook: true, dataOnly: true }
+      const filter = { query: { status: 'ACTIVE' } }
+      const results = await getModel(`Sumba${type}Guard`).findAllRecord(filter, options)
+      return results.map(result => {
+        result.teamIds = result.teamIds.map(item => item + '')
+        return result
+      })
+    }
+
+    /**
+     * Process and order the guards based on their path and weight.
+     *
+     * @method
+     * @private
+     * @param {Array} inputs - The array of guard inputs.
+     * @returns {Array} - The processed and ordered array of guards.
+     */
+    _getGuards = (inputs = []) => {
+      const { routePath } = this.app.waibu
+      const { orderBy } = this.app.lib._
+      const normal = orderBy(inputs.filter(input => {
+        try {
+          input.path = routePath(input.path)
+        } catch (err) {
+          return false
+        }
+        return input.path[0] !== '!'
+      }), ['weight', 'path'], ['desc', 'asc'])
+      const inverse = orderBy(inputs.filter(input => {
+        try {
+          input.path = routePath(input.path)
+        } catch (err) {
+          return false
+        }
+        return input.path[0] === '!'
+      }), ['weight', 'path'], ['desc', 'asc'])
+      return [...normal, ...inverse]
+    }
+
+    /**
+     * Get anonymous guards, optionally reloading them from the database.
+     *
+     * @async
+     * @method
+     * @param {boolean} [reread] - Whether to reload the guards from the database.
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of anonymous guards.
+     */
+    getAnonymousGuards = async (reread) => {
+      if (!reread) return this.anonymousGuards
+      const guards = await this._fetchGuards('Anonymous')
+      this.anonymousGuards = this._getGuards(guards)
+      return this.anonymousGuards
+    }
+
+    /**
+     * Get secure guards, optionally reloading them from the database.
+     *
+     * @async
+     * @method
+     * @param {boolean} [reread] - Whether to reload the guards from the database.
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of secure guards.
+     */
+    getSecureGuards = async (reread) => {
+      if (!reread) return this.secureGuards
+      const guards = await this._fetchGuards('Secure')
+      this.secureGuards = this._getGuards(guards)
+      return this.secureGuards
+    }
+
+    /**
+     * Get query guards, optionally reloading them from the database.
+     *
+     * @async
+     * @method
+     * @param {boolean} [reread] - Whether to reload the guards from the database.
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of query guards.
+     */
+    getQueryGuards = async (reread) => {
+      if (!reread) return this.queryGuards
+
+      this.queryGuards = await this._fetchGuards('Query')
+      return this.queryGuards
+    }
+
+    /**
+     * Get action guards, optionally reloading them from the database.
+     *
+     * @async
+     * @method
+     * @param {boolean} [reread] - Whether to reload the guards from the database.
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of action guards.
+     */
+    getActionGuards = async (reread) => {
+      if (!reread) return this.actionGuards
+
+      this.actionGuards = await this._fetchGuards('Action')
+      return this.actionGuards
+    }
+
+    /**
+     * Get attribute guards, optionally reloading them from the database.
+     *
+     * @async
+     * @method
+     * @param {boolean} [reread] - Whether to reload the guards from the database.
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of attribute guards.
+     */
+    getAttribGuards = async (reread) => {
+      if (!reread) return this.attribGuards
+
+      this.attribGuards = await this._fetchGuards('Attrib')
+      return this.attribGuards
+    }
+
+    /**
+     * Get all loaded model names, optionally returning them as value-text pairs.
+     *
+     * @method
+     * @param {boolean} [asValue] - Whether to return the model names as value-text pairs.
+     * @returns {Array} - An array of model names or value-text pairs.
+     */
+    getModelNames = (asValue) => {
+      const values = this.app.dobo.models.map(item => item.name).sort()
+      return asValue ? values.map(item => ({ value: item, text: item })) : values
+    }
+
+    /**
+     * Gather all paths to check for a request.
+     *
+     * @method
+     * @param {Object} req - The request object.
+     * @returns {Array} - An array of paths to check.
+     */
+    pathsToCheck = (req) => {
+      const { isSet } = this.app.lib.aneka
+      const { uniq, without } = this.app.lib._
+      const items = [req.routeOptions.url, req.url].filter(url => isSet(url)).map(url => url.split('?')[0].split('#')[0])
+      return uniq(without(items, undefined, null))
+    }
+
+    /**
+     * Check and set the iconset for a request.
+     *
+     * @async
+     * @method
+     * @param {Object} req - The request object.
+     * @param {Object} reply - The reply object.
+     * @returns {Promise&lt;void>} - A promise that resolves when the iconset is checked and set.
+     */
+    checkIconset = async (req, reply) => {
+      const { get, isString } = this.app.lib._
+      const mpa = this.app.waibuMpa
+
+      if (!req.site) return
+      const siteIconset = get(req, 'site.setting.waibuMpa.iconset')
+      req.iconset = siteIconset ?? get(mpa, 'config.iconset.set', 'default')
+      const hiconset = req.headers['x-iconset']
+      if (isString(hiconset) &amp;&amp; mpa.getIconset(hiconset)) req.iconset = hiconset
+      req.iconset = req.iconset ?? 'default'
+    }
+
+    /**
+     * Check and set the theme for a request.
+     *
+     * @async
+     * @method
+     * @param {Object} req - The request object.
+     * @param {Object} reply - The reply object.
+     * @returns {Promise&lt;void>} - A promise that resolves when the theme is checked and set.
+     */
+    checkTheme = async (req, reply) => {
+      const { get, isString } = this.app.lib._
+      const mpa = this.app.waibuMpa
+
+      if (!req.site) return
+      const siteTheme = get(req, 'site.setting.waibuMpa.theme')
+      req.theme = siteTheme ?? get(mpa, 'config.theme.set', 'default')
+      const htheme = req.headers['x-theme']
+      if (isString(htheme) &amp;&amp; mpa.getTheme(htheme)) req.theme = htheme
+      req.theme = req.theme ?? 'default'
+    }
+
+    /**
+     * Check and set the team for a request.
+     *
+     * @async
+     * @method
+     * @param {Object} req - The request object.
+     * @param {Object} reply - The reply object.
+     * @returns {Promise&lt;void>} - A promise that resolves when the team is checked and set.
+     */
+    checkTeam = async (req, reply) => {
+      const { includes } = this.app.lib.aneka
+      const { outmatch } = this.app.lib
+
+      if (req.user.isAdmin) return
+      if (req.routeOptions.config.xSite &amp;&amp; req.user.isXSiteAdmin) return
+
+      const teamIds = req.user.teams.map(item => item.id + '')
+      // if (req.user.teams.map(item => item.alias).length === 0) throw this.error('accessDenied', { statusCode: 403 })
+
+      const paths = this.pathsToCheck(req)
+      const results = (await this.getSecureGuards()).filter(item => {
+        if (item.siteId !== req.site.id + '' || item.path[0] === '!') return false
+        return paths.some(outmatch([item.path]))
+      })
+      for (const result of results) {
+        if (result.allTeams) continue
+        if (!includes(teamIds, result.teamIds)) throw this.error('accessDenied', { statusCode: 403 })
+      }
+      // passed
+    }
+
+    /**
+     * Check and set the user for a request.
+     *
+     * @async
+     * @method
+     * @param {Object} req - The request object.
+     * @param {Object} reply - The reply object.
+     * @param {Object} source - The source object.
+     * @returns {Promise&lt;boolean|void>} - A promise that resolves to a boolean indicating the result of the check or void.
+     */
+    checkUser = async (req, reply, source) => {
+      const { merge, isEmpty, camelCase, get } = this.app.lib._
+      const { routePath } = this.app.waibu
+      const userId = get(req, 'session.userId')
+      const setUser = async () => {
+        if (!userId) return
+        try {
+          const user = await this.getUserById(userId, req)
+          if (user) req.user = user
+          else req.session.userId = null
+        } catch (err) {
+          console.log(err)
+          req.session.userId = null
+        }
+      }
+
+      if (req.session) req.session.siteId = req.site.id
+
+      const webApp = get(req, 'routeOptions.config.webApp', 'waibu')
+      if (!req.routeOptions.url) {
+        if (!req.session) return
+        await setUser()
+        return
+      }
+
+      const paths = this.pathsToCheck(req)
+      let guards = (await this.getAnonymousGuards()).filter(item => item.siteId === req.site.id + '')
+      const anonymous = this.checkRouteGuard(guards, paths)
+      if (anonymous) {
+        if (!userId) return false
+        req.session.ref = req.url
+        return reply.redirectTo(routePath(this.config.redirect.signout))
+      }
+      guards = (await this.getSecureGuards()).filter(item => item.siteId === req.site.id + '')
+      const secure = this.checkRouteGuard(guards, paths)
+      if (!secure) {
+        if (userId) await setUser()
+        return false // regular, unguarded path. Not secure &amp; not anonymous path
+      }
+      if (userId) {
+        await setUser()
+        return secure
+      }
+      const silentOnError = this.config.auth[webApp].silentOnError ?? this.config.auth.common.silentOnError
+      const payload = silentOnError ? { noContent: true } : undefined
+      const authMethods = this.config.auth[webApp].methods ?? []
+      if (isEmpty(authMethods)) throw this.error('noAuthMethod', merge({ statusCode: 500 }, payload))
+      let success
+      for (const m of authMethods) {
+        const handler = this[camelCase(`verify ${m}`)]
+        if (!handler) throw this.error('invalidAuthMethod%s', m, merge({ statusCode: 500 }, payload))
+        const check = await handler(req, reply, source, payload)
+        if (check) {
+          success = check
+          break
+        }
+      }
+      if (!success) throw this.error('accessDeniedNoAuth', merge({ statusCode: 403 }, payload))
+      return secure
+    }
+
+    /**
+     * Check and set the Cross-site settings for a request.
+     *
+     * @async
+     * @method
+     * @param {Object} req - The request object.
+     * @param {Object} reply - The reply object.
+     * @returns {Promise&lt;void>} - A promise that resolves when the XSite is checked and set.
+     */
+    checkXSite = async (req, reply) => {
+      const { get } = this.app.lib._
+      if (!this.config.multiSite.enabled) return
+      const config = get(req, 'routeOptions.config')
+      if (!get(config, 'xSite') || ['/dashboard'].includes(config.pathSrc)) return
+      if (!get(req, 'user.isXSiteAdmin')) throw this.error('accessDenied', { statusCode: 403 })
+    }
+
+    /**
+     * Check the route for a request.
+     *
+     * @async
+     * @method
+     * @param {Object} req - The request object.
+     * @returns {Promise&lt;void>} - A promise that resolves when the route is checked.
+     */
+    checkRoute = async (req) => {
+      const { routePath } = this.app.waibu
+      const { outmatch } = this.app.lib
+      const routes = req.getSetting('waibu:route.disabled', []).map(item => routePath(item, false))
+      if (routes.length === 0) return
+      const isMatch = outmatch(routes)
+      const paths = this.pathsToCheck(req)
+      if (paths.find(isMatch)) throw this.error('_notFound')
+    }
+
+    /**
+     * Parse namespace settings for a request.
+     *
+     * @method
+     * @param {string} ns - The namespace.
+     * @param {Object} setting - The setting object.
+     * @param {Array} items - The items to parse.
+     */
+    parseNsSettings = (ns, setting, items) => {
+      const { trim, set, isPlainObject, isArray, isEmpty, find } = this.app.lib._
+      const { parseObject, dayjs } = this.app.lib
+
+      for (const item of items) {
+        if (item.ns === '_var' || ns === '_var') continue
+        let value = trim([item.value] ?? '')
+        if (value[0] === '#' &amp;&amp; value[value.length - 1] === '#') {
+          const val = value.slice(1, -1)
+          const newValue = find(items, { ns: '_var', key: val })
+          if (newValue) value = newValue.value
+        }
+        if (['[', '{'].includes(value[0]) &amp;&amp; [']', '}'].includes(value[value.length - 1])) {
+          try {
+            value = parseObject(JSON.parse(value))
+          } catch (err) {}
+        } else if (Number(value)) value = Number(value)
+        else if (['true', 'false'].includes(value)) value = value === 'true'
+        else {
+          const dt = dayjs(value)
+          if (dt.isValid()) value = dt.toDate()
+        }
+        if ((isPlainObject(value) || isArray(value)) &amp;&amp; isEmpty(value)) continue
+        set(setting, `${ns}.${item.key}`, value)
+      }
+    }
+
+    /**
+     * Get all fixtures for the specified alias, replacing any occurrences of '{alias}' in the fixture data with the provided alias.
+     *
+     * @async
+     * @method
+     * @param {string} [alias] - The alias for the fixtures.
+     * @returns {Promise&lt;object>} - A promise that resolves to the fixtures data.
+     */
+    getAllFixtures = async (alias) => {
+      const { readConfig } = this.app.bajo
+      const { isEmpty, omit, kebabCase, isString } = this.app.lib._
+      const { getModel } = this.app.dobo
+      const { fastGlob } = this.app.lib
+      const data = {}
+
+      function replaceAlias (alias, items) {
+        for (const item of items) {
+          for (const key in item) {
+            const val = item[key]
+            if (isString(val)) item[key] = val.replaceAll('{alias}', alias)
+          }
+        }
+      }
+
+      const formats = this.app.configHandlers.map(item => item.ext.slice(1))
+      const overrideBase = `${this.app.getPluginDataDir('sumba')}/create-new-site-fixtures/${alias}`
+      const models = this.app.dobo.models.filter(m => {
+        const prop = m.properties.find(p => p.name === 'siteId')
+        return !!prop
+      }).map(m => m.name)
+      models.unshift('SumbaSite')
+      const files = (await fastGlob(`${overrideBase}/*.{${formats.join(',')}}`)).map(file => {
+        const ext = path.extname(file)
+        return file.slice(0, file.length - ext.length)
+      })
+      for (const m of models) {
+        const model = getModel(m)
+        const file = `${overrideBase}/${kebabCase(m)}`
+        let fixtures = (await model.loadFixtures({ collectItems: true, noLookup: true })) ?? []
+        if (files.includes(file)) {
+          const items = await readConfig(file, { defValue: [] })
+          if (!isEmpty(items)) fixtures = items
+        }
+        if (!Array.isArray(fixtures)) fixtures = [fixtures]
+        if (fixtures.length === 0) continue
+        replaceAlias(alias, fixtures)
+        if (isEmpty(alias)) throw this.error('aliasRequired%s', alias)
+        const omitted = ['_attachments', 'siteId']
+        for (const item of ['createdAt', 'updatedAt', 'immutable']) {
+          const props = model.properties.filter(prop => prop.feature === ('dobo:' + item)).map(prop => prop.name)
+          if (props.length > 0) omitted.push(...props)
+        }
+        for (const idx in fixtures) {
+          fixtures[idx] = omit(fixtures[idx], omitted)
+        }
+        data[m] = m === 'SumbaSite' ? fixtures[0] : fixtures
+      }
+      return data
+    }
+
+    /**
+     * Create references for the specified site using the provided data, options, and verbosity settings.
+     *
+     * @async
+     * @method
+     * @param {object} site - The site object for which to create references.
+     * @param {object} data - The data object containing fixtures for the site.
+     * @param {object} options - Options to pass to the createRecord method.
+     * @param {boolean} verbose - Whether to log verbose output.
+     */
+    createRefs = async (site, data, options, verbose) => {
+      const { isString } = this.app.lib._
+      const { getModel } = this.app.dobo
+      for (const m in data) {
+        if (m === 'SumbaSite') continue
+        const mdl = getModel(m)
+        const fixtures = data[m]
+        for (const f of fixtures) {
+          f.siteId = site.id + ''
+          const lv = { siteId: f.siteId }
+          for (const key in f) {
+            const val = f[key]
+            if (isString(val) &amp;&amp; val.slice(0, 2) === '?:') f[key] = await mdl._simpleLookup(val.slice(2), lv, options)
+          }
+          await mdl.createRecord(f, { ...options, noFlash: true })
+        }
+        if (verbose) this.print.succeed('writingModel%s%s', mdl.name, fixtures.length)
+      }
+      if (verbose) this.print.succeed('populateRouteGuard')
+      await this.populateRouteGuards([site])
+    }
+
+    /**
+     * Create a new site with the specified alias and optional hostname, using fixtures for initial data.
+     *
+     * @async
+     * @method
+     * @param {string} alias - The alias for the new site.
+     * @param {string} [hostname] - The hostname for the new site.
+     * @param {boolean} [verbose=false] - Whether to log verbose output.
+     */
+    createNewSite = async (alias, hostname, verbose) => {
+      const { isEmpty } = this.app.lib._
+      const { getModel } = this.app.dobo
+
+      if (isEmpty(alias)) throw this.error('aliasRequired%s', alias)
+      let spin
+      if (verbose) spin = this.print.spinner().start('processing...')
+      const query = { $or: [{ alias }] }
+      if (!isEmpty(hostname)) query.$or.push({ hostname })
+      const model = getModel('SumbaSite')
+      const site = await model.findOneRecord({ query })
+      if (!isEmpty(site)) {
+        if (verbose) spin.stop()
+        throw this.error('aliasOrHostnameExists%s%s', alias, hostname ?? '')
+      }
+      // lets go
+      const fixtures = await this.getAllFixtures(alias)
+      if (verbose) spin.stop()
+      fixtures.SumbaSite.alias = alias
+      if (!isEmpty(hostname)) fixtures.SumbaSite.hostname = hostname
+      await model.transaction(async (trx) => {
+        const newSite = await model.createRecord(fixtures.SumbaSite, { trx, noHook: true })
+        if (verbose) this.print.succeed('writingModel%s%s', model.name, 1)
+        const options = { trx }
+        await this.createRefs(newSite, fixtures, options, verbose)
+      })
+      if (verbose) this.print.info('done')
+    }
+
+    /**
+     * Remove references for the specified site using the provided options and verbosity settings.
+     *
+     * @async
+     * @method
+     * @param {object} site - The site object for which to remove references.
+     * @param {object} options - Options to pass to the removeRecord method.
+     * @param {boolean} verbose - Whether to log verbose output.
+     */
+    removeRefs = async (site, options, verbose) => {
+      const { orderBy } = this.app.lib._
+      const { getModel } = this.app.dobo
+      const models = orderBy(this.app.dobo.models, ['buildLevel'], ['desc']).filter(m => {
+        const prop = m.properties.find(p => p.name === 'siteId')
+        return !!prop
+      }).map(m => m.name)
+      for (const m of models) {
+        const mdl = getModel(m)
+        const rows = await mdl.findAllRecord({ query: { siteId: site.id + '' } }, { ...options, dataOnly: true })
+        const ids = rows.map(item => item.id)
+        // TODO: backup
+        if (ids.length === 0) continue
+        for (const id of ids) {
+          await mdl.removeRecord(id, { noReturn: true, ...options, noFlash: true })
+        }
+        if (verbose) this.print.succeed('removedFrom%s%s', mdl.name, ids.length)
+      }
+    }
+
+    /**
+     * Remove a site with the specified alias, along with its references, using the provided verbosity settings.
+     *
+     * @async
+     * @method
+     * @param {string} alias - The alias of the site to remove.
+     * @param {boolean} [verbose=false] - Whether to log verbose output.
+     */
+    removeSite = async (alias, verbose) => {
+      const { isEmpty } = this.app.lib._
+      const { getModel } = this.app.dobo
+
+      if (isEmpty(alias)) throw this.error('aliasRequired%s', alias)
+      const model = getModel('SumbaSite')
+      const query = { alias }
+      const site = await model.findOneRecord({ query })
+      if (isEmpty(site)) throw this.error('aliasNotFound%s', alias)
+      await model.transaction(async (trx) => {
+        const options = { trx, noHook: true }
+        await this.removeRefs(site, options, verbose)
+        await model.removeRecord(site.id, { noReturn: true, trx, noHook: true })
+        if (verbose) this.print.succeed('removedFrom%s%s', model.name, 1)
+      })
+      if (verbose) this.print.info('done')
+    }
+
+    /**
+     * Get site information based on the provided input, which can be either a hostname or an ID. If multi-site is enabled, it will fetch the site based on the hostname or ID; otherwise, it will return the default site.
+     *
+     * @async
+     * @method
+     * @param {string|number} input - The input value, which can be either a hostname or an ID.
+     * @param {boolean} [byId=false] - Whether to fetch the site by ID.
+     * @returns {object} The site information.
+     */
+    getSite = async (input, byId = false) => {
+      const { omit } = this.app.lib._
+      const { set: setCache, get: getCache } = this.app.bajoCache ?? {}
+      const omitted = ['status']
+
+      let site = {}
+      const mergeSetting = async (site) => {
+        const { defaultsDeep, isSet } = this.app.lib.aneka
+        const { get, filter } = this.app.lib._
+        const defSetting = {}
+        const nsSetting = {}
+        const names = this.app.getAllNs()
+        const query = {
+          ns: { $in: names },
+          siteId: site.id + ''
+        }
+        const all = await this.app.dobo.getModel('SumbaSiteSetting').findAllRecord({ query })
+        for (const ns of names) {
+          const item = get(this, `app.${ns}.config.siteSetting`)
+          if (isSet(item)) defSetting[ns] = item
+          const items = filter(all, { ns })
+          this.parseNsSettings(ns, nsSetting, items)
+        }
+        site.setting = defaultsDeep({}, nsSetting, defSetting)
+        // additional fields
+        const country = await this.app.dobo.getModel('CdbCountry').getRecord(site.country, { noMagic: true })
+        site.countryName = (country ?? {}).name ?? site.country
+      }
+
+      if (!this.config.multiSite.enabled) {
+        const filter = { query: { alias: 'default' } }
+        const key = 'dobo|SumbaSite|getSite|default'
+        if (getCache) {
+          site = await getCache({ key })
+          if (site) return site
+        }
+        const resp = await this.app.dobo.getModel('SumbaSite').findOneRecord(filter, { noHook: true })
+        site = omit(resp, omitted)
+        await mergeSetting(site)
+        if (setCache) {
+          await setCache({ key, value: site, ttl: this.config.cacheTtl.getSiteDur })
+        }
+        return site
+      }
+      let query
+      if (byId) query = { id: input }
+      else query = { hostname: input }
+      const key = `dobo|SumbaSite|getSite|multiSite|${input}`
+      if (getCache) {
+        site = await getCache({ key })
+        if (site) return JSON.parse(site)
+      }
+      let row = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query }, { noHook: true })
+      if (!row) {
+        if (this.config.multiSite.catchAll) {
+          query = { alias: this.config.multiSite.catchAll === true ? 'default' : this.config.multiSite.catchAll }
+          row = await this.app.dobo.getModel('SumbaSite').findOneRecord({ query }, { noHook: true })
+        }
+        if (!row) throw this.error('unknownSite')
+      }
+      if (row.status !== 'ACTIVE') throw this.error('siteInactiveInfo')
+      site = omit(row, omitted)
+      await mergeSetting(site)
+      if (setCache) {
+        await setCache({ key, value: JSON.stringify(site), ttl: this.config.cacheTtl.getSiteDur })
+      }
+      return site
+    }
+
+    /**
+     * Merge team information into the user object.
+     *
+     * @async
+     * @method
+     * @param {object} user - The user object to merge team information into.
+     * @param {object} req - The request object.
+     */
+    mergeTeam = async (user, req) => {
+      const { map, pick } = this.app.lib._
+      const { getModel } = this.app.dobo
+      user.teams = []
+      const query = { userId: user.id + '', siteId: user.siteId, status: 'ACTIVE' }
+      let mdl = getModel('SumbaTeamUser')
+      const userTeam = await mdl.findAllRecord({ query })
+      if (userTeam.length === 0) return
+      delete query.userId
+      const idProp = mdl.getProperty('id')
+      const $in = userTeam.map(item => ['integer', 'smallint'].includes(idProp.type) ? parseInt(item.teamId) : item.teamId)
+      query.id = { $in }
+      mdl = getModel('SumbaTeam')
+      const teams = await mdl.findAllRecord({ query })
+      if (teams.length > 0) {
+        delete query.id
+        delete query.status
+        query.teamId = { $in: teams.map(t => t.id + '') }
+        mdl = getModel('SumbaTeamSetting')
+        const items = await mdl.findAllRecord({ query })
+        for (const team of teams) {
+          const names = map(items, 'ns')
+          const item = pick(team, ['id', 'alias'])
+          item.setting = {}
+          for (const ns of names) {
+            this.parseNsSettings(ns, item.setting, items.filter(s => s.teamId === (team.id + '')))
+          }
+          user.teams.push(item)
+        }
+      }
+      user.isXSiteAdmin = this.config.xSiteAdmins.includes(`${req.site.alias}:${user.username}`)
+      user.isAdmin = user.teams.some(t => t.alias === 'administrator')
+      for (const field of this.unsafeUserFields) {
+        delete user[field]
+      }
+    }
+
+    /**
+     * Get a user by their ID.
+     *
+     * @async
+     * @method
+     * @param {string|number} id - The ID of the user to retrieve.
+     * @param {object} req - The request object.
+     * @returns {object|null} The user object if found, otherwise null.
+     */
+    getUserById = async (id, req) => {
+      const { getModel } = this.app.dobo
+      const { set: setCache, get: getCache } = this.app.bajoCache ?? {}
+      const key = `dobo|SumbaUser|getUserById|${id}`
+      let user
+      if (getCache) {
+        user = await getCache({ key })
+        if (user) return JSON.parse(user)
+      }
+      user = await getModel('SumbaUser').getRecord(id, { noHook: true, noDriverHook: true, throwNotFound: false, req })
+      if (!user) return
+      await this.mergeTeam(user, req)
+      if (setCache) {
+        await setCache({ key, value: JSON.stringify(user), ttl: this.config.cacheTtl.getUserByIdDur })
+      }
+      return user
+    }
+
+    /**
+     * Get a user by their token.
+     *
+     * @async
+     * @method
+     * @param {string} token - The token of the user to retrieve.
+     * @param {object} req - The request object.
+     * @returns {object|null} The user object if found, otherwise null.
+     */
+    getUserByToken = async (token, req) => {
+      const { getModel } = this.app.dobo
+      const { set: setCache, get: getCache } = this.app.bajoCache ?? {}
+      const key = `dobo|SumbaUser|getUserByToken|${token}`
+      let user
+      if (getCache) {
+        user = await getCache({ key })
+        if (user) return JSON.parse(user)
+      }
+      user = await getModel('SumbaUser').findOneRecord({ query: { token } }, { noHook: true, noDriverHook: true, throwNotFound: false, req })
+      if (!user) return
+      await this.mergeTeam(user, req)
+      if (setCache) {
+        await setCache({ key, value: JSON.stringify(user), ttl: this.config.cacheTtl.getUserByTokenDur })
+      }
+      return user
+    }
+
+    getUserByUsernamePassword = async (username = '', password = '', req) => {
+      const { getModel } = this.app.dobo
+      const { importPkg } = this.app.bajo
+      const model = getModel('SumbaUser')
+      await model.validate({ username, password }, null, { partial: true, ns: ['sumba', 'dobo'], fields: ['username', 'password'] })
+      const bcrypt = await importPkg('bajoExtra:bcrypt')
+
+      const query = { username, provider: 'local', siteId: req.site.id + '' }
+      const user = await model.findOneRecord({ query }, { req, forceNoHidden: true, noHook: true, noDriverHook: true })
+      if (!user) throw this.error('validationError', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })
+      if (user.status !== 'ACTIVE') throw this.error('validationError', { details: ['User is inactive or temporarily disabled'], statusCode: 401 })
+      const verified = await bcrypt.compare(password, user.password)
+      if (!verified) throw this.error('validationError', { details: [{ field: 'password', error: 'invalidPassword' }], statusCode: 401 })
+      await this.mergeTeam(user, req)
+      return user
+    }
+
+    /**
+     * Clear the cache for a specific site.
+     *
+     * @async
+     * @method
+     * @param {string|number} id - The ID of the site.
+     * @param {object} result - The result object containing site data.
+     */
+    clearCacheSite = async (id, result) => {
+      if (!this.app.bajoCache) return
+      const { clear } = this.app.bajoCache ?? {}
+      const { get } = this.app.lib._
+      await clear({ key: 'dobo|SumbaSite|getSite|default' })
+      await clear({ key: `dobo|SumbaSite|getSite|multiSite|${id}` })
+      await clear({ key: `dobo|SumbaSite|getSite|multiSite|${get(result, 'data.hostname', get(result, 'oldData.hostname'))}` })
+    }
+
+    /**
+     * Clear the cache for a specific user.
+     *
+     * @async
+     * @method
+     * @param {string|number} id - The ID of the user.
+     * @param {object} result - The result object containing user data.
+     */
+    clearCacheUser = async (id, result) => {
+      if (!this.app.bajoCache) return
+      const { clear } = this.app.bajoCache ?? {}
+      const { get } = this.app.lib._
+      const token = get(result, 'data.token', get(result, 'oldData.token', ''))
+      await clear({ key: `dobo|SumbaUser|getUserById|${id}` })
+      await clear({ key: `dobo|SumbaUser|getUserByToken|${token}` })
+    }
+
+    /**
+     * Filter model data based on settings.
+     *
+     * @method
+     * @param {object} opts - The options object.
+     * @param {object} opts.model - The model object.
+     * @param {string} opts.field - The field to filter.
+     * @param {object} [opts.options={}] - Additional options.
+     * @returns {object} The filtered results and operation values.
+     */
+    filterModelFromSetting = (opts = {}) => {
+      const { model, field, options = {} } = opts
+      const { isEmpty, isArray, set } = this.app.lib._
+      const { isSet } = this.app.lib.aneka
+      const { req } = options
+      const opValue = req.getSetting(`sumba:queryGuard.${field}`, {})
+      const results = []
+      const prop = model.getProperty(field)
+      for (const op of ['in', 'nin', 'inOrEmpty']) {
+        if (isEmpty(opValue[op]) || !isArray(opValue[op])) continue
+        if (op === 'inOrEmpty') {
+          const val = set({}, field, set({}, '$in', opValue[op]))
+          const nl = set({}, field, { $eq: null })
+          const item = { $or: [val, nl] }
+          let v
+          if (['string', 'text'].includes(prop.type)) v = ''
+          else if (['integer', 'smallint', 'float', 'double'].includes(prop.type)) v = 0
+          if (isSet(v)) {
+            const bl = set({}, field, { $eq: v })
+            item.$or.push(bl)
+          }
+          results.push(item)
+        } else results.push(set({}, field, set({}, '$' + op, opValue[op])))
+      }
+      return { results, opValue }
+    }
+
+    /**
+     * Apply query guards to the provided query.
+     *
+     * @async
+     * @method
+     * @param {object} [opts={}] - The options object.
+     * @param {object} opts.model - The model object.
+     * @param {object} [opts.q={}] - The query object.
+     * @param {array} [opts.teamIds=[]] - The team IDs.
+     * @param {object} [opts.options={}] - Additional options.
+     */
+    runQueryGuard = async (opts = {}) => {
+      const { model, q = {}, teamIds = [], options = {} } = opts
+      const { set, orderBy, isEmpty, isArray } = this.app.lib._
+      const { includes } = this.app.lib.aneka
+      const { sanitizeByType } = this.app.dobo
+      const { req } = options
+      const results = []
+
+      const guards = await this.getQueryGuards()
+      const fields = model.getNonVirtualProperties().map(prop => prop.name)
+      const filterFn = item => {
+        const bySiteId = item.siteId === req.site.id + ''
+        const byModel = item.models.includes(model.name)
+        const byFields = fields.includes(item.field)
+        return bySiteId &amp;&amp; byModel &amp;&amp; byFields
+      }
+
+      const rules = orderBy(guards.filter(filterFn), ['field'])
+      for (const field of fields) {
+        if (!model.getNonVirtualProperties(true).includes(field)) continue // or, should it throws exception instead?
+        const inSetting = this.filterModelFromSetting({ model, field, options })
+        if (inSetting.results.length > 0) inSetting.results.push(...inSetting.results)
+        const prop = model.getProperty(field)
+        const items = rules.filter(item => item.field === field)
+        for (const item of items) {
+          let values = item.value.map(val => {
+            return sanitizeByType(val, prop.type, { strict: true, inputFormat: 'string', model: model.name })
+          })
+          const op = item.condition.toLowerCase()
+          if (['in', 'nin'].includes(op) &amp;&amp; !isEmpty(inSetting.opValue[op]) &amp;&amp; isArray(inSetting.opValue[op])) values = values.filter(val => inSetting.opValue[op].includes(val))
+          if (isEmpty(values)) continue
+          let value
+          if (['in', 'nin'].includes(op)) value = set({}, '$' + op, values)
+          else if (op === 'between') value = { $gte: values[0], $lte: values[1] }
+          else value = set({}, '$' + op, values[0])
+          const teamOk = item.allTeams ? true : (item.teamIds.length === 0 ? false : includes(item.teamIds, teamIds))
+          if (!teamOk) throw this.error('_abortAction')
+          results.push(set({}, field, value))
+        }
+      }
+      q.$and.push(...results)
+    }
+
+    /**
+     * Apply attribute guards to the provided model.
+     *
+     * @async
+     * @method
+     * @param {object} [opts={}] - The options object.
+     * @param {object} opts.model - The model object.
+     * @param {array} [opts.teamIds=[]] - The team IDs.
+     * @param {object} [opts.options={}] - Additional options.
+     */
+    runAttribGuard = async (opts = {}) => {
+      const { model, teamIds = [], options = {} } = opts
+      const { uniq } = this.app.lib._
+      const { includes } = this.app.lib.aneka
+      const { req } = options
+      const results = []
+
+      const guards = await this.getAttribGuards()
+      const filterFn = item => {
+        const bySiteId = item.siteId === req.site.id + ''
+        const byModel = item.models.includes(model.name)
+        const byTeamId = item.allTeams ? true : includes(item.teamIds, teamIds)
+        return bySiteId &amp;&amp; byModel &amp;&amp; byTeamId
+      }
+      guards.filter(filterFn).forEach(item => results.push(...item.hiddenFields))
+      options.hidden = options.hidden ?? []
+      options.hidden.push(...results)
+      options.hidden = uniq(options.hidden)
+    }
+
+    /**
+     * Get the team IDs and aliases for the user in the request.
+     *
+     * @method
+     * @param {object} req - The request object.
+     * @returns {object} An object containing the team IDs and aliases.
+     */
+    getTeamIdsAndAliases = (req) => {
+      const { get } = this.app.lib._
+      const teams = get(req, 'user.teams', [])
+      const teamIds = teams.map(team => team.id + '')
+      const aliases = teams.map(team => team.alias)
+      return { teamIds, aliases }
+    }
+
+    /**
+     * Rebuild the filter for the provided model.
+     *
+     * @async
+     * @method
+     * @param {object} model - The model object.
+     * @param {object} [filter={}] - The filter object.
+     * @param {object} [options={}] - Additional options.
+     * @returns {Promise&lt;object>} The rebuilt filter.
+     */
+    rebuildFilter = async (model, filter = {}, options = {}) => {
+      const { isEmpty, get, keys } = this.app.lib._
+      const { req } = options
+      const allowEmpty = !get(this, `app.${model.ns}.config.sumba.noEmptyQuery`, []).includes(model.name)
+      const hasSiteId = model.hasProperty('siteId')
+      const hasUserId = model.hasProperty('userId')
+      const hasTeamId = model.hasProperty('teamId')
+      const { teamIds, aliases } = this.getTeamIdsAndAliases(req)
+      const q = { $and: [] }
+
+      filter.query = filter.query ?? {}
+      if (!isEmpty(filter.query)) {
+        if (filter.query.$and) q.$and.push(...filter.query.$and)
+        else q.$and.push(filter.query)
+      }
+      if (req.routeOptions.config.xSite) {
+        filter.query = q
+        return
+      }
+      if (hasSiteId) q.$and.push({ siteId: req.site.id + '' })
+      if (aliases.includes('administrator')) {
+        if (get(req, 'site.alias') === 'default') {
+          filter.query = q
+          return
+        }
+        const fields = keys(req.getSetting('sumba:queryGuard', {}))
+        const results = []
+        for (const field of fields) {
+          if (!model.hasProperty(field)) continue
+          const inSetting = this.filterModelFromSetting({ model, field, options })
+          if (inSetting.results.length > 0) results.push(...inSetting.results)
+        }
+        if (results.length > 0) q.$and.push(...results)
+        filter.query = q
+        return
+      }
+      if (isEmpty(req.user)) {
+        if (q.$and.length === 0 &amp;&amp; !allowEmpty) throw this.error('_emptyColumnQuery')
+        filter.query = q
+        return
+      }
+
+      const condUserId = {
+        $or: [
+          { userId: req.user.id + '' },
+          { userId: { $eq: null } }
+        ]
+      }
+
+      const condTeamId = {
+        $or: [
+          { teamId: { $in: teamIds } },
+          { teamId: { $eq: null } }
+        ]
+      }
+
+      if (hasTeamId) {
+        if (hasUserId) q.$and.push({ $or: [condTeamId, condUserId] })
+        else q.$and.push(condTeamId)
+      } else if (hasUserId) q.$and.push(condUserId)
+
+      await this.runQueryGuard({ model, q, teamIds, options, allowEmpty })
+      await this.runAttribGuard({ model, teamIds, options })
+      if (q.$and.length === 0 &amp;&amp; !allowEmpty) throw this.error('_emptyColumnQuery')
+      filter.query = q
+    }
+
+    /**
+     * Apply query hook to the provided model.
+     *
+     * @async
+     * @method
+     * @param {object} model - The model object.
+     * @param {string|number} id - The ID of the model.
+     * @param {object} options - Additional options.
+     * @returns {object} The result of the model hook.
+     */
+    applyQueryHook = async (model, id, options = {}) => {
+      const { isEmpty } = this.app.lib._
+      const { req = {} } = options
+      if (options.noAutoFilter || isEmpty(req) || isEmpty(req.site)) return
+
+      const filter = {}
+      await this.rebuildFilter(model, filter, options)
+      if (filter.query.$and) filter.query.$and.push({ id })
+      else filter.query.id = id
+      const row = await model.findOneRecord(filter, { count: false })
+      if (!row) throw this.app.dobo.error('recordNotFound%s%s', id, this.name, { statusCode: 404 })
+    }
+
+    /**
+     * Apply action hook to the provided model.
+     *
+     * @async
+     * @method
+     * @param {object} [opts={}] - The options object.
+     * @param {object} opts.model - The model object.
+     * @param {array} [opts.teamIds=[]] - The team IDs.
+     * @param {object} [opts.options={}] - Additional options.
+     */
+    applyActionHook = async (opts = {}) => {
+      const { model, options = {} } = opts
+      const { includes } = this.app.lib.aneka
+      const { req } = options
+      const { teamIds, aliases } = this.getTeamIdsAndAliases(req)
+      if (aliases.includes('administrator')) return
+
+      const actions = {
+        READ: ['findOneRecord', 'findRecord', 'countRecord', 'getRecord'],
+        EXPORT: ['findAllRecord'],
+        CREATE: ['createRecord', 'bulkCreateRecord'],
+        UPDATE: ['updateRecord', 'upsertRecord'],
+        DELETE: ['removeRecord']
+      }
+
+      const guards = await this.getActionGuards()
+      const filterFn = item => {
+        const bySiteId = item.siteId === req.site.id + ''
+        const byModel = item.models.includes(model.name)
+        const byTeamId = item.allTeams ? true : includes(item.teamIds, teamIds)
+        return bySiteId &amp;&amp; byModel &amp;&amp; byTeamId
+      }
+      let abort = false
+      for (const item of guards.filter(filterFn)) {
+        if (item.value.includes('*')) continue
+        for (const action in actions) {
+          if (actions[action].includes(options.action) &amp;&amp; !item.value.includes(action)) abort = true
+        }
+      }
+      if (abort) throw this.error('accessDenied', { statusCode: 403 })
     }
   }
 
@@ -535,4 +1866,4 @@ async function factory (pkgName) {
 }
 
 export default factory
-</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">Sumba API</a><div class="mobile-nav-links"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/sumba" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/sumba" target="">Github</a></div><div class="navbar-item"><a id="" href="https://sumba.bajo.app/" target="">Sumba</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Sumba.html">Sumba</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#factory">factory</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>
+</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">Sumba API</a><div class="mobile-nav-links"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/sumba" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/sumba" target="">Github</a></div><div class="navbar-item"><a id="" href="https://sumba.bajo.app/" target="">Sumba</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Sumba.html">Sumba</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#TConfig">TConfig</a></div><div class="sidebar-section-children"><a href="global.html#TTokenBody">TTokenBody</a></div><div class="sidebar-section-children"><a href="global.html#TTokenData">TTokenData</a></div><div class="sidebar-section-children"><a href="global.html#factory">factory</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>

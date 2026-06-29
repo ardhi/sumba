@@ -1,4 +1,4 @@
-async function modelGuard () {
+async function queryGuard () {
   return {
     common: {
       widget: {
@@ -12,4 +12,4 @@ async function modelGuard () {
   }
 }
 
-export default modelGuard
+export default queryGuard

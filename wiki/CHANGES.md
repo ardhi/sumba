@@ -2,6 +2,12 @@
 
 ## 2026-06-20
 
+- [2.35.0] Add ```SumbaActionGuard``` model & its helpers
+- [2.35.0] Restructure admin menu
+- [2.35.0] Documentations overhaul
+
+## 2026-06-20
+
 - [2.34.3] Bug fix in ```checkTeam()```
 - [2.34.3] Bug fix in ```hook.js```
 - [2.34.4] Bug fix in ```fixture/site.json```
