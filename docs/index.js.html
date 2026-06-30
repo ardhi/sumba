@@ -1,12 +1,8 @@
 <!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Source: index.js</title><!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="light"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Sumba API</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Sumba.html">Sumba</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#TConfig">TConfig</a></div><div class="sidebar-section-children"><a href="global.html#TTokenBody">TTokenBody</a></div><div class="sidebar-section-children"><a href="global.html#TTokenData">TTokenData</a></div><div class="sidebar-section-children"><a href="global.html#factory">factory</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/sumba" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/sumba" target="">Github</a></div><div class="navbar-item"><a id="" href="https://sumba.bajo.app/" target="">Sumba</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">index.js</h1></header><article><pre class="prettyprint source lang-js"><code>import path from 'path'
+import configFactory, { defMultiSite } from './lib/config.js'
 import { joiPasswordExtendCore } from 'joi-password'
-
-const defMultiSite = {
-  enabled: false,
-  catchAll: 'default'
-}
 
 /**
  * Plugin factory.
@@ -20,6 +16,7 @@ async function factory (pkgName) {
   const me = this
   const { getModel } = this.app.dobo
   const { cloneDeep, isEmpty } = this.app.lib._
+  const config = await configFactory.call(this)
 
   /**
    * Sumba class definition.
@@ -32,141 +29,7 @@ async function factory (pkgName) {
      */
     constructor () {
       super(pkgName, me.app)
-      /**
-       * @type {TConfig}
-       */
-      this.config = {
-        multiSite: cloneDeep(defMultiSite),
-        xSiteAdmins: [], // format: "&lt;siteAlias>:&lt;username>"
-        waibu: {
-          title: 'site',
-          prefix: 'site'
-        },
-        dobo: {
-          model: {}
-        },
-        waibuMpa: {
-          icon: 'globe',
-          redirect: {
-            '/': 'sumba:/your-stuff/profile',
-            '/your-stuff': 'sumba:/your-stuff/profile',
-            '/info': 'sumba:/info/about-us',
-            '/user': 'sumba:/your-stuff/profile',
-            '/db/export': 'sumba:/db/export/list',
-            '/help': 'sumba:/help/contact-form',
-            '/help/trouble-tickets': 'sumba:/help/trouble-tickets/list'
-          },
-          redirectSubRoute: {
-            waibuAdmin: {
-              '/': 'waibuAdmin:/site/site',
-              '/x': 'waibuAdmin:/site/x/site/list',
-              '/x/*': 'waibuAdmin:/site/x/{2}/list',
-              '/*': 'waibuAdmin:/site/{1}/list'
-            }
-          },
-          menuHandler: [{
-            title: 'account',
-            icon: 'person',
-            level: 9998,
-            children: [
-              // anonymous only
-              { title: 'signin', href: 'sumba:/signin', visible: 'anon' },
-              { title: 'forgotPassword', href: 'sumba:/user/forgot-password', visible: 'anon' },
-              { title: 'newUserSignup', href: 'sumba:/user/signup', visible: 'anon' },
-              { title: '-', visible: 'anon' },
-              { title: 'activation', href: 'sumba:/user/activation', visible: 'anon' },
-              // authenticated only
-              { title: 'yourProfile', href: 'sumba:/your-stuff/profile', visible: 'auth' },
-              { title: 'changePassword', href: 'sumba:/your-stuff/change-password', visible: 'auth' },
-              { title: 'downloadList', href: 'sumba:/your-stuff/download/list', visible: 'auth' },
-              { title: '-', visible: 'auth' },
-              { title: 'signout', href: 'sumba:/signout', visible: 'auth' }
-            ]
-          }, {
-            title: 'help',
-            icon: 'signInfo',
-            level: 9999,
-            children: [
-              { title: 'contactForm', href: 'sumba:/help/contact-form' },
-              { title: 'troubleTickets', href: 'sumba:/help/trouble-tickets', visible: 'auth' },
-              { title: '-' },
-              { title: 'cookiePolicy', href: 'sumba:/info/cookie-policy' },
-              { title: 'privacy', href: 'sumba:/info/privacy' },
-              { title: 'termsConditions', href: 'sumba:/info/terms-conditions' }
-            ]
-          }]
-        },
-        waibuAdmin: {
-          menuHandler: 'sumba:adminMenu',
-          menuCollapsible: true,
-          modelDisabled: 'all'
-        },
-        auth: {
-          common: {
-            apiKey: {
-              type: 'Bearer',
-              qsKey: 'apiKey',
-              headerKey: 'X-Auth-ApiKey',
-              algo: 'sha256' // changing this require each and every user to reset their apiKey
-            },
-            basic: {
-            },
-            jwt: {
-              type: 'Bearer',
-              qsKey: 'token',
-              headerKey: 'X-Auth-Jwt',
-              secret: '668de9cf57316c7dbf52f7ff7611c299',
-              expiresInDur: '7d'
-            }
-          },
-          waibuRestApi: {
-            methods: ['basic', 'apiKey', 'jwt'],
-            silentOnError: false
-          },
-          waibuMpa: {
-            methods: ['session'],
-            silentOnError: false
-          },
-          waibuStatic: {
-            methods: ['basic', 'apiKey', 'jwt'],
-            basic: {
-              useUtf8: true,
-              realm: true,
-              warningMessage: 'pleaseAuthenticate'
-            },
-            silentOnError: false
-          }
-        },
-        redirect: {
-          signin: 'sumba:/signin',
-          afterSignin: '/',
-          signout: 'sumba:/signout',
-          afterSignout: '/'
-        },
-        siteSetting: {
-          forgotPasswordExpDur: '5m',
-          timeZone: 'UTC',
-          userPassword: {
-            minUpperCase: 1,
-            minLowerCase: 1,
-            minSpecialChar: 1,
-            minNumeric: 1,
-            noWhitespace: false,
-            latinOnlyChars: false,
-            pattern: {
-              lowerCase: 'abcdefghijklmnopqrstuvwxyz',
-              upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-              specialChar: '!@#$%*',
-              numeric: '0123456789'
-            }
-          }
-        },
-        cacheTtl: {
-          getSiteDur: '1m',
-          getUserByIdDur: '1m',
-          getUserByTokenDur: '1m'
-        }
-      }
+      this.config = config
       this.secureGuards = []
       this.actionGuards = []
       this.queryGuards = []
@@ -299,18 +162,20 @@ async function factory (pkgName) {
     /**
      * Get authentication setting based on type and source
      *
-     * @async
      * @method
      * @private
-     * @param {string} type - The type of authentication setting to retrieve.
-     * @param {string} source - The source of the authentication setting.
+     * @param {string} type - The type of authentication setting to retrieve. If not provided, it will use parent setting.
+     * @param {string} [source] - The source of the authentication setting. If not provided, it will use the default setting.
      * @returns {object} - The authentication setting object.
      */
-    _getAuthSetting = async (type, source) => {
+    _getAuthSetting = (type, source) => {
       const { defaultsDeep } = this.app.lib.aneka
       const { get } = this.app.lib._
 
-      const setting = defaultsDeep(get(this.config, `auth.${source}.${type}`, {}), get(this.config, `auth.common.${type}`, {}))
+      let setting
+      const withType = type ? `.${type}` : ''
+      if (source) setting = defaultsDeep(get(this.config, `${source}.auth${withType}`, {}), get(this.config, `auth${withType}`, {}))
+      else setting = get(this.config, `auth${withType}`, {})
       if (type === 'basic') setting.type = 'Basic'
       return setting
     }
@@ -318,18 +183,17 @@ async function factory (pkgName) {
     /**
      * Get authentication token based on type, request, and source
      *
-     * @async
      * @method
      * @private
      * @param {string} type - The type of authentication setting.
      * @param {object} req - The request object.
-     * @param {string} source - The source of the authentication setting.
+     * @param {string} [source] - The source of the authentication setting. If not provided, it will use the default setting.
      * @returns {string|boolean} - The token if found, otherwise false.
      */
-    _getAuthToken = async (type, req, source) => {
+    _getAuthToken = (type, req, source) => {
       const { isEmpty } = this.app.lib._
 
-      const setting = await this._getAuthSetting(type, source)
+      const setting = this._getAuthSetting(type, source)
       let token = req.headers[setting.headerKey.toLowerCase()]
       if (!['basic'].includes(type) &amp;&amp; isEmpty(token)) token = req.query[setting.qsKey]
       if (isEmpty(token)) {
@@ -341,7 +205,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Build admin menu based on locals and request
+     * Build admin menu based on locals and request.
+     *
+     * - If multi-site is enabled, it will include the cross-site menu with options to manage all sites and site settings.
+     * - If caching is enabled, it will include the cache storage menu in the appropriate section.
+     * - Session management menu is also included in the appropriate section.
      *
      * @async
      * @method
@@ -359,29 +227,25 @@ async function factory (pkgName) {
         title: 'manageSite',
         children: [
           { title: 'siteProfile', href: `waibuAdmin:/${prefix}/site` },
-          { title: 'siteSetting', href: `waibuAdmin:/${prefix}/site-setting/:action`, params }
+          { title: 'manageSiteSetting', href: `waibuAdmin:/${prefix}/site-setting/:action`, params }
         ]
       }, {
-        title: 'manageUser',
+        title: 'manageUserTeam',
         children: [
-          { title: 'userProfile', href: `waibuAdmin:/${prefix}/user/:action`, params },
-          { title: 'userSetting', href: `waibuAdmin:/${prefix}/user-setting/:action`, params },
+          { title: 'manageUser', href: `waibuAdmin:/${prefix}/user/:action`, params },
+          { title: 'manageUserSetting', href: `waibuAdmin:/${prefix}/user-setting/:action`, params },
+          { title: 'manageTeam', href: `waibuAdmin:/${prefix}/team/:action`, params },
+          { title: 'manageTeamUser', href: `waibuAdmin:/${prefix}/team-user/:action`, params },
+          { title: 'manageTeamSetting', href: `waibuAdmin:/${prefix}/team-setting/:action`, params },
           { title: 'resetUserPassword', href: `waibuAdmin:/${prefix}/reset-user-password` }
         ]
       }, {
-        title: 'manageTeam',
-        children: [
-          { title: 'teamProfile', href: `waibuAdmin:/${prefix}/team/:action`, params },
-          { title: 'teamUser', href: `waibuAdmin:/${prefix}/team-user/:action`, params },
-          { title: 'teamSetting', href: `waibuAdmin:/${prefix}/team-setting/:action`, params }
-        ]
-      }, {
-        title: 'permission',
+        title: 'permissionGuard',
         children: [
           { title: 'secureGuard', href: `waibuAdmin:/${prefix}/secure-guard/:action`, params },
           { title: 'anonymousGuard', href: `waibuAdmin:/${prefix}/anonymous-guard/:action`, params },
-          { title: 'queryGuard', href: `waibuAdmin:/${prefix}/query-guard/:action`, params },
           { title: 'actionGuard', href: `waibuAdmin:/${prefix}/action-guard/:action`, params },
+          { title: 'queryGuard', href: `waibuAdmin:/${prefix}/query-guard/:action`, params },
           { title: 'attribGuard', href: `waibuAdmin:/${prefix}/attrib-guard/:action`, params }
         ]
       }, {
@@ -404,8 +268,8 @@ async function factory (pkgName) {
         items.unshift({
           title: 'xSite',
           children: [
-            { title: 'allSites', href: `waibuAdmin:/${prefix}/x/site/:action`, params },
-            { title: 'siteSetting', href: `waibuAdmin:/${prefix}/x/site-setting/:action`, params },
+            { title: 'manageAllSites', href: `waibuAdmin:/${prefix}/x/site/:action`, params },
+            { title: 'manageAllSiteSettings', href: `waibuAdmin:/${prefix}/x/site-setting/:action`, params },
             sessionMenu
           ]
         })
@@ -426,7 +290,7 @@ async function factory (pkgName) {
      * @async
      * @method
      * @param {object} rec - The user record object.
-     * @returns {object} - The JWT token and its expiration date.
+     * @returns {Promise&lt;object>} - The JWT token and its expiration date.
      */
     createJwtFromUserRecord = async (rec) => {
       const { importPkg } = this.app.bajo
@@ -436,8 +300,9 @@ async function factory (pkgName) {
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createSigner } = fastJwt
 
-      const opts = pick(this.config.auth.common.jwt, ['expiresInDur'])
-      opts.key = get(this.config, 'auth.common.jwt.secret')
+      const setting = this._getAuthSetting('jwt')
+      const opts = pick(setting, ['expiresInDur'])
+      opts.key = get(setting, 'secret')
       const sign = createSigner(opts)
       const apiKey = await this.hash(rec.token)
       const payload = { uid: rec.id, apiKey }
@@ -484,7 +349,8 @@ async function factory (pkgName) {
      */
     verifyApiKey = async (req, reply, source, payload) => {
       const { merge, camelCase } = this.app.lib._
-      const checker = this.app.bajoExtra[camelCase(`is ${this.config.auth.common.apiKey.algo}`)]
+      const setting = this._getAuthSetting(null, source)
+      const checker = this.app.bajoExtra[camelCase(`is ${setting.apiKey.algo}`)]
 
       let token = await this._getAuthToken('apiKey', req, source)
       if (!checker(token)) return false
@@ -520,7 +386,7 @@ async function factory (pkgName) {
         reply.code(401)
       }
 
-      const setting = await this._getAuthSetting('basic', source)
+      const setting = this._getAuthSetting('basic', source)
       let authInfo
       const parts = (req.headers.authorization ?? '').split(' ')
       if (parts[0] === setting.type) authInfo = parts[1]
@@ -561,8 +427,8 @@ async function factory (pkgName) {
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createVerifier } = fastJwt
-      const setting = await this._getAuthSetting('jwt', source)
-      const token = await this._getAuthToken('jwt', req, source)
+      const setting = this._getAuthSetting('jwt', source)
+      const token = this._getAuthToken('jwt', req, source)
       if (isEmpty(token)) return false
       const verifier = createVerifier({
         key: setting.secret,
@@ -802,7 +668,8 @@ async function factory (pkgName) {
      */
     hash = async (item) => {
       const { hash } = this.app.bajoExtra
-      return await hash(item, this.config.auth.common.apiKey.algo)
+      const setting = this._getAuthSetting('apiKey')
+      return await hash(item, setting.algo)
     }
 
     /**
@@ -811,7 +678,7 @@ async function factory (pkgName) {
      * @async
      * @method
      * @private
-     * @param {string} type - The type of guards to fetch.
+     * @param {string} type - The type of guards to fetch. Available types are 'Action', 'Attrib', 'Query', 'Secure', and 'Anonymous'.
      * @returns {Promise&lt;Array>} - A promise that resolves to an array of guards.
      */
     _fetchGuards = async (type) => {
@@ -1082,12 +949,11 @@ async function factory (pkgName) {
         await setUser()
         return secure
       }
-      const silentOnError = this.config.auth[webApp].silentOnError ?? this.config.auth.common.silentOnError
+      const { silentOnError, methods } = this._getAuthSetting(null, webApp)
       const payload = silentOnError ? { noContent: true } : undefined
-      const authMethods = this.config.auth[webApp].methods ?? []
-      if (isEmpty(authMethods)) throw this.error('noAuthMethod', merge({ statusCode: 500 }, payload))
+      if (isEmpty(methods)) throw this.error('noAuthMethod', merge({ statusCode: 500 }, payload))
       let success
-      for (const m of authMethods) {
+      for (const m of methods) {
         const handler = this[camelCase(`verify ${m}`)]
         if (!handler) throw this.error('invalidAuthMethod%s', m, merge({ statusCode: 500 }, payload))
         const check = await handler(req, reply, source, payload)
@@ -1652,7 +1518,6 @@ async function factory (pkgName) {
       for (const field of fields) {
         if (!model.getNonVirtualProperties(true).includes(field)) continue // or, should it throws exception instead?
         const inSetting = this.filterModelFromSetting({ model, field, options })
-        if (inSetting.results.length > 0) inSetting.results.push(...inSetting.results)
         const prop = model.getProperty(field)
         const items = rules.filter(item => item.field === field)
         for (const item of items) {
@@ -1831,34 +1696,51 @@ async function factory (pkgName) {
      */
     applyActionHook = async (opts = {}) => {
       const { model, options = {} } = opts
-      const { includes } = this.app.lib.aneka
       const { req } = options
-      const { teamIds, aliases } = this.getTeamIdsAndAliases(req)
-      if (aliases.includes('administrator')) return
+      if (!req) return
+      if (!req.site) return
 
-      const actions = {
-        READ: ['findOneRecord', 'findRecord', 'countRecord', 'getRecord'],
-        EXPORT: ['findAllRecord'],
-        CREATE: ['createRecord', 'bulkCreateRecord'],
-        UPDATE: ['updateRecord', 'upsertRecord'],
-        DELETE: ['removeRecord']
-      }
+      let action
+      if (['findOneRecord', 'findRecord', 'countRecord', 'getRecord'].includes(options.action)) action = 'READ'
+      else if (['createRecord', 'bulkCreateRecord'].includes(options.action)) action = 'CREATE'
+      else if (['updateRecord', 'upsertRecord'].includes(options.action)) action = 'UPDATE'
+      else if (['removeRecord'].includes(options.action)) action = 'REMOVE'
+      else if (['findAllRecord'].includes(options.action)) action = 'EXPORT'
+      if (!action) return
 
+      const allowed = await this.isActionAllowed(action, model, req)
+      if (!allowed) throw this.error('accessDenied', { statusCode: 403 })
+    }
+
+    /**
+     * Check if the specified action is allowed for the given model and request. It retrieves the action guards, filters them based on the site ID, model name, and team IDs, and checks if the action is included in the allowed values. If any guard denies the action, it returns false; otherwise, it returns true.
+     *
+     * @async
+     * @method
+     * @param {string} action - The action to check. Available actions are: 'READ', 'CREATE', 'UPDATE', 'REMOVE' and 'EXPORT'.
+     * @param {object} model - The model object.
+     * @param {object} req - The request object.
+     * @returns {Promise&lt;boolean>} - Returns true if the action is allowed, otherwise false.
+     */
+    isActionAllowed = async (action, model, req) => {
+      const { includes } = this.app.lib.aneka
+      if (!req) return true
+      if (!req.site) return true
       const guards = await this.getActionGuards()
+      const { teamIds, aliases } = this.getTeamIdsAndAliases(req)
+      if (aliases.includes('administrator')) return true
       const filterFn = item => {
         const bySiteId = item.siteId === req.site.id + ''
         const byModel = item.models.includes(model.name)
         const byTeamId = item.allTeams ? true : includes(item.teamIds, teamIds)
         return bySiteId &amp;&amp; byModel &amp;&amp; byTeamId
       }
-      let abort = false
+      let denied = false
       for (const item of guards.filter(filterFn)) {
         if (item.value.includes('*')) continue
-        for (const action in actions) {
-          if (actions[action].includes(options.action) &amp;&amp; !item.value.includes(action)) abort = true
-        }
+        if (!item.value.includes(action)) denied = true
       }
-      if (abort) throw this.error('accessDenied', { statusCode: 403 })
+      return !denied
     }
   }
 

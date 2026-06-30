@@ -1,6 +1,12 @@
 # Changes
 
-## 2026-06-20
+## 2026-06-29
+
+- [2.36.0] Move ```config``` object to dedicated file ```lib/config.js```
+- [2.36.0] Changes in ```_getAuthSetting()```
+- [2.36.0] Bug fix in ```runQueryGuard()```
+
+## 2026-06-29
 
 - [2.35.0] Add ```SumbaActionGuard``` model & its helpers
 - [2.35.0] Restructure admin menu

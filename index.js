@@ -1,10 +1,6 @@
 import path from 'path'
+import configFactory, { defMultiSite } from './lib/config.js'
 import { joiPasswordExtendCore } from 'joi-password'
-
-const defMultiSite = {
-  enabled: false,
-  catchAll: 'default'
-}
 
 /**
  * Plugin factory.
@@ -18,6 +14,7 @@ async function factory (pkgName) {
   const me = this
   const { getModel } = this.app.dobo
   const { cloneDeep, isEmpty } = this.app.lib._
+  const config = await configFactory.call(this)
 
   /**
    * Sumba class definition.
@@ -30,141 +27,7 @@ async function factory (pkgName) {
      */
     constructor () {
       super(pkgName, me.app)
-      /**
-       * @type {TConfig}
-       */
-      this.config = {
-        multiSite: cloneDeep(defMultiSite),
-        xSiteAdmins: [], // format: "<siteAlias>:<username>"
-        waibu: {
-          title: 'site',
-          prefix: 'site'
-        },
-        dobo: {
-          model: {}
-        },
-        waibuMpa: {
-          icon: 'globe',
-          redirect: {
-            '/': 'sumba:/your-stuff/profile',
-            '/your-stuff': 'sumba:/your-stuff/profile',
-            '/info': 'sumba:/info/about-us',
-            '/user': 'sumba:/your-stuff/profile',
-            '/db/export': 'sumba:/db/export/list',
-            '/help': 'sumba:/help/contact-form',
-            '/help/trouble-tickets': 'sumba:/help/trouble-tickets/list'
-          },
-          redirectSubRoute: {
-            waibuAdmin: {
-              '/': 'waibuAdmin:/site/site',
-              '/x': 'waibuAdmin:/site/x/site/list',
-              '/x/*': 'waibuAdmin:/site/x/{2}/list',
-              '/*': 'waibuAdmin:/site/{1}/list'
-            }
-          },
-          menuHandler: [{
-            title: 'account',
-            icon: 'person',
-            level: 9998,
-            children: [
-              // anonymous only
-              { title: 'signin', href: 'sumba:/signin', visible: 'anon' },
-              { title: 'forgotPassword', href: 'sumba:/user/forgot-password', visible: 'anon' },
-              { title: 'newUserSignup', href: 'sumba:/user/signup', visible: 'anon' },
-              { title: '-', visible: 'anon' },
-              { title: 'activation', href: 'sumba:/user/activation', visible: 'anon' },
-              // authenticated only
-              { title: 'yourProfile', href: 'sumba:/your-stuff/profile', visible: 'auth' },
-              { title: 'changePassword', href: 'sumba:/your-stuff/change-password', visible: 'auth' },
-              { title: 'downloadList', href: 'sumba:/your-stuff/download/list', visible: 'auth' },
-              { title: '-', visible: 'auth' },
-              { title: 'signout', href: 'sumba:/signout', visible: 'auth' }
-            ]
-          }, {
-            title: 'help',
-            icon: 'signInfo',
-            level: 9999,
-            children: [
-              { title: 'contactForm', href: 'sumba:/help/contact-form' },
-              { title: 'troubleTickets', href: 'sumba:/help/trouble-tickets', visible: 'auth' },
-              { title: '-' },
-              { title: 'cookiePolicy', href: 'sumba:/info/cookie-policy' },
-              { title: 'privacy', href: 'sumba:/info/privacy' },
-              { title: 'termsConditions', href: 'sumba:/info/terms-conditions' }
-            ]
-          }]
-        },
-        waibuAdmin: {
-          menuHandler: 'sumba:adminMenu',
-          menuCollapsible: true,
-          modelDisabled: 'all'
-        },
-        auth: {
-          common: {
-            apiKey: {
-              type: 'Bearer',
-              qsKey: 'apiKey',
-              headerKey: 'X-Auth-ApiKey',
-              algo: 'sha256' // changing this require each and every user to reset their apiKey
-            },
-            basic: {
-            },
-            jwt: {
-              type: 'Bearer',
-              qsKey: 'token',
-              headerKey: 'X-Auth-Jwt',
-              secret: '668de9cf57316c7dbf52f7ff7611c299',
-              expiresInDur: '7d'
-            }
-          },
-          waibuRestApi: {
-            methods: ['basic', 'apiKey', 'jwt'],
-            silentOnError: false
-          },
-          waibuMpa: {
-            methods: ['session'],
-            silentOnError: false
-          },
-          waibuStatic: {
-            methods: ['basic', 'apiKey', 'jwt'],
-            basic: {
-              useUtf8: true,
-              realm: true,
-              warningMessage: 'pleaseAuthenticate'
-            },
-            silentOnError: false
-          }
-        },
-        redirect: {
-          signin: 'sumba:/signin',
-          afterSignin: '/',
-          signout: 'sumba:/signout',
-          afterSignout: '/'
-        },
-        siteSetting: {
-          forgotPasswordExpDur: '5m',
-          timeZone: 'UTC',
-          userPassword: {
-            minUpperCase: 1,
-            minLowerCase: 1,
-            minSpecialChar: 1,
-            minNumeric: 1,
-            noWhitespace: false,
-            latinOnlyChars: false,
-            pattern: {
-              lowerCase: 'abcdefghijklmnopqrstuvwxyz',
-              upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-              specialChar: '!@#$%*',
-              numeric: '0123456789'
-            }
-          }
-        },
-        cacheTtl: {
-          getSiteDur: '1m',
-          getUserByIdDur: '1m',
-          getUserByTokenDur: '1m'
-        }
-      }
+      this.config = config
       this.secureGuards = []
       this.actionGuards = []
       this.queryGuards = []
@@ -297,18 +160,20 @@ async function factory (pkgName) {
     /**
      * Get authentication setting based on type and source
      *
-     * @async
      * @method
      * @private
-     * @param {string} type - The type of authentication setting to retrieve.
-     * @param {string} source - The source of the authentication setting.
+     * @param {string} type - The type of authentication setting to retrieve. If not provided, it will use parent setting.
+     * @param {string} [source] - The source of the authentication setting. If not provided, it will use the default setting.
      * @returns {object} - The authentication setting object.
      */
-    _getAuthSetting = async (type, source) => {
+    _getAuthSetting = (type, source) => {
       const { defaultsDeep } = this.app.lib.aneka
       const { get } = this.app.lib._
 
-      const setting = defaultsDeep(get(this.config, `auth.${source}.${type}`, {}), get(this.config, `auth.common.${type}`, {}))
+      let setting
+      const withType = type ? `.${type}` : ''
+      if (source) setting = defaultsDeep(get(this.config, `${source}.auth${withType}`, {}), get(this.config, `auth${withType}`, {}))
+      else setting = get(this.config, `auth${withType}`, {})
       if (type === 'basic') setting.type = 'Basic'
       return setting
     }
@@ -316,18 +181,17 @@ async function factory (pkgName) {
     /**
      * Get authentication token based on type, request, and source
      *
-     * @async
      * @method
      * @private
      * @param {string} type - The type of authentication setting.
      * @param {object} req - The request object.
-     * @param {string} source - The source of the authentication setting.
+     * @param {string} [source] - The source of the authentication setting. If not provided, it will use the default setting.
      * @returns {string|boolean} - The token if found, otherwise false.
      */
-    _getAuthToken = async (type, req, source) => {
+    _getAuthToken = (type, req, source) => {
       const { isEmpty } = this.app.lib._
 
-      const setting = await this._getAuthSetting(type, source)
+      const setting = this._getAuthSetting(type, source)
       let token = req.headers[setting.headerKey.toLowerCase()]
       if (!['basic'].includes(type) && isEmpty(token)) token = req.query[setting.qsKey]
       if (isEmpty(token)) {
@@ -339,7 +203,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Build admin menu based on locals and request
+     * Build admin menu based on locals and request.
+     *
+     * - If multi-site is enabled, it will include the cross-site menu with options to manage all sites and site settings.
+     * - If caching is enabled, it will include the cache storage menu in the appropriate section.
+     * - Session management menu is also included in the appropriate section.
      *
      * @async
      * @method
@@ -398,8 +266,8 @@ async function factory (pkgName) {
         items.unshift({
           title: 'xSite',
           children: [
-            { title: 'allSites', href: `waibuAdmin:/${prefix}/x/site/:action`, params },
-            { title: 'siteSetting', href: `waibuAdmin:/${prefix}/x/site-setting/:action`, params },
+            { title: 'manageAllSites', href: `waibuAdmin:/${prefix}/x/site/:action`, params },
+            { title: 'manageAllSiteSettings', href: `waibuAdmin:/${prefix}/x/site-setting/:action`, params },
             sessionMenu
           ]
         })
@@ -420,7 +288,7 @@ async function factory (pkgName) {
      * @async
      * @method
      * @param {object} rec - The user record object.
-     * @returns {object} - The JWT token and its expiration date.
+     * @returns {Promise<object>} - The JWT token and its expiration date.
      */
     createJwtFromUserRecord = async (rec) => {
       const { importPkg } = this.app.bajo
@@ -430,8 +298,9 @@ async function factory (pkgName) {
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createSigner } = fastJwt
 
-      const opts = pick(this.config.auth.common.jwt, ['expiresInDur'])
-      opts.key = get(this.config, 'auth.common.jwt.secret')
+      const setting = this._getAuthSetting('jwt')
+      const opts = pick(setting, ['expiresInDur'])
+      opts.key = get(setting, 'secret')
       const sign = createSigner(opts)
       const apiKey = await this.hash(rec.token)
       const payload = { uid: rec.id, apiKey }
@@ -478,7 +347,8 @@ async function factory (pkgName) {
      */
     verifyApiKey = async (req, reply, source, payload) => {
       const { merge, camelCase } = this.app.lib._
-      const checker = this.app.bajoExtra[camelCase(`is ${this.config.auth.common.apiKey.algo}`)]
+      const setting = this._getAuthSetting(null, source)
+      const checker = this.app.bajoExtra[camelCase(`is ${setting.apiKey.algo}`)]
 
       let token = await this._getAuthToken('apiKey', req, source)
       if (!checker(token)) return false
@@ -514,7 +384,7 @@ async function factory (pkgName) {
         reply.code(401)
       }
 
-      const setting = await this._getAuthSetting('basic', source)
+      const setting = this._getAuthSetting('basic', source)
       let authInfo
       const parts = (req.headers.authorization ?? '').split(' ')
       if (parts[0] === setting.type) authInfo = parts[1]
@@ -555,8 +425,8 @@ async function factory (pkgName) {
 
       const fastJwt = await importPkg('bajoExtra:fast-jwt')
       const { createVerifier } = fastJwt
-      const setting = await this._getAuthSetting('jwt', source)
-      const token = await this._getAuthToken('jwt', req, source)
+      const setting = this._getAuthSetting('jwt', source)
+      const token = this._getAuthToken('jwt', req, source)
       if (isEmpty(token)) return false
       const verifier = createVerifier({
         key: setting.secret,
@@ -796,7 +666,8 @@ async function factory (pkgName) {
      */
     hash = async (item) => {
       const { hash } = this.app.bajoExtra
-      return await hash(item, this.config.auth.common.apiKey.algo)
+      const setting = this._getAuthSetting('apiKey')
+      return await hash(item, setting.algo)
     }
 
     /**
@@ -1076,12 +947,11 @@ async function factory (pkgName) {
         await setUser()
         return secure
       }
-      const silentOnError = this.config.auth[webApp].silentOnError ?? this.config.auth.common.silentOnError
+      const { silentOnError, methods } = this._getAuthSetting(null, webApp)
       const payload = silentOnError ? { noContent: true } : undefined
-      const authMethods = this.config.auth[webApp].methods ?? []
-      if (isEmpty(authMethods)) throw this.error('noAuthMethod', merge({ statusCode: 500 }, payload))
+      if (isEmpty(methods)) throw this.error('noAuthMethod', merge({ statusCode: 500 }, payload))
       let success
-      for (const m of authMethods) {
+      for (const m of methods) {
         const handler = this[camelCase(`verify ${m}`)]
         if (!handler) throw this.error('invalidAuthMethod%s', m, merge({ statusCode: 500 }, payload))
         const check = await handler(req, reply, source, payload)
@@ -1646,7 +1516,6 @@ async function factory (pkgName) {
       for (const field of fields) {
         if (!model.getNonVirtualProperties(true).includes(field)) continue // or, should it throws exception instead?
         const inSetting = this.filterModelFromSetting({ model, field, options })
-        if (inSetting.results.length > 0) inSetting.results.push(...inSetting.results)
         const prop = model.getProperty(field)
         const items = rules.filter(item => item.field === field)
         for (const item of items) {

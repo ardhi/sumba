@@ -1,6 +1,6 @@
 const action = {
   method: ['GET', 'POST'],
-  title: 'siteSetting',
+  title: 'manageAllSiteSettings',
   xSite: true,
   handler: async function (req, reply) {
     const { importModule } = this.app.bajo
