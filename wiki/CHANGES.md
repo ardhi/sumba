@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-07-12
+
+- [2.37.0] Update `driver` to `adapter`
+
 ## 2026-06-29
 
 - [2.36.0] Move ```config``` object to dedicated file ```lib/config.js```

@@ -681,7 +681,7 @@ async function factory (pkgName) {
      */
     _fetchGuards = async (type) => {
       const { getModel } = this.app.dobo
-      const options = { noMagic: true, noCache: true, noDriverHook: true, dataOnly: true }
+      const options = { noMagic: true, noCache: true, noAdapterHook: true, dataOnly: true }
       const filter = { query: { status: 'ACTIVE' } }
       const results = await getModel(`Sumba${type}Guard`).findAllRecord(filter, options)
       return results.map(result => {
@@ -1360,7 +1360,7 @@ async function factory (pkgName) {
         user = await getCache({ key })
         if (user) return JSON.parse(user)
       }
-      user = await getModel('SumbaUser').getRecord(id, { noHook: true, noDriverHook: true, throwNotFound: false, req })
+      user = await getModel('SumbaUser').getRecord(id, { noHook: true, noAdapterHook: true, throwNotFound: false, req })
       if (!user) return
       await this.mergeTeam(user, req)
       if (setCache) {
@@ -1387,7 +1387,7 @@ async function factory (pkgName) {
         user = await getCache({ key })
         if (user) return JSON.parse(user)
       }
-      user = await getModel('SumbaUser').findOneRecord({ query: { token } }, { noHook: true, noDriverHook: true, throwNotFound: false, req })
+      user = await getModel('SumbaUser').findOneRecord({ query: { token } }, { noHook: true, noAdapterHook: true, throwNotFound: false, req })
       if (!user) return
       await this.mergeTeam(user, req)
       if (setCache) {
@@ -1404,7 +1404,7 @@ async function factory (pkgName) {
       const bcrypt = await importPkg('bajoExtra:bcrypt')
 
       const query = { username, provider: 'local', siteId: req.site.id + '' }
-      const user = await model.findOneRecord({ query }, { req, forceNoHidden: true, noHook: true, noDriverHook: true })
+      const user = await model.findOneRecord({ query }, { req, forceNoHidden: true, noHook: true, noAdapterHook: true })
       if (!user) throw this.error('validationError', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })
       if (user.status !== 'ACTIVE') throw this.error('validationError', { details: ['User is inactive or temporarily disabled'], statusCode: 401 })
       const verified = await bcrypt.compare(password, user.password)

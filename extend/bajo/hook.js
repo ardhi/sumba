@@ -156,13 +156,13 @@ async function hook () {
     }
   }, {
     level: 1000,
-    name: 'dobo.driver:beforeAny',
+    name: 'dobo.adapter:beforeAny',
     handler: async function (model, options) {
       await this.applyActionHook({ model, options })
     }
   }, {
     level: 1000,
-    name: 'dobo.driver:beforeCreateRecord',
+    name: 'dobo.adapter:beforeCreateRecord',
     handler: async function (model, body, options = {}) {
       const { get } = this.app.lib._
       const { isSet } = this.app.lib.aneka
@@ -177,7 +177,7 @@ async function hook () {
     }
   }, {
     level: 1000,
-    name: ['dobo.driver:beforeFindRecord', 'dobo.driver:beforeFindAllRecord', 'dobo.driver:beforeCountRecord'],
+    name: ['dobo.adapter:beforeFindRecord', 'dobo.adapter:beforeFindAllRecord', 'dobo.adapter:beforeCountRecord'],
     handler: async function handler (model, filter, options = {}) {
       const { isEmpty } = this.app.lib._
       const { req = {} } = options
@@ -186,7 +186,7 @@ async function hook () {
     }
   }, {
     level: 1000,
-    name: ['dobo.driver:beforeGetRecord', 'dobo.driver:beforeRemoveRecord', 'dobo.driver:beforeUpdateRecord'],
+    name: ['dobo.adapter:beforeGetRecord', 'dobo.adapter:beforeRemoveRecord', 'dobo.adapter:beforeUpdateRecord'],
     handler: async function (model, id, options) {
       await this.applyQueryHook(model, id, options)
     }
