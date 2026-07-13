@@ -3,9 +3,9 @@ const get = {
   url: '/your-stuff/download/get/*',
   handler: async function (req, reply) {
     const { importModule } = this.app.bajo
-    const handler = await importModule('waibu:/lib/handle-download.js')
+    const { download } = await importModule('waibu:/lib/helper.js', { asDefaultImport: false })
     const file = `${this.downloadDir}/${req.params['*']}`
-    return await handler.call(this, file, req, reply)
+    return await download.call(this, file, req, reply)
   }
 }
 

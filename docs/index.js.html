@@ -29,20 +29,58 @@ async function factory (pkgName) {
      */
     constructor () {
       super(pkgName, me.app)
+
+      /**
+       * Configuration object
+       * @type {Sumba.TConfig}
+       */
       this.config = config
+
+      /**
+       * Secure guards containers
+       * @type {Array}
+       */
       this.secureGuards = []
+
+      /**
+       * Action guards container
+       * @type {Array}
+       */
       this.actionGuards = []
+
+      /**
+       * Query guards container
+       * @type {Array}
+       */
       this.queryGuards = []
+
+      /**
+       * Attribute guards container
+       * @type {Array}
+       */
       this.attribGuards = []
-      this.secureGuards = []
+
+      /**
+       * Anonymous guards container
+       * @type {Array}
+       */
       this.anonymousGuards = []
 
+      /**
+       * Download directory path for storing exported files.
+       * @type {string}
+       */
+      this.downloadDir = null
+
+      /**
+       * Unsafe user fields that should not be exposed or returned in API responses.
+       * @type {string[]}
+       */
       this.unsafeUserFields = ['password']
     }
 
     /**
-     * Plugin initialization method. This method is called by the {@link https://ardhi.github.io/bajo|Bajo framework} during plugin initialization.
-     *
+     * Plugin initialization method
      * @async
      * @method
      */
@@ -56,8 +94,7 @@ async function factory (pkgName) {
     }
 
     /**
-     * Plugin start method. This method is called by the {@link https://ardhi.github.io/bajo|Bajo framework} during plugin start.
-     *
+     * Plugin start method
      * @async
      * @method
      */
@@ -76,10 +113,9 @@ async function factory (pkgName) {
 
     /**
      * Populate route guards at start
-     *
      * @async
      * @method
-     * @param {array} [sites] - List of sites to populate route guards for. If not provided, it will fetch all active sites.
+     * @param {array} [sites] - List of sites to populate route guards for. If not provided, it will fetch all active sites
      */
     populateRouteGuards = async (sites) => {
       const { isString, get, difference } = this.app.lib._
@@ -161,12 +197,11 @@ async function factory (pkgName) {
 
     /**
      * Get authentication setting based on type and source
-     *
      * @method
-     * @private
-     * @param {string} type - The type of authentication setting to retrieve. If not provided, it will use parent setting.
-     * @param {string} [source] - The source of the authentication setting. If not provided, it will use the default setting.
-     * @returns {object} - The authentication setting object.
+     * @internal
+     * @param {string} [type] - The type of authentication setting to retrieve. If not provided, it will use parent setting
+     * @param {string} [source] - The source of the authentication setting. If not provided, it will use the default setting
+     * @returns {object} - The authentication setting object
      */
     _getAuthSetting = (type, source) => {
       const { defaultsDeep } = this.app.lib.aneka
@@ -182,13 +217,12 @@ async function factory (pkgName) {
 
     /**
      * Get authentication token based on type, request, and source
-     *
      * @method
-     * @private
-     * @param {string} type - The type of authentication setting.
-     * @param {object} req - The request object.
-     * @param {string} [source] - The source of the authentication setting. If not provided, it will use the default setting.
-     * @returns {string|boolean} - The token if found, otherwise false.
+     * @internal
+     * @param {string} type - The type of authentication setting
+     * @param {object} req - The request object
+     * @param {string} [source] - The source of the authentication setting. If not provided, it will use the default setting
+     * @returns {string|boolean} - The token if found, otherwise false
      */
     _getAuthToken = (type, req, source) => {
       const { isEmpty } = this.app.lib._
@@ -206,16 +240,14 @@ async function factory (pkgName) {
 
     /**
      * Build admin menu based on locals and request.
-     *
-     * - If multi-site is enabled, it will include the cross-site menu with options to manage all sites and site settings.
-     * - If caching is enabled, it will include the cache storage menu in the appropriate section.
+     * - If multi-site is enabled, it will include the cross-site menu with options to manage all sites and site settings
+     * - If caching is enabled, it will include the cache storage menu in the appropriate section
      * - Session management menu is also included in the appropriate section.
-     *
      * @async
      * @method
-     * @param {object} locals - The locals object.
-     * @param {object} req - The request object.
-     * @returns {array} - The admin menu items.
+     * @param {object} locals - The locals object
+     * @param {object} req - The request object
+     * @returns {array} - The admin menu items
      */
     adminMenu = async (locals, req) => {
       if (!this.app.waibuAdmin) return
@@ -286,11 +318,10 @@ async function factory (pkgName) {
 
     /**
      * Create JWT from user record
-     *
      * @async
      * @method
-     * @param {object} rec - The user record object.
-     * @returns {Promise&lt;object>} - The JWT token and its expiration date.
+     * @param {object} rec - The user record object
+     * @returns {Promise&lt;object>} The JWT token and its expiration date
      */
     createJwtFromUserRecord = async (rec) => {
       const { importPkg } = this.app.bajo
@@ -313,14 +344,13 @@ async function factory (pkgName) {
 
     /**
      * Verify user session
-     *
      * @async
      * @method
-     * @param {object} req - The request object.
-     * @param {object} reply - The reply object.
-     * @param {string} source - The source of the authentication setting.
-     * @param {object} payload - The payload object.
-     * @returns {boolean} - True if the session is valid, otherwise false.
+     * @param {object} req - The request object
+     * @param {object} reply - The reply object
+     * @param {string} source - The source of the authentication setting
+     * @param {object} payload - The payload object
+     * @returns {boolean} - True if the session is valid, otherwise false
      */
     verifySession = async (req, reply, source, payload) => {
       const { routePath } = this.app.waibu
@@ -338,14 +368,13 @@ async function factory (pkgName) {
 
     /**
      * Verify API key
-     *
      * @async
      * @method
-     * @param {object} req - The request object.
-     * @param {object} reply - The reply object.
-     * @param {string} source - The source of the authentication setting.
-     * @param {object} payload - The payload object.
-     * @returns {boolean} - True if the API key is valid, otherwise false.
+     * @param {object} req - The request object
+     * @param {object} reply - The reply object
+     * @param {string} source - The source of the authentication setting
+     * @param {object} payload - The payload object
+     * @returns {boolean} - True if the API key is valid, otherwise false
      */
     verifyApiKey = async (req, reply, source, payload) => {
       const { merge, camelCase } = this.app.lib._
@@ -364,14 +393,13 @@ async function factory (pkgName) {
 
     /**
      * Verify basic authentication
-     *
      * @async
      * @method
-     * @param {object} req - The request object.
-     * @param {object} reply - The reply object.
-     * @param {string} source - The source of the authentication setting.
-     * @param {object} payload - The payload object.
-     * @returns {boolean|string} - True if the basic authentication is valid, otherwise false or an error message.
+     * @param {object} req - The request object
+     * @param {object} reply - The reply object
+     * @param {string} source - The source of the authentication setting
+     * @param {object} payload - The payload object
+     * @returns {boolean|string} - True if the basic authentication is valid, otherwise false or an error message
      */
     verifyBasic = async (req, reply, source, payload) => {
       const { isEmpty, merge } = this.app.lib._
@@ -412,14 +440,13 @@ async function factory (pkgName) {
 
     /**
      * Verify JWT authentication
-     *
      * @async
      * @method
-     * @param {object} req - The request object.
-     * @param {object} reply - The reply object.
-     * @param {string} source - The source of the authentication setting.
-     * @param {object} payload - The payload object.
-     * @returns {boolean} - True if the JWT authentication is valid, otherwise false.
+     * @param {object} req - The request object
+     * @param {object} reply - The reply object
+     * @param {string} source - The source of the authentication setting
+     * @param {object} payload - The payload object
+     * @returns {boolean} - True if the JWT authentication is valid, otherwise false
      */
     verifyJwt = async (req, reply, source, payload) => {
       const { importPkg } = this.app.bajo
@@ -450,11 +477,10 @@ async function factory (pkgName) {
 
     /**
      * Check route guard
-     *
      * @method
-     * @param {Array} guards - The array of guard objects.
-     * @param {Array} paths - The array of paths to check.
-     * @returns {string|undefined} - The matched path or undefined if no match is found.
+     * @param {Array} guards - The array of guard object
+     * @param {Array} paths - The array of paths to check
+     * @returns {string|undefined} - The matched path or undefined if no match is found
      */
     checkRouteGuard = (guards, paths) => {
       const { outmatch } = this.app.lib
@@ -465,13 +491,12 @@ async function factory (pkgName) {
 
     /**
      * Sign out user and redirect to the specified URL
-     *
      * @async
      * @method
-     * @param {object} options - The options object.
-     * @param {object} options.req - The request object.
-     * @param {object} options.reply - The reply object.
-     * @param {string} [options.reason] - The reason for signing out.
+     * @param {object} options - The options object
+     * @param {object} options.req - The request object
+     * @param {object} options.reply - The reply object
+     * @param {string} [options.reason] - The reason for signing out
      */
     signout = async (options = {}) => {
       const { req, reply, reason } = options
@@ -489,13 +514,12 @@ async function factory (pkgName) {
 
     /**
      * Sign in user and redirect to the specified URL
-     *
      * @async
      * @method
-     * @param {object} options - The options object.
-     * @param {object} options.req - The request object.
-     * @param {object} options.reply - The reply object.
-     * @param {object} options.user - The user object.
+     * @param {object} options - The options object
+     * @param {object} options.req - The request object
+     * @param {object} options.reply - The reply object
+     * @param {object} options.user - The user object
      */
     signin = async (options = {}) => {
       const { req, reply, user } = options
@@ -519,8 +543,8 @@ async function factory (pkgName) {
      * Generate a random password based on the configuration settings
      *
      * @method
-     * @param {object} req - The request object.
-     * @returns {string} - The generated password.
+     * @param {object} req - The request object
+     * @returns {string} - The generated password
      */
     generatePassword = (req = {}) => {
       const { get } = this.app.lib._
@@ -559,8 +583,8 @@ async function factory (pkgName) {
      *
      * @async
      * @method
-     * @param {string|number} id - The user ID.
-     * @returns {Promise&lt;string>} - A promise that resolves to the API key.
+     * @param {string|number} id - The user ID
+     * @returns {Promise&lt;string>} - A promise that resolves to the API key
      */
     getApiKeyFromUserId = async id => {
       const options = { forceNoHidden: true, noHook: true, noCache: true, attachment: true, mimeType: true }
@@ -573,7 +597,7 @@ async function factory (pkgName) {
      *
      * @async
      * @method
-     * @returns {Promise&lt;Array&lt;{ value: string|number, text: string }>>} - A promise that resolves to an array of country values and names.
+     * @returns {Promise&lt;Array&lt;{ value: string|number, text: string }>>} - A promise that resolves to an array of country values and names
      */
     getCountriesValues = async () => {
       const { getModel } = this.app.dobo
@@ -584,14 +608,13 @@ async function factory (pkgName) {
 
     /**
      * Method to send mail through Masohi Messaging System. It is a thin wrapper
-     * for {@link https://github.com/ardhi/masohi-mail|masohi-mail} send method.
+     * for {@link https://github.com/ardhi/masohi-mail|masohi-mail} send method
      *
-     * If both masohiMail and waibu are not loaded, nothing is delivered.
-     *
+     * If both masohiMail and waibu are not loaded, nothing is delivered
      * @method
      * @async
      * @param {(string|Array)} tpl - Mail's template to use. If a string is given, the same template will be used for html &amp; plaintext versions. Otherwise, the first template will be used for html mail, and the second one is for it's plaintext version
-     * @param {Object} [params={}] - {@link https://github.com/ardhi/masohi-mail|masohi-mail}'s params object.
+     * @param {Object} [params={}] - {@link https://github.com/ardhi/masohi-mail|masohi-mail}'s params object
      */
     sendMail = async (tpl, { payload = {}, conn, source, options = {} } = {}) => {
       if (!this.app.masohiMail || !this.app.waibu) return
@@ -616,12 +639,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Reset token by generating a new salt and hashing it twice to create a new token.
-     *
+     * Reset token by generating a new salt and hashing it twice to create a new token
      * @async
      * @method
-     * @param {string} [text] - Optional text to use as the salt. If not provided, a new salt will be generated.
-     * @returns {Promise&lt;{ salt: string, token: string }>} - A promise that resolves to an object containing the salt and token.
+     * @param {string} [text] - Optional text to use as the salt. If not provided, a new salt will be generated
+     * @returns {Promise&lt;{ salt: string, token: string }>} - A promise that resolves to an object containing the salt and token
      */
     resetToken = async (text) => {
       const { generateId } = this.app.lib.aneka
@@ -631,12 +653,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Generate a password validation rule based on the configuration settings.
-     *
+     * Generate a password validation rule based on the configuration settings
      * @async
      * @method
-     * @param {object} req - The request object.
-     * @returns {object} - The Joi password validation rule.
+     * @param {object} req - The request object
+     * @returns {object} - The Joi password validation rule
      */
     passwordRule = async (req = {}) => {
       const { get } = this.app.lib._
@@ -659,12 +680,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Hash the given item using the specified algorithm from the configuration.
-     *
+     * Hash the given item using the specified algorithm from the configuration
      * @async
      * @method
-     * @param {*} item - The item to be hashed.
-     * @returns {Promise&lt;string>} - A promise that resolves to the hashed value.
+     * @param {*} item - The item to be hashed
+     * @returns {Promise&lt;string>} - A promise that resolves to the hashed value
      */
     hash = async (item) => {
       const { hash } = this.app.bajoExtra
@@ -673,17 +693,16 @@ async function factory (pkgName) {
     }
 
     /**
-     * Fetch guards of the specified type from the database.
-     *
+     * Fetch guards of the specified type from the database
      * @async
      * @method
      * @private
-     * @param {string} type - The type of guards to fetch. Available types are 'Action', 'Attrib', 'Query', 'Secure', and 'Anonymous'.
-     * @returns {Promise&lt;Array>} - A promise that resolves to an array of guards.
+     * @param {string} type - The type of guards to fetch. Available types are 'Action', 'Attrib', 'Query', 'Secure', and 'Anonymous'
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of guards
      */
     _fetchGuards = async (type) => {
       const { getModel } = this.app.dobo
-      const options = { noMagic: true, noCache: true, noDriverHook: true, dataOnly: true }
+      const options = { noMagic: true, noCache: true, noAdapterHook: true, dataOnly: true }
       const filter = { query: { status: 'ACTIVE' } }
       const results = await getModel(`Sumba${type}Guard`).findAllRecord(filter, options)
       return results.map(result => {
@@ -693,12 +712,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Process and order the guards based on their path and weight.
-     *
+     * Process and order the guards based on their path and weight
      * @method
      * @private
-     * @param {Array} inputs - The array of guard inputs.
-     * @returns {Array} - The processed and ordered array of guards.
+     * @param {Array} inputs - The array of guard inputs
+     * @returns {Array} - The processed and ordered array of guards
      */
     _getGuards = (inputs = []) => {
       const { routePath } = this.app.waibu
@@ -723,12 +741,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Get anonymous guards, optionally reloading them from the database.
-     *
+     * Get anonymous guards, optionally reloading them from the database
      * @async
      * @method
-     * @param {boolean} [reread] - Whether to reload the guards from the database.
-     * @returns {Promise&lt;Array>} - A promise that resolves to an array of anonymous guards.
+     * @param {boolean} [reread] - Whether to reload the guards from the database
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of anonymous guards
      */
     getAnonymousGuards = async (reread) => {
       if (!reread) return this.anonymousGuards
@@ -738,12 +755,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Get secure guards, optionally reloading them from the database.
-     *
+     * Get secure guards, optionally reloading them from the database
      * @async
      * @method
-     * @param {boolean} [reread] - Whether to reload the guards from the database.
-     * @returns {Promise&lt;Array>} - A promise that resolves to an array of secure guards.
+     * @param {boolean} [reread] - Whether to reload the guards from the database
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of secure guards
      */
     getSecureGuards = async (reread) => {
       if (!reread) return this.secureGuards
@@ -753,12 +769,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Get query guards, optionally reloading them from the database.
-     *
+     * Get query guards, optionally reloading them from the database
      * @async
      * @method
-     * @param {boolean} [reread] - Whether to reload the guards from the database.
-     * @returns {Promise&lt;Array>} - A promise that resolves to an array of query guards.
+     * @param {boolean} [reread] - Whether to reload the guards from the database
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of query guards
      */
     getQueryGuards = async (reread) => {
       if (!reread) return this.queryGuards
@@ -768,12 +783,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Get action guards, optionally reloading them from the database.
-     *
+     * Get action guards, optionally reloading them from the database
      * @async
      * @method
-     * @param {boolean} [reread] - Whether to reload the guards from the database.
-     * @returns {Promise&lt;Array>} - A promise that resolves to an array of action guards.
+     * @param {boolean} [reread] - Whether to reload the guards from the database
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of action guards
      */
     getActionGuards = async (reread) => {
       if (!reread) return this.actionGuards
@@ -783,12 +797,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Get attribute guards, optionally reloading them from the database.
-     *
+     * Get attribute guards, optionally reloading them from the database
      * @async
      * @method
-     * @param {boolean} [reread] - Whether to reload the guards from the database.
-     * @returns {Promise&lt;Array>} - A promise that resolves to an array of attribute guards.
+     * @param {boolean} [reread] - Whether to reload the guards from the database
+     * @returns {Promise&lt;Array>} - A promise that resolves to an array of attribute guards
      */
     getAttribGuards = async (reread) => {
       if (!reread) return this.attribGuards
@@ -798,11 +811,10 @@ async function factory (pkgName) {
     }
 
     /**
-     * Get all loaded model names, optionally returning them as value-text pairs.
-     *
+     * Get all loaded model names, optionally returning them as value-text pairs
      * @method
-     * @param {boolean} [asValue] - Whether to return the model names as value-text pairs.
-     * @returns {Array} - An array of model names or value-text pairs.
+     * @param {boolean} [asValue] - Whether to return the model names as value-text pairs
+     * @returns {Array} - An array of model names or value-text pairs
      */
     getModelNames = (asValue) => {
       const values = this.app.dobo.models.map(item => item.name).sort()
@@ -810,11 +822,10 @@ async function factory (pkgName) {
     }
 
     /**
-     * Gather all paths to check for a request.
-     *
+     * Gather all paths to check for a request
      * @method
-     * @param {Object} req - The request object.
-     * @returns {Array} - An array of paths to check.
+     * @param {Object} req - The request object
+     * @returns {Array} - An array of paths to check
      */
     pathsToCheck = (req) => {
       const { isSet } = this.app.lib.aneka
@@ -824,13 +835,12 @@ async function factory (pkgName) {
     }
 
     /**
-     * Check and set the iconset for a request.
-     *
+     * Check and set the iconset for a request
      * @async
      * @method
-     * @param {Object} req - The request object.
-     * @param {Object} reply - The reply object.
-     * @returns {Promise&lt;void>} - A promise that resolves when the iconset is checked and set.
+     * @param {Object} req - The request object
+     * @param {Object} reply - The reply object
+     * @returns {Promise&lt;void>} A promise that resolves when the iconset is checked and set
      */
     checkIconset = async (req, reply) => {
       const { get, isString } = this.app.lib._
@@ -845,13 +855,12 @@ async function factory (pkgName) {
     }
 
     /**
-     * Check and set the theme for a request.
-     *
+     * Check and set the theme for a request
      * @async
      * @method
-     * @param {Object} req - The request object.
-     * @param {Object} reply - The reply object.
-     * @returns {Promise&lt;void>} - A promise that resolves when the theme is checked and set.
+     * @param {Object} req - The request object
+     * @param {Object} reply - The reply object
+     * @returns {Promise&lt;void>} A promise that resolves when the theme is checked and set
      */
     checkTheme = async (req, reply) => {
       const { get, isString } = this.app.lib._
@@ -866,13 +875,12 @@ async function factory (pkgName) {
     }
 
     /**
-     * Check and set the team for a request.
-     *
+     * Check and set the team for a request
      * @async
      * @method
-     * @param {Object} req - The request object.
-     * @param {Object} reply - The reply object.
-     * @returns {Promise&lt;void>} - A promise that resolves when the team is checked and set.
+     * @param {Object} req - The request object
+     * @param {Object} reply - The reply object
+     * @returns {Promise&lt;void>} A promise that resolves when the team is checked and set
      */
     checkTeam = async (req, reply) => {
       const { includes } = this.app.lib.aneka
@@ -897,14 +905,13 @@ async function factory (pkgName) {
     }
 
     /**
-     * Check and set the user for a request.
-     *
+     * Check and set the user for a request
      * @async
      * @method
-     * @param {Object} req - The request object.
-     * @param {Object} reply - The reply object.
-     * @param {Object} source - The source object.
-     * @returns {Promise&lt;boolean|void>} - A promise that resolves to a boolean indicating the result of the check or void.
+     * @param {Object} req - The request object
+     * @param {Object} reply - The reply object
+     * @param {Object} source - The source object
+     * @returns {Promise&lt;boolean|void>} A promise that resolves to a boolean indicating the result of the check or void
      */
     checkUser = async (req, reply, source) => {
       const { merge, isEmpty, camelCase, get } = this.app.lib._
@@ -967,13 +974,12 @@ async function factory (pkgName) {
     }
 
     /**
-     * Check and set the Cross-site settings for a request.
-     *
+     * Check and set the Cross-site settings for a request
      * @async
      * @method
-     * @param {Object} req - The request object.
-     * @param {Object} reply - The reply object.
-     * @returns {Promise&lt;void>} - A promise that resolves when the XSite is checked and set.
+     * @param {Object} req - The request object
+     * @param {Object} reply - The reply object
+     * @returns {Promise&lt;void>} A promise that resolves when the XSite is checked and set
      */
     checkXSite = async (req, reply) => {
       const { get } = this.app.lib._
@@ -984,12 +990,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Check the route for a request.
-     *
+     * Check the route for a request
      * @async
      * @method
-     * @param {Object} req - The request object.
-     * @returns {Promise&lt;void>} - A promise that resolves when the route is checked.
+     * @param {Object} req - The request object
+     * @returns {Promise&lt;void>} A promise that resolves when the route is checked
      */
     checkRoute = async (req) => {
       const { routePath } = this.app.waibu
@@ -1002,12 +1007,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Parse namespace settings for a request.
-     *
+     * Parse namespace settings for a request
      * @method
-     * @param {string} ns - The namespace.
-     * @param {Object} setting - The setting object.
-     * @param {Array} items - The items to parse.
+     * @param {string} ns - The namespace
+     * @param {Object} setting - The setting object
+     * @param {Array} items - The items to parse
      */
     parseNsSettings = (ns, setting, items) => {
       const { trim, set, isPlainObject, isArray, isEmpty, find } = this.app.lib._
@@ -1037,12 +1041,11 @@ async function factory (pkgName) {
     }
 
     /**
-     * Get all fixtures for the specified alias, replacing any occurrences of '{alias}' in the fixture data with the provided alias.
-     *
+     * Get all fixtures for the specified alias, replacing any occurrences of '{alias}' in the fixture data with the provided alias
      * @async
      * @method
-     * @param {string} [alias] - The alias for the fixtures.
-     * @returns {Promise&lt;object>} - A promise that resolves to the fixtures data.
+     * @param {string} [alias] - The alias for the fixtures
+     * @returns {Promise&lt;object>} A promise that resolves to the fixtures data
      */
     getAllFixtures = async (alias) => {
       const { readConfig } = this.app.bajo
@@ -1098,13 +1101,12 @@ async function factory (pkgName) {
 
     /**
      * Create references for the specified site using the provided data, options, and verbosity settings.
-     *
      * @async
      * @method
-     * @param {object} site - The site object for which to create references.
-     * @param {object} data - The data object containing fixtures for the site.
-     * @param {object} options - Options to pass to the createRecord method.
-     * @param {boolean} verbose - Whether to log verbose output.
+     * @param {object} site - The site object for which to create references
+     * @param {object} data - The data object containing fixtures for the site
+     * @param {object} options - Options to pass to the createRecord method
+     * @param {boolean} verbose - Whether to log verbose output
      */
     createRefs = async (site, data, options, verbose) => {
       const { isString } = this.app.lib._
@@ -1130,12 +1132,11 @@ async function factory (pkgName) {
 
     /**
      * Create a new site with the specified alias and optional hostname, using fixtures for initial data.
-     *
      * @async
      * @method
-     * @param {string} alias - The alias for the new site.
-     * @param {string} [hostname] - The hostname for the new site.
-     * @param {boolean} [verbose=false] - Whether to log verbose output.
+     * @param {string} alias - The alias for the new site
+     * @param {string} [hostname] - The hostname for the new site
+     * @param {boolean} [verbose=false] - Whether to log verbose output
      */
     createNewSite = async (alias, hostname, verbose) => {
       const { isEmpty } = this.app.lib._
@@ -1168,12 +1169,11 @@ async function factory (pkgName) {
 
     /**
      * Remove references for the specified site using the provided options and verbosity settings.
-     *
      * @async
      * @method
-     * @param {object} site - The site object for which to remove references.
-     * @param {object} options - Options to pass to the removeRecord method.
-     * @param {boolean} verbose - Whether to log verbose output.
+     * @param {object} site - The site object for which to remove references
+     * @param {object} options - Options to pass to the removeRecord method
+     * @param {boolean} verbose - Whether to log verbose output
      */
     removeRefs = async (site, options, verbose) => {
       const { orderBy } = this.app.lib._
@@ -1197,11 +1197,10 @@ async function factory (pkgName) {
 
     /**
      * Remove a site with the specified alias, along with its references, using the provided verbosity settings.
-     *
      * @async
      * @method
-     * @param {string} alias - The alias of the site to remove.
-     * @param {boolean} [verbose=false] - Whether to log verbose output.
+     * @param {string} alias - The alias of the site to remove
+     * @param {boolean} [verbose=false] - Whether to log verbose output
      */
     removeSite = async (alias, verbose) => {
       const { isEmpty } = this.app.lib._
@@ -1223,12 +1222,11 @@ async function factory (pkgName) {
 
     /**
      * Get site information based on the provided input, which can be either a hostname or an ID. If multi-site is enabled, it will fetch the site based on the hostname or ID; otherwise, it will return the default site.
-     *
      * @async
      * @method
-     * @param {string|number} input - The input value, which can be either a hostname or an ID.
-     * @param {boolean} [byId=false] - Whether to fetch the site by ID.
-     * @returns {object} The site information.
+     * @param {string|number} input - The input value, which can be either a hostname or an ID
+     * @param {boolean} [byId=false] - Whether to fetch the site by ID
+     * @returns {object} The site information
      */
     getSite = async (input, byId = false) => {
       const { omit } = this.app.lib._
@@ -1300,12 +1298,12 @@ async function factory (pkgName) {
     }
 
     /**
-     * Merge team information into the user object.
+     * Merge team information into the user object
      *
      * @async
      * @method
-     * @param {object} user - The user object to merge team information into.
-     * @param {object} req - The request object.
+     * @param {object} user - The user object to merge team information into
+     * @param {object} req - The request object
      */
     mergeTeam = async (user, req) => {
       const { map, pick } = this.app.lib._
@@ -1346,12 +1344,11 @@ async function factory (pkgName) {
 
     /**
      * Get a user by their ID.
-     *
      * @async
      * @method
-     * @param {string|number} id - The ID of the user to retrieve.
-     * @param {object} req - The request object.
-     * @returns {object|null} The user object if found, otherwise null.
+     * @param {string|number} id - The ID of the user to retrieve
+     * @param {object} req - The request object
+     * @returns {object|null} The user object if found, otherwise null
      */
     getUserById = async (id, req) => {
       const { getModel } = this.app.dobo
@@ -1362,7 +1359,7 @@ async function factory (pkgName) {
         user = await getCache({ key })
         if (user) return JSON.parse(user)
       }
-      user = await getModel('SumbaUser').getRecord(id, { noHook: true, noDriverHook: true, throwNotFound: false, req })
+      user = await getModel('SumbaUser').getRecord(id, { noHook: true, noAdapterHook: true, throwNotFound: false, req })
       if (!user) return
       await this.mergeTeam(user, req)
       if (setCache) {
@@ -1373,12 +1370,11 @@ async function factory (pkgName) {
 
     /**
      * Get a user by their token.
-     *
      * @async
      * @method
-     * @param {string} token - The token of the user to retrieve.
-     * @param {object} req - The request object.
-     * @returns {object|null} The user object if found, otherwise null.
+     * @param {string} token - The token of the user to retrieve
+     * @param {object} req - The request object
+     * @returns {object|null} The user object if found, otherwise null
      */
     getUserByToken = async (token, req) => {
       const { getModel } = this.app.dobo
@@ -1389,7 +1385,7 @@ async function factory (pkgName) {
         user = await getCache({ key })
         if (user) return JSON.parse(user)
       }
-      user = await getModel('SumbaUser').findOneRecord({ query: { token } }, { noHook: true, noDriverHook: true, throwNotFound: false, req })
+      user = await getModel('SumbaUser').findOneRecord({ query: { token } }, { noHook: true, noAdapterHook: true, throwNotFound: false, req })
       if (!user) return
       await this.mergeTeam(user, req)
       if (setCache) {
@@ -1406,7 +1402,7 @@ async function factory (pkgName) {
       const bcrypt = await importPkg('bajoExtra:bcrypt')
 
       const query = { username, provider: 'local', siteId: req.site.id + '' }
-      const user = await model.findOneRecord({ query }, { req, forceNoHidden: true, noHook: true, noDriverHook: true })
+      const user = await model.findOneRecord({ query }, { req, forceNoHidden: true, noHook: true, noAdapterHook: true })
       if (!user) throw this.error('validationError', { details: [{ field: 'username', error: 'Unknown username' }], statusCode: 401 })
       if (user.status !== 'ACTIVE') throw this.error('validationError', { details: ['User is inactive or temporarily disabled'], statusCode: 401 })
       const verified = await bcrypt.compare(password, user.password)
@@ -1417,11 +1413,10 @@ async function factory (pkgName) {
 
     /**
      * Clear the cache for a specific site.
-     *
      * @async
      * @method
-     * @param {string|number} id - The ID of the site.
-     * @param {object} result - The result object containing site data.
+     * @param {string|number} id - The ID of the site
+     * @param {object} result - The result object containing site data
      */
     clearCacheSite = async (id, result) => {
       if (!this.app.bajoCache) return
@@ -1434,11 +1429,10 @@ async function factory (pkgName) {
 
     /**
      * Clear the cache for a specific user.
-     *
      * @async
      * @method
-     * @param {string|number} id - The ID of the user.
-     * @param {object} result - The result object containing user data.
+     * @param {string|number} id - The ID of the user
+     * @param {object} result - The result object containing user data
      */
     clearCacheUser = async (id, result) => {
       if (!this.app.bajoCache) return
@@ -1451,13 +1445,12 @@ async function factory (pkgName) {
 
     /**
      * Filter model data based on settings.
-     *
      * @method
-     * @param {object} opts - The options object.
-     * @param {object} opts.model - The model object.
-     * @param {string} opts.field - The field to filter.
-     * @param {object} [opts.options={}] - Additional options.
-     * @returns {object} The filtered results and operation values.
+     * @param {object} opts - The options object
+     * @param {object} opts.model - The model object
+     * @param {string} opts.field - The field to filter
+     * @param {object} [opts.options={}] - Additional options
+     * @returns {object} The filtered results and operation values
      */
     filterModelFromSetting = (opts = {}) => {
       const { model, field, options = {} } = opts
@@ -1488,14 +1481,13 @@ async function factory (pkgName) {
 
     /**
      * Apply query guards to the provided query.
-     *
      * @async
      * @method
-     * @param {object} [opts={}] - The options object.
-     * @param {object} opts.model - The model object.
-     * @param {object} [opts.q={}] - The query object.
-     * @param {array} [opts.teamIds=[]] - The team IDs.
-     * @param {object} [opts.options={}] - Additional options.
+     * @param {object} [opts={}] - The options object
+     * @param {object} opts.model - The model object
+     * @param {object} [opts.q={}] - The query object
+     * @param {array} [opts.teamIds=[]] - The team IDs
+     * @param {object} [opts.options={}] - Additional options
      */
     runQueryGuard = async (opts = {}) => {
       const { model, q = {}, teamIds = [], options = {} } = opts
@@ -1541,13 +1533,12 @@ async function factory (pkgName) {
 
     /**
      * Apply attribute guards to the provided model.
-     *
      * @async
      * @method
-     * @param {object} [opts={}] - The options object.
-     * @param {object} opts.model - The model object.
-     * @param {array} [opts.teamIds=[]] - The team IDs.
-     * @param {object} [opts.options={}] - Additional options.
+     * @param {object} [opts={}] - The options object
+     * @param {object} opts.model - The model object
+     * @param {array} [opts.teamIds=[]] - The team IDs
+     * @param {object} [opts.options={}] - Additional options
      */
     runAttribGuard = async (opts = {}) => {
       const { model, teamIds = [], options = {} } = opts
@@ -1571,10 +1562,9 @@ async function factory (pkgName) {
 
     /**
      * Get the team IDs and aliases for the user in the request.
-     *
      * @method
-     * @param {object} req - The request object.
-     * @returns {object} An object containing the team IDs and aliases.
+     * @param {object} req - The request object
+     * @returns {object} An object containing the team IDs and aliases
      */
     getTeamIdsAndAliases = (req) => {
       const { get } = this.app.lib._
@@ -1586,13 +1576,12 @@ async function factory (pkgName) {
 
     /**
      * Rebuild the filter for the provided model.
-     *
      * @async
      * @method
-     * @param {object} model - The model object.
-     * @param {object} [filter={}] - The filter object.
-     * @param {object} [options={}] - Additional options.
-     * @returns {Promise&lt;object>} The rebuilt filter.
+     * @param {object} model - The model object
+     * @param {object} [filter={}] - The filter object
+     * @param {object} [options={}] - Additional options
+     * @returns {Promise&lt;object>} The rebuilt filter
      */
     rebuildFilter = async (model, filter = {}, options = {}) => {
       const { isEmpty, get, keys } = this.app.lib._
@@ -1663,13 +1652,12 @@ async function factory (pkgName) {
 
     /**
      * Apply query hook to the provided model.
-     *
      * @async
      * @method
-     * @param {object} model - The model object.
-     * @param {string|number} id - The ID of the model.
-     * @param {object} options - Additional options.
-     * @returns {object} The result of the model hook.
+     * @param {object} model - The model object
+     * @param {string|number} id - The ID of the model
+     * @param {object} options - Additional options
+     * @returns {object} The result of the model hook
      */
     applyQueryHook = async (model, id, options = {}) => {
       const { isEmpty } = this.app.lib._
@@ -1686,13 +1674,12 @@ async function factory (pkgName) {
 
     /**
      * Apply action hook to the provided model.
-     *
      * @async
      * @method
-     * @param {object} [opts={}] - The options object.
-     * @param {object} opts.model - The model object.
-     * @param {array} [opts.teamIds=[]] - The team IDs.
-     * @param {object} [opts.options={}] - Additional options.
+     * @param {object} [opts={}] - The options object
+     * @param {object} opts.model - The model object
+     * @param {array} [opts.teamIds=[]] - The team IDs
+     * @param {object} [opts.options={}] - Additional options
      */
     applyActionHook = async (opts = {}) => {
       const { model, options = {} } = opts
@@ -1714,13 +1701,12 @@ async function factory (pkgName) {
 
     /**
      * Check if the specified action is allowed for the given model and request. It retrieves the action guards, filters them based on the site ID, model name, and team IDs, and checks if the action is included in the allowed values. If any guard denies the action, it returns false; otherwise, it returns true.
-     *
      * @async
      * @method
-     * @param {string} action - The action to check. Available actions are: 'READ', 'CREATE', 'UPDATE', 'REMOVE' and 'EXPORT'.
-     * @param {object} model - The model object.
-     * @param {object} req - The request object.
-     * @returns {Promise&lt;boolean>} - Returns true if the action is allowed, otherwise false.
+     * @param {string} action - The action to check. Available actions are: 'READ', 'CREATE', 'UPDATE', 'REMOVE' and 'EXPORT'
+     * @param {object} model - The model object
+     * @param {object} req - The request object
+     * @returns {Promise&lt;boolean>} - Returns true if the action is allowed, otherwise false
      */
     isActionAllowed = async (action, model, req) => {
       const { includes } = this.app.lib.aneka

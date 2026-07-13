@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-07-13
+
+- [2.38.0] Update documentations
+- [2.38.0] Bug fix in `/your-stuff/download/get` route
+
 ## 2026-07-12
 
 - [2.37.0] Update `driver` to `adapter`
