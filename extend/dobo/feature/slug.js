@@ -4,7 +4,7 @@ async function autoInc (body, opts) {
   const { set, last } = this.app.lib._
   const query = set({}, opts.field, { $regex: new RegExp('^' + body[opts.field]) })
   const sort = set({}, opts.field, -1)
-  const options = { noHook: true, skipCache: true, thrownNotFound: false }
+  const options = { noHook: true, skipCache: true, throwNotFound: false }
   const resp = await this.findOneRecord({ query, sort }, options)
   if (resp) return body[opts.field]
   const rslugs = resp[opts.field].split('-')
