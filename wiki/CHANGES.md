@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-07-26
+
+- [2.39.0] Rename `pushDownload()` to `download()`
+
 ## 2026-07-13
 
 - [2.38.0] Update documentations
@@ -11,116 +15,116 @@
 
 ## 2026-06-29
 
-- [2.36.0] Move ```config``` object to dedicated file ```lib/config.js```
-- [2.36.0] Changes in ```_getAuthSetting()```
-- [2.36.0] Bug fix in ```runQueryGuard()```
+- [2.36.0] Move `config` object to dedicated file `lib/config.js`
+- [2.36.0] Changes in `_getAuthSetting()`
+- [2.36.0] Bug fix in `runQueryGuard()`
 
 ## 2026-06-29
 
-- [2.35.0] Add ```SumbaActionGuard``` model & its helpers
+- [2.35.0] Add `SumbaActionGuard` model & its helpers
 - [2.35.0] Restructure admin menu
 - [2.35.0] Documentations overhaul
 
 ## 2026-06-20
 
-- [2.34.3] Bug fix in ```checkTeam()```
-- [2.34.3] Bug fix in ```hook.js```
-- [2.34.4] Bug fix in ```fixture/site.json```
+- [2.34.3] Bug fix in `checkTeam()`
+- [2.34.3] Bug fix in `hook.js`
+- [2.34.4] Bug fix in `fixture/site.json`
 
 ## 2026-06-19
 
-- [2.33.5] Bug fix in ```team-user.json```
-- [2.34.0] Add ```checkRoute()```
-- [2.34.0] Add route checking to ```waibu:preParsing``` hook
-- [2.34.1] Bug fix in ```pathsToCheck()```
-- [2.34.1] Bug fix in ```hook.js```
-- [2.34.2] Bug fix in ```verifySession()```
+- [2.33.5] Bug fix in `team-user.json`
+- [2.34.0] Add `checkRoute()`
+- [2.34.0] Add route checking to `waibu:preParsing` hook
+- [2.34.1] Bug fix in `pathsToCheck()`
+- [2.34.1] Bug fix in `hook.js`
+- [2.34.2] Bug fix in `verifySession()`
 
 ## 2026-06-18
 
-- [2.33.2] Bug fix in ```hook.js```
-- [2.33.3] Bug fix in ```hook.js```
-- [2.33.4] Bug fix in ```create-new-site.js```
-- [2.33.4] Normalize ```siteId``` & ```userId``` fields
+- [2.33.2] Bug fix in `hook.js`
+- [2.33.3] Bug fix in `hook.js`
+- [2.33.4] Bug fix in `create-new-site.js`
+- [2.33.4] Normalize `siteId` & `userId` fields
 
 ## 2026-06-17
 
-- [2.33.0] Add ```Site Setting``` in ```Cross-Site```
-- [2.33.0] Bug fix in ```hook.js```
-- [2.33.0] Bug fix in ```sumba:siteId``` feature
-- [2.33.1] Bug fix in ```checkUser()```,  ```checkTeam()``` & ```checkXSite()```
-- [2.33.1] Bug fix in ```sumba:country``` feature
+- [2.33.0] Add `Site Setting` in `Cross-Site`
+- [2.33.0] Bug fix in `hook.js`
+- [2.33.0] Bug fix in `sumba:siteId` feature
+- [2.33.1] Bug fix in `checkUser()`,  `checkTeam()` & `checkXSite()`
+- [2.33.1] Bug fix in `sumba:country` feature
 
 ## 2026-06-15
 
-- [2.32.3] Bug fix in ```hook.js```
-- [2.32.4] Bug fix in ```create-new-site.js```
+- [2.32.3] Bug fix in `hook.js`
+- [2.32.4] Bug fix in `create-new-site.js`
 
 ## 2026-06-12
 
-- [2.32.2] Bug fix in ```preRequest``` hook
+- [2.32.2] Bug fix in `preRequest` hook
 
 ## 2026-06-12
 
-- [2.32.0] Necessary updates to ```bajo@2.18.0``` specs
-- [2.32.0] Bug fix in ```_getGuards()```
-- [2.32.0] Bug fix in ```getAttribGuards()```
-- [2.32.0] Bug fix in ```hooks.js```
-- [2.32.0] Change ```behavior``` to ```condition``` in ```SumbaModelGuard``` model
-- [2.32.1] Bug fix in ```allowEmptyQuery``` options
+- [2.32.0] Necessary updates to `bajo@2.18.0` specs
+- [2.32.0] Bug fix in `_getGuards()`
+- [2.32.0] Bug fix in `getAttribGuards()`
+- [2.32.0] Bug fix in `hooks.js`
+- [2.32.0] Change `behavior` to `condition` in `SumbaModelGuard` model
+- [2.32.1] Bug fix in `allowEmptyQuery` options
 
 ## 2026-06-11
 
-- [2.31.0] Add ```status``` field on ```SumbaTeamUser```
-- [2.31.0] Remove ```util.js``` as all functions now moved to base class
+- [2.31.0] Add `status` field on `SumbaTeamUser`
+- [2.31.0] Remove `util.js` as all functions now moved to base class
 
 ## 2026-06-10
 
 - [2.30.0] Refactoring all guards
-- [2.30.0] Feature ```sumba:status``` now by default using ```ACTIVE``` and ```INACTIVE``` states
-- [2.30.0] Bug in ```multiSite``` handling
-- [2.30.0] Add ```populateRouteGuards()```
-- [2.30.0] Bug fix in ```hook.js```
+- [2.30.0] Feature `sumba:status` now by default using `ACTIVE` and `INACTIVE` states
+- [2.30.0] Bug in `multiSite` handling
+- [2.30.0] Add `populateRouteGuards()`
+- [2.30.0] Bug fix in `hook.js`
 
 ## 2026-06-03
 
-- [2.29.0] Some models with property ```values``` now use the newly introduced function values
+- [2.29.0] Some models with property `values` now use the newly introduced function values
 - [2.29.0] Add redirections from empty folder to the right page
 
 ## 2026-06-01
 
-- [2.27.3] Bug fix in ```user.js``` schema
-- [2.28.0] Now using new ```format``` definition for ```virtual``` column
+- [2.27.3] Bug fix in `user.js` schema
+- [2.28.0] Now using new `format` definition for `virtual` column
 
 ## 2026-05-30
 
-- [2.27.0] Move all ```sumbaUser``` hooks to model hooks
-- [2.27.0] Bug fix in ```model.js```
-- [2.27.0] Bug fix in ```create-new-site.js```
-- [2.27.0] Bug fix in ```team-user.json``` fixture
-- [2.27.1] Bug fix in ```util.pathToCheck()```
-- [2.27.2] Bug fix in ```hook.js```
+- [2.27.0] Move all `sumbaUser` hooks to model hooks
+- [2.27.0] Bug fix in `model.js`
+- [2.27.0] Bug fix in `create-new-site.js`
+- [2.27.0] Bug fix in `team-user.json` fixture
+- [2.27.1] Bug fix in `util.pathToCheck()`
+- [2.27.2] Bug fix in `hook.js`
 
 ## 2026-05-29
 
-- [2.26.1] Bug fix in ```util.js```
-- [2.26.1] Bug fix in ```checkPathsByRoute()```
+- [2.26.1] Bug fix in `util.js`
+- [2.26.1] Bug fix in `checkPathsByRoute()`
 
 ## 2026-05-28
 
-- [2.26.0] Change hooks to be written in one ```hook.js``` file
-- [2.26.0] Change model schemas to be written in one ```model.js``` file
+- [2.26.0] Change hooks to be written in one `hook.js` file
+- [2.26.0] Change model schemas to be written in one `model.js` file
 
 ## 2026-05-25
 
-- [2.25.1] Bug fix in several places because name changing ```crossSiteAdmins``` to ```xSiteAdmins```
+- [2.25.1] Bug fix in several places because name changing `crossSiteAdmins` to `xSiteAdmins`
 
 ## 2026-05-22
 
 - [2.25.0] Reorganize admin menu layout & order
-- [2.25.0] Add ```getModelGuards()```
-- [2.25.0] Add ```getAttribGuards()```
-- [2.25.0] Bug fix in ```getRouteGuards()```
+- [2.25.0] Add `getModelGuards()`
+- [2.25.0] Add `getAttribGuards()`
+- [2.25.0] Bug fix in `getRouteGuards()`
 
 ## 2026-05-11
 
@@ -130,8 +134,8 @@
 
 ## 2026-05-11
 
-- [2.23.0] Unify route guards and put it in ```SumbaRouteGuard``` database
-- [2.23.0] Phased out ```setting.noRoutes```
+- [2.23.0] Unify route guards and put it in `SumbaRouteGuard` database
+- [2.23.0] Phased out `setting.noRoutes`
 
 ## 2026-04-25
 
@@ -140,30 +144,30 @@
 ## 2026-04-25
 
 - [2.21.0] Change options to format value using the new key set by dobo
-- [2.21.0] Remove ```options.retainOriginalValue``` since it is not needed anymore
-- [2.21.0] Remove ```property.formatValue``` from all properties
-- [2.21.0] Remove ```schema.formatValue``` from all schemas
-- [2.21.0] Remove ```schema.calcFields``` from all schemas
+- [2.21.0] Remove `options.retainOriginalValue` since it is not needed anymore
+- [2.21.0] Remove `property.formatValue` from all properties
+- [2.21.0] Remove `schema.formatValue` from all schemas
+- [2.21.0] Remove `schema.calcFields` from all schemas
 
 ## 2026-04-23
 
-- [2.20.0] Add ```parseRouteGuard()```
-- [2.20.0] Change endpoint ```sumba/route``` to ```sumba/route-guard```
+- [2.20.0] Add `parseRouteGuard()`
+- [2.20.0] Change endpoint `sumba/route` to `sumba/route-guard`
 - [2.20.0] Deep merging of route guards
 
 ## 2026-04-21
 
-- [2.19.4] Bug fix in ```getCountriesValues()```
+- [2.19.4] Bug fix in `getCountriesValues()`
 
 ## 2026-04-19
 
-- [2.19.3] Update all widgets ```wdb-table``` to ```wdb-data-table```
+- [2.19.3] Update all widgets `wdb-table` to `wdb-data-table`
 
 ## 2026-04-18
 
-- [2.19.2] Bug fix in ```sumba:personInCharge``` feature: add email rules
-- [2.19.2] Bug fix in ```SumbaUser``` schema
-- [2.19.2] Bug fix in ```reset-user-password``` route
+- [2.19.2] Bug fix in `sumba:personInCharge` feature: add email rules
+- [2.19.2] Bug fix in `SumbaUser` schema
+- [2.19.2] Bug fix in `reset-user-password` route
 
 ## 2026-04-17
 
@@ -173,13 +177,13 @@
 
 - [2.19.0] Add cache clearing if a site is updated/removed
 - [2.19.0] Add cache clearing if a user is updated/removed
-- [2.19.0] Necessary changes to all routes to support ```formatValue``` & ```retainOriginalValue``` options
-- [2.19.0] Change cache key for ```getUser()```
-- [2.19.0] Change cache key for ```getSite()```
+- [2.19.0] Necessary changes to all routes to support `formatValue` & `retainOriginalValue` options
+- [2.19.0] Change cache key for `getUser()`
+- [2.19.0] Change cache key for `getSite()`
 
 ## 2026-04-13
 
-- [2.18.1] Bug fix on ```SumbaSite``` model
+- [2.18.1] Bug fix on `SumbaSite` model
 
 ## 2026-04-11
 
@@ -187,20 +191,20 @@
 
 ## 2026-04-07
 
-- [2.17.0] Change all ```opts.fieldName``` to ```opts.field``` in features
+- [2.17.0] Change all `opts.fieldName` to `opts.field` in features
 - [2.17.0] Rewrite necessary changes on model reference to match the new architecture
 
 ## 2026-04-02
 
-- [2.16.0] Add ```SumbaUserSetting``` model and necessary handlings
+- [2.16.0] Add `SumbaUserSetting` model and necessary handlings
 - [2.16.0] Reorganize admin menu
 
 ## 2026-03-30
 
 - [2.15.0] Add inter site module mechanism
 - [2.15.0] Add admin sub route for inter site modules
-- [2.15.0] Bug fix in ```createNewSite()```
-- [2.15.0] Bug fix in ```removeSite()```
+- [2.15.0] Bug fix in `createNewSite()`
+- [2.15.0] Bug fix in `removeSite()`
 - [2.15.1] Code cleanups
 
 ## 2026-03-27
@@ -209,8 +213,8 @@
 
 ## 2026-03-25
 
-- [2.13.0] Add bajo cache handling for ```getUser*()``` and ```getSite()```
-- [2.13.1] Bug fix in ```collect.js```
+- [2.13.0] Add bajo cache handling for `getUser*()` and `getSite()`
+- [2.13.1] Bug fix in `collect.js`
 
 ## 2026-03-22
 
@@ -220,69 +224,69 @@
 
 ## 2026-03-22
 
-- [2.11.0] Add ```Team Setting``` feature
-- [2.11.0] Rewrite ```getUser()```
-- [2.11.0] Rewrite ```getSite()```
-- [2.11.0] Bug fix in model reference not displayed correctly on ```Details View```
-- [2.11.1] Bug fix in ```parseNsSetting()```
+- [2.11.0] Add `Team Setting` feature
+- [2.11.0] Rewrite `getUser()`
+- [2.11.0] Rewrite `getSite()`
+- [2.11.0] Bug fix in model reference not displayed correctly on `Details View`
+- [2.11.1] Bug fix in `parseNsSetting()`
 
 ## 2026-03-13
 
-- [2.10.0] ```getSite()``` now accept object & array based on their keys to
+- [2.10.0] `getSite()` now accept object & array based on their keys to
 
 ## 2026-03-12
 
 - [2.9.0] Add ability to restrict/filter dobo's records through site setting
-- [2.9.0] Multisite config now accept object. If set to ```true``` it defaults to ```catchAll: 'default'```
+- [2.9.0] Multisite config now accept object. If set to `true` it defaults to `catchAll: 'default'`
 
 ## 2026-03-11
 
-- [2.8.0] Add ```createNewSite()``` and ```applet.crateNewSite```
-- [2.8.0] Add ```removeSite()``` and ```applet.removeSite```
-- [2.8.0] Set ```site.json```, ```user.json```, ```team.json```, ```team-user.json``` first fixture as immutable row
-- [2.8.1] Bug fix in ```createNewSite()```
+- [2.8.0] Add `createNewSite()` and `applet.crateNewSite`
+- [2.8.0] Add `removeSite()` and `applet.removeSite`
+- [2.8.0] Set `site.json`, `user.json`, `team.json`, `team-user.json` first fixture as immutable row
+- [2.8.1] Bug fix in `createNewSite()`
 
 ## 2026-03-08
 
-- [2.7.3] Bug fix on ```mergeTeam()```
+- [2.7.3] Bug fix on `mergeTeam()`
 
 ## 2026-03-07
 
-- [2.7.1] Bug fix on ```site``` attachment
-- [2.7.1] Bug fix on ```getUserFromUsernamePassword()```
+- [2.7.1] Bug fix on `site` attachment
+- [2.7.1] Bug fix on `getUserFromUsernamePassword()`
 
 ## 2026-03-05
 
 - [2.6.0] Update multiple endpoints to support dobo's transaction
-- [2.6.0] Bug fix on ```profile.edit``` route
-- [2.7.0] Add hook ```sumba:afterCollectSecureRoutes```
-- [2.7.0] Add hook ```sumba:afterCollectAnonymousRoutes```
-- [2.7.0] Add hook ```sumba:afterCollectTeamRoutes```
+- [2.6.0] Bug fix on `profile.edit` route
+- [2.7.0] Add hook `sumba:afterCollectSecureRoutes`
+- [2.7.0] Add hook `sumba:afterCollectAnonymousRoutes`
+- [2.7.0] Add hook `sumba:afterCollectTeamRoutes`
 
 ## 2026-03-02
 
-- [2.5.0] Add ```sendMail()``` to send mail using ```masohiMail```
+- [2.5.0] Add `sendMail()` to send mail using `masohiMail`
 - [2.5.0] Update all mail templates and hooks to match with the new specs
 
 ## 2026-02-21
 
-- [2.4.1] Bug fix on intl functions. Now moved to ```preParsing``` instead of ```onRequest```
+- [2.4.1] Bug fix on intl functions. Now moved to `preParsing` instead of `onRequest`
 
 ## 2026-02-20
 
-- [2.4.0] Add ```getCountriesValues()```
-- [2.4.0] Update ```sumba:country``` feature to use ```prop.values``` as a handler
-- [2.4.0] No longer use the removed ```FormSelectCountry```, instead use ```FormSelectExt```
+- [2.4.0] Add `getCountriesValues()`
+- [2.4.0] Update `sumba:country` feature to use `prop.values` as a handler
+- [2.4.0] No longer use the removed `FormSelectCountry`, instead use `FormSelectExt`
 
 ## 2026-02-17
 
-- [2.3.0] Add admin menu links to ```siteSetting```
-- [2.3.0] Bug fix on ```getSite()```
-- [2.3.0] Add unique index on model ```SumbaSiteSetting```
+- [2.3.0] Add admin menu links to `siteSetting`
+- [2.3.0] Bug fix on `getSite()`
+- [2.3.0] Add unique index on model `SumbaSiteSetting`
 - [2.3.0] Add admin subroute to manage site setting
-- [2.3.0] Bug fix on ```req.theme``` and ```req.iconset``` resolver
+- [2.3.0] Bug fix on `req.theme` and `req.iconset` resolver
 - [2.3.1] Update translations
-- [2.3.1] Bug fix on ```sumba:country``` feature
+- [2.3.1] Bug fix on `sumba:country` feature
 
 ## 2026-02-09
 
@@ -292,21 +296,21 @@
 
 ## 2026-02-08
 
-- [2.2.0] Add ```siteSetting.timeZone``` in config object
+- [2.2.0] Add `siteSetting.timeZone` in config object
 
 ## 2026-02-06
 
-- [2.1.9] Bug fix on ```getSite()``` for multisite system
+- [2.1.9] Bug fix on `getSite()` for multisite system
 
 ## 2026-02-05
 
-- [2.1.8] Bug fix on site update: ```hostname``` should be editable
-- [2.1.8] Missing icon on ```account``` menu
+- [2.1.8] Bug fix on site update: `hostname` should be editable
+- [2.1.8] Missing icon on `account` menu
 
 ## 2026-02-04
 
 - [2.1.7] Add icon to the menu
-- [2.1.7] Bug fix on ```<c:nav-dropdown-user>```
+- [2.1.7] Bug fix on `<c:nav-dropdown-user>`
 
 ## 2026-02-03
 
@@ -314,8 +318,8 @@
 
 ## 2026-01-26
 
-- [2.1.5] Bug fix on feature ```siteId```
-- [2.1.5] Bug fix on feature ```userId```
+- [2.1.5] Bug fix on feature `siteId`
+- [2.1.5] Bug fix on feature `userId`
 
 ## 2026-01-21
 
@@ -327,7 +331,7 @@
 
 ## 2026-01-17
 
-- [2.1.2] Add theme & iconset check from ```req.headers['x-theme']``` &  ```req.headers['x-iconset']```
+- [2.1.2] Add theme & iconset check from `req.headers['x-theme']` &  `req.headers['x-iconset']`
 
 ## 2026-01-13
 
@@ -335,5 +339,5 @@
 
 ## 2026-01-01
 
-- [2.1.0] Ported to match ```bajo@2.2.x``` & ```dobo@2.2.x``` specs
-- [2.1.0] Upgrade to ```slug@11.0.1```
+- [2.1.0] Ported to match `bajo@2.2.x` & `dobo@2.2.x` specs
+- [2.1.0] Upgrade to `slug@11.0.1`

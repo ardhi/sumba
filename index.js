@@ -556,24 +556,24 @@ async function factory (pkgName) {
       return passwd
     }
 
-    pushDownload = async ({ description, worker, data, source, req, file, type }) => {
+    download = async ({ description, worker, data, source, req, file, type }) => {
       const { createRecord } = this.app.getPlugin('waibuDb')
-      const { push } = this.app.getPlugin('bajoQueue')
       description = description ?? file
       const jobQueue = {
-        worker,
-        source,
+        worker, // handler that gets executed by the worker
+        source, // source of the job, usually the plugin namespace
         payload: {
           type: 'object',
-          data
+          data // payload data to be passed to the worker (filter etc)
         }
       }
       if (!type) type = path.extname(file)
       if (type[0] === '.') type = type.slice(1)
       const body = { file, description, jobQueue, type }
       const rec = await createRecord({ model: 'SumbaDownload', body, req, options: { noFlash: true } })
-      jobQueue.payload.data.download = { id: rec.data.id, file }
-      await push(jobQueue)
+      const download = { id: rec.data.id, file }
+      jobQueue.payload.data.download = download
+      if (this.app.masohi) await this.app.masohi.pushJob(jobQueue)
     }
 
     /**
