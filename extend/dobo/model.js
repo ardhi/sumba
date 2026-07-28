@@ -44,9 +44,38 @@ const routeGuard = {
   options: { ...options }
 }
 
+const download = {
+  baseName: 'download',
+  properties: [
+    'description,,50,true',
+    'file,text,,,true',
+    'type,,20,true',
+    'jobQueue,object',
+    {
+      name: 'size',
+      type: 'integer',
+      default: 0,
+      index: true
+    },
+    {
+      name: 'download',
+      type: 'string',
+      virtual: true,
+      getValue: async function (val, rec) {
+        return rec.status === 'COMPLETE' ? 'download' : 'nA'
+      }
+    }
+  ],
+  features: ['sumba:siteId', 'sumba:userId', 'dobo:createdAt', 'dobo:updatedAt', {
+    name: 'sumba:status',
+    default: 'QUEUE',
+    values: ['QUEUE', 'MQUEUE', 'PROCESSING', 'COMPLETE', 'FAIL']
+  }]
+}
+
 async function model () {
   const { merge, cloneDeep } = this.app.lib._
-  return [{
+  return [download, {
     baseName: 'attrib-guard',
     properties: [
       {

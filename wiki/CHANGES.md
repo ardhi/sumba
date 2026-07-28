@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-07-28
+
+- [2.40.0] Add queue for `download` & all necessary methods to support it
+
 ## 2026-07-26
 
 - [2.39.0] Rename `pushDownload()` to `download()`

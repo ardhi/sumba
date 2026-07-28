@@ -107,6 +107,10 @@ async function factory (pkgName) {
         const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id + '' } }, { noMagic: true })
         this.config.xSiteAdmins.push(`${site.alias}:${user.username}`)
       }
+      this._queueIntv = setInterval(() => {
+        this.execDownload()
+      }, this.config.queue.intvDur)
+      await this.execDownload()
     }
 
     /**
@@ -556,8 +560,22 @@ async function factory (pkgName) {
       return passwd
     }
 
-    download = async ({ description, worker, data, source, req, file, type }) => {
+    /**
+     * Push a download job to the download manager
+     *
+     * @method
+     * @param {object} options - Options object
+     * @param {string} [options.description] - Description of the download. If not provided, the file name will be used as the description
+     * @param {string} options.worker - Worker handler
+     * @param {object} options.data - Data to be passed to the worker
+     * @param {string} options.source - Source of the job
+     * @param {object} options.req - Request object
+     * @param {string} options.file - File name
+     * @param {string} options.type - File type
+     */
+    pushDownload = async (options = {}) => {
       const { createRecord } = this.app.getPlugin('waibuDb')
+      let { description, worker, data, source, req, file, type } = options
       description = description ?? file
       const jobQueue = {
         worker, // handler that gets executed by the worker
@@ -574,6 +592,39 @@ async function factory (pkgName) {
       const download = { id: rec.data.id, file }
       jobQueue.payload.data.download = download
       if (this.app.masohi) await this.app.masohi.pushJob(jobQueue)
+    }
+
+    /**
+     * Execute download job from the queue
+     * @async
+     * @method
+     * @returns {Promise<void>} - A promise that resolves when the download job has been executed
+     */
+    execDownload = async () => {
+      const { isEmpty } = this.app.lib._
+      const { fs } = this.app.lib
+      const { callHandler } = this.app.bajo
+      const { getModel } = this.app.dobo
+      const { lock } = this.app.bajoExtra
+      const query = { status: 'QUEUE', sort: { createdAt: 1 } }
+      const model = getModel('SumbaDownload')
+      const rec = await model.findOneRecord({ query }, { noMagic: true, dataOnly: true })
+      if (isEmpty(rec)) return
+      const opts = { payload: { data: rec.jobQueue.payload.data } }
+      opts.payload.data.file = rec.file
+      const release = await lock(`sumba-download-${rec.id}`)
+      if (!release) return
+      try {
+        await model.updateRecord(rec.id, { status: 'PROCESSING' })
+        rec.jobQueue.result = await callHandler(rec.jobQueue.worker, opts)
+        const { size } = fs.statSync(rec.jobQueue.result.file)
+        await model.updateRecord(rec.id, { size, status: 'COMPLETE', jobQueue: rec.jobQueue })
+      } catch (err) {
+        rec.jobQueue.error = err.message
+        await model.updateRecord(rec.id, { status: 'FAIL', jobQueue: rec.jobQueue })
+      }
+      // TODO: notify user that the download is ready
+      await release()
     }
 
     /**

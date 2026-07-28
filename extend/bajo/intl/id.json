@@ -148,6 +148,12 @@
   "x": "Antar Situs",
   "misc": "Lain-lain",
   "populateRouteGuard": "Isikan pelindung rute",
+  "statusQueue": "Antrian",
+  "statusMqueue": "Antrian Masohi",
+  "statusProcessing": "Sedang Diproses",
+  "statusComplete": "Selesai",
+  "statusFail": "Gagal",
+  "fileDownloadNA": "Unduhan file tidak lagi tersedia, telah dihapus, kedaluwarsa, atau Anda tidak memiliki izin untuk mengaksesnya",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
@@ -184,7 +190,8 @@
     "allTeams": "Semua Tim?",
     "condition": "Kondisi",
     "hiddenFields": "Sembunyikan Kolom",
-    "_immutable": "Immutable"
+    "_immutable": "Immutable",
+    "download": "Unduh"
   },
   "validation": {
     "password": {

@@ -267,6 +267,15 @@ async function hook () {
       const routes = ['waibuAdmin:/site/x/site/*']
       this.app.waibu.config.route.disabled.push(...routes)
     }
+  }, {
+    name: 'dobo.sumbaDownload:afterRemoveRecord',
+    handler: async function (id, rec, options = {}) {
+      const { fs } = this.app.lib
+      try {
+        await fs.remove(rec.oldData.jobQueue.result.file)
+      } catch (err) {
+      }
+    }
   }]
 }
 

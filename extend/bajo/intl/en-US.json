@@ -142,6 +142,12 @@
   "x": "Cross-Site",
   "misc": "Miscellaneous",
   "populateRouteGuard": "Populate route guard",
+  "statusQueue": "Queue",
+  "statusMqueue": "Masohi Queue",
+  "statusProcessing": "Processing",
+  "statusComplete": "Complete",
+  "statusFail": "Fail",
+  "fileDownloadNA": "File download is no longer available, has been removed, expired or you don't have permission to access it",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
@@ -178,7 +184,8 @@
     "allTeams": "All Teams?",
     "condition": "Condition",
     "hiddenFields": "Hide Fields",
-    "_immutable": "Immutable"
+    "_immutable": "Immutable",
+    "download": "Download"
   },
   "validation": {
     "password": {
