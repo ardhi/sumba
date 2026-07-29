@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-07-29
+
+- [2.41.0] Add `bajo` namespace to `getSite`
+- [2.41.0] Remove `config.siteSetting.timeZone` and use default `timeZone` from `bajo` instead
+
 ## 2026-07-28
 
 - [2.40.0] Add queue for `download` & all necessary methods to support it

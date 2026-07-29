@@ -1289,6 +1289,7 @@ async function factory (pkgName) {
         const defSetting = {}
         const nsSetting = {}
         const names = this.app.getAllNs()
+        names.push('bajo')
         const query = {
           ns: { $in: names },
           siteId: site.id + ''
