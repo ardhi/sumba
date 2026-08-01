@@ -254,11 +254,14 @@ async function hook () {
     level: 10,
     name: 'waibu:preParsing',
     handler: async function (req, reply) {
-      const { getHostname } = this.app.waibu
+      const { get } = this.app.lib._
+      const { getHostname, checkRoute } = this.app.waibu
+      const { checkTheme, checkIconset } = this.app.waibuMpa
       req.site = await this.getSite(getHostname(req))
-      await this.checkRoute(req)
-      await this.checkTheme(req, reply) // TODO: only check if webApp support it
-      await this.checkIconset(req, reply) // TODO: s.a.
+      await checkRoute(req)
+      if (get(req, 'routeOptions.config.webApp') !== 'waibuMpa') return
+      await checkTheme(req, reply)
+      await checkIconset(req, reply)
     }
   }, {
     name: 'waibu:beforeStart',
@@ -275,6 +278,21 @@ async function hook () {
         await fs.remove(rec.oldData.jobQueue.result.file)
       } catch (err) {
       }
+    }
+  }, {
+    level: 1000,
+    name: 'waibuMpa:afterBuildLocals',
+    handler: async function (locals, req, opts = {}) {
+      const { normalizeMenuItems } = this.app.waibuMpa
+      const { pullAt } = this.app.lib._
+      locals.sidebar = await normalizeMenuItems(locals.sidebar, req)
+      const deleted = []
+      for (const [index, menu] of locals.menu.pages.entries()) {
+        if (!menu.children) continue
+        menu.children = await normalizeMenuItems(menu.children, req)
+        if (menu.children.length === 0) deleted.push(index)
+      }
+      pullAt(locals.menu.pages, deleted)
     }
   }]
 }

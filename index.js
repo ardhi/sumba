@@ -871,59 +871,6 @@ async function factory (pkgName) {
     }
 
     /**
-     * Gather all paths to check for a request
-     * @method
-     * @param {Object} req - The request object
-     * @returns {Array} - An array of paths to check
-     */
-    pathsToCheck = (req) => {
-      const { isSet } = this.app.lib.aneka
-      const { uniq, without } = this.app.lib._
-      const items = [req.routeOptions.url, req.url].filter(url => isSet(url)).map(url => url.split('?')[0].split('#')[0])
-      return uniq(without(items, undefined, null))
-    }
-
-    /**
-     * Check and set the iconset for a request
-     * @async
-     * @method
-     * @param {Object} req - The request object
-     * @param {Object} reply - The reply object
-     * @returns {Promise<void>} A promise that resolves when the iconset is checked and set
-     */
-    checkIconset = async (req, reply) => {
-      const { get, isString } = this.app.lib._
-      const mpa = this.app.waibuMpa
-
-      if (!req.site) return
-      const siteIconset = get(req, 'site.setting.waibuMpa.iconset')
-      req.iconset = siteIconset ?? get(mpa, 'config.iconset.set', 'default')
-      const hiconset = req.headers['x-iconset']
-      if (isString(hiconset) && mpa.getIconset(hiconset)) req.iconset = hiconset
-      req.iconset = req.iconset ?? 'default'
-    }
-
-    /**
-     * Check and set the theme for a request
-     * @async
-     * @method
-     * @param {Object} req - The request object
-     * @param {Object} reply - The reply object
-     * @returns {Promise<void>} A promise that resolves when the theme is checked and set
-     */
-    checkTheme = async (req, reply) => {
-      const { get, isString } = this.app.lib._
-      const mpa = this.app.waibuMpa
-
-      if (!req.site) return
-      const siteTheme = get(req, 'site.setting.waibuMpa.theme')
-      req.theme = siteTheme ?? get(mpa, 'config.theme.set', 'default')
-      const htheme = req.headers['x-theme']
-      if (isString(htheme) && mpa.getTheme(htheme)) req.theme = htheme
-      req.theme = req.theme ?? 'default'
-    }
-
-    /**
      * Check and set the team for a request
      * @async
      * @method
@@ -934,6 +881,7 @@ async function factory (pkgName) {
     checkTeam = async (req, reply) => {
       const { includes } = this.app.lib.aneka
       const { outmatch } = this.app.lib
+      const { pathsToCheck } = this.app.waibu
 
       if (req.user.isAdmin) return
       if (req.routeOptions.config.xSite && req.user.isXSiteAdmin) return
@@ -941,7 +889,7 @@ async function factory (pkgName) {
       const teamIds = req.user.teams.map(item => item.id + '')
       // if (req.user.teams.map(item => item.alias).length === 0) throw this.error('accessDenied', { statusCode: 403 })
 
-      const paths = this.pathsToCheck(req)
+      const paths = pathsToCheck(req)
       const results = (await this.getSecureGuards()).filter(item => {
         if (item.siteId !== req.site.id + '' || item.path[0] === '!') return false
         return paths.some(outmatch([item.path]))
@@ -964,7 +912,7 @@ async function factory (pkgName) {
      */
     checkUser = async (req, reply, source) => {
       const { merge, isEmpty, camelCase, get } = this.app.lib._
-      const { routePath } = this.app.waibu
+      const { routePath, pathsToCheck } = this.app.waibu
       const userId = get(req, 'session.userId')
       const setUser = async () => {
         if (!userId) return
@@ -987,7 +935,7 @@ async function factory (pkgName) {
         return
       }
 
-      const paths = this.pathsToCheck(req)
+      const paths = pathsToCheck(req)
       let guards = (await this.getAnonymousGuards()).filter(item => item.siteId === req.site.id + '')
       const anonymous = this.checkRouteGuard(guards, paths)
       if (anonymous) {
@@ -1036,23 +984,6 @@ async function factory (pkgName) {
       const config = get(req, 'routeOptions.config')
       if (!get(config, 'xSite') || ['/dashboard'].includes(config.pathSrc)) return
       if (!get(req, 'user.isXSiteAdmin')) throw this.error('accessDenied', { statusCode: 403 })
-    }
-
-    /**
-     * Check the route for a request
-     * @async
-     * @method
-     * @param {Object} req - The request object
-     * @returns {Promise<void>} A promise that resolves when the route is checked
-     */
-    checkRoute = async (req) => {
-      const { routePath } = this.app.waibu
-      const { outmatch } = this.app.lib
-      const routes = req.getSetting('waibu:route.disabled', []).map(item => routePath(item, false))
-      if (routes.length === 0) return
-      const isMatch = outmatch(routes)
-      const paths = this.pathsToCheck(req)
-      if (paths.find(isMatch)) throw this.error('_notFound')
     }
 
     /**

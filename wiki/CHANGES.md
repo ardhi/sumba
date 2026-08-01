@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-08-01
+
+- [2.42.0] Remove `checkTheme()` and `checkIconset()` and move to `waibu-mpa`
+- [2.42.0] Remove `pathsToCheck()` and `checkRoute()` and move to `waibu`
+- [2.42.0] Update `hook.js`
+
 ## 2026-07-29
 
 - [2.41.0] Add `bajo` namespace to `getSite`
