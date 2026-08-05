@@ -55,6 +55,10 @@
     "maxLength": 50,
     "required": true
   }, {
+    "name": "subTitle",
+    "type": "string",
+    "maxLength": 50
+  }, {
     "name": "orgName",
     "type": "string",
     "maxLength": 100,

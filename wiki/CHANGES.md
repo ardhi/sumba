@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-08-05
+
+- [2.43.0] Add `subTitle` field on `SumbaSite` model
+
 ## 2026-08-01
 
 - [2.42.0] Remove `checkTheme()` and `checkIconset()` and move to `waibu-mpa`
