@@ -98,6 +98,7 @@ async function factory (pkgName) {
      */
     start = async () => {
       await this.populateRouteGuards()
+      const { setInterval } = this.app.lib
       if (!this.config.multiSite.enabled) {
         this.config.xSiteAdmins = []
         return
@@ -107,10 +108,7 @@ async function factory (pkgName) {
         const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id + '' } }, { noMagic: true })
         this.config.xSiteAdmins.push(`${site.alias}:${user.username}`)
       }
-      this._queueIntv = setInterval(() => {
-        this.execDownload()
-      }, this.config.queue.intvDur)
-      await this.execDownload()
+      await setInterval(this.execDownload, this.config.queue.intvDur, { lockFile: 'download', scope: this })
     }
 
     /**
@@ -605,15 +603,12 @@ async function factory (pkgName) {
       const { fs } = this.app.lib
       const { callHandler } = this.app.bajo
       const { getModel } = this.app.dobo
-      const { lock } = this.app.bajoExtra
       const query = { status: 'QUEUE', sort: { createdAt: 1 } }
       const model = getModel('SumbaDownload')
       const rec = await model.findOneRecord({ query }, { noMagic: true, dataOnly: true })
       if (isEmpty(rec)) return
       const opts = { payload: { data: rec.jobQueue.payload.data } }
       opts.payload.data.file = rec.file
-      const release = await lock(`sumba-download-${rec.id}`)
-      if (!release) return
       try {
         await model.updateRecord(rec.id, { status: 'PROCESSING' })
         rec.jobQueue.result = await callHandler(rec.jobQueue.worker, opts)
@@ -624,7 +619,6 @@ async function factory (pkgName) {
         await model.updateRecord(rec.id, { status: 'FAIL', jobQueue: rec.jobQueue })
       }
       // TODO: notify user that the download is ready
-      await release()
     }
 
     /**

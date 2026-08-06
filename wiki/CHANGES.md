@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-08-06
+
+- [2.44.0] Update `start()` to use the new `app.lib.setInterval()`
+
 ## 2026-08-05
 
 - [2.43.0] Add `subTitle` field on `SumbaSite` model
