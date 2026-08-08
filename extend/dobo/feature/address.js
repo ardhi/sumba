@@ -1,5 +1,6 @@
 async function address (opts = {}) {
-  return {
+  opts.latLng = opts.latLng ?? true
+  const item = {
     properties: [{
       name: 'address1',
       type: 'string'
@@ -36,12 +37,32 @@ async function address (opts = {}) {
       name: 'website',
       type: 'string',
       maxLength: 100
+    }, {
+      name: 'lat',
+      type: 'sumba:lat',
+      required: false
+    }, {
+      name: 'lng',
+      type: 'sumba:lng',
+      required: false
     }],
     rules: [{
       rule: 'trim',
       fields: ['address1', 'address2', 'city', 'zipCode', 'provinceState', 'phone', 'website']
     }]
   }
+  if (opts.latLng) {
+    item.properties.push({
+      name: 'lat',
+      type: 'sumba:lat',
+      required: false
+    }, {
+      name: 'lng',
+      type: 'sumba:lng',
+      required: false
+    })
+  }
+  return item
 }
 
 export default address

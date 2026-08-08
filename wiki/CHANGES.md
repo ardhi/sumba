@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-08-08
+
+- [2.45.0] Add `lat` & `lng` columns to `site` schema
+- [2.45.0] Add `lat` & `lng` columns to `user` schema
+
 ## 2026-08-06
 
 - [2.44.0] Update `start()` to use the new `app.lib.setInterval()`
