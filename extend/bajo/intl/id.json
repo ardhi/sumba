@@ -154,6 +154,11 @@
   "statusComplete": "Selesai",
   "statusFail": "Gagal",
   "fileDownloadNA": "Unduhan file tidak lagi tersedia, telah dihapus, kedaluwarsa, atau Anda tidak memiliki izin untuk mengaksesnya",
+  "modelRequired": "Model harus diisi",
+  "modelNotFound%s": "Model '%s' tidak ditemukan",
+  "noSiteIdProperty%s": "Model '%s' tidak memiliki properti 'siteId'",
+  "aboutToRebuildModelWithSite%s%s": "Anda akan membangun ulang model '%s' dengan alias '%s'. Lanjutkan?",
+  "modelPopulated%s%s": "Model berhasil diisi dengan situs '%s' (%s data)",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-08-13
+
+- [2.46.0] Add `populateModelWithSite` applet
+
 ## 2026-08-08
 
 - [2.45.0] Add `lat` & `lng` columns to `site` schema

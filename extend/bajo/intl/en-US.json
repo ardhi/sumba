@@ -148,6 +148,11 @@
   "statusComplete": "Complete",
   "statusFail": "Fail",
   "fileDownloadNA": "File download is no longer available, has been removed, expired or you don't have permission to access it",
+  "modelRequired": "Model is required",
+  "modelNotFound%s": "Model '%s' is nowhere to be found",
+  "noSiteIdProperty%s": "Model '%s' does not have a 'siteId' property",
+  "aboutToRebuildModelWithSite%s%s": "You're about to rebuild model '%s' with alias '%s'. Continue?",
+  "modelPopulated%s%s": "Model successfully populated with site '%s' (%s record(s))",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
