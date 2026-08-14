@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-08-14
+
+- [2.46.1] Bug fix in `rebuildFilter()`
+
 ## 2026-08-13
 
 - [2.46.0] Add `populateModelWithSite` applet

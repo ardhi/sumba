@@ -1482,6 +1482,7 @@ async function factory (pkgName) {
       }
 
       const rules = orderBy(guards.filter(filterFn), ['field'])
+
       for (const field of fields) {
         if (!model.getNonVirtualProperties(true).includes(field)) continue // or, should it throws exception instead?
         const inSetting = this.filterModelFromSetting({ model, field, options })
@@ -1578,22 +1579,18 @@ async function factory (pkgName) {
         return
       }
       if (hasSiteId) q.$and.push({ siteId: req.site.id + '' })
-      if (aliases.includes('administrator')) {
-        if (get(req, 'site.alias') === 'default') {
-          filter.query = q
-          return
-        }
-        const fields = keys(req.getSetting('sumba:queryGuard', {}))
-        const results = []
-        for (const field of fields) {
-          if (!model.hasProperty(field)) continue
-          const inSetting = this.filterModelFromSetting({ model, field, options })
-          if (inSetting.results.length > 0) results.push(...inSetting.results)
-        }
-        if (results.length > 0) q.$and.push(...results)
+      if (aliases.includes('administrator') && (get(req, 'site.alias') === 'default')) {
         filter.query = q
         return
       }
+      const fields = keys(req.getSetting('sumba:queryGuard', {}))
+      const results = []
+      for (const field of fields) {
+        if (!model.hasProperty(field)) continue
+        const inSetting = this.filterModelFromSetting({ model, field, options })
+        if (inSetting.results.length > 0) results.push(...inSetting.results)
+      }
+      if (results.length > 0) q.$and.push(...results)
       if (isEmpty(req.user)) {
         if (q.$and.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery')
         filter.query = q
@@ -1619,8 +1616,10 @@ async function factory (pkgName) {
         else q.$and.push(condTeamId)
       } else if (hasUserId) q.$and.push(condUserId)
 
-      await this.runQueryGuard({ model, q, teamIds, options, allowEmpty })
-      await this.runAttribGuard({ model, teamIds, options })
+      if (!aliases.includes('administrator')) {
+        await this.runQueryGuard({ model, q, teamIds, options, allowEmpty })
+        await this.runAttribGuard({ model, teamIds, options })
+      }
       if (q.$and.length === 0 && !allowEmpty) throw this.error('_emptyColumnQuery')
       filter.query = q
     }

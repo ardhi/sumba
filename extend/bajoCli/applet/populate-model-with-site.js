@@ -1,9 +1,9 @@
 async function populateModelWithSite (path, ...args) {
   const { getModel } = this.app.dobo
   const { importPkg } = this.app.bajo
-  const { isArray } = this.app.lib._
+  const { isArray, has } = this.app.lib._
   const confirm = await importPkg('bajoCli:@inquirer/confirm')
-  let [modelName, alias] = args
+  let [modelName, alias, keys] = args
   if (!modelName) this.print.fatal('modelRequired')
   if (!alias) this.print.fatal('aliasRequired')
   const model = getModel(modelName, true)
@@ -15,6 +15,7 @@ async function populateModelWithSite (path, ...args) {
     this.app.exit()
   }
   if (alias.includes(',')) alias = alias.split(',').map(item => item.trim())
+  keys = keys ? keys.split(',').map(item => item.trim()) : []
   await this.app.dobo.start()
   try {
     const fixtures = await model.loadFixtures({ ignoreError: false, collectItems: true })
@@ -31,7 +32,11 @@ async function populateModelWithSite (path, ...args) {
         for (const fixture of fixtures) {
           const siteId = site.id + ''
           fixture.siteId = siteId
-          const results = await model.findAllRecord({ query: { siteId, code: fixture.code } }, { fields: ['id'], trx })
+          const query = { siteId }
+          for (const key of keys) {
+            if (has(fixture, key)) query[key] = fixture[key]
+          }
+          const results = await model.findAllRecord({ query }, { fields: ['id'], trx })
           for (const rec of results) {
             await model.removeRecord(rec.id, { noCache: true, noResult: true, trx, throwNotFound: false })
           }
