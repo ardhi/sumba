@@ -1,8 +1,9 @@
 # Changes
 
-## 2026-08-14
 
-- [2.46.1] Bug fix in `rebuildFilter()`
+## 2026-08-20
+
+- [2.46.2] Bug fix in `execDownload()`
 
 ## 2026-08-13
 

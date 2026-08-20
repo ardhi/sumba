@@ -615,6 +615,7 @@ async function factory (pkgName) {
         const { size } = fs.statSync(rec.jobQueue.result.file)
         await model.updateRecord(rec.id, { size, status: 'COMPLETE', jobQueue: rec.jobQueue })
       } catch (err) {
+        console.log(err)
         rec.jobQueue.error = err.message
         await model.updateRecord(rec.id, { status: 'FAIL', jobQueue: rec.jobQueue })
       }
