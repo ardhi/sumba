@@ -98,7 +98,7 @@ async function factory (pkgName) {
      */
     start = async () => {
       await this.populateRouteGuards()
-      const { setInterval } = this.app.lib
+      const { startInterval } = this.app.lib
       if (!this.config.multiSite.enabled) {
         this.config.xSiteAdmins = []
         return
@@ -108,7 +108,7 @@ async function factory (pkgName) {
         const user = await getModel('SumbaUser').findOneRecord({ query: { username: 'admin', siteId: site.id + '' } }, { noMagic: true })
         this.config.xSiteAdmins.push(`${site.alias}:${user.username}`)
       }
-      await setInterval(this.execDownload, this.config.queue.intvDur, { lockFile: 'download', scope: this })
+      startInterval(this.execDownload, this.config.queue.intvDur, 'download')
     }
 
     /**

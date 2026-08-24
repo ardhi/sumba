@@ -1,5 +1,8 @@
 # Changes
 
+## 2026-08-24
+
+- [2.47.0] Now use the new `app.lib.startInterval()`
 
 ## 2026-08-20
 
