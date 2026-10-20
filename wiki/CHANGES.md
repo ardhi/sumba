@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-10-20
+
+- [2.47.1] Bug fix in `runQueryGuard()`
+
 ## 2026-08-24
 
 - [2.47.0] Now use the new `app.lib.startInterval()`

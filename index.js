@@ -1501,7 +1501,8 @@ async function factory (pkgName) {
           else if (op === 'between') value = { $gte: values[0], $lte: values[1] }
           else value = set({}, '$' + op, values[0])
           const teamOk = item.allTeams ? true : (item.teamIds.length === 0 ? false : includes(item.teamIds, teamIds))
-          if (!teamOk) throw this.error('_abortAction')
+          // if (!teamOk) throw this.error('_abortAction')
+          if (!teamOk) continue
           results.push(set({}, field, value))
         }
       }
