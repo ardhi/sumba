@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-10-22
+
+- [2.47.2] Bug fix in `lib/config.js`
+
 ## 2026-10-20
 
 - [2.47.1] Bug fix in `runQueryGuard()`
