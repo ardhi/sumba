@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-10-26
+
+- [2.47.3] Bug fix in `feature/country.js`
+
 ## 2026-10-22
 
 - [2.47.2] Bug fix in `lib/config.js`
