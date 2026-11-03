@@ -186,6 +186,15 @@ async function hook () {
     }
   }, {
     level: 1000,
+    name: ['dobo.adapter:beforeAggregate', 'dobo.adapter:beforeHistogram'],
+    handler: async function handler (model, filter, params, options = {}) {
+      const { isEmpty } = this.app.lib._
+      const { req = {} } = options
+      if (options.noAutoFilter || isEmpty(req) || isEmpty(req.site)) return
+      await this.rebuildFilter(model, filter, options)
+    }
+  }, {
+    level: 1000,
     name: ['dobo.adapter:beforeGetRecord', 'dobo.adapter:beforeRemoveRecord', 'dobo.adapter:beforeUpdateRecord'],
     handler: async function (model, id, options) {
       await this.applyQueryHook(model, id, options)

@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-11-03
+
+- [2.48.0] Add `dobo.adapter:beforeAggregate` hook
+- [2.48.0] Add `dobo.adapter:beforeHistogram` hook
+
 ## 2026-10-26
 
 - [2.47.3] Bug fix in `feature/country.js`
