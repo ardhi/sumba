@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-05
+
+- [2.49.0] Add stat widget on record lists
+
 ## 2026-11-03
 
 - [2.48.0] Add `dobo.adapter:beforeAggregate` hook

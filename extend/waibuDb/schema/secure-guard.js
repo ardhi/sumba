@@ -8,6 +8,17 @@ async function secureGuard () {
           }
         }
       }
+    },
+    view: {
+      list: {
+        stat: {
+          aggregate: [
+            { fields: ['status'], group: 'status', aggregate: ['count'] },
+            { fields: ['weight'], group: 'weight', aggregate: ['count'] },
+            { fields: ['allTeams'], group: 'allTeams', aggregate: ['count'] }
+          ]
+        }
+      }
     }
   }
 }
