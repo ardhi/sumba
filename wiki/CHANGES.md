@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-10
+
+- [2.49.1] Bug fix in `hook.js`
+
 ## 2026-11-05
 
 - [2.49.0] Add stat widget on record lists

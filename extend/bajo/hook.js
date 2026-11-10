@@ -265,12 +265,9 @@ async function hook () {
     handler: async function (req, reply) {
       const { get } = this.app.lib._
       const { getHostname, checkRoute } = this.app.waibu
-      const { checkTheme, checkIconset } = this.app.waibuMpa
       req.site = await this.getSite(getHostname(req))
       await checkRoute(req)
       if (get(req, 'routeOptions.config.webApp') !== 'waibuMpa') return
-      await checkTheme(req, reply)
-      await checkIconset(req, reply)
     }
   }, {
     name: 'waibu:beforeStart',
