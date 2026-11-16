@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-16
+
+- [2.49.2] Bug fix in `nav-dropdown-user.js` widget
+
 ## 2026-11-10
 
 - [2.49.1] Bug fix in `hook.js`

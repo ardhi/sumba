@@ -14,7 +14,7 @@ async function navDropdownUser () {
         } else text = req.t('guest')
       }
       const html = []
-      const attr = omit(this.params.attr, ['text', 'noMenu'])
+      const attr = omit(this.params.attr, ['noMenu'])
       attr.dropdown = true
       attr.content = `${icon} ${text}`
       if (this.params.attr.noMenu) {
