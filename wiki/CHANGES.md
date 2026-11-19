@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-20
+
+- [2.49.3] Bug fix in `trouble-tickets/list.js`
+
 ## 2026-11-16
 
 - [2.49.2] Bug fix in `nav-dropdown-user.js` widget
