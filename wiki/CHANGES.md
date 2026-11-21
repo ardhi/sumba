@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-22
+
+- [2.50.0] Remove `slug` package and now using `slugify` from `waibu-extra` instead
+
 ## 2026-11-20
 
 - [2.49.3] Bug fix in `trouble-tickets/list.js`
