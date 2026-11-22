@@ -3,6 +3,7 @@
 ## 2026-11-22
 
 - [2.50.0] Remove `slug` package and now using `slugify` from `waibu-extra` instead
+- [2.50.1] Bug fix in `getAllFixtures()`
 
 ## 2026-11-20
 

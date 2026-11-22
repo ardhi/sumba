@@ -1045,7 +1045,7 @@ async function factory (pkgName) {
         return !!prop
       }).map(m => m.name)
       models.unshift('SumbaSite')
-      const files = (await fastGlob(`${overrideBase}/*.{${formats.join(',')}}`)).map(file => {
+      const files = (await fastGlob(`${overrideBase}/*.${formats.length === 1 ? formats[0] : `{${formats.join(',')}}`}`)).map(file => {
         const ext = path.extname(file)
         return file.slice(0, file.length - ext.length)
       })
