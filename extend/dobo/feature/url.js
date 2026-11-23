@@ -13,7 +13,8 @@ async function url (opts = {}) {
   return {
     properties: [{
       name: opts.field ?? 'url',
-      type: 'string'
+      type: 'string',
+      maxLength: opts.maxLength ?? 255
     }],
     hook: {
       beforeCreate: async function (body) {

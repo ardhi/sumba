@@ -4,7 +4,7 @@ async function phone (opts = {}) {
     properties: [{
       name: opts.field ?? 'phone',
       type: 'string',
-      maxLength: 50
+      maxLength: opts.maxLength ?? 50
     }]
   }
 }

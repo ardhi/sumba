@@ -3,7 +3,7 @@ async function category (opts = {}) {
     properties: [{
       name: 'name',
       type: 'string',
-      maxLength: 50,
+      maxLength: opts.maxLength ?? 50,
       index: true
     }, {
       name: 'level',

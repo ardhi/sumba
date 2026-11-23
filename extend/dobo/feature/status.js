@@ -7,7 +7,7 @@ async function status (opts = {}) {
     properties: [{
       name: opts.field ?? 'status',
       type: 'string',
-      maxLength: 50,
+      maxLength: opts.maxLength ?? 50,
       index: true,
       default: opts.default,
       required: opts.required,

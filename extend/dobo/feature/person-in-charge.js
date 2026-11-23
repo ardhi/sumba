@@ -12,13 +12,10 @@ async function personInCharge (opts = {}) {
       index: true
     }, {
       name: 'picPhone',
-      type: 'string',
-      maxLength: 50
+      type: 'sumba:phone'
     }, {
       name: 'picEmail',
-      type: 'string',
-      maxLength: 50,
-      rules: ['email']
+      type: 'sumba:email'
     }]
   }
 }

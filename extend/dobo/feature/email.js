@@ -4,7 +4,7 @@ async function email (opts = {}) {
     properties: [{
       name: opts.field ?? 'email',
       type: 'string',
-      maxLength: 50,
+      maxLength: opts.maxLength ?? 100,
       rules: ['email']
     }]
   }

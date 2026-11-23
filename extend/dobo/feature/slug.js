@@ -52,7 +52,7 @@ async function mainFn (opts = {}) {
             const details = [{ field: opts.fieldSource.join(', '), error: 'required' }]
             throw error('\'%s\' is required', opts.fieldSource.join(', '), { details })
           }
-          body[opts.field] = slugify(source.join(' '))
+          body[opts.field] = slugify(source.join(' '), { lower: true })
         }
         if (opts.autoInc) body[opts.field] = await autoInc.call(this, body, opts)
       }

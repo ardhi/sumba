@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-11-23
+
+- [2.51.0] Add some new dobo features
+- [2.51.0] Update all features to use more options
+
 ## 2026-11-22
 
 - [2.50.0] Remove `slug` package and now using `slugify` from `waibu-extra` instead

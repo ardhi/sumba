@@ -2,20 +2,16 @@ async function social (opts = {}) {
   return {
     properties: [{
       name: 'socX',
-      type: 'string',
-      maxLength: 50
+      type: 'sumba:socX'
     }, {
       name: 'socInstagram',
-      type: 'string',
-      maxLength: 50
+      type: 'sumba:socInstagram'
     }, {
       name: 'socFacebook',
-      type: 'string',
-      maxLength: 50
+      type: 'sumba:socFacebook'
     }, {
       name: 'socLinkedIn',
-      type: 'string',
-      maxLength: 50
+      type: 'sumba:socLinkedIn'
     }]
   }
 }

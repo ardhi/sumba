@@ -35,8 +35,7 @@ async function address (opts = {}) {
       maxLength: 50
     }, {
       name: 'website',
-      type: 'string',
-      maxLength: 100
+      type: 'sumba:url'
     }, {
       name: 'lat',
       type: 'sumba:lat',
