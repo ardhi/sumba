@@ -23,14 +23,15 @@ const id = {
     const query = { masterId: req.params.id + '' }
     const options = { count: true, query }
     const list = await findRecord({ model, req, options })
-    schema.view.disabled = ['update', 'remove']
-    schema.view.fields = ['createdAt']
-    schema.view.label = { createdAt: 'conversation' }
+    schema.view.disabled = ['update', 'remove', 'get']
+    schema.view.fields = ['message']
+    schema.view.label = { message: 'conversation' }
+    schema.view.noEscape = ['message']
     schema.view.format = {
-      createdAt: async function (val, rec) {
-        const message = this.app.bajoMarkdown ? this.app.bajoMarkdown.parseContent(rec.message) : rec.message
+      message: async function (val, rec) {
+        const message = this.app.bajoMarkdown ? this.app.bajoMarkdown.parse(rec.message) : rec.message
         const isMe = rec.userId === req.user.id + ''
-        const sentence = `<c:div margin="bottom-3"><c:badge background="color:${isMe ? 'primary' : 'secondary'}" t:content="${isMe ? 'you' : 'us'}" /> <small>${req.format(val, 'datetime')}</small></c:div>`
+        const sentence = `<c:div margin="bottom-3"><c:badge background="color:${isMe ? 'primary' : 'secondary'}" t:content="${isMe ? 'you' : 'us'}" /> <small>${req.format(rec.createdAt, 'datetime')}</small></c:div>`
         return (await this.component.buildSentence(sentence)) + message
       }
     }

@@ -1,26 +1,29 @@
-<c:card margin="bottom-4">
-  <c:card-body shadow>
+<c:card margin="bottom-4" border>
+  <c:card-header>
     <c:card-title><%= master.subject %></c:card-title>
     <c:card-subtitle>
       <%= _format(master.createdAt, 'datetime') %>
       <c:badge margin="start-2" background="color:primary"><%= master.status %></c:badge>
     </c:card-subtitle>
-    <c:card-text>
-      <%= _parseMarkdown(master.message) %>
-    </c:card-text>
+  </c:card-header>
+  <c:card-body>
+    <%= _parseMarkdown(master.message) %>
   </c:card-body>
 </c:card>
 <c:grid-row>
   <c:grid-col col="8-lg 6-md">
-    <c:wdb-data-table responsive body-divider strip hover no-details-click />
-    <c:div>
-      <c:wdb-pagination />
-    </c:div>
+    <c:card border margin="bottom-4">
+      <c:wdb-data-table responsive body-divider strip hover selection="none" no-data-cell/>
+    </c:card>
+    <c:wdb-pagination />
   </c:grid-col>
   <c:grid-col col="4-lg 6-md">
-    <c:form button reset-validation>
-      <c:form-textarea t:label="yourReply" name="message" label-floating style="height:10em"/>
-    </c:form>
+    <c:card border>
+      <c:card-body>
+        <c:form button reset-validation>
+          <c:form-textarea t:label="yourReply" name="message" label-floating style="height:10em"/>
+        </c:form>
+      </c:card-body>
+    </c:card>
   </c:grid-col>
 </c:grid-row>
-

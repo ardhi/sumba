@@ -159,6 +159,7 @@
   "noSiteIdProperty%s": "Model '%s' tidak memiliki properti 'siteId'",
   "aboutToRebuildModelWithSite%s%s": "Anda akan membangun ulang model '%s' dengan alias '%s'. Lanjutkan?",
   "modelPopulated%s%s": "Model berhasil diisi dengan situs '%s' (%s data)",
+  "troubleTicketsDetails": "Detail Trouble Tickets",
   "field": {
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",

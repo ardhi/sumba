@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-27
+
+- [2.52.0] Update layout & templates
+
 ## 2026-11-23
 
 - [2.51.0] Add some new dobo features

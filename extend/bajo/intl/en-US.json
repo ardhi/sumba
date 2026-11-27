@@ -153,6 +153,8 @@
   "noSiteIdProperty%s": "Model '%s' does not have a 'siteId' property",
   "aboutToRebuildModelWithSite%s%s": "You're about to rebuild model '%s' with alias '%s'. Continue?",
   "modelPopulated%s%s": "Model successfully populated with site '%s' (%s record(s))",
+  "troubleTicketsDetails": "Trouble Tickets Details",
+  "conversation": "Conversation",
   "field": {
     "currentPassword": "Current Password",
     "newPassword": "New Password",
