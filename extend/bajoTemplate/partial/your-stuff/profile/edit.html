@@ -1,7 +1,7 @@
 <c:form referer enctype="multipart/form-data">
-  <c:grid-row>
+  <c:grid-row gutter="2">
     <c:grid-col col="9-md">
-      <c:card border>
+      <c:card>
         <c:card-body>
           <c:fieldset t:legend="meta" grid-gutter="2" margin="bottom-3">
             <c:form-plaintext name="createdAt" label-floating col="6-md"/>
@@ -27,7 +27,7 @@
       </c:card>
     </c:grid-col>
     <c:grid-col col="3-md">
-      <c:card border margin="bottom-4">
+      <c:card margin="bottom-2">
         <c:card-header tag="h5" t:content="image" />
         <c:card-body>
           <c:div flex="justify-content:center" margin="bottom-4">
@@ -45,14 +45,14 @@
           <% } %>
         </c:card-body>
       </c:card>
-      <c:card border margin="bottom-4">
+      <c:card margin="bottom-4">
         <c:card-header tag="h5" t:content="more" />
         <c:list type="group" hover>
           <c:list-item href="sumba:/your-stuff/change-password" t:content="changePassword" />
           <c:list-item t:content="displayApiKey" target="api-key-modal"/>
         </c:list>
       </c:card>
-      <c:btn color="secondary" href="sumba:/your-stuff/profile" t:content="backToProfile" icon="arrowStart" />
+      <c:btn margin="start-4" color="secondary" href="sumba:/your-stuff/profile" t:content="backToProfile" icon="arrowStart" />
       <!-- include sumba.partial:/api-key-modal.html -->
     </c:grid-col>
   </c:grid-row>

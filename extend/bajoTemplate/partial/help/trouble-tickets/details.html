@@ -1,4 +1,4 @@
-<c:card margin="bottom-4" border>
+<c:card margin="bottom-4" >
   <c:card-header>
     <c:card-title><%= master.subject %></c:card-title>
     <c:card-subtitle>
@@ -10,15 +10,15 @@
     <%= _parseMarkdown(master.message) %>
   </c:card-body>
 </c:card>
-<c:grid-row>
+<c:grid-row gutter="2">
   <c:grid-col col="8-lg 6-md">
-    <c:card border margin="bottom-4">
+    <c:card margin="bottom-4">
       <c:wdb-data-table responsive body-divider strip hover selection="none" no-data-cell/>
     </c:card>
     <c:wdb-pagination />
   </c:grid-col>
   <c:grid-col col="4-lg 6-md">
-    <c:card border>
+    <c:card>
       <c:card-body>
         <c:form button reset-validation>
           <c:form-textarea t:label="yourReply" name="message" label-floating style="height:10em"/>

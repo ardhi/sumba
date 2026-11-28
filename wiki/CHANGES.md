@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-28
+
+- [2.53.0] Update on default layouts
+
 ## 2026-11-27
 
 - [2.52.0] Update layout & templates
